@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeFragment">
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/enterButton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
+        android:layout_height="wrap_content"
+        android:text="Войти"
 
         />
 
