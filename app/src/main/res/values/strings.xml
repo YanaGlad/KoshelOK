@@ -1,5 +1,22 @@
 <resources>
     <string name="app_name">GladkikhVlasovTinkoff</string>
     <string name="title_activity_main2">MainActivity</string>
-
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_description">Тут вы сможете контролировать свои доходы и расходы</string>
+    <string name="welcome_message">Добро пожаловать в КошелОК</string>
+    <string name="sign_in_with_google_text">Войти с помощью Google</string>
+    <string name="test_wallet_name">Кошелек 1</string>
+    <string name="test_wallet_balance">0 ₽</string>
+    <string name="income_text">Доход</string>
+    <string name="income_value_test_text">0 ₽</string>
+    <string name="costs_text">Расходы</string>
+    <string name="test_costs_value">12 000 ₽</string>
+    <string name="add_operation_text">Добавить операцию</string>
+    <string name="no_operations_message">У вас пока нет записей</string>
+    <string name="costs_identifier_icon">Costs identifier icon</string>
+    <string name="income_identifier_icon">Income identifier icon</string>
+    <string name="welcome_image">Welcome image</string>
 </resources>
