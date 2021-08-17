@@ -9,7 +9,11 @@
         android:id="@+id/welcomeFragment"
         android:name="com.example.gladkikhvlasovtinkoff.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" />
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_optionFragment"
+            app:destination="@id/optionFragment" />
+    </fragment>
 
 
     <fragment

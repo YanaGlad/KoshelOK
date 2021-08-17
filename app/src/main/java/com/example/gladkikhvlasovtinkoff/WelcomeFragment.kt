@@ -75,7 +75,9 @@ class WelcomeFragment : Fragment() {
     private fun startSecondActivity(account: GoogleSignInAccount?) {
         if (account != null) {
             //binding.authButton.visibility = View.INVISIBLE
-
+           val navController = findNavController()
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToOptionFragment()
+            navController.navigate(action)
             // start second activity
         }
     }
