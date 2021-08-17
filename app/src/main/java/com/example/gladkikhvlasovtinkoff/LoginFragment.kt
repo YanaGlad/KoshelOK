@@ -32,6 +32,9 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
 
+
+
+
         return binding.root
     }
 
