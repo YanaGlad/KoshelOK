@@ -27,10 +27,6 @@ class WelcomeFragment : Fragment() {
 
         val navController = findNavController()
 
-        binding.authButton.setOnClickListener {
-            val action = WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment()
-            navController.navigate(action)
-        }
 
         return binding.root
     }
