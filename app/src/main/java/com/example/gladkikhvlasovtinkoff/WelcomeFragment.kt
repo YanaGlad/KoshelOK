@@ -25,9 +25,6 @@ class WelcomeFragment : Fragment() {
     ): View {
         _binding = FragmentWelcomeBinding.inflate(layoutInflater, container, false)
 
-        val navController = findNavController()
-
-
         return binding.root
     }
 
