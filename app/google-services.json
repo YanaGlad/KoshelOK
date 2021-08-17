@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "623269509060",
+    "project_id": "koshelok",
+    "storage_bucket": "koshelok.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623269509060:android:53b61f57b1bd6bfea95691",
+        "android_client_info": {
+          "package_name": "com.example.gladkikhvlasovtinkoff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436982319277-k1a47nlkbjf02sphsil8bugvphb39gim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcyB9PQTxDN1yQbZKGOGe_aulGKqEN_eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436982319277-k1a47nlkbjf02sphsil8bugvphb39gim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
