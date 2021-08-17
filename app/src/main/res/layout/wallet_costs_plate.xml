@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:background="@color/purple">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/costsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
                 app:layout_constraintStart_toEndOf="@+id/costsIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/costsIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 app:srcCompat="@drawable/ic_costs_dot"
                 android:contentDescription="@string/costs_identifier_icon" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/costsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
