@@ -20,7 +20,6 @@ class WelcomeFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
     private val loginResultHandler =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
 
@@ -35,7 +34,7 @@ class WelcomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentWelcomeBinding.inflate(layoutInflater)
 
@@ -72,14 +71,11 @@ class WelcomeFragment : Fragment() {
 
     private fun startSecondActivity(account: GoogleSignInAccount?) {
         if (account != null) {
-            //binding.authButton.visibility = View.INVISIBLE
-           val navController = findNavController()
+            val navController = findNavController()
             val action = WelcomeFragmentDirections.actionWelcomeFragmentToOptionFragment()
             navController.navigate(action)
-            // start second activity
         }
     }
-
 
 
     override fun onDestroy() {
