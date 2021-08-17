@@ -18,8 +18,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toEndOf="@+id/startGuideline"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/welcome_image" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcomeText"
