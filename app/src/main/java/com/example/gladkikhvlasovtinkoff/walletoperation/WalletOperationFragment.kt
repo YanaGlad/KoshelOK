@@ -6,9 +6,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.EasyTimer
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
+import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperCallback
 
 
 class WalletOperationFragment : Fragment() {
@@ -18,6 +21,7 @@ class WalletOperationFragment : Fragment() {
     private var timer = EasyTimer()
 
     private lateinit var adapter: WalletOperationAdapter
+    private lateinit var adapterEdit: EditAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +36,10 @@ class WalletOperationFragment : Fragment() {
         _binding = FragmentWalletOperationBinding.inflate(layoutInflater, container, false)
         setHasOptionsMenu(true);
 
-        binding.walletRecycle.setHasFixedSize(true)
-        binding.walletRecycle.layoutManager = GridLayoutManager(context, 1)
+        initWalletRecycler(binding.editRecycle)
+        initWalletRecycler(binding.walletRecycle)
 
-        var list = ArrayList<WalletOperationModel>()
+        val list = ArrayList<WalletOperationModel>()
 
         list.add(
             WalletOperationModel(
@@ -64,7 +68,18 @@ class WalletOperationFragment : Fragment() {
                 requireContext(),
                 list
             )
+
+        adapterEdit =
+            EditAdapter(
+                requireContext(),
+                list.size
+            )
+
         binding.walletRecycle.adapter = adapter
+        binding.editRecycle.adapter = adapterEdit
+        val callback = ItemTouchHelperCallback(adapter)
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(binding.walletRecycle)
 
         binding.toolBar.title = ""
 
@@ -72,9 +87,12 @@ class WalletOperationFragment : Fragment() {
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
 
-
-
         return binding.root
+    }
+
+    private fun initWalletRecycler(view: RecyclerView) {
+        view.setHasFixedSize(true)
+        view.layoutManager = GridLayoutManager(context, 1)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

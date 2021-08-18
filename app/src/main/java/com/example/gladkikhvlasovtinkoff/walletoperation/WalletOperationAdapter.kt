@@ -3,6 +3,7 @@ package com.example.gladkikhvlasovtinkoff.walletoperation
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.DataSource
@@ -10,6 +11,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.gladkikhvlasovtinkoff.databinding.WalletOperationDataItemBinding
+import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperListener
 import com.example.gladkikhvlasovtinkoff.util.loadImage
 import java.util.*
 
@@ -17,31 +19,9 @@ class WalletOperationAdapter internal constructor(
     context: Context,
     _walletModels: ArrayList<WalletOperationModel>,
 ) :
-    RecyclerView.Adapter<WalletOperationViewHolder>() {
+    RecyclerView.Adapter<WalletOperationViewHolder>(), ItemTouchHelperListener {
     var context: Context
     var walletModels: ArrayList<WalletOperationModel>
-
-    private val requestListener = object : RequestListener<Drawable> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any,
-            target: Target<Drawable>,
-            isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
-
-        override fun onResourceReady(
-            resource: Drawable,
-            model: Any,
-            target: Target<Drawable>,
-            dataSource: DataSource,
-            isFirstResource: Boolean
-        ): Boolean {
-
-            return false
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletOperationViewHolder {
         return WalletOperationViewHolder(
@@ -65,10 +45,17 @@ class WalletOperationAdapter internal constructor(
         holder.binding.subtitleOperation.text = walletModel.subtitle
         holder.binding.titleOperation.text = walletModel.title
         holder.binding.time.text = walletModel.time
+
+
     }
 
     override fun getItemCount(): Int {
         return walletModels.size
+    }
+
+    override fun onItemSwipe(position: Int) {
+        walletModels[position].isVisible = !walletModels[position].isVisible
+        //notifyDataSetChanged()
     }
 
     fun update(modelList: ArrayList<WalletOperationModel>) {
@@ -79,4 +66,12 @@ class WalletOperationAdapter internal constructor(
         this.context = context
         this.walletModels = _walletModels
     }
+
+//    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+//        Collections.swap(walletModels, fromPosition, toPosition)
+//        notifyItemMoved(fromPosition, toPosition)
+//        return true
+//    }
+
+
 }
