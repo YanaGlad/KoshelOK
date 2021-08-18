@@ -33,9 +33,7 @@ class FragmentSelectOperationValue : Fragment() {
         binding.newOperationValueField.setInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL)
 
         binding.newOperationValueField.doOnTextChanged { text, start, before, count ->
-            if (binding.newOperationValueField.text.toString() != "") {
-                binding.buttonConfirmOperationValue.isEnabled = true
-            } else binding.buttonConfirmOperationValue.isEnabled = false
+            binding.buttonConfirmOperationValue.isEnabled = binding.newOperationValueField.text.toString() != ""
         }
 
         return binding.root

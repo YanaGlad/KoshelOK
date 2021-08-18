@@ -17,12 +17,16 @@ import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperCallback
 
 class WalletOperationFragment : Fragment() {
 
+
+
     private var _binding: FragmentWalletOperationBinding? = null
     private val binding get() = _binding!!
     private var timer = EasyTimer()
 
     private lateinit var adapter: WalletOperationAdapter
     private lateinit var adapterEdit: EditAdapter
+
+    private var total = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +52,7 @@ class WalletOperationFragment : Fragment() {
                 "https://sun9-52.userapi.com/impg/NlasEB7KCldpBi0DjnauJEF-PUE0oEhu9HMkNQ/kWawbtuCio8.jpg?size=80x80&quality=96&sign=d836182efab03d81621cf85718b53bec&type=album",
                 "Супермаркеты",
                 "Траты",
-                "-12 000",
+                "-12000",
                 "15:00"
             )
         )
@@ -59,10 +63,15 @@ class WalletOperationFragment : Fragment() {
                 "https://sun9-30.userapi.com/impg/JqjVqMAJOvfeDRRKED7sjIEUctRs-nr9FbjcJg/0V62vbVETlU.jpg?size=80x80&quality=96&sign=86372ea563fc1a6e3960099bebb20186&type=album",
                 "Зарплата",
                 "Пополнение",
-                "130 000",
+                "130000",
                 "13:13"
             )
         )
+
+        for (item in list)
+            total+=item.money.toInt()
+
+        binding.walletBalance.text = total.toString()
 
         adapter =
             WalletOperationAdapter(
