@@ -8,16 +8,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentOptionBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
+import java.util.*
 
 
 class OptionFragment : Fragment() {
 
     private var _binding: FragmentOptionBinding? = null
     private val binding get() = _binding!!
-
+    private var timer = EasyTimer()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        timer.stopTimer()
     }
 
     override fun onCreateView(
@@ -31,8 +32,17 @@ class OptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.buttonAddOperation.setOnClickListener{
-            Toast.makeText(activity,"Click", Toast.LENGTH_SHORT).show()
+        binding.buttonAddOperation.setOnClickListener {
+            if (!timer.timerDelay(3.0) && !timer.stop)
+                super.requireActivity().onBackPressed()
+            else timer.stopTimer()
+            Toast.makeText(
+                activity,
+                "Нажмите еще раз в течение 3 сек чтобы выйти из приложения",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            timer.startTimer()
         }
     }
 
