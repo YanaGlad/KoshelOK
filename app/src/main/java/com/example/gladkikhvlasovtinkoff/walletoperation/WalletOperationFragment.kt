@@ -13,6 +13,7 @@ import com.example.gladkikhvlasovtinkoff.EasyTimer
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
 import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperCallback
+import com.example.gladkikhvlasovtinkoff.util.styleText
 
 
 class WalletOperationFragment : Fragment() {
@@ -71,7 +72,7 @@ class WalletOperationFragment : Fragment() {
         for (item in list)
             total+=item.money.toInt()
 
-        binding.walletBalance.text = total.toString()
+        binding.walletBalance.text = styleText(total.toString())
 
         adapter =
             WalletOperationAdapter(
