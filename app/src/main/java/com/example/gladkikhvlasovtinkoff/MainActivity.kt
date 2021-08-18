@@ -17,29 +17,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.toolBar.title = ""
-        setSupportActionBar(binding.toolBar);
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar()?.setDisplayShowHomeEnabled(true);
+//        binding.toolBar.title = ""
+//        binding.toolBar.inflateMenu(R.menu.default_toolbar)
+//        setSupportActionBar(binding.toolBar);
+//        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar()?.setDisplayShowHomeEnabled(true);
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_settings) {
-            Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
-        }
-        return true
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-
-    }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_main, menu)
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.action_settings) {
+//            Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
+//        }
 //        return true
+//    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
 //    }
 
     override fun onBackPressed() {
