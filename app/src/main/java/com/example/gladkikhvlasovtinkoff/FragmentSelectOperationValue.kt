@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmOperationCreatedBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationValueBinding
 
@@ -21,6 +22,11 @@ class FragmentSelectOperationValue : Fragment(){
         _binding = FragmentSelectOperationValueBinding.inflate(inflater)
 
         binding.layoutMyToolbar.text.text = getResources().getString(R.string.enter_sum)
+
+        binding.buttonConfirmOperationValue.setOnClickListener {
+            val action = FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType()
+            findNavController().navigate(action)
+        }
 
         return binding.root
     }
