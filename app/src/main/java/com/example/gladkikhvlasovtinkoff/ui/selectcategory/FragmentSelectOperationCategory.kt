@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff
+package com.example.gladkikhvlasovtinkoff.ui.selectcategory
 
 import android.os.Bundle
 import android.view.LayoutInflater
