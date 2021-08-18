@@ -41,10 +41,6 @@ class WelcomeFragment : Fragment() {
     ): View {
         _binding = FragmentWelcomeBinding.inflate(layoutInflater)
 
-        binding.toolBar.inflateMenu(R.menu.default_toolbar)
-        binding.toolBar.title = ""
-        binding.toolBar.inflateMenu(R.menu.default_toolbar)
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolBar);
 
         binding.authButton.setOnClickListener {
             loginResultHandler.launch(getSignInIntent())
