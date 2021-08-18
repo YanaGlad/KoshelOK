@@ -21,4 +21,7 @@
     <string name="welcome_image">Welcome image</string>
     <string name="operation_value_text">Сумма операции</string>
     <string name="next_text">Далее</string>
+    <string name="category_icon_text">Иконка категории</string>
+    <string name="test_category_name">Тестовая</string>
+    <string name="is_category_checked_text">Выбрана ли категория</string>
 </resources>
