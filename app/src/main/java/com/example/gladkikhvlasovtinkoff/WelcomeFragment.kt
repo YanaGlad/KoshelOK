@@ -2,6 +2,7 @@ package com.example.gladkikhvlasovtinkoff
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,9 +25,12 @@ class WelcomeFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
 
             val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
-            val account = task.result
 
-            startSecondActivity(account)
+            if(task.isSuccessful) {
+                val account = task.result
+                startSecondActivity(account)
+            }
+
         }
 
 
