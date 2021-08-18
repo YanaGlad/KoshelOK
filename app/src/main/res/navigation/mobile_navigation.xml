@@ -25,4 +25,20 @@
         android:name="com.example.gladkikhvlasovtinkoff.walletoperation.WalletOperationFragment"
         android:label="fragment_option"
         tools:layout="@layout/fragment_wallet_operation" />
+    <fragment
+        android:id="@+id/fragmentConfirmOperationCreating"
+        android:name="com.example.gladkikhvlasovtinkoff.FragmentConfirmOperationCreating"
+        android:label="FragmentConfirmOperationCreating" />
+    <fragment
+        android:id="@+id/fragmentSelectOperationCategory"
+        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectOperationCategory"
+        android:label="FragmentSelectOperationCategory" />
+    <fragment
+        android:id="@+id/fragmentSelectOperationType"
+        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectOperationType"
+        android:label="FragmentSelectOperationType" />
+    <fragment
+        android:id="@+id/fragmentSelectOperationValue"
+        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectOperationValue"
+        android:label="FragmentSelectOperationValue" />
 </navigation>
