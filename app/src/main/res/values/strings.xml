@@ -30,4 +30,5 @@
     <string name="attribute_value">Value</string>
     <string name="main_attributes">Основные</string>
     <string name="additionalAttributes">Дополнительные настройки</string>
+    <string name="enter_sum">Введите сумму</string>
 </resources>

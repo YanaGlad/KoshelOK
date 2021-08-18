@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -81,11 +82,12 @@ class WalletOperationFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.walletRecycle)
 
-        binding.toolBar.title = ""
+        val navController = findNavController()
 
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolBar);
-        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+        binding.buttonAddOperation.setOnClickListener {
+            val action = WalletOperationFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue()
+            navController.navigate(action)
+        }
 
         return binding.root
     }
@@ -109,18 +111,18 @@ class WalletOperationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.buttonAddOperation.setOnClickListener {
-            if (!timer.timerDelay(3.0) && !timer.stop)
-                super.requireActivity().onBackPressed()
-            else timer.stopTimer()
-            Toast.makeText(
-                activity,
-                "Нажмите еще раз в течение 3 сек чтобы выйти из приложения",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            timer.startTimer()
-        }
+//        binding.buttonAddOperation.setOnClickListener {
+//            if (!timer.timerDelay(3.0) && !timer.stop)
+//                super.requireActivity().onBackPressed()
+//            else timer.stopTimer()
+//            Toast.makeText(
+//                activity,
+//                "Нажмите еще раз в течение 3 сек чтобы выйти из приложения",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//
+//            timer.startTimer()
+//        }
     }
 
     override fun onDestroy() {
