@@ -3,11 +3,11 @@ package com.example.gladkikhvlasovtinkoff
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toolbar
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
@@ -39,8 +39,12 @@ class WelcomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentWelcomeBinding.inflate(layoutInflater)
+
+        binding.toolBar.inflateMenu(R.menu.default_toolbar)
+        binding.toolBar.title = ""
+        binding.toolBar.inflateMenu(R.menu.default_toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolBar);
 
         binding.authButton.setOnClickListener {
             loginResultHandler.launch(getSignInIntent())
@@ -80,7 +84,6 @@ class WelcomeFragment : Fragment() {
             navController.navigate(action)
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
