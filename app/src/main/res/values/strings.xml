@@ -19,4 +19,15 @@
     <string name="costs_identifier_icon">Costs identifier icon</string>
     <string name="income_identifier_icon">Income identifier icon</string>
     <string name="welcome_image">Welcome image</string>
+    <string name="operation_value_text">Сумма операции</string>
+    <string name="next_text">Далее</string>
+    <string name="category_icon_text">Иконка категории</string>
+    <string name="test_category_name">Тестовая</string>
+    <string name="is_category_checked_text">Выбрана ли категория</string>
+    <string name="text_income">Доход</string>
+    <string name="text_costs">Расход</string>
+    <string name="attribute_text">Attribute</string>
+    <string name="attribute_value">Value</string>
+    <string name="main_attributes">Основные</string>
+    <string name="additionalAttributes">Дополнительные настройки</string>
 </resources>
