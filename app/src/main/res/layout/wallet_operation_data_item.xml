@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/date_operation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Сегодня" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_operation"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_operation"
+        android:src="@drawable/test_img" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_operation"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/dark_gray"
+        app:layout_constraintStart_toEndOf="@+id/image_operation"
+        app:layout_constraintTop_toBottomOf="@+id/date_operation"
+        tools:text="Супермаркеты" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subtitle_operation"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/image_operation"
+        app:layout_constraintTop_toBottomOf="@+id/title_operation"
+        tools:text="Пополнение" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/money"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_operation"
+        app:layout_constraintTop_toBottomOf="@+id/date_operation"
+        tools:text="-12 000 Р" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintStart_toEndOf="@+id/subtitle_operation"
+        app:layout_constraintTop_toBottomOf="@+id/money"
+        tools:text="15 : 00" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
