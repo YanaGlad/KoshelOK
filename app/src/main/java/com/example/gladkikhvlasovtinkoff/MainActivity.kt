@@ -1,33 +1,46 @@
 package com.example.gladkikhvlasovtinkoff
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.View
-
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gladkikhvlasovtinkoff.databinding.ActivityMainBinding
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentOptionBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-       // _binding = ActivityMainBinding.inflate(layoutInflater)
+    private lateinit var binding: ActivityMainBinding
 
-        //setSupportActionBar(binding.toolBar);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val toolbar = findViewById(R.id.toolBar) as Toolbar
-        setSupportActionBar(toolbar);
+        binding.toolBar.title = ""
+        setSupportActionBar(binding.toolBar);
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar()?.setDisplayShowHomeEnabled(true);
 
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_settings) {
+            Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
+        }
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_main, menu)
+//        return true
+//    }
 
     override fun onBackPressed() {
         val count: Int = getSupportFragmentManager().getBackStackEntryCount()
