@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmOperationCreatedBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationValueBinding
 
-class FragmentSelectOperationValue : Fragment(){
+class FragmentSelectOperationValue : Fragment() {
 
     private var _binding: FragmentSelectOperationValueBinding? = null
     private val binding get() = _binding!!
@@ -24,8 +25,13 @@ class FragmentSelectOperationValue : Fragment(){
         binding.layoutMyToolbar.text.text = getResources().getString(R.string.enter_sum)
 
         binding.buttonConfirmOperationValue.setOnClickListener {
-            val action = FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType()
+            val action =
+                FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType()
             findNavController().navigate(action)
+        }
+
+        binding.newOperationValueField.doOnTextChanged { text, start, before, count ->
+            binding.buttonConfirmOperationValue.isEnabled = binding.newOperationValueField.text.toString() != ""
         }
 
         return binding.root
