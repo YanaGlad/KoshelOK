@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.OperationCategoryItemBinding
@@ -13,6 +15,10 @@ class OperationCategoryAdapter  : RecyclerView.Adapter<OperationCategoryAdapter.
 
     private val categories : MutableList<OperationCategoryData> = mutableListOf()
     private var checkedPosition = -1
+
+    private var _checkedItem : MutableLiveData<OperationCategoryData?> = MutableLiveData(null)
+    val checkedItem :  LiveData<OperationCategoryData?>
+    get() = _checkedItem
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val holder = ViewHolder(
@@ -35,18 +41,16 @@ class OperationCategoryAdapter  : RecyclerView.Adapter<OperationCategoryAdapter.
         if(position == oldPosition && position >= 0) {
             checkedPosition = -1
             notifyItemChanged(oldPosition)
+            _checkedItem.value = null
         }else{
                 checkedPosition = position
                 if(oldPosition >= 0)
                     notifyItemChanged(oldPosition)
                 notifyItemChanged(position)
-            }
+            _checkedItem.value = categories[position]
+        }
+
     }
-
-    fun getCheckedItem() : OperationCategoryData? =
-        if(checkedPosition >= 0 && checkedPosition in 0 until itemCount) categories[checkedPosition]
-        else null
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(categories[position], position, checkedPosition)
@@ -54,6 +58,12 @@ class OperationCategoryAdapter  : RecyclerView.Adapter<OperationCategoryAdapter.
 
 
     override fun getItemCount(): Int = categories.size
+
+    fun addItems(categories : List<OperationCategoryData>){
+        val oldSize = categories.size
+        this.categories.addAll(categories)
+        notifyItemRangeChanged(oldSize - 1, categories.size)
+    }
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         var binding : OperationCategoryItemBinding? = null

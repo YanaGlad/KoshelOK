@@ -32,4 +32,15 @@ class OperationCategoryDataFactoryImpl : OperationCategoryDataFactory {
 
     }
 
+    override fun getCategories(): List<OperationCategoryData> =
+        listOf(
+            getOperationCategoryData(
+                OperationCategory.Salary),
+            getOperationCategoryData(
+                OperationCategory.PartTime),
+            getOperationCategoryData(
+                OperationCategory.Gift),
+            getOperationCategoryData(
+                OperationCategory.Capitalization))
+
 }
