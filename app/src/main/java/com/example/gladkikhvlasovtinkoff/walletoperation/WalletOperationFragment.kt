@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,7 +19,7 @@ import com.example.gladkikhvlasovtinkoff.util.styleText
 
 class WalletOperationFragment : Fragment() {
 
-
+    private val viewModel : WalletOperationViewModel by viewModels()
 
     private var _binding: FragmentWalletOperationBinding? = null
     private val binding get() = _binding!!
@@ -80,11 +81,19 @@ class WalletOperationFragment : Fragment() {
                 list
             )
 
+        val editModels = ArrayList<EditModel>()
+        for(i in 0 until list.size)
+            editModels.add(EditModel())
+
+        viewModel.listEdit.value = editModels
+
+
         adapterEdit =
             EditAdapter(
                 requireContext(),
-                list.size
+                viewModel.listEdit.value!!
             )
+
 
         binding.walletRecycle.adapter = adapter
         binding.editRecycle.adapter = adapterEdit

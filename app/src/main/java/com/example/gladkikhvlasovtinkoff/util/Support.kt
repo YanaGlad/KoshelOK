@@ -23,7 +23,7 @@ fun styleText(text: String) : String {
             result+=" "
         }
     }
-    return result.reversed()
+    return result.reversed() + " ₽"
 }
 
 
