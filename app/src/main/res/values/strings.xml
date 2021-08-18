@@ -19,4 +19,6 @@
     <string name="costs_identifier_icon">Costs identifier icon</string>
     <string name="income_identifier_icon">Income identifier icon</string>
     <string name="welcome_image">Welcome image</string>
+    <string name="operation_value_text">Сумма операции</string>
+    <string name="next_text">Далее</string>
 </resources>
