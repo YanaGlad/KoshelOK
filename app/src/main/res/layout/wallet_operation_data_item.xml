@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:background="@color/white"
+    android:layout_height="130dp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/date_operation"
@@ -22,12 +23,12 @@
         android:id="@+id/image_operation"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:scaleType="centerCrop"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/test_img"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_operation"
-        android:src="@drawable/test_img" />
+        app:layout_constraintTop_toBottomOf="@+id/date_operation" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title_operation"
@@ -73,5 +74,6 @@
         app:layout_constraintStart_toEndOf="@+id/subtitle_operation"
         app:layout_constraintTop_toBottomOf="@+id/money"
         tools:text="15 : 00" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

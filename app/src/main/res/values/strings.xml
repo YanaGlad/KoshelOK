@@ -34,5 +34,6 @@
     <string name="part_time">Подработка</string>
     <string name="gift">Подарок</string>
     <string name="capitalization">Капитализация</string>
-
+ 
+    <string name="enter_sum">Введите сумму</string>
 </resources>

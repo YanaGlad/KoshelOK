@@ -20,6 +20,8 @@ class FragmentSelectOperationValue : Fragment(){
     ): View {
         _binding = FragmentSelectOperationValueBinding.inflate(inflater)
 
+        binding.layoutMyToolbar.text.text = getResources().getString(R.string.enter_sum)
+
         return binding.root
     }
 

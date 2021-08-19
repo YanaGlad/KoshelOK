@@ -7,4 +7,6 @@ data class WalletOperationModel (
     val subtitle : String,
     val money : String,
     val time : String
-        )
+        ){
+    var isVisible : Boolean = true
+}
