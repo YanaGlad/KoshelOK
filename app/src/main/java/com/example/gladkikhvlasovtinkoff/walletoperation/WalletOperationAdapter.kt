@@ -13,6 +13,7 @@ import com.bumptech.glide.request.target.Target
 import com.example.gladkikhvlasovtinkoff.databinding.WalletOperationDataItemBinding
 import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperListener
 import com.example.gladkikhvlasovtinkoff.util.loadImage
+import com.example.gladkikhvlasovtinkoff.util.styleText
 import java.util.*
 
 class WalletOperationAdapter internal constructor(
@@ -34,13 +35,15 @@ class WalletOperationAdapter internal constructor(
         )
     }
 
+
+
     override fun onBindViewHolder(holder: WalletOperationViewHolder, position: Int) {
         val walletModel: WalletOperationModel = walletModels[position]
 
         holder.binding.dateOperation.text = walletModel.date
         loadImage(context, walletModel.image, holder.binding.imageOperation)
 
-        holder.binding.money.text = walletModel.money
+        holder.binding.money.text = styleText(walletModel.money)
         holder.binding.dateOperation.text = walletModel.date
         holder.binding.subtitleOperation.text = walletModel.subtitle
         holder.binding.titleOperation.text = walletModel.title
