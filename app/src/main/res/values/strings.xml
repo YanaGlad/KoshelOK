@@ -30,5 +30,10 @@
     <string name="attribute_value">Value</string>
     <string name="main_attributes">Основные</string>
     <string name="additionalAttributes">Дополнительные настройки</string>
+    <string name="salary">Зарплата</string>
+    <string name="part_time">Подработка</string>
+    <string name="gift">Подарок</string>
+    <string name="capitalization">Капитализация</string>
+ 
     <string name="enter_sum">Введите сумму</string>
 </resources>

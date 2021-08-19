@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationCategory"
-        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectOperationCategory"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.selectcategory.FragmentSelectOperationCategory"
         tools:layout="@layout/fragment_select_operation_category"
         android:label="FragmentSelectOperationCategory" >
         <action
