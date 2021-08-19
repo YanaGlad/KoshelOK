@@ -39,6 +39,7 @@ class FragmentSelectOperationCategory : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSelectOperationCategoryBinding.inflate(inflater)
+        binding.toolBar.text.text = resources.getString(R.string.choose_category)
 
         binding.buttonConfirmOperationCategory.setOnClickListener {
             val operationData = args.operationData

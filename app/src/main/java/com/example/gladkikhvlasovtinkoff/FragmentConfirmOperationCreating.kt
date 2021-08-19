@@ -10,9 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmOperationCreatedBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class FragmentConfirmOperationCreating : Fragment(){
 

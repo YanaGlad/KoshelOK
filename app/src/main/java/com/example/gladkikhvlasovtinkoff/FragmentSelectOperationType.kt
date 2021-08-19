@@ -46,7 +46,8 @@ class FragmentSelectOperationType : Fragment() {
             val operationData = args.operationData
             operationData.type = if(binding.checkIncomeOperationType.visibility == View.VISIBLE)
                 context?.getString(R.string.income_text) ?: throw NullPointerException("Context must not be null at this moment")
-            else context?.getString(R.string.income_text) ?: throw NullPointerException("Context must not be null at this moment")
+            else context?.getString(R.string.costs_text
+            ) ?: throw NullPointerException("Context must not be null at this moment")
             val action =
                 FragmentSelectOperationTypeDirections.
                 actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(operationData)
