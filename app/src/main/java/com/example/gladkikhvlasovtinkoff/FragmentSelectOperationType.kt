@@ -54,12 +54,15 @@ class FragmentSelectOperationType : Fragment() {
             } else binding.checkIncomeOperationType.visibility = View.GONE
         }
 
+        binding.toolBar.text.text = resources.getString(R.string.choose_type)
+
         binding.buttonConfirmOperationType.setOnClickListener {
             val action =
                 FragmentSelectOperationTypeDirections.actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(
                     sum = sum,
                     type = type
                 )
+
             findNavController().navigate(action)
         }
 

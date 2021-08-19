@@ -36,4 +36,7 @@
     <string name="capitalization">Капитализация</string>
  
     <string name="enter_sum">Введите сумму</string>
+    <string name="choose_type">Выберите тип операции</string>
+    <string name="choose_category">Выберите категорию</string>
+    <string name="new_operation">Новая операция</string>
 </resources>

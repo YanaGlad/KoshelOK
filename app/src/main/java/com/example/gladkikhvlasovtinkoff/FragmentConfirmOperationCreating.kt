@@ -40,6 +40,8 @@ class FragmentConfirmOperationCreating : Fragment(){
     ): View {
         _binding = FragmentConfirmOperationCreatedBinding.inflate(inflater)
 
+        binding.toolBar.text.text = resources.getString(R.string.new_operation)
+
         binding.valueAttribute.attributeName.text = "Сумма"
         binding.valueAttribute.attributeValue.text = sum
 
