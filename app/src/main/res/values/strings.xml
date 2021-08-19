@@ -42,4 +42,5 @@
     <string name="type_text">Тип</string>
     <string name="category_text">Категория</string>
     <string name="operation_date_text">Дата операции</string>
+    <string name="choose_category">Выберите категорию</string>
 </resources>

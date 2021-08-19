@@ -19,7 +19,7 @@ fun styleText(text: String) : String {
     var result = ""
     for (i in text.indices.reversed()) {
         result += text[i]
-        if (i % 3 == 0) {
+        if ((i - text.length) % 3 == 0) {
             result+=" "
         }
     }
