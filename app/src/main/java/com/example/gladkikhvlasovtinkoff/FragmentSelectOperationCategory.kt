@@ -20,12 +20,10 @@ class FragmentSelectOperationCategory : Fragment(){
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSelectOperationCategoryBinding.inflate(inflater)
-
         binding.buttonConfirmOperationCategory.setOnClickListener {
             val action = FragmentSelectOperationCategoryDirections.actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating()
             findNavController().navigate(action)
         }
-
         return binding.root
     }
 
