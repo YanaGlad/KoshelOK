@@ -15,6 +15,7 @@ import com.example.gladkikhvlasovtinkoff.EasyTimer
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
 import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
+import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperCallback
 import com.example.gladkikhvlasovtinkoff.util.styleText
 
@@ -41,6 +42,10 @@ class WalletOperationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletOperationBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true);
 
         initWalletRecycler(binding.editRecycle)
@@ -51,7 +56,7 @@ class WalletOperationFragment : Fragment() {
         list.add(
             WalletOperationModel(
                 System.currentTimeMillis(),
-                 R.drawable.ic_capitalisation,
+                R.drawable.ic_capitalisation,
                 R.string.supermarket,
                 "Траты",
                 "-12000"
@@ -61,7 +66,7 @@ class WalletOperationFragment : Fragment() {
         list.add(
             WalletOperationModel(
                 System.currentTimeMillis() - MILLIS_IN_DAY,
-                 R.drawable.ic_salary,
+                R.drawable.ic_salary,
                 R.string.salary,
                 "Пополнение",
                 "130000"
@@ -79,11 +84,13 @@ class WalletOperationFragment : Fragment() {
         val navController = findNavController()
 
         binding.buttonAddOperation.setOnClickListener {
-            val action = WalletOperationFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue()
+            val action = WalletOperationFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
+                WalletOperationBuilder()
+            )
             navController.navigate(action)
         }
 
-        return binding.root
+
     }
 
     private fun initWalletRecycler(view: RecyclerView) {
@@ -103,10 +110,7 @@ class WalletOperationFragment : Fragment() {
         return true
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-    }
 
     override fun onDestroy() {
         super.onDestroy()

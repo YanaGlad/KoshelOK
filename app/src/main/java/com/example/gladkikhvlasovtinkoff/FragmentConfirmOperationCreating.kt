@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmOperationCreatedBinding
+import com.example.gladkikhvlasovtinkoff.extension.getDayString
+import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,19 +21,8 @@ class FragmentConfirmOperationCreating : Fragment(){
 
     val args: FragmentConfirmOperationCreatingArgs by navArgs()
 
-    private var type = ""
-    private var category = -1
-    private var sum = ""
-    private var imageId = -1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        args.let {
-            sum = it.sum
-            category = it.category
-            type = it.type
-            imageId = it.imageId
-        }
     }
 
     override fun onCreateView(
@@ -40,26 +32,34 @@ class FragmentConfirmOperationCreating : Fragment(){
     ): View {
         _binding = FragmentConfirmOperationCreatedBinding.inflate(inflater)
 
-        binding.valueAttribute.attributeName.text = "Сумма"
-        binding.valueAttribute.attributeValue.text = sum
+        setupUiWithData(args.operationData)
 
-        binding.typeAttribute.attributeName.text = "Тип"
-        binding.typeAttribute.attributeValue.text = type
-
-        binding.categoryAttribute.attributeName.text = "Категория"
-        binding.categoryAttribute.attributeValue.text = resources.getString(category)
-
-        val date = Date()
-        val strDateFormat = "yyyy.MM.dd"
-        val dateFormat: DateFormat = SimpleDateFormat(strDateFormat)
-        val formattedDate: String = dateFormat.format(date)
-
-        binding.dateAttribute.attributeName.text = "Дата операции"
-        binding.dateAttribute.attributeValue.text = formattedDate
-
-
+        binding.buttonConfirmOperationCreating.setOnClickListener{
+            val action =
+                FragmentConfirmOperationCreatingDirections.
+                actionFragmentConfirmOperationCreatingToOptionFragment(
+                    args.operationData
+                )
+            findNavController().navigate(action)
+        }
 
         return binding.root
+    }
+
+    private fun setupUiWithData(operationData: WalletOperationBuilder) {
+        binding.valueAttribute.attributeName.text = getString(R.string.value_text)
+        binding.valueAttribute.attributeValue.text = operationData.value
+
+        binding.typeAttribute.attributeName.text = getString(R.string.type_text)
+        binding.typeAttribute.attributeValue.text = operationData.type
+
+        binding.categoryAttribute.attributeName.text = getString(R.string.category_text)
+        binding.categoryAttribute.attributeValue.text = resources.getString(operationData.categoryTextId)
+
+        binding.dateAttribute.attributeName.text = getString(R.string.operation_date_text)
+        context?.let { context ->
+            binding.dateAttribute.attributeValue.text = System.currentTimeMillis().getDayString(context)
+        }
     }
 
     override fun onDestroy() {

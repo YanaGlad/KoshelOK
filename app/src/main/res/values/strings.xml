@@ -38,4 +38,8 @@
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
     <string name="supermarket">Супермаркет</string>
+    <string name="value_text">Сумма</string>
+    <string name="type_text">Тип</string>
+    <string name="category_text">Категория</string>
+    <string name="operation_date_text">Дата операции</string>
 </resources>
