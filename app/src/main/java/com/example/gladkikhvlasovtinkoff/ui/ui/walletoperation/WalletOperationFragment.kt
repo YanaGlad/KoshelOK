@@ -63,7 +63,7 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             R.id.delete -> {
                 val deleteDialog = DeleteDialogFragment()
                 val manager = activity?.supportFragmentManager
-                deleteDialog.show(manager!!, "deleteDialog")
+                manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
              }
         }
     }
