@@ -2,30 +2,39 @@ package com.example.gladkikhvlasovtinkoff.walletoperation
 
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gladkikhvlasovtinkoff.databinding.SwipeToActionBinding
 import com.example.gladkikhvlasovtinkoff.databinding.WalletOperationDataItemBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperListener
 
 import com.example.gladkikhvlasovtinkoff.util.styleText
+import github.com.st235.swipetoactionlayout.swipe.ActionBindHelper
+import github.com.st235.swipetoactionlayout.swipe.SwipeAction
+import github.com.st235.swipetoactionlayout.swipe.SwipeMenuListener
 import java.util.*
 
-class WalletOperationAdapter internal constructor() :
-    ListAdapter<WalletOperationModel, WalletOperationAdapter.WalletOperationViewHolder>(OperationDiffUtil())
-    , ItemTouchHelperListener {
+typealias OnActionClick = (transaction: WalletOperationModel, action: SwipeAction) -> Unit
+
+class WalletOperationAdapter internal constructor(private val onActionClicked: OnActionClick) :
+    ListAdapter<WalletOperationModel, WalletOperationAdapter.WalletOperationViewHolder>(
+        OperationDiffUtil()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletOperationViewHolder =
         WalletOperationViewHolder(
-            WalletOperationDataItemBinding.inflate(
+            SwipeToActionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            currentList, onActionClicked
         )
 
 
@@ -34,7 +43,7 @@ class WalletOperationAdapter internal constructor() :
     }
 
 
-    class OperationDiffUtil : DiffUtil.ItemCallback<WalletOperationModel>(){
+    class OperationDiffUtil : DiffUtil.ItemCallback<WalletOperationModel>() {
         override fun areItemsTheSame(
             oldItem: WalletOperationModel,
             newItem: WalletOperationModel
@@ -49,13 +58,17 @@ class WalletOperationAdapter internal constructor() :
 
     }
 
-    class WalletOperationViewHolder (
-        val binding: WalletOperationDataItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+    class WalletOperationViewHolder(
+        val binding: SwipeToActionBinding, val list: List<WalletOperationModel>, val onActionClick: OnActionClick
+    ) : RecyclerView.ViewHolder(binding.root), SwipeMenuListener {
+        private val actionsBindHelper = ActionBindHelper()
 
-        fun bind(walletOperations : WalletOperationModel){
-            binding.dateOperation.text = walletOperations.date.getDayString(binding.root.context)
-            binding.imageOperation.setImageDrawable(
+        fun bind(walletOperations: WalletOperationModel) {
+            binding.swipeToAction.menuListener = this
+
+            binding.data.dateOperation.text =
+                walletOperations.date.getDayString(binding.root.context)
+            binding.data.imageOperation.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     binding.root.context.resources,
                     walletOperations.imageId,
@@ -63,19 +76,32 @@ class WalletOperationAdapter internal constructor() :
                 )
 
             )
-            binding.money.text = styleText(walletOperations.value)
-            binding.subtitleOperation.text =
+            binding.data.money.text = styleText(walletOperations.value)
+            binding.data.subtitleOperation.text =
                 walletOperations.type
-            binding.titleOperation.text =
+            binding.data.titleOperation.text =
                 binding.root.context.getString(walletOperations.categoryTextId)
-            binding.time.text = walletOperations.date.getTimeString()
+            binding.data.time.text = walletOperations.date.getTimeString()
+        }
+
+        override fun onClosed(view: View) {
+            // empty on purpose
+        }
+
+
+        override fun onOpened(view: View) {
+            val transaction = list[adapterPosition]
+            actionsBindHelper.closeOtherThan(transaction.type)
+        }
+
+        override fun onFullyOpened(view: View, quickAction: SwipeAction) {
+            // empty on purpose
+        }
+
+        override fun onActionClicked(view: View, action: SwipeAction) {
+            onActionClick(list[adapterPosition], action)
+            binding.swipeToAction.close()
         }
 
     }
-
-    override fun onItemSwipe(position: Int) {
-
-    }
-
-
 }

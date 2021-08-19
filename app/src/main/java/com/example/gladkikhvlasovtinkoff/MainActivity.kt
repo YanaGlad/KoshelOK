@@ -20,13 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val count: Int = getSupportFragmentManager().getBackStackEntryCount()
-        if (count == 0) {
-            super.onBackPressed()
-            this.finish()
-        } else {
-            getSupportFragmentManager().popBackStack()
-        }
+        super.onBackPressed()
     }
 }
 

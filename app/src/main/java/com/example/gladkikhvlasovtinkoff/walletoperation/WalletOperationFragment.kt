@@ -29,7 +29,6 @@ class WalletOperationFragment : Fragment() {
     private var timer = EasyTimer()
 
     private lateinit var adapter: WalletOperationAdapter
-    private lateinit var adapterEdit: EditAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +47,7 @@ class WalletOperationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true);
 
-        initWalletRecycler(binding.editRecycle)
-        initWalletRecycler(binding.walletRecycle)
+         initWalletRecycler(binding.walletRecycle)
 
         val list = ArrayList<WalletOperationModel>()
 
@@ -73,12 +71,17 @@ class WalletOperationFragment : Fragment() {
             )
         )
 
-        adapter = WalletOperationAdapter()
-        binding.walletRecycle.adapter = adapter
+        adapter = WalletOperationAdapter(){ item, action ->
+            when (action.actionId) {
+                R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
+                R.id.delete -> Toast.makeText(context, "Delete", Toast.LENGTH_SHORT).show()
 
-        val callback = ItemTouchHelperCallback(adapter)
-        val itemTouchHelper = ItemTouchHelper(callback)
-        itemTouchHelper.attachToRecyclerView(binding.walletRecycle)
+//                R.id.call -> call(item)
+//                R.id.email -> email(item)
+//                R.id.star -> openRepo()
+            }
+        }
+        binding.walletRecycle.adapter = adapter
 
         adapter.submitList(list)
         val navController = findNavController()
