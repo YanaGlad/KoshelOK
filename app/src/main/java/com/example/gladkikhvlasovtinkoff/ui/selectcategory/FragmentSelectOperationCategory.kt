@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.selectcategory
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,8 @@ class FragmentSelectOperationCategory : Fragment(){
             ResourcesCompat.getDrawable(resources,
                 R.drawable.disabled_button_back_with_corner_radius, context?.theme)
         binding.buttonConfirmOperationCategory.isEnabled = false
+        binding.buttonConfirmOperationCategory.setTextColor(Color.BLACK)
+
     }
 
     private fun onCategoryChecked(checkedData: OperationCategoryData) {
@@ -60,6 +63,7 @@ class FragmentSelectOperationCategory : Fragment(){
             ResourcesCompat.getDrawable(resources,
                 R.drawable.active_button_back_with_corner_radius, context?.theme)
         binding.buttonConfirmOperationCategory.isEnabled = true
+        binding.buttonConfirmOperationCategory.setTextColor(Color.WHITE)
     }
 
     private fun setupOperationCategoryList() {
