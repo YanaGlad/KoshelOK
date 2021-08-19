@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -13,9 +14,12 @@ import com.example.gladkikhvlasovtinkoff.EasyTimer
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
 import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperCallback
+import com.example.gladkikhvlasovtinkoff.util.styleText
 
 
 class WalletOperationFragment : Fragment() {
+
+    private val viewModel : WalletOperationViewModel by viewModels()
 
     private var _binding: FragmentWalletOperationBinding? = null
     private val binding get() = _binding!!
@@ -23,6 +27,8 @@ class WalletOperationFragment : Fragment() {
 
     private lateinit var adapter: WalletOperationAdapter
     private lateinit var adapterEdit: EditAdapter
+
+    private var total = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +54,7 @@ class WalletOperationFragment : Fragment() {
                 "https://sun9-52.userapi.com/impg/NlasEB7KCldpBi0DjnauJEF-PUE0oEhu9HMkNQ/kWawbtuCio8.jpg?size=80x80&quality=96&sign=d836182efab03d81621cf85718b53bec&type=album",
                 "Супермаркеты",
                 "Траты",
-                "-12 000",
+                "-12000",
                 "15:00"
             )
         )
@@ -59,10 +65,15 @@ class WalletOperationFragment : Fragment() {
                 "https://sun9-30.userapi.com/impg/JqjVqMAJOvfeDRRKED7sjIEUctRs-nr9FbjcJg/0V62vbVETlU.jpg?size=80x80&quality=96&sign=86372ea563fc1a6e3960099bebb20186&type=album",
                 "Зарплата",
                 "Пополнение",
-                "130 000",
+                "130000",
                 "13:13"
             )
         )
+
+        for (item in list)
+            total+=item.money.toInt()
+
+        binding.walletBalance.text = styleText(total.toString())
 
         adapter =
             WalletOperationAdapter(
@@ -70,11 +81,19 @@ class WalletOperationFragment : Fragment() {
                 list
             )
 
+        val editModels = ArrayList<EditModel>()
+        for(i in 0 until list.size)
+            editModels.add(EditModel())
+
+        viewModel.listEdit.value = editModels
+
+
         adapterEdit =
             EditAdapter(
                 requireContext(),
-                list.size
+                viewModel.listEdit.value!!
             )
+
 
         binding.walletRecycle.adapter = adapter
         binding.editRecycle.adapter = adapterEdit

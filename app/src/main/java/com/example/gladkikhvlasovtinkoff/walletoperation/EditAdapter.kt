@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
 
 class EditAdapter internal constructor(
     context: Context,
-    val size : Int,
+    _editModels: ArrayList<EditModel>
 ) :
     RecyclerView.Adapter<EditHolder>() {
     var context: Context
@@ -41,15 +41,13 @@ class EditAdapter internal constructor(
     }
 
     override fun getItemCount(): Int {
-        return size
+        return editModels.size
     }
 
 
     init {
         this.context = context
-        this.editModels = ArrayList()
-        for(i in 0..size)
-            editModels.add(EditModel())
+        this.editModels = _editModels
     }
 
 //    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {

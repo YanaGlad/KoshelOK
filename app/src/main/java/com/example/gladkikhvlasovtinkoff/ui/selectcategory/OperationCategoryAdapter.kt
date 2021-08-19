@@ -23,7 +23,7 @@ class OperationCategoryAdapter  : RecyclerView.Adapter<OperationCategoryAdapter.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val holder = ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_select_operation_category, parent, false)
+                .inflate(R.layout.operation_category_item, parent, false)
         )
 
         holder.itemView.setOnClickListener{

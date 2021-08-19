@@ -15,17 +15,15 @@ fun loadImageCircle(context: Context, url: String?, view: ImageView) {
         .into(view)
 }
 
-fun loadImage(
-    context: Context,
-    url: String?,
-    view: ImageView,
-    requestListener: RequestListener<Drawable>
-) {
-    Glide.with(context)
-        .load(url)
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .listener(requestListener)
-        .into(view)
+fun styleText(text: String) : String {
+    var result = ""
+    for (i in text.indices.reversed()) {
+        result += text[i]
+        if (i % 3 == 0) {
+            result+=" "
+        }
+    }
+    return result.reversed() + " ₽"
 }
 
 
