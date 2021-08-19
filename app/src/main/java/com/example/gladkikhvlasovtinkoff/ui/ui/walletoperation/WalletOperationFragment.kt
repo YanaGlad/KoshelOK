@@ -3,12 +3,14 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
@@ -43,7 +45,6 @@ class WalletOperationFragment : Fragment() {
             viewModel.transactionList.value?.add(transaction!!.createModel())
     }
 
-
 override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
@@ -67,6 +68,8 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
              }
         }
     }
+
+
     binding.walletRecycle.adapter = adapter
 
     adapter.submitList(viewModel.transactionList.value)

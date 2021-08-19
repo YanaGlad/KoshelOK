@@ -67,6 +67,13 @@ class FragmentSelectOperationType : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        (activity as MainActivity?)
+            ?.setActionBarTitle(getString(R.string.choose_operation_type))
+    }
+
     private fun disableButton(){
         binding.buttonConfirmOperationType.setDisabled(context)
     }

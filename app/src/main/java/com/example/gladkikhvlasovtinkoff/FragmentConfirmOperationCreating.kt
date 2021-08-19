@@ -43,6 +43,13 @@ class FragmentConfirmOperationCreating : Fragment(){
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        (activity as MainActivity?)
+            ?.setActionBarTitle(getString(R.string.new_operation))
+    }
+
     private fun setupUiWithData(operationData: WalletOperationBuilder) {
         binding.valueAttribute.attributeName.text = getString(R.string.value_text)
         binding.valueAttribute.attributeValue.text = operationData.value

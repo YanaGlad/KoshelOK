@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationCategoryBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
@@ -41,7 +42,6 @@ class FragmentSelectOperationCategory : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSelectOperationCategoryBinding.inflate(inflater)
-        binding.toolBar.text.text = resources.getString(R.string.choose_category)
 
         binding.buttonConfirmOperationCategory.setOnClickListener {
             val operationData = args.operationData
@@ -56,6 +56,13 @@ class FragmentSelectOperationCategory : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        (activity as MainActivity?)
+            ?.setActionBarTitle(getString(R.string.choose_category))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

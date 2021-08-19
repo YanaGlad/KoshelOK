@@ -28,24 +28,25 @@ class FragmentSelectOperationValue : Fragment() {
     ): View {
         _binding = FragmentSelectOperationValueBinding.inflate(inflater)
 
-        binding.layoutMyToolbar.text.text = getResources().getString(R.string.enter_sum)
-
         binding.buttonConfirmOperationValue.setOnClickListener {
             val operationData = args.operationData
             operationData.value = binding.newOperationValueField.text.toString()
             val action =
-                FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData)
+                FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(
+                    operationData
+                )
 
             findNavController().navigate(action)
         }
 
-        binding.newOperationValueField.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+        binding.newOperationValueField.inputType =
+            InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
         binding.newOperationValueField.doOnTextChanged { _, _, _, _ ->
             val isEnabled = binding.newOperationValueField.text.toString() != ""
-            if(isEnabled){
+            if (isEnabled) {
                 binding.buttonConfirmOperationValue.setEnabled(context)
-            }else
+            } else
                 binding.buttonConfirmOperationValue.setDisabled(context)
             binding.buttonConfirmOperationValue.isEnabled = isEnabled
         }
@@ -53,6 +54,12 @@ class FragmentSelectOperationValue : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        (activity as MainActivity?)
+            ?.setActionBarTitle(resources.getString(R.string.enter_sum))
+    }
 
     override fun onDestroy() {
         super.onDestroy()

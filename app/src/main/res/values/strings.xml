@@ -47,4 +47,6 @@
     <string name="cancel">Отменить</string>
     <string name="delete">Удалить</string>
     <string name="delete_dialog_tag">deleteDialog</string>
+    <string name="choose_operation_type">Выберите тип операции</string>
+    <string name="new_operation">Новая операция</string>
 </resources>
