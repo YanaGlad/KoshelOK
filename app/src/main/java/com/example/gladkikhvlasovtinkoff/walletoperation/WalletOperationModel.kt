@@ -1,12 +1,9 @@
 package com.example.gladkikhvlasovtinkoff.walletoperation
 
 data class WalletOperationModel (
-    val date : String,
-    val image : Int,
-    val title : String,
-    val subtitle : String,
-    val money : String,
-    val time : String
-        ){
-    var isVisible : Boolean = true
-}
+    val date : Long,
+    val imageId : Int,
+    val categoryTextId : Int,
+    val type : String,
+    val value : String,
+    )

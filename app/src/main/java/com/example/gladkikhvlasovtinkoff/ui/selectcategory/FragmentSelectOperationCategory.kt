@@ -22,10 +22,6 @@ class FragmentSelectOperationCategory : Fragment() {
     private val binding get() = _binding!!
     private var categoriesAdapter: OperationCategoryAdapter? = null
 
-    private var type: String = ""
-    private var sum: String = ""
-
-
     private var categoryId: Int = -1
     private var imageId: Int = -1
 
@@ -34,10 +30,6 @@ class FragmentSelectOperationCategory : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        args.let {
-            sum = it.sum
-            type = it.type
-        }
     }
 
 
@@ -50,12 +42,13 @@ class FragmentSelectOperationCategory : Fragment() {
         binding.toolBar.text.text = resources.getString(R.string.choose_category)
 
         binding.buttonConfirmOperationCategory.setOnClickListener {
+            val operationData = args.operationData
+            operationData.imageId = imageId
+            operationData.categoryTextId = categoryId
             val action =
-                FragmentSelectOperationCategoryDirections.actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
-                    sum,
-                    type,
-                    categoryId,
-                    imageId
+                FragmentSelectOperationCategoryDirections.
+                actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
+                    operationData
                 )
             findNavController().navigate(action)
         }

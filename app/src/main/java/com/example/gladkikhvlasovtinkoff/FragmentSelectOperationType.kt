@@ -7,28 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmOperationCreatedBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationTypeBinding
-import com.example.gladkikhvlasovtinkoff.ui.selectcategory.FragmentSelectOperationCategoryArgs
+import java.lang.NullPointerException
 
 class FragmentSelectOperationType : Fragment() {
 
     private var _binding: FragmentSelectOperationTypeBinding? = null
     private val binding get() = _binding!!
-    private var sum = ""
-
-    companion object {
-        private var type = ""
-    }
 
     val args: FragmentSelectOperationTypeArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        args.let {
-            sum = it.sum
-        }
     }
 
     override fun onCreateView(
@@ -42,7 +32,6 @@ class FragmentSelectOperationType : Fragment() {
             if (binding.checkCostsOperationType.visibility == View.GONE) {
                 binding.checkCostsOperationType.visibility = View.VISIBLE
                 binding.checkIncomeOperationType.visibility = View.GONE
-                type = "Расход"
             } else binding.checkCostsOperationType.visibility = View.GONE
         }
 
@@ -50,19 +39,17 @@ class FragmentSelectOperationType : Fragment() {
             if (binding.checkIncomeOperationType.visibility == View.GONE) {
                 binding.checkIncomeOperationType.visibility = View.VISIBLE
                 binding.checkCostsOperationType.visibility = View.GONE
-                type = "Доход"
             } else binding.checkIncomeOperationType.visibility = View.GONE
         }
 
-        binding.toolBar.text.text = resources.getString(R.string.choose_type)
-
         binding.buttonConfirmOperationType.setOnClickListener {
+            val operationData = args.operationData
+            operationData.type = if(binding.checkIncomeOperationType.visibility == View.VISIBLE)
+                context?.getString(R.string.income_text) ?: throw NullPointerException("Context must not be null at this moment")
+            else context?.getString(R.string.income_text) ?: throw NullPointerException("Context must not be null at this moment")
             val action =
-                FragmentSelectOperationTypeDirections.actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(
-                    sum = sum,
-                    type = type
-                )
-
+                FragmentSelectOperationTypeDirections.
+                actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(operationData)
             findNavController().navigate(action)
         }
 
