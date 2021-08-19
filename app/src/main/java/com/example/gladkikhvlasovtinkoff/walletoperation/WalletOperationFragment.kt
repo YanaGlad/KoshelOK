@@ -51,7 +51,7 @@ class WalletOperationFragment : Fragment() {
         list.add(
             WalletOperationModel(
                 "Сегодня",
-                "https://sun9-52.userapi.com/impg/NlasEB7KCldpBi0DjnauJEF-PUE0oEhu9HMkNQ/kWawbtuCio8.jpg?size=80x80&quality=96&sign=d836182efab03d81621cf85718b53bec&type=album",
+                 R.drawable.ic_capitalisation,
                 "Супермаркеты",
                 "Траты",
                 "-12000",
@@ -62,7 +62,7 @@ class WalletOperationFragment : Fragment() {
         list.add(
             WalletOperationModel(
                 "Вчера",
-                "https://sun9-30.userapi.com/impg/JqjVqMAJOvfeDRRKED7sjIEUctRs-nr9FbjcJg/0V62vbVETlU.jpg?size=80x80&quality=96&sign=86372ea563fc1a6e3960099bebb20186&type=album",
+                 R.drawable.ic_salary,
                 "Зарплата",
                 "Пополнение",
                 "130000",

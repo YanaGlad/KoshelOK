@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.model
 
+
 class OperationCategoryData (
     val type : OperationCategory,
     val nameId : Int,

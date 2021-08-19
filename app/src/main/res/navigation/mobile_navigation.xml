@@ -66,6 +66,18 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/optionFragment" />
+        <argument
+            android:name="sum"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <argument
+            android:name="category"
+            app:argType="integer" />
+        <argument
+            android:name="imageId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationCategory"
@@ -79,6 +91,10 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/fragmentConfirmOperationCreating" />
+        <argument android:name="type" />
+        <argument
+            android:name="sum"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
@@ -92,6 +108,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/fragmentSelectOperationCategory" />
+        <argument
+            android:name="sum"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationValue"

@@ -2,7 +2,7 @@ package com.example.gladkikhvlasovtinkoff.walletoperation
 
 data class WalletOperationModel (
     val date : String,
-    val image : String,
+    val image : Int,
     val title : String,
     val subtitle : String,
     val money : String,

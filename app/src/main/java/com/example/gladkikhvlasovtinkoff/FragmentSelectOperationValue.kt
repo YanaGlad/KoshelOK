@@ -26,7 +26,7 @@ class FragmentSelectOperationValue : Fragment() {
 
         binding.buttonConfirmOperationValue.setOnClickListener {
             val action =
-                FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType()
+                FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(binding.newOperationValueField.text.toString())
             findNavController().navigate(action)
         }
 

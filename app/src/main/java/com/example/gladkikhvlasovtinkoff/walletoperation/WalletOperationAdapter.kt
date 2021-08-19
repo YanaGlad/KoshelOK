@@ -36,12 +36,11 @@ class WalletOperationAdapter internal constructor(
     }
 
 
-
     override fun onBindViewHolder(holder: WalletOperationViewHolder, position: Int) {
         val walletModel: WalletOperationModel = walletModels[position]
 
         holder.binding.dateOperation.text = walletModel.date
-        loadImage(context, walletModel.image, holder.binding.imageOperation)
+        holder.binding.imageOperation.setImageDrawable(context.resources.getDrawable(walletModel.image))
 
         holder.binding.money.text = styleText(walletModel.money)
         holder.binding.dateOperation.text = walletModel.date
