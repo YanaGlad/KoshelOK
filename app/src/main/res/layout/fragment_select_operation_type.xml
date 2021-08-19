@@ -31,10 +31,13 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textIncomeType"
+            style="@style/AppSelectableItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:height="40dp"
+            android:gravity="center_vertical"
             android:text="@string/text_income"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -45,9 +48,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textCostsType"
+            style="@style/AppSelectableItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="57dp"
+            android:layout_marginTop="45dp"
+            android:height="40dp"
+            android:gravity="center_vertical"
             android:text="@string/text_costs"
             android:textColor="@color/black"
             android:textSize="16sp"

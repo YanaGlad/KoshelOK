@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationTypeBinding
+import com.example.gladkikhvlasovtinkoff.extension.setDisabled
+import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import java.lang.NullPointerException
 
 class FragmentSelectOperationType : Fragment() {
@@ -32,14 +34,22 @@ class FragmentSelectOperationType : Fragment() {
             if (binding.checkCostsOperationType.visibility == View.GONE) {
                 binding.checkCostsOperationType.visibility = View.VISIBLE
                 binding.checkIncomeOperationType.visibility = View.GONE
-            } else binding.checkCostsOperationType.visibility = View.GONE
+                enableButton()
+            } else{
+                binding.checkCostsOperationType.visibility = View.GONE
+                disableButton()
+            }
         }
 
         binding.textIncomeType.setOnClickListener {
             if (binding.checkIncomeOperationType.visibility == View.GONE) {
                 binding.checkIncomeOperationType.visibility = View.VISIBLE
                 binding.checkCostsOperationType.visibility = View.GONE
-            } else binding.checkIncomeOperationType.visibility = View.GONE
+                enableButton()
+            } else {
+                binding.checkIncomeOperationType.visibility = View.GONE
+                disableButton()
+            }
         }
 
         binding.buttonConfirmOperationType.setOnClickListener {
@@ -55,6 +65,15 @@ class FragmentSelectOperationType : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun disableButton(){
+        binding.buttonConfirmOperationType.setDisabled(context)
+    }
+
+    private fun enableButton(){
+        binding.buttonConfirmOperationType.setEnabled(context)
+
     }
 
     override fun onDestroy() {
