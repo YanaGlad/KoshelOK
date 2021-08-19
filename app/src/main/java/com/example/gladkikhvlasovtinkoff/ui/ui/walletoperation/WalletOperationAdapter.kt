@@ -14,7 +14,7 @@ import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
 import com.example.gladkikhvlasovtinkoff.util.styleText
-import github.com.st235.swipetoactionlayout.swipe.ActionBindHelper
+import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 
 typealias OnActionClick = (transaction: WalletOperationModel, action: SwipeAction) -> Unit
 
