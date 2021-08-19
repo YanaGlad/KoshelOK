@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.R
+import com.example.gladkikhvlasovtinkoff.databinding.EditItemBinding
 import com.example.gladkikhvlasovtinkoff.databinding.OperationCategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 
@@ -22,8 +23,8 @@ class OperationCategoryAdapter  : RecyclerView.Adapter<OperationCategoryAdapter.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val holder = ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.operation_category_item, parent, false)
+            OperationCategoryItemBinding
+                .inflate(  LayoutInflater.from(parent.context), parent, false)
         )
 
         holder.itemView.setOnClickListener{
@@ -66,7 +67,7 @@ class OperationCategoryAdapter  : RecyclerView.Adapter<OperationCategoryAdapter.
         notifyItemRangeChanged(oldSize - 1, categories.size)
     }
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder( val _binding: OperationCategoryItemBinding) : RecyclerView.ViewHolder(_binding.root) {
         var binding : OperationCategoryItemBinding? = null
         init{
             binding = OperationCategoryItemBinding.bind(itemView)

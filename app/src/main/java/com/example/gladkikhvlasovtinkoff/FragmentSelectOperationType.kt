@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmOperationCreatedBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationTypeBinding
 
-class FragmentSelectOperationType : Fragment() {
+class FragmentSelectOperationType : Fragment(){
 
     private var _binding: FragmentSelectOperationTypeBinding? = null
     private val binding get() = _binding!!
@@ -34,7 +34,6 @@ class FragmentSelectOperationType : Fragment() {
                 binding.checkCostsOperationType.visibility = View.GONE
             } else binding.checkIncomeOperationType.visibility = View.GONE
         }
-
 
         binding.buttonConfirmOperationType.setOnClickListener {
             val action =
