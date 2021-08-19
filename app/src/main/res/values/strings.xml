@@ -34,6 +34,8 @@
     <string name="part_time">Подработка</string>
     <string name="gift">Подарок</string>
     <string name="capitalization">Капитализация</string>
- 
     <string name="enter_sum">Введите сумму</string>
+    <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
+    <string name="supermarket">Супермаркет</string>
 </resources>

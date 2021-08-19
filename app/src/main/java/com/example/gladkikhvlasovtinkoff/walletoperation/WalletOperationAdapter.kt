@@ -1,79 +1,81 @@
 package com.example.gladkikhvlasovtinkoff.walletoperation
 
-import android.content.Context
-import android.graphics.drawable.Drawable
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.example.gladkikhvlasovtinkoff.databinding.WalletOperationDataItemBinding
+import com.example.gladkikhvlasovtinkoff.extension.getDayString
+import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperListener
-import com.example.gladkikhvlasovtinkoff.util.loadImage
+
 import com.example.gladkikhvlasovtinkoff.util.styleText
 import java.util.*
 
-class WalletOperationAdapter internal constructor(
-    context: Context,
-    _walletModels: ArrayList<WalletOperationModel>,
-) :
-    RecyclerView.Adapter<WalletOperationViewHolder>(), ItemTouchHelperListener {
-    var context: Context
-    var walletModels: ArrayList<WalletOperationModel>
+class WalletOperationAdapter internal constructor() :
+    ListAdapter<WalletOperationModel, WalletOperationAdapter.WalletOperationViewHolder>(OperationDiffUtil())
+    , ItemTouchHelperListener {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletOperationViewHolder {
-        return WalletOperationViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletOperationViewHolder =
+        WalletOperationViewHolder(
             WalletOperationDataItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ),
-            context
+            )
         )
-    }
 
 
     override fun onBindViewHolder(holder: WalletOperationViewHolder, position: Int) {
-        val walletModel: WalletOperationModel = walletModels[position]
+        holder.bind(getItem(position))
+    }
 
-        holder.binding.dateOperation.text = walletModel.date
-        holder.binding.imageOperation.setImageDrawable(context.resources.getDrawable(walletModel.image))
 
-        holder.binding.money.text = styleText(walletModel.money)
-        holder.binding.dateOperation.text = walletModel.date
-        holder.binding.subtitleOperation.text = walletModel.subtitle
-        holder.binding.titleOperation.text = walletModel.title
-        holder.binding.time.text = walletModel.time
+    class OperationDiffUtil : DiffUtil.ItemCallback<WalletOperationModel>(){
+        override fun areItemsTheSame(
+            oldItem: WalletOperationModel,
+            newItem: WalletOperationModel
+        ): Boolean =
+            oldItem.date == newItem.date
 
+        override fun areContentsTheSame(
+            oldItem: WalletOperationModel,
+            newItem: WalletOperationModel
+        ): Boolean =
+            oldItem == newItem
 
     }
 
-    override fun getItemCount(): Int {
-        return walletModels.size
+    class WalletOperationViewHolder (
+        val binding: WalletOperationDataItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(walletOperations : WalletOperationModel){
+            binding.dateOperation.text = walletOperations.date.getDayString(binding.root.context)
+            binding.imageOperation.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    binding.root.context.resources,
+                    walletOperations.imageId,
+                    binding.root.context.theme
+                )
+
+            )
+            binding.money.text = styleText(walletOperations.value)
+            binding.subtitleOperation.text =
+                walletOperations.type
+            binding.titleOperation.text =
+                binding.root.context.getString(walletOperations.categoryTextId)
+            binding.time.text = walletOperations.date.getTimeString()
+        }
+
     }
 
     override fun onItemSwipe(position: Int) {
-        walletModels[position].isVisible = !walletModels[position].isVisible
-        //notifyDataSetChanged()
-    }
 
-    fun update(modelList: ArrayList<WalletOperationModel>) {
-        walletModels = modelList
     }
-
-    init {
-        this.context = context
-        this.walletModels = _walletModels
-    }
-
-//    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-//        Collections.swap(walletModels, fromPosition, toPosition)
-//        notifyItemMoved(fromPosition, toPosition)
-//        return true
-//    }
 
 
 }
