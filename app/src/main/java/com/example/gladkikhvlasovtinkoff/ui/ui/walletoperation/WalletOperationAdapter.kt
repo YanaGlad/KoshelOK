@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.walletoperation
+package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 
 
 import android.view.LayoutInflater
@@ -85,7 +85,6 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
         }
 
         override fun onClosed(view: View) {
-            // empty on purpose
         }
 
 
@@ -95,7 +94,6 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
         }
 
         override fun onFullyOpened(view: View, quickAction: SwipeAction) {
-            // empty on purpose
         }
 
         override fun onActionClicked(view: View, action: SwipeAction) {

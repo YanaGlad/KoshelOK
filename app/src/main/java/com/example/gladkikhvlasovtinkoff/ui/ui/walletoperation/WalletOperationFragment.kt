@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.walletoperation
+package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 
 import android.os.Bundle
 import android.view.*
@@ -9,11 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gladkikhvlasovtinkoff.EasyTimer
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
-import com.example.gladkikhvlasovtinkoff.walletoperation.dialog.DeleteDialogFragment
 
 
 class WalletOperationFragment : Fragment() {
@@ -23,14 +21,12 @@ class WalletOperationFragment : Fragment() {
 
     private var _binding: FragmentWalletOperationBinding? = null
     private val binding get() = _binding!!
-    private var timer = EasyTimer()
 
     private lateinit var adapter: WalletOperationAdapter
     private var transaction: WalletOperationBuilder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        timer.stopTimer()
 
         args.let {
             if (it.newOperationData != null) {
@@ -67,7 +63,7 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             R.id.delete -> {
                 val deleteDialog = DeleteDialogFragment()
                 val manager = activity?.supportFragmentManager
-                deleteDialog.show(manager!!, "myDialog")
+                deleteDialog.show(manager!!, "deleteDialog")
              }
         }
     }

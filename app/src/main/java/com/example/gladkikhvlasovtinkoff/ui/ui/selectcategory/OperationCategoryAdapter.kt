@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.selectcategory
+package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.databinding.EditItemBinding
 import com.example.gladkikhvlasovtinkoff.databinding.OperationCategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 

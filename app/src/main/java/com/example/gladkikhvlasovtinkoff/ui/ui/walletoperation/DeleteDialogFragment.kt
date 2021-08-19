@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.walletoperation.dialog
+package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 
 import android.app.Dialog
 import android.content.DialogInterface

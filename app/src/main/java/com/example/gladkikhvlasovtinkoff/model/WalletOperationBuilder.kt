@@ -1,7 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.model
 
 import android.os.Parcelable
-import com.example.gladkikhvlasovtinkoff.walletoperation.WalletOperationModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletOperationModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

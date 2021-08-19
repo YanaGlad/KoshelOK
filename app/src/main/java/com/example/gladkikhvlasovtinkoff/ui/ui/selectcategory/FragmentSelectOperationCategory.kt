@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.selectcategory
+package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
 import android.graphics.Color
 import android.os.Bundle
