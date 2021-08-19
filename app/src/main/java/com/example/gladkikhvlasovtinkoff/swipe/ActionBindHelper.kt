@@ -1,4 +1,4 @@
-package github.com.st235.swipetoactionlayout.swipe
+package gcom.example.gladkikhvlasovtinkoff.swipe
 
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeToActionLayout
 import java.util.*

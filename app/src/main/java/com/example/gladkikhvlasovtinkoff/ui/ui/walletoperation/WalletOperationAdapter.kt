@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.walletoperation
+package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 
 
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
 import com.example.gladkikhvlasovtinkoff.util.styleText
-import github.com.st235.swipetoactionlayout.swipe.ActionBindHelper
+import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 
 typealias OnActionClick = (transaction: WalletOperationModel, action: SwipeAction) -> Unit
 
@@ -84,7 +84,6 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
         }
 
         override fun onClosed(view: View) {
-            // empty on purpose
         }
 
 
@@ -94,7 +93,6 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
         }
 
         override fun onFullyOpened(view: View, quickAction: SwipeAction) {
-            // empty on purpose
         }
 
         override fun onActionClicked(view: View, action: SwipeAction) {

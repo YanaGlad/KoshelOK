@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.walletoperation
+package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

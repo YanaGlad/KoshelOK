@@ -1,25 +1,17 @@
-package com.example.gladkikhvlasovtinkoff.walletoperation
+package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gladkikhvlasovtinkoff.EasyTimer
-import com.example.gladkikhvlasovtinkoff.FragmentConfirmOperationCreatingArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
-import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
-import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperCallback
-import com.example.gladkikhvlasovtinkoff.util.styleText
 
 
 class WalletOperationFragment : Fragment() {
@@ -29,14 +21,12 @@ class WalletOperationFragment : Fragment() {
 
     private var _binding: FragmentWalletOperationBinding? = null
     private val binding get() = _binding!!
-    private var timer = EasyTimer()
 
     private lateinit var adapter: WalletOperationAdapter
     private var transaction: WalletOperationBuilder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        timer.stopTimer()
 
         args.let {
             if (it.newOperationData != null) {
@@ -70,11 +60,11 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     adapter = WalletOperationAdapter() { item, action ->
         when (action.actionId) {
             R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
-            R.id.delete -> Toast.makeText(context, "Delete", Toast.LENGTH_SHORT).show()
-
-//                R.id.call -> call(item)
-//                R.id.email -> email(item)
-//                R.id.star -> openRepo()
+            R.id.delete -> {
+                val deleteDialog = DeleteDialogFragment()
+                val manager = activity?.supportFragmentManager
+                manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
+             }
         }
     }
     binding.walletRecycle.adapter = adapter

@@ -43,4 +43,8 @@
     <string name="category_text">Категория</string>
     <string name="operation_date_text">Дата операции</string>
     <string name="choose_category">Выберите категорию</string>
+    <string name="sure_delete">Уверены что хотите удалить запись?</string>
+    <string name="cancel">Отменить</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_dialog_tag">deleteDialog</string>
 </resources>

@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/optionFragment"
-        android:name="com.example.gladkikhvlasovtinkoff.walletoperation.WalletOperationFragment"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletOperationFragment"
         android:label="fragment_option"
         tools:layout="@layout/fragment_wallet_operation" >
         <action
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationCategory"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.selectcategory.FragmentSelectOperationCategory"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.FragmentSelectOperationCategory"
         tools:layout="@layout/fragment_select_operation_category"
         android:label="FragmentSelectOperationCategory" >
         <action
