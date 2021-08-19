@@ -59,7 +59,9 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
     }
 
     class WalletOperationViewHolder(
-        val binding: SwipeToActionBinding, val list: List<WalletOperationModel>, val onActionClick: OnActionClick
+        val binding: SwipeToActionBinding,
+        val list: List<WalletOperationModel>,
+        val onActionClick: OnActionClick
     ) : RecyclerView.ViewHolder(binding.root), SwipeMenuListener {
         private val actionsBindHelper = ActionBindHelper()
 
@@ -76,9 +78,10 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
                 )
 
             )
-            binding.data.money.text = styleText(walletOperations.value)
-            binding.data.subtitleOperation.text =
-                walletOperations.type
+            binding.data.money.text =
+                if (walletOperations.value.length > 3) styleText(walletOperations.value) else walletOperations . value
+                        binding.data.subtitleOperation.text =
+                    walletOperations.type
             binding.data.titleOperation.text =
                 binding.root.context.getString(walletOperations.categoryTextId)
             binding.data.time.text = walletOperations.date.getTimeString()
