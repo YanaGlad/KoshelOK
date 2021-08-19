@@ -9,10 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.EasyTimer
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
+import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
+import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperCallback
 import com.example.gladkikhvlasovtinkoff.util.styleText
 
@@ -28,12 +31,10 @@ class WalletOperationFragment : Fragment() {
     private lateinit var adapter: WalletOperationAdapter
     private lateinit var adapterEdit: EditAdapter
 
-    private var total = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         timer.stopTimer()
-
     }
 
     override fun onCreateView(
@@ -41,6 +42,10 @@ class WalletOperationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletOperationBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true);
 
         initWalletRecycler(binding.editRecycle)
@@ -50,70 +55,47 @@ class WalletOperationFragment : Fragment() {
 
         list.add(
             WalletOperationModel(
-                "Сегодня",
-                 R.drawable.ic_capitalisation,
-                "Супермаркеты",
+                System.currentTimeMillis(),
+                R.drawable.ic_capitalisation,
+                R.string.supermarket,
                 "Траты",
-                "-12000",
-                "15:00"
+                "-12000"
             )
         )
 
         list.add(
             WalletOperationModel(
-                "Вчера",
-                 R.drawable.ic_salary,
-                "Зарплата",
+                System.currentTimeMillis() - MILLIS_IN_DAY,
+                R.drawable.ic_salary,
+                R.string.salary,
                 "Пополнение",
-                "130000",
-                "13:13"
+                "130000"
             )
         )
 
-        for (item in list)
-            total+=item.money.toInt()
-
-        binding.walletBalance.text = styleText(total.toString())
-
-        adapter =
-            WalletOperationAdapter(
-                requireContext(),
-                list
-            )
-
-        val editModels = ArrayList<EditModel>()
-        for(i in 0 until list.size)
-            editModels.add(EditModel())
-
-        viewModel.listEdit.value = editModels
-
-
-        adapterEdit =
-            EditAdapter(
-                requireContext(),
-                viewModel.listEdit.value!!
-            )
-
-
+        adapter = WalletOperationAdapter()
         binding.walletRecycle.adapter = adapter
-        binding.editRecycle.adapter = adapterEdit
+
         val callback = ItemTouchHelperCallback(adapter)
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.walletRecycle)
 
+        adapter.submitList(list)
         val navController = findNavController()
 
         binding.buttonAddOperation.setOnClickListener {
-            val action = WalletOperationFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue()
+            val action = WalletOperationFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
+                WalletOperationBuilder()
+            )
             navController.navigate(action)
         }
 
-        return binding.root
+
     }
 
     private fun initWalletRecycler(view: RecyclerView) {
         view.setHasFixedSize(true)
-        view.layoutManager = GridLayoutManager(context, 1)
+        view.layoutManager = LinearLayoutManager(context)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -128,21 +110,7 @@ class WalletOperationFragment : Fragment() {
         return true
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-//        binding.buttonAddOperation.setOnClickListener {
-//            if (!timer.timerDelay(3.0) && !timer.stop)
-//                super.requireActivity().onBackPressed()
-//            else timer.stopTimer()
-//            Toast.makeText(
-//                activity,
-//                "Нажмите еще раз в течение 3 сек чтобы выйти из приложения",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//
-//            timer.startTimer()
-//        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()

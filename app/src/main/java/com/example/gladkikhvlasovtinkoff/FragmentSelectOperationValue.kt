@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationValueBinding
 
 class FragmentSelectOperationValue : Fragment() {
 
     private var _binding: FragmentSelectOperationValueBinding? = null
     private val binding get() = _binding!!
+
+    val args: FragmentSelectOperationValueArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,8 +29,11 @@ class FragmentSelectOperationValue : Fragment() {
         binding.layoutMyToolbar.text.text = getResources().getString(R.string.enter_sum)
 
         binding.buttonConfirmOperationValue.setOnClickListener {
+            val operationData = args.operationData
+            operationData.value = binding.newOperationValueField.text.toString()
             val action =
-                FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(binding.newOperationValueField.text.toString())
+                FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData)
+
             findNavController().navigate(action)
         }
 
