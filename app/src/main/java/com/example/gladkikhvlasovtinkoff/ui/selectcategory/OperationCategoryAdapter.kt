@@ -32,6 +32,7 @@ class OperationCategoryAdapter  : RecyclerView.Adapter<OperationCategoryAdapter.
             }
         }
 
+
         return holder
     }
 
