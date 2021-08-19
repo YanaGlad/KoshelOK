@@ -12,6 +12,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationCategoryBinding
+import com.example.gladkikhvlasovtinkoff.extension.setDisabled
+import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
@@ -67,36 +69,16 @@ class FragmentSelectOperationCategory : Fragment() {
     }
 
     private fun onCategoryUnchecked() {
-        makeNextButtonDisabled()
-
-    }
-
-    private fun makeNextButtonDisabled() {
-        binding.buttonConfirmOperationCategory.background =
-            ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.disabled_button_back_with_corner_radius, context?.theme
-            )
-        binding.buttonConfirmOperationCategory.isEnabled = false
-        binding.buttonConfirmOperationCategory.setTextColor(Color.BLACK)
+        binding.buttonConfirmOperationCategory.setDisabled(context)
 
     }
 
     private fun onCategoryChecked(checkedData: OperationCategoryData) {
-        makeNextButtonActive()
+        binding.buttonConfirmOperationCategory.setEnabled(context)
         categoryId = checkedData.nameId
         imageId = checkedData.iconId
     }
 
-    private fun makeNextButtonActive() {
-        binding.buttonConfirmOperationCategory.background =
-            ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.active_button_back_with_corner_radius, context?.theme
-            )
-        binding.buttonConfirmOperationCategory.isEnabled = true
-        binding.buttonConfirmOperationCategory.setTextColor(Color.WHITE)
-    }
 
     private fun setupOperationCategoryList() {
         val categoryDataFactory: OperationCategoryDataFactory =
