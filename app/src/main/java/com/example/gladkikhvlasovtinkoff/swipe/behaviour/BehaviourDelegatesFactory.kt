@@ -1,8 +1,8 @@
-package github.com.st235.swipetoactionlayout.swipe.behaviour
+package com.example.gladkikhvlasovtinkoff.swipe.behaviour
 
 import android.content.Context
-import github.com.st235.swipetoactionlayout.swipe.SwipeToActionLayout
-import github.com.st235.swipetoactionlayout.swipe.utils.isLtr
+import com.example.gladkikhvlasovtinkoff.swipe.SwipeToActionLayout
+import com.example.gladkikhvlasovtinkoff.swipe.utils.isLtr
 
 internal class BehaviourDelegatesFactory(
     private val context: Context

@@ -1,8 +1,8 @@
-package github.com.st235.swipetoactionlayout.swipe.behaviour
+package com.example.gladkikhvlasovtinkoff.swipe.behaviour
 
 import android.view.View
-import github.com.st235.swipetoactionlayout.swipe.QuickActionsStates
-import github.com.st235.swipetoactionlayout.swipe.utils.Size
+import com.example.gladkikhvlasovtinkoff.swipe.QuickActionsStates
+import com.example.gladkikhvlasovtinkoff.swipe.utils.Size
 
 internal interface BehaviourDelegate {
 

@@ -1,11 +1,11 @@
-package github.com.st235.swipetoactionlayout.swipe.behaviour
+package com.example.gladkikhvlasovtinkoff.swipe.behaviour
 
 import android.content.Context
 import android.view.View
-import github.com.st235.swipetoactionlayout.swipe.QuickActionsStates
-import github.com.st235.swipetoactionlayout.swipe.utils.Size
-import github.com.st235.swipetoactionlayout.swipe.utils.VelocityHelper
-import github.com.st235.swipetoactionlayout.swipe.utils.clamp
+import com.example.gladkikhvlasovtinkoff.swipe.QuickActionsStates
+import com.example.gladkikhvlasovtinkoff.swipe.utils.Size
+import com.example.gladkikhvlasovtinkoff.swipe.utils.VelocityHelper
+import com.example.gladkikhvlasovtinkoff.swipe.utils.clamp
 
 internal open class RightDirectedBehaviourDelegate(
     private val actionCount: Int,

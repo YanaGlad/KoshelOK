@@ -1,4 +1,4 @@
-package github.com.st235.swipetoactionlayout.swipe
+package com.example.gladkikhvlasovtinkoff.swipe
 
 import android.content.Context
 import android.graphics.Color

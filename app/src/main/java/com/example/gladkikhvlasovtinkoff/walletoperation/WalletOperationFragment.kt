@@ -47,10 +47,12 @@ class WalletOperationFragment : Fragment() {
                 }
             }
         }
+        //Добавление данных в удаленную бд
+        //Обновление списка в соотвествии с данными бд
         if (transaction != null)
             viewModel.transactionList.value?.add(transaction!!.createModel())
     }
-    
+
 
 override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,

@@ -1,4 +1,4 @@
-package github.com.st235.swipetoactionlayout.swipe.utils
+package com.example.gladkikhvlasovtinkoff.swipe.utils
 
 internal fun <T: Comparable<T>> clamp(value: T, min: T, max: T): T {
     return max(min, min(value, max))

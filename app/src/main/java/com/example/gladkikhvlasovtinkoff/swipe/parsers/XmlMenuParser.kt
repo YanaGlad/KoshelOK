@@ -1,11 +1,11 @@
-package github.com.st235.swipetoactionlayout.swipe.parsers
+package com.example.gladkikhvlasovtinkoff.swipe.parsers
 
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Xml
 import com.example.gladkikhvlasovtinkoff.R
-import github.com.st235.swipetoactionlayout.swipe.SwipeAction
+import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import org.xmlpull.v1.XmlPullParser
 
 internal class XmlMenuParser(private val context: Context) {

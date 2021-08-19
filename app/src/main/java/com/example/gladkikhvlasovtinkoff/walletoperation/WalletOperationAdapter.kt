@@ -9,15 +9,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.SwipeToActionBinding
-import com.example.gladkikhvlasovtinkoff.databinding.WalletOperationDataItemBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
-import com.example.gladkikhvlasovtinkoff.util.ItemTouchHelperListener
-
+import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
+import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
 import com.example.gladkikhvlasovtinkoff.util.styleText
-import github.com.st235.swipetoactionlayout.swipe.ActionBindHelper
-import github.com.st235.swipetoactionlayout.swipe.SwipeAction
-import github.com.st235.swipetoactionlayout.swipe.SwipeMenuListener
+import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 import java.util.*
 
 typealias OnActionClick = (transaction: WalletOperationModel, action: SwipeAction) -> Unit

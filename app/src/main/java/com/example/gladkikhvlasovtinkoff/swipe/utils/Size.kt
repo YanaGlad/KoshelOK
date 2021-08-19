@@ -1,4 +1,4 @@
-package github.com.st235.swipetoactionlayout.swipe.utils
+package com.example.gladkikhvlasovtinkoff.swipe.utils
 
 internal class Size(
     width: Int,

@@ -1,4 +1,4 @@
-package github.com.st235.swipetoactionlayout.swipe
+package com.example.gladkikhvlasovtinkoff.swipe
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,15 +7,16 @@ import androidx.annotation.MenuRes
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
 import com.example.gladkikhvlasovtinkoff.R
-import github.com.st235.swipetoactionlayout.swipe.behaviour.BehaviourDelegate
-import github.com.st235.swipetoactionlayout.swipe.behaviour.BehaviourDelegatesFactory
-import github.com.st235.swipetoactionlayout.swipe.behaviour.NoOpBehaviourDelegate
-import github.com.st235.swipetoactionlayout.swipe.events.QuickActionsMenuStateProcessor
-import github.com.st235.swipetoactionlayout.swipe.parsers.XmlMenuParser
-import github.com.st235.swipetoactionlayout.swipe.utils.Size
-import github.com.st235.swipetoactionlayout.swipe.utils.isLtr
-import github.com.st235.swipetoactionlayout.swipe.utils.max
-import github.com.st235.swipetoactionlayout.swipe.utils.min
+import com.example.gladkikhvlasovtinkoff.swipe.behaviour.BehaviourDelegate
+import com.example.gladkikhvlasovtinkoff.swipe.behaviour.BehaviourDelegatesFactory
+import com.example.gladkikhvlasovtinkoff.swipe.behaviour.NoOpBehaviourDelegate
+import com.example.gladkikhvlasovtinkoff.swipe.events.QuickActionsMenuStateProcessor
+import com.example.gladkikhvlasovtinkoff.swipe.parsers.XmlMenuParser
+import com.example.gladkikhvlasovtinkoff.swipe.utils.Size
+import com.example.gladkikhvlasovtinkoff.swipe.utils.isLtr
+import com.example.gladkikhvlasovtinkoff.swipe.utils.max
+import com.example.gladkikhvlasovtinkoff.swipe.utils.min
+
 
 internal typealias SwipeToActionLayoutLayoutParams = ViewGroup.MarginLayoutParams
 

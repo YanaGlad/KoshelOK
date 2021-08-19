@@ -1,6 +1,7 @@
-package github.com.st235.swipetoactionlayout.swipe.events
+package com.example.gladkikhvlasovtinkoff.swipe.events
 
-import github.com.st235.swipetoactionlayout.swipe.QuickActionsStates
+import com.example.gladkikhvlasovtinkoff.swipe.QuickActionsStates
+
 
 internal class QuickActionsMenuStateProcessor {
 

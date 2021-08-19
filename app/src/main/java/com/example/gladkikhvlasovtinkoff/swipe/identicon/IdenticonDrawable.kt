@@ -1,4 +1,4 @@
-package github.com.st235.swipetoactionlayout.swipe.identicon
+package com.example.gladkikhvlasovtinkoff.swipe.identicon
 
 import android.graphics.*
 import android.graphics.drawable.Drawable

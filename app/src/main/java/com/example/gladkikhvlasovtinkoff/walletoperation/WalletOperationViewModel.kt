@@ -9,6 +9,8 @@ import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 class WalletOperationViewModel : ViewModel() {
     var transactionList : MutableLiveData<ArrayList<WalletOperationModel>> = MutableLiveData<ArrayList<WalletOperationModel>>()
 
+    //получение списка из бд
+
     init {
 
         val list = ArrayList<WalletOperationModel>()
