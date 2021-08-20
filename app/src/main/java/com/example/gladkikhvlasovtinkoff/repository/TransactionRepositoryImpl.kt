@@ -8,6 +8,4 @@ import javax.inject.Inject
 class TransactionRepositoryImpl @Inject constructor(
     val transactionApi: TransactionApi
 ) : TransactionRepository{
-   // override fun getTransaction(): Call<WalletTransactionData>  = transactionApi.getTransaction()
-
 }

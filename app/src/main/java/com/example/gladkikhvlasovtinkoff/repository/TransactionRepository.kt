@@ -4,5 +4,5 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletTransaction
 import retrofit2.Call
 
 interface TransactionRepository {
-   //fun getTransaction(): Call<WalletTransactionData>
+
 }

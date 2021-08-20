@@ -5,6 +5,5 @@ package com.example.gladkikhvlasovtinkoff.api
 import retrofit2.http.GET
 
 interface TransactionApi {
-    @GET("/something?json=true")
-    fun getTransaction(): Call<WalletTransactionData>
+
 }
