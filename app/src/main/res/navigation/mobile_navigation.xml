@@ -22,9 +22,9 @@
 
     <fragment
         android:id="@+id/optionFragment"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletOperationFragment"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletTransactionFragment"
         android:label="fragment_option"
-        tools:layout="@layout/fragment_wallet_operation" >
+        tools:layout="@layout/fragment_wallet_transaction" >
         <action
             android:id="@+id/action_optionFragment_to_fragmentSelectOperationValue"
             app:destination="@id/fragmentSelectOperationValue"
@@ -40,8 +40,8 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentConfirmOperationCreating"
-        android:name="com.example.gladkikhvlasovtinkoff.FragmentConfirmOperationCreating"
-        tools:layout="@layout/fragment_confirm_operation_created"
+        android:name="com.example.gladkikhvlasovtinkoff.FragmentConfirmTransactionCreating"
+        tools:layout="@layout/fragment_confirm_transaction_created"
         android:label="FragmentConfirmOperationCreating" >
         <action
             android:id="@+id/action_fragmentConfirmOperationCreating_to_fragmentSelectOperationCategory"
@@ -77,8 +77,8 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationCategory"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.FragmentSelectOperationCategory"
-        tools:layout="@layout/fragment_select_operation_category"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.FragmentSelectTransactionCategory"
+        tools:layout="@layout/fragment_select_transaction_category"
         android:label="FragmentSelectOperationCategory" >
         <action
             android:id="@+id/action_fragmentSelectOperationCategory_to_fragmentConfirmOperationCreating"
@@ -93,8 +93,8 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
-        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectOperationType"
-        tools:layout="@layout/fragment_select_operation_type"
+        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectTransactionType"
+        tools:layout="@layout/fragment_select_transaction_type"
         android:label="FragmentSelectOperationType" >
         <action
             android:id="@+id/action_fragmentSelectOperationType_to_fragmentSelectOperationCategory"
@@ -109,8 +109,8 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationValue"
-        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectOperationValue"
-        tools:layout="@layout/fragment_select_operation_value"
+        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectTransactionValue"
+        tools:layout="@layout/fragment_select_transaction_value"
         android:label="FragmentSelectOperationValue" >
         <action
             android:id="@+id/action_fragmentSelectOperationValue_to_fragmentSelectOperationType"

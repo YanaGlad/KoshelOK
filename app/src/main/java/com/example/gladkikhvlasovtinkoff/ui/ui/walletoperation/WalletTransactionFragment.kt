@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ToolbarHolder
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletOperationBinding
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 
 
-class WalletOperationFragment : ToolbarFragment() {
+class WalletTransactionFragment : ToolbarFragment() {
 
-    private val viewModel: WalletOperationViewModel by viewModels()
-    private val args: WalletOperationFragmentArgs by navArgs()
+    private val viewModel: WalletTransactionViewModel by viewModels()
+    private val args: WalletTransactionFragmentArgs by navArgs()
 
-    private var _binding: FragmentWalletOperationBinding? = null
+    private var _binding: FragmentWalletTransactionBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var operationsAdapter: WalletOperationAdapter
@@ -28,13 +28,11 @@ class WalletOperationFragment : ToolbarFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        args.let {
-            if (it.newOperationData != null) {
-                transaction = it.newOperationData
+        args.newOperationData?.let { data ->
+            transaction = data
 
-                if (transaction!!.type == resources.getString(R.string.costs_text)) {
-                    transaction!!.value = "- ${transaction!!.value}"
-                }
+            if (transaction!!.type == resources.getString(R.string.costs_text)) {
+                transaction!!.value = "- ${transaction!!.value}"
             }
         }
         //Добавление данных в удаленную бд
@@ -47,7 +45,7 @@ class WalletOperationFragment : ToolbarFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWalletOperationBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentWalletTransactionBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -89,7 +87,7 @@ class WalletOperationFragment : ToolbarFragment() {
 
         binding.buttonAddOperation.setOnClickListener {
             val action =
-                WalletOperationFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
+                WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
                     WalletOperationBuilder()
                 )
             navController.navigate(action)

@@ -8,7 +8,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gladkikhvlasovtinkoff.databinding.SwipeToActionBinding
+import com.example.gladkikhvlasovtinkoff.databinding.SwipingTransactionDataItemBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.extension.styleText
@@ -16,16 +16,16 @@ import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
 import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 
-typealias OnActionClick = (transaction: WalletOperationData, action: SwipeAction) -> Unit
+typealias OnActionClick = (transaction: WalletTransactionData, action: SwipeAction) -> Unit
 
 class WalletOperationAdapter internal constructor(private val onActionClicked: OnActionClick) :
-    ListAdapter<WalletOperationData, WalletOperationAdapter.WalletOperationViewHolder>(
+    ListAdapter<WalletTransactionData, WalletOperationAdapter.WalletOperationViewHolder>(
         OperationDiffUtil()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletOperationViewHolder =
         WalletOperationViewHolder(
-            SwipeToActionBinding.inflate(
+            SwipingTransactionDataItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -39,29 +39,29 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
     }
 
 
-    class OperationDiffUtil : DiffUtil.ItemCallback<WalletOperationData>() {
+    class OperationDiffUtil : DiffUtil.ItemCallback<WalletTransactionData>() {
         override fun areItemsTheSame(
-            oldItem: WalletOperationData,
-            newItem: WalletOperationData
+            oldItem: WalletTransactionData,
+            newItem: WalletTransactionData
         ): Boolean =
             oldItem.date == newItem.date
 
         override fun areContentsTheSame(
-            oldItem: WalletOperationData,
-            newItem: WalletOperationData
+            oldItem: WalletTransactionData,
+            newItem: WalletTransactionData
         ): Boolean =
             oldItem == newItem
 
     }
 
     class WalletOperationViewHolder(
-        private val binding: SwipeToActionBinding,
-        private val list: List<WalletOperationData>,
+        private val binding: SwipingTransactionDataItemBinding,
+        private val list: List<WalletTransactionData>,
         val onActionClick: OnActionClick
     ) : RecyclerView.ViewHolder(binding.root), SwipeMenuListener {
         private val actionsBindHelper = ActionBindHelper()
 
-        fun bind(walletOperations: WalletOperationData) {
+        fun bind(walletOperations: WalletTransactionData) {
             binding.swipeToAction.menuListener = this
 
             binding.data.dateOperation.text =

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    tools:context=".ui.ui.walletoperation.WalletOperationFragment"
+    tools:context=".ui.ui.walletoperation.WalletTransactionFragment"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 

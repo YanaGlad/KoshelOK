@@ -1,7 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.model
 
 import android.os.Parcelable
-import com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletOperationData
+import com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletTransactionData
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,7 +12,7 @@ class WalletOperationBuilder(
     var type: String = "",
     var value: String = ""
 ) : Parcelable {
-    fun createModel(): WalletOperationData {
-        return WalletOperationData(date, imageId, categoryTextId, type, value)
+    fun createModel(): WalletTransactionData {
+        return WalletTransactionData(date, imageId, categoryTextId, type, value)
     }
 }

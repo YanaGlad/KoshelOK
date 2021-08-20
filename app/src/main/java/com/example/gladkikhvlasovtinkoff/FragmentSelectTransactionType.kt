@@ -4,27 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationTypeBinding
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionTypeBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import java.lang.NullPointerException
 
-class FragmentSelectOperationType : ToolbarFragment() {
+class FragmentSelectTransactionType : ToolbarFragment() {
 
-    private var _binding: FragmentSelectOperationTypeBinding? = null
+    private var _binding: FragmentSelectTransactionTypeBinding? = null
     private val binding get() = _binding!!
 
-    private val args: FragmentSelectOperationTypeArgs by navArgs()
+    private val args: FragmentSelectTransactionTypeArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSelectOperationTypeBinding.inflate(inflater)
+        _binding = FragmentSelectTransactionTypeBinding.inflate(inflater)
 
         binding.textCostsType.setOnClickListener {
             if (binding.checkCostsOperationType.visibility == View.GONE) {
@@ -55,7 +54,7 @@ class FragmentSelectOperationType : ToolbarFragment() {
             else context?.getString(R.string.costs_text
             ) ?: throw NullPointerException("Context must not be null at this moment")
             val action =
-                FragmentSelectOperationTypeDirections.
+                FragmentSelectTransactionTypeDirections.
                 actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(operationData)
             findNavController().navigate(action)
         }

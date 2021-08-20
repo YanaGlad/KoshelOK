@@ -10,16 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ToolbarHolder
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationCategoryBinding
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCategoryBinding
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionTypeBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
 
-class FragmentSelectOperationCategory : ToolbarFragment() {
+class FragmentSelectTransactionCategory : ToolbarFragment() {
 
-    private var _binding: FragmentSelectOperationCategoryBinding? = null
+    private var _binding: FragmentSelectTransactionCategoryBinding? = null
     private val binding get() = _binding!!
     private var categoriesAdapter: OperationCategoryAdapter? = null
 
@@ -27,7 +28,7 @@ class FragmentSelectOperationCategory : ToolbarFragment() {
     private var imageId: Int = -1
 
 
-    private val args: FragmentSelectOperationCategoryArgs by navArgs()
+    private val args: FragmentSelectTransactionCategoryArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +40,14 @@ class FragmentSelectOperationCategory : ToolbarFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSelectOperationCategoryBinding.inflate(inflater)
+        _binding = FragmentSelectTransactionCategoryBinding.inflate(inflater)
 
         binding.buttonConfirmOperationCategory.setOnClickListener {
             val operationData = args.operationData
             operationData.imageId = imageId
             operationData.categoryTextId = categoryId
             val action =
-                FragmentSelectOperationCategoryDirections.
+                FragmentSelectTransactionCategoryDirections.
                 actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
                     operationData
                 )

@@ -1,6 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 
-data class WalletOperationData (
+data class WalletTransactionData (
     val date : Long,
     val imageId : Int,
     val categoryTextId : Int,
