@@ -4,19 +4,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
-import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 
-class WalletOperationViewModel : ViewModel() {
-    var transactionList : MutableLiveData<ArrayList<WalletOperationModel>> = MutableLiveData<ArrayList<WalletOperationModel>>()
+class WalletTransactionViewModel : ViewModel() {
+    var transactionList : MutableLiveData<ArrayList<WalletTransactionData>> = MutableLiveData<ArrayList<WalletTransactionData>>()
 
     //получение списка из бд
 
     init {
 
-        val list = ArrayList<WalletOperationModel>()
+        val list = ArrayList<WalletTransactionData>()
 
         list.add(
-            WalletOperationModel(
+            WalletTransactionData(
                 System.currentTimeMillis(),
                 R.drawable.ic_capitalisation,
                 R.string.supermarket,
@@ -26,7 +25,7 @@ class WalletOperationViewModel : ViewModel() {
         )
 
         list.add(
-            WalletOperationModel(
+            WalletTransactionData(
                 System.currentTimeMillis() - MILLIS_IN_DAY,
                 R.drawable.ic_salary,
                 R.string.salary,

@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmOperationCreatedBinding
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 
-class FragmentConfirmOperationCreating : Fragment(){
+class FragmentConfirmTransactionCreating : ToolbarFragment(){
 
-    private var _binding: FragmentConfirmOperationCreatedBinding? = null
+    private var _binding: FragmentConfirmTransactionCreatedBinding? = null
     private val binding get() = _binding!!
 
-    val args: FragmentConfirmOperationCreatingArgs by navArgs()
+    val args: FragmentConfirmTransactionCreatingArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +26,13 @@ class FragmentConfirmOperationCreating : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentConfirmOperationCreatedBinding.inflate(inflater)
+        _binding = FragmentConfirmTransactionCreatedBinding.inflate(inflater)
 
         setupUiWithData(args.operationData)
 
         binding.buttonConfirmOperationCreating.setOnClickListener{
             val action =
-                FragmentConfirmOperationCreatingDirections.
+                FragmentConfirmTransactionCreatingDirections.
                 actionFragmentConfirmOperationCreatingToOptionFragment(
                     args.operationData
                 )
@@ -41,6 +40,17 @@ class FragmentConfirmOperationCreating : Fragment(){
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        configureToolbar()
+    }
+
+    override fun configureToolbar() {
+        activity?.let{activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.new_operation))
+        }
     }
 
     private fun setupUiWithData(operationData: WalletOperationBuilder) {

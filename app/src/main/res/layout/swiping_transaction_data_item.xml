@@ -12,7 +12,7 @@
 
     <include
         android:id="@+id/data"
-        layout="@layout/wallet_operation_data_item"
+        layout="@layout/wallet_transaction_data_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
