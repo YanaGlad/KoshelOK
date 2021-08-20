@@ -1,7 +1,9 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactionsum
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +12,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionValueBinding
-import com.example.gladkikhvlasovtinkoff.extension.setDisabled
-import com.example.gladkikhvlasovtinkoff.extension.setEnabled
+import com.example.gladkikhvlasovtinkoff.extension.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import dagger.hilt.android.AndroidEntryPoint
+import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class FragmentSelectTransactionValue : ToolbarFragment() {
@@ -45,17 +47,30 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
 
         binding.newOperationValueField.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
-        binding.newOperationValueField.doOnTextChanged { _, _, _, _ ->
-            val isEnabled = binding.newOperationValueField.text.toString() != ""
-            if (isEnabled) {
-                binding.buttonConfirmOperationValue.setEnabled(context)
-            } else
-                binding.buttonConfirmOperationValue.setDisabled(context)
-            binding.buttonConfirmOperationValue.isEnabled = isEnabled
-        }
+        binding.newOperationValueField.addTextChangedListener (object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.newOperationValueField.removeTextChangedListener(this)
+                val isEnabled = s.toString() != ""
+                binding.newOperationValueField.setText(s?.toString()?.styleInput() ?: "")
+                if (isEnabled) {
+                    binding.buttonConfirmOperationValue.setEnabled(context)
+                } else
+                    binding.buttonConfirmOperationValue.setDisabled(context)
+                binding.buttonConfirmOperationValue.isEnabled = isEnabled
+                binding.newOperationValueField.setSelection(
+                    binding.newOperationValueField.text?.toString()?.length ?: 0)
+                binding.newOperationValueField.addTextChangedListener(this)
+            }
+        })
 
         return binding.root
     }
+
+
 
     override fun onResume() {
         super.onResume()

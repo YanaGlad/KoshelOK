@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        >
 
         <ImageView
             android:id="@+id/imageSomethingWentWrong"
@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="@string/network_error_message"
-            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/imageSomethingWentWrong"
             app:layout_constraintStart_toEndOf="@+id/imageSomethingWentWrong"
             app:layout_constraintTop_toTopOf="@+id/imageSomethingWentWrong" />
