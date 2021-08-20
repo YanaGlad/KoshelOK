@@ -13,7 +13,6 @@
         android:id="@+id/date_operation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginLeft="16dp"
@@ -39,7 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:textColor="@color/dark_gray"
         app:layout_constraintStart_toEndOf="@+id/image_operation"
         app:layout_constraintTop_toBottomOf="@+id/date_operation"
         tools:text="Супермаркеты" />

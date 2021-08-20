@@ -15,7 +15,6 @@
         android:layout_marginStart="16dp"
         android:gravity="center"
         android:text="@string/attribute_text"
-        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
