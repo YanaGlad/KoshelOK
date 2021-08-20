@@ -125,7 +125,20 @@
         android:label="fragment_wallets"
         tools:layout="@layout/fragment_wallets" >
         <action
-            android:id="@+id/action_walletsFragment_to_optionFragment"
+            android:id="@+id/action_walletsFragment_to_enterWalletNameFragment"
+            app:destination="@id/enterWalletNameFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterWalletNameFragment"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.enterwallet.EnterWalletNameFragment"
+        android:label="fragment_enter_wallet_name"
+        tools:layout="@layout/fragment_enter_wallet_name" >
+        <action
+            android:id="@+id/action_enterWalletNameFragment_to_optionFragment"
             app:destination="@id/optionFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"

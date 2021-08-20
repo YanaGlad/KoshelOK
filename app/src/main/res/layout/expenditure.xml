@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/costs_text"
+                tools:text="@string/costs_text"
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 app:layout_constraintStart_toEndOf="@+id/costsIcon"

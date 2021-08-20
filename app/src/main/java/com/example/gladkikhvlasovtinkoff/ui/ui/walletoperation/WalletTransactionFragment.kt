@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -49,8 +50,16 @@ class WalletTransactionFragment : ToolbarFragment() {
     ): View {
         _binding = FragmentWalletTransactionBinding.inflate(layoutInflater, container, false)
 
+        initLayout()
 
         return binding.root
+    }
+
+    private fun initLayout() {
+        binding.layoutWallet.info.text = getString(R.string.test_wallet_name)
+        binding.layoutWallet.income.incomeText.text = getString(R.string.income_text)
+        binding.layoutWallet.expenditure.expenditureText.text = getString(R.string.costs_text)
+        binding.layoutWallet.buttonAddOperation.text = getString(R.string.add_operation_text)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
