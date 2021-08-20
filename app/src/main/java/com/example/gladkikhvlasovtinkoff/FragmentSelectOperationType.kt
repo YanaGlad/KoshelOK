@@ -17,11 +17,7 @@ class FragmentSelectOperationType : ToolbarFragment() {
     private var _binding: FragmentSelectOperationTypeBinding? = null
     private val binding get() = _binding!!
 
-    val args: FragmentSelectOperationTypeArgs by navArgs()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val args: FragmentSelectOperationTypeArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,

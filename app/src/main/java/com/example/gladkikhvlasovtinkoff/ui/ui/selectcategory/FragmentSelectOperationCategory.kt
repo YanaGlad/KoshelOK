@@ -27,7 +27,7 @@ class FragmentSelectOperationCategory : ToolbarFragment() {
     private var imageId: Int = -1
 
 
-    val args: FragmentSelectOperationCategoryArgs by navArgs()
+    private val args: FragmentSelectOperationCategoryArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

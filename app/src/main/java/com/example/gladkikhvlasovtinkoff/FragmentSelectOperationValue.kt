@@ -18,7 +18,7 @@ class FragmentSelectOperationValue : ToolbarFragment() {
     private var _binding: FragmentSelectOperationValueBinding? = null
     private val binding get() = _binding!!
 
-    val args: FragmentSelectOperationValueArgs by navArgs()
+    private val args: FragmentSelectOperationValueArgs by navArgs()
 
 
     override fun onCreateView(
