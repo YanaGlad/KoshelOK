@@ -1,4 +1,5 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
+package com.example.gladkikhvlasovtinkoff.model
+
 
 data class WalletTransactionData (
     val date : Long,

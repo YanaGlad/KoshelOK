@@ -1,11 +1,10 @@
 package com.example.gladkikhvlasovtinkoff.model
 
 import android.os.Parcelable
-import com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletTransactionData
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class WalletOperationBuilder(
+class WalletTransactionSample(
     var date: Long = -1,
     var imageId: Int = -1,
     var categoryTextId: Int = -1,

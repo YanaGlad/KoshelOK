@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
 
     override fun setToolbarTitle(title: String) {
         supportActionBar?.title = title
-    }
+     }
 
 }
 

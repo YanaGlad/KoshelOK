@@ -12,6 +12,7 @@ import com.example.gladkikhvlasovtinkoff.databinding.SwipingTransactionDataItemB
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.extension.styleText
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionData
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
 import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
@@ -74,8 +75,7 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
                 )
 
             )
-            binding.data.money.text =
-                if (walletOperations.value.length > 3) walletOperations.value.styleText() else walletOperations.value
+            binding.data.money.text = if (walletOperations.value.length > 3) walletOperations.value.styleText() else walletOperations.value
                         binding.data.subtitleOperation.text =
                     walletOperations.type
             binding.data.titleOperation.text =

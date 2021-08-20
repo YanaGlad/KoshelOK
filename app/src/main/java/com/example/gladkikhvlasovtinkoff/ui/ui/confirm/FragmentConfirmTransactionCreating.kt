@@ -9,7 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
-import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,7 +58,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
         }
     }
 
-    private fun setupUiWithData(operationData: WalletOperationBuilder) {
+    private fun setupUiWithData(operationData: WalletTransactionSample) {
         binding.valueAttribute.attributeName.text = getString(R.string.value_text)
         binding.valueAttribute.attributeValue.text = operationData.value
 

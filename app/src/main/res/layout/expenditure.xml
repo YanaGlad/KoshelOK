@@ -14,7 +14,7 @@
             android:background="@color/purple">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/costsText"
+                android:id="@+id/expenditureText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -30,11 +30,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/costsText"
+                android:contentDescription="@string/costs_identifier_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/expenditureText"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/costsText"
-                app:srcCompat="@drawable/ic_costs_dot"
-                android:contentDescription="@string/costs_identifier_icon" />
+                app:layout_constraintTop_toTopOf="@+id/expenditureText"
+                app:srcCompat="@drawable/ic_costs_dot" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/costsValue"

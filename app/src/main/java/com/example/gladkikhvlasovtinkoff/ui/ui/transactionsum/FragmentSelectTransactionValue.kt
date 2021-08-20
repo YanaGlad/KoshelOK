@@ -43,8 +43,7 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
             findNavController().navigate(action)
         }
 
-        binding.newOperationValueField.inputType =
-            InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+        binding.newOperationValueField.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
         binding.newOperationValueField.doOnTextChanged { _, _, _, _ ->
             val isEnabled = binding.newOperationValueField.text.toString() != ""
