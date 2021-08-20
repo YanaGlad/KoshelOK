@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class OperationCategoryData (
+class TransactionCategoryData (
     val name : String,
     val iconId : Int,
     val id : Int ,

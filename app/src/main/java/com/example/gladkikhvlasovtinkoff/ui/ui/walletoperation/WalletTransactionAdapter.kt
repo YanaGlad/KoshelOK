@@ -70,14 +70,14 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
             binding.data.imageOperation.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     binding.root.context.resources,
-                    walletOperations.operationCategoryData.iconId,
+                    walletOperations.transactionCategoryData.iconId,
                     binding.root.context.theme
                 )
 
             )
             //TODO добавить стайлинг текста
             binding.data.titleOperation.text =
-                walletOperations.operationCategoryData.name
+                walletOperations.transactionCategoryData.name
             binding.data.time.text = walletOperations.date.getTimeString()
         }
 

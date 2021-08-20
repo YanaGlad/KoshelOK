@@ -59,4 +59,11 @@
     <string name="network_error_message">Нет соединения с сервером</string>
     <string name="network_error_icon">Network error icon</string>
     <string name="something_went_wrong_text">Что-то пошло не так</string>
+    <string name="restaurants">Рестораны</string>
+    <string name="sport">Спортзалы</string>
+    <string name="public_transport">Общественный транспорт</string>
+    <string name="pharmacy">Медицина</string>
+    <string name="gas_station">Бензин</string>
+    <string name="rent">Кварплата</string>
+    <string name="travel">Отдых</string>
 </resources>

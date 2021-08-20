@@ -69,7 +69,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
             getString(R.string.income_text) else getString(R.string.costs_text)
 
         binding.categoryAttribute.attributeName.text = getString(R.string.category_text)
-        binding.categoryAttribute.attributeValue.text = operationData.operationCategoryData.name
+        binding.categoryAttribute.attributeValue.text = operationData.transactionCategoryData.name
 
         binding.dateAttribute.attributeName.text = getString(R.string.operation_date_text)
         context?.let { context ->

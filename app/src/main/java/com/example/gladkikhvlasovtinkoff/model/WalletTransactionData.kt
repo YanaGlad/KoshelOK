@@ -7,7 +7,7 @@ data class WalletTransactionData (
     val isIncome : Boolean = false,
     val amount : String = UNDEFINED_STR,
     val currency: Currency = Currency(UNDEFINED_STR, UNDEFINED_STR),
-    val operationCategoryData: OperationCategoryData = OperationCategoryData(UNDEFINED_STR,
+    val transactionCategoryData: TransactionCategoryData = TransactionCategoryData(UNDEFINED_STR,
     UNDEFINED_ID, UNDEFINED_ID, UNDEFINED_STR)
     ){
 
@@ -15,6 +15,6 @@ data class WalletTransactionData (
     get() =
         date != UNDEFINED_ID.toLong() && walletId != UNDEFINED_ID.toLong() &&
                 amount != UNDEFINED_STR && currency.code != UNDEFINED_STR &&
-                currency.name != UNDEFINED_STR && operationCategoryData.iconId != UNDEFINED_ID
-                && operationCategoryData.name != UNDEFINED_STR
+                currency.name != UNDEFINED_STR && transactionCategoryData.iconId != UNDEFINED_ID
+                && transactionCategoryData.name != UNDEFINED_STR
 }

@@ -13,9 +13,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCategoryBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
-import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
-import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
-import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
+import com.example.gladkikhvlasovtinkoff.model.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,7 +44,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         binding.buttonConfirmOperationCategory.setOnClickListener {
             val operationData = args.operationData
             //TODO - исправить id = 0 и description = ""
-            operationData.operationCategoryData = OperationCategoryData(
+            operationData.transactionCategoryData = TransactionCategoryData(
                 name = categoryName,
                 iconId = imageId,
                 id = 0,
@@ -75,36 +73,41 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupOperationCategoryList()
+        setupOperationCategoryList(args.operationData.isIncome)
         categoriesAdapter?.checkedItem?.observe(viewLifecycleOwner) { checkedData ->
             if (checkedData != null)
                 onCategoryChecked(checkedData)
             else
                 onCategoryUnchecked()
         }
+
     }
+
 
     private fun onCategoryUnchecked() {
         binding.buttonConfirmOperationCategory.setDisabled(context)
 
     }
 
-    private fun onCategoryChecked(checkedData: OperationCategoryData) {
+    private fun onCategoryChecked(checkedData: TransactionCategoryData) {
         binding.buttonConfirmOperationCategory.setEnabled(context)
         categoryName = checkedData.name
         imageId = checkedData.iconId
     }
 
 
-    private fun setupOperationCategoryList() {
-        val categoryDataFactory: OperationCategoryDataFactory =
-            OperationCategoryDataFactoryImpl()
+    private fun setupOperationCategoryList(isIncome : Boolean) {
+        val categoryDataFactory: TransactionCategoryDataFactory =
+            if(isIncome) DefaultIncomeCategoriesFactory()
+            else DefaultExpensesCategoriesFactory()
         categoriesAdapter = OperationCategoryAdapter()
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        categoriesAdapter?.addItems(categoryDataFactory.getCategories())
+        context?.let { context ->
+            categoriesAdapter?.addItems(categoryDataFactory.getCategories(context))
+        }
     }
 
 
