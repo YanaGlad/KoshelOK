@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff
+package com.example.gladkikhvlasovtinkoff.ui.ui.confirm
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentConfirmTransactionCreating : ToolbarFragment(){
 
     private var _binding: FragmentConfirmTransactionCreatedBinding? = null

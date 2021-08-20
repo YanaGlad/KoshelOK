@@ -8,8 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.ToolbarFragment
-import com.example.gladkikhvlasovtinkoff.ToolbarHolder
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 

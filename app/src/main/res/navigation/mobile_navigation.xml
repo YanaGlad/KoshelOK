@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.gladkikhvlasovtinkoff.WelcomeFragment"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.welcome.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentConfirmOperationCreating"
-        android:name="com.example.gladkikhvlasovtinkoff.FragmentConfirmTransactionCreating"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.confirm.FragmentConfirmTransactionCreating"
         tools:layout="@layout/fragment_confirm_transaction_created"
         android:label="FragmentConfirmOperationCreating" >
         <action
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
-        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectTransactionType"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactiontype.FragmentSelectTransactionType"
         tools:layout="@layout/fragment_select_transaction_type"
         android:label="FragmentSelectOperationType" >
         <action
@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationValue"
-        android:name="com.example.gladkikhvlasovtinkoff.FragmentSelectTransactionValue"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactionsum.FragmentSelectTransactionValue"
         tools:layout="@layout/fragment_select_transaction_value"
         android:label="FragmentSelectOperationValue" >
         <action

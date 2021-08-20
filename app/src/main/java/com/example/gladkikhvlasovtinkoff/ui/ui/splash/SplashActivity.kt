@@ -1,8 +1,9 @@
-package com.example.gladkikhvlasovtinkoff
+package com.example.gladkikhvlasovtinkoff.ui.ui.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.gladkikhvlasovtinkoff.MainActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

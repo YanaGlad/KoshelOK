@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff
+package com.example.gladkikhvlasovtinkoff.ui.ui.transactiontype
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionTypeBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.NullPointerException
 
+@AndroidEntryPoint
 class FragmentSelectTransactionType : ToolbarFragment() {
 
     private var _binding: FragmentSelectTransactionTypeBinding? = null
@@ -51,7 +56,8 @@ class FragmentSelectTransactionType : ToolbarFragment() {
             val operationData = args.operationData
             operationData.type = if(binding.checkIncomeOperationType.visibility == View.VISIBLE)
                 context?.getString(R.string.income_text) ?: throw NullPointerException("Context must not be null at this moment")
-            else context?.getString(R.string.costs_text
+            else context?.getString(
+                R.string.costs_text
             ) ?: throw NullPointerException("Context must not be null at this moment")
             val action =
                 FragmentSelectTransactionTypeDirections.

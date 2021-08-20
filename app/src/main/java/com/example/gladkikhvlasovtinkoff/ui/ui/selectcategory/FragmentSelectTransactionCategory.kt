@@ -8,16 +8,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.ToolbarFragment
-import com.example.gladkikhvlasovtinkoff.ToolbarHolder
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCategoryBinding
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionTypeBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
