@@ -11,7 +11,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
-import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
+import com.example.gladkikhvlasovtinkoff.data.model.WalletOperationBuilder
 
 
 class WalletTransactionFragment : ToolbarFragment() {

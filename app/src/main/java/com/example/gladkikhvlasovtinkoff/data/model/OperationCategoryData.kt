@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.model
+package com.example.gladkikhvlasovtinkoff.data.model
 
 
 class OperationCategoryData (

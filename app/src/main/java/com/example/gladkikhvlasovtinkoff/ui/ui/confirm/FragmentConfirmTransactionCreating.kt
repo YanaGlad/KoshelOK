@@ -9,7 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
-import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
+import com.example.gladkikhvlasovtinkoff.data.model.WalletOperationBuilder
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import dagger.hilt.android.AndroidEntryPoint
