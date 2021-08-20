@@ -32,6 +32,7 @@ class WalletsFragment : Fragment() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
             val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment()
             findNavController().navigate(action)
+            (activity as MainActivity).supportActionBar?.show()
         }
 
 
@@ -56,6 +57,11 @@ class WalletsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 
 }
