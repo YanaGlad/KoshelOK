@@ -13,7 +13,7 @@
     <string name="income_text">Доход</string>
     <string name="income_value_test_text">0 ₽</string>
     <string name="costs_text">Расходы</string>
-    <string name="test_costs_value">12 000 ₽</string>
+    <string name="test_costs_value">0 ₽</string>
     <string name="add_operation_text">Добавить операцию</string>
     <string name="no_operations_message">У вас пока нет записей</string>
     <string name="costs_identifier_icon">Costs identifier icon</string>
@@ -49,4 +49,9 @@
     <string name="delete_dialog_tag">deleteDialog</string>
     <string name="choose_operation_type">Выберите тип операции</string>
     <string name="new_operation">Новая операция</string>
+    <string name="no_entries">У вас пока нет записей</string>
+    <string name="total_sum">Общий баланс</string>
+    <string name="total_income">Общий доход</string>
+    <string name="total_expenditure">Общие расходы</string>
+    <string name="create_wallet">Создать кошелек</string>
 </resources>

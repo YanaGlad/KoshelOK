@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-     >
+    tools:context=".ui.ui.walletoperation.WalletTransactionFragment">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -57,6 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/walletBalance" />
 
     <include
+        android:id="@+id/expenditure"
         layout="@layout/expenditure"
         android:layout_width="0dp"
         android:layout_height="79dp"
@@ -70,11 +70,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonAddOperation"
-        style="@style/AppActiveButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/active_button_back_with_corner_radius"
         android:text="@string/add_operation_text"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline" />
@@ -84,16 +85,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_begin="206dp" />
 
-    <TextView
-        android:id="@+id/noOperationMessage"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/no_entries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_operations_message"
+        android:text="@string/no_entries"
+        android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddOperation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/income" />
+        app:layout_constraintEnd_toEndOf="@+id/wallet_recycle"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toTopOf="@+id/wallet_recycle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wallet_recycle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddOperation"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/income"
+        app:layout_constraintVertical_bias="0.466" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

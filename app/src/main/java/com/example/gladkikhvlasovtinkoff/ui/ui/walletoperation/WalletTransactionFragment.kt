@@ -11,7 +11,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
-import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 
 
 class WalletTransactionFragment : ToolbarFragment() {
@@ -23,14 +23,16 @@ class WalletTransactionFragment : ToolbarFragment() {
     private val binding get() = _binding!!
 
     private lateinit var operationsAdapter: WalletOperationAdapter
-    private var transaction: WalletOperationBuilder? = null
+    private var transaction: WalletTransactionSample? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // TODO Egor refactor
         args.newOperationData?.let { data ->
             transaction = data
 
+            //TODO create const val for type
             if (transaction!!.type == resources.getString(R.string.costs_text)) {
                 transaction!!.value = "- ${transaction!!.value}"
             }
@@ -46,6 +48,8 @@ class WalletTransactionFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletTransactionBinding.inflate(layoutInflater, container, false)
+
+
         return binding.root
     }
 
@@ -55,9 +59,10 @@ class WalletTransactionFragment : ToolbarFragment() {
         setupButtonListener()
 
     }
+
     override fun configureToolbar() {
         setHasOptionsMenu(true)
-        activity?.let{activity ->
+        activity?.let { activity ->
             (activity as ToolbarHolder).setToolbarTitle("")
         }
     }
@@ -74,20 +79,29 @@ class WalletTransactionFragment : ToolbarFragment() {
             }
         }
 
-        binding.walletRecycle.setHasFixedSize(true)
-        binding.walletRecycle.apply {
+        binding.layoutWallet.walletRecycle.setHasFixedSize(true)
+        binding.layoutWallet.walletRecycle.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = operationsAdapter
         }
         operationsAdapter.submitList(viewModel.transactionList.value)
+
+
+        viewModel.transactionList.observe(viewLifecycleOwner){
+            if (viewModel.transactionList.value!!.size == 0)
+                binding.layoutWallet.noEntries.visibility = View.VISIBLE
+            else  binding.layoutWallet.noEntries.visibility = View.GONE
+        }
+
     }
 
-    private fun setupButtonListener(){
+    private fun setupButtonListener() {
         val navController = findNavController()
 
-        binding.buttonAddOperation.setOnClickListener {
-            val action = WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
-                    WalletOperationBuilder()
+        binding.layoutWallet.buttonAddOperation.setOnClickListener {
+            val action =
+                WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
+                    WalletTransactionSample()
                 )
             navController.navigate(action)
         }

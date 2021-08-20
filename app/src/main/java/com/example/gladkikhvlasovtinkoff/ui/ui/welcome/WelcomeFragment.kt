@@ -23,12 +23,16 @@ class WelcomeFragment : Fragment() {
 
     private fun registerLoginResultHandler() =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
-            if (task.isSuccessful) {
-                val account = task.result
-                navigateToWallets(account)
-            }
+            initAccount(result)
         }
+
+    private fun initAccount(result: ActivityResult?) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
+        if (task.isSuccessful) {
+            val account = task.result
+            navigateToWallets(account)
+        }
+    }
 
 
     override fun onCreateView(
@@ -47,7 +51,8 @@ class WelcomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        val account = GoogleSignIn.getLastSignedInAccount(context)
+        val account = GoogleSignIn.getLastSignedInAccount(requireContext())
+
         navigateToWallets(account)
     }
 
@@ -55,7 +60,7 @@ class WelcomeFragment : Fragment() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
-        val mGoogleSignInClient = GoogleSignIn.getClient(activity, gso)
+        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         return mGoogleSignInClient.signInIntent
     }
@@ -63,7 +68,7 @@ class WelcomeFragment : Fragment() {
     private fun navigateToWallets(account: GoogleSignInAccount?) {
         if (account != null) {
             val navController = findNavController()
-            val action = WelcomeFragmentDirections.actionWelcomeFragmentToOptionFragment()
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToWalletsFragment()
             navController.navigate(action)
         }
     }
