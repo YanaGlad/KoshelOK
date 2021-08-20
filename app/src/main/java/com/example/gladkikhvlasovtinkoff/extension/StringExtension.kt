@@ -7,11 +7,11 @@ fun String.convertToStyled() : String {
     val firstIndex = this.indexOfFirst{ char ->
         char == ','
     }
-    val firstComma = if(firstIndex != -1) firstIndex
-    else this.length - 1
+    val firstCommaIndex = if(firstIndex != -1) firstIndex
+    else this.length
     var digitInLastGroup = 0
-    return buildString {
-        for(i in firstComma - 1 downTo 0 ) {
+    val integerPart = buildString {
+        for(i in firstCommaIndex - 1 downTo 0 ) {
             if (digitInLastGroup < 3) {
                 digitInLastGroup++
                 append(this@convertToStyled[i])
@@ -21,7 +21,15 @@ fun String.convertToStyled() : String {
                 append(this@convertToStyled[i])
             }
         }
-    }.reversed() + "," + this.substring(firstComma + 1)
+    }.reversed()
+    return if(firstCommaIndex < length){
+        buildString {
+            append(integerPart)
+            append(",")
+            append(this@convertToStyled.substring(firstCommaIndex + 1))
+        }
+    }
+    else integerPart
 }
 
 fun String.convertFromStyled() : String =
@@ -39,6 +47,8 @@ fun String.convertFromStyled() : String =
             }
         }
     }
+
+fun String.styleInput() = this.convertFromStyled().convertToStyled()
 
 fun Boolean.getTransactionTypeString(context : Context) =
     if(this) context.getString(R.string.income_text)
