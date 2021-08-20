@@ -1,8 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.model
 
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.data.model.OperationCategory
-import com.example.gladkikhvlasovtinkoff.data.model.OperationCategoryData
 
 class OperationCategoryDataFactoryImpl : OperationCategoryDataFactory {
     override fun getOperationCategoryData(category: OperationCategory): OperationCategoryData =

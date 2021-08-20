@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.OperationCategoryItemBinding
-import com.example.gladkikhvlasovtinkoff.data.model.OperationCategoryData
+import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 
 class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
 

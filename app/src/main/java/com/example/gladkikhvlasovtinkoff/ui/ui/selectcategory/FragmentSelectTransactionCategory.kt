@@ -13,7 +13,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCategoryBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
-import com.example.gladkikhvlasovtinkoff.data.model.OperationCategoryData
+import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
 import dagger.hilt.android.AndroidEntryPoint

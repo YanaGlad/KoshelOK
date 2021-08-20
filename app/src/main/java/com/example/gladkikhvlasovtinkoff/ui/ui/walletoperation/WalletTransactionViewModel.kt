@@ -3,8 +3,8 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.data.model.WalletTransactionData
 import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionData
 
 class WalletTransactionViewModel : ViewModel() {
     var transactionList : MutableLiveData<ArrayList<WalletTransactionData>> = MutableLiveData<ArrayList<WalletTransactionData>>()

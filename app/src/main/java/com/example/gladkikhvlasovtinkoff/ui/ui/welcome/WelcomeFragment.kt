@@ -19,17 +19,15 @@ class WelcomeFragment : Fragment() {
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
 
+    private val loginResultHandler = registerLoginResultHandler()
 
-    private val loginResultHandler =
+    private fun registerLoginResultHandler() =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
-
             val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
-
-            if(task.isSuccessful) {
+            if (task.isSuccessful) {
                 val account = task.result
                 navigateToWallets(account)
             }
-
         }
 
 
@@ -40,11 +38,9 @@ class WelcomeFragment : Fragment() {
     ): View {
         _binding = FragmentWelcomeBinding.inflate(layoutInflater)
 
-
         binding.authButton.setOnClickListener {
             loginResultHandler.launch(getSignInIntent())
         }
-
         return binding.root
     }
 
@@ -56,11 +52,9 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun getSignInIntent(): Intent {
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
-
         val mGoogleSignInClient = GoogleSignIn.getClient(activity, gso)
 
         return mGoogleSignInClient.signInIntent

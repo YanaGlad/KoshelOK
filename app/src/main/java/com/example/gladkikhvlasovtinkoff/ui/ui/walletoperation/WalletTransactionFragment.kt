@@ -11,7 +11,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
-import com.example.gladkikhvlasovtinkoff.data.model.WalletOperationBuilder
+import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 
 
 class WalletTransactionFragment : ToolbarFragment() {
@@ -86,8 +86,7 @@ class WalletTransactionFragment : ToolbarFragment() {
         val navController = findNavController()
 
         binding.buttonAddOperation.setOnClickListener {
-            val action =
-                WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
+            val action = WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
                     WalletOperationBuilder()
                 )
             navController.navigate(action)
