@@ -1,27 +1,26 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationCategoryBinding
+import com.example.gladkikhvlasovtinkoff.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ToolbarHolder
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCategoryBinding
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionTypeBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
 
-class FragmentSelectOperationCategory : Fragment() {
+class FragmentSelectTransactionCategory : ToolbarFragment() {
 
-    private var _binding: FragmentSelectOperationCategoryBinding? = null
+    private var _binding: FragmentSelectTransactionCategoryBinding? = null
     private val binding get() = _binding!!
     private var categoriesAdapter: OperationCategoryAdapter? = null
 
@@ -29,7 +28,7 @@ class FragmentSelectOperationCategory : Fragment() {
     private var imageId: Int = -1
 
 
-    val args: FragmentSelectOperationCategoryArgs by navArgs()
+    private val args: FragmentSelectTransactionCategoryArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +40,14 @@ class FragmentSelectOperationCategory : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSelectOperationCategoryBinding.inflate(inflater)
+        _binding = FragmentSelectTransactionCategoryBinding.inflate(inflater)
 
         binding.buttonConfirmOperationCategory.setOnClickListener {
             val operationData = args.operationData
             operationData.imageId = imageId
             operationData.categoryTextId = categoryId
             val action =
-                FragmentSelectOperationCategoryDirections.
+                FragmentSelectTransactionCategoryDirections.
                 actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
                     operationData
                 )
@@ -60,9 +59,13 @@ class FragmentSelectOperationCategory : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        configureToolbar()
+    }
 
-        (activity as MainActivity?)
-            ?.setActionBarTitle(getString(R.string.choose_category))
+    override fun configureToolbar() {
+        activity?.let{activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.choose_category))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

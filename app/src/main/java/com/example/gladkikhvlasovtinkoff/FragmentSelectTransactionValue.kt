@@ -6,19 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationValueBinding
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionValueBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 
-class FragmentSelectOperationValue : Fragment() {
+class FragmentSelectTransactionValue : ToolbarFragment() {
 
-    private var _binding: FragmentSelectOperationValueBinding? = null
+    private var _binding: FragmentSelectTransactionValueBinding? = null
     private val binding get() = _binding!!
 
-    val args: FragmentSelectOperationValueArgs by navArgs()
+    private val args: FragmentSelectTransactionValueArgs by navArgs()
 
 
     override fun onCreateView(
@@ -26,13 +25,13 @@ class FragmentSelectOperationValue : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSelectOperationValueBinding.inflate(inflater)
+        _binding = FragmentSelectTransactionValueBinding.inflate(inflater)
 
         binding.buttonConfirmOperationValue.setOnClickListener {
             val operationData = args.operationData
             operationData.value = binding.newOperationValueField.text.toString()
             val action =
-                FragmentSelectOperationValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(
+                FragmentSelectTransactionValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(
                     operationData
                 )
 
@@ -56,14 +55,18 @@ class FragmentSelectOperationValue : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-        (activity as MainActivity?)
-            ?.setActionBarTitle(resources.getString(R.string.enter_sum))
+        configureToolbar()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun configureToolbar() {
+        activity?.let{activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.enter_sum))
+        }
     }
 
 }

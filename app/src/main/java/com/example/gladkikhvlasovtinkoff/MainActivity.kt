@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.gladkikhvlasovtinkoff.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToolbarHolder {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -18,19 +18,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupToolbar()
+    }
+
+    private fun setupToolbar(){
         binding.toolBar.title = ""
         binding.toolBar.inflateMenu(R.menu.menu_main)
-        setSupportActionBar(binding.toolBar);
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar()?.setDisplayShowHomeEnabled(true);
+        setSupportActionBar(binding.toolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         binding.toolBar.setNavigationOnClickListener { onBackPressed() }
-
     }
 
-    fun setActionBarTitle(title: String?) {
-        supportActionBar!!.title = title
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_settings) {
@@ -41,12 +41,17 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        val count: Int = getSupportFragmentManager().getBackStackEntryCount()
+        val count: Int = supportFragmentManager.backStackEntryCount
         if (count == 0) {
             super.onBackPressed()
          } else {
-            getSupportFragmentManager().popBackStack()
+            supportFragmentManager.popBackStack()
         }
     }
+
+    override fun setToolbarTitle(title: String) {
+        supportActionBar?.title = title
+    }
+
 }
 

@@ -2,12 +2,9 @@ package com.example.gladkikhvlasovtinkoff
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toolbar
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
@@ -28,7 +25,7 @@ class WelcomeFragment : Fragment() {
 
             if(task.isSuccessful) {
                 val account = task.result
-                startSecondActivity(account)
+                navigateToWallets(account)
             }
 
         }
@@ -49,17 +46,11 @@ class WelcomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
-
     override fun onStart() {
         super.onStart()
 
         val account = GoogleSignIn.getLastSignedInAccount(context)
-        startSecondActivity(account)
+        navigateToWallets(account)
     }
 
     private fun getSignInIntent(): Intent {
@@ -73,7 +64,7 @@ class WelcomeFragment : Fragment() {
         return mGoogleSignInClient.signInIntent
     }
 
-    private fun startSecondActivity(account: GoogleSignInAccount?) {
+    private fun navigateToWallets(account: GoogleSignInAccount?) {
         if (account != null) {
             val navController = findNavController()
             val action = WelcomeFragmentDirections.actionWelcomeFragmentToOptionFragment()
