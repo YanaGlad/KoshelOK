@@ -5,8 +5,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gladkikhvlasovtinkoff.databinding.ActivityMainBinding
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ToolbarHolder {
 
     private lateinit var binding: ActivityMainBinding

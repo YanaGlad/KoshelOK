@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff
+package com.example.gladkikhvlasovtinkoff.ui.ui.welcome
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,9 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WelcomeFragment : Fragment() {
 
     private var _binding: FragmentWelcomeBinding? = null

@@ -1,9 +1,8 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
-import com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletOperationModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletTransactionData
 import retrofit2.Call
-import retrofit2.Response
 
 interface TransactionRepository {
-    fun getTransaction(): Call<WalletOperationModel>
+   //fun getTransaction(): Call<WalletTransactionData>
 }
