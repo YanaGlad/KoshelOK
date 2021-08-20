@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
+package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gladkikhvlasovtinkoff.databinding.OperationCategoryItemBinding
+import com.example.gladkikhvlasovtinkoff.databinding.CategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 
-class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
+class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private val categories: MutableList<OperationCategoryData> = mutableListOf()
     private var checkedPosition = -1
@@ -21,7 +21,7 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val holder = ViewHolder(
-            OperationCategoryItemBinding
+            CategoryItemBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
@@ -65,12 +65,12 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
         notifyItemRangeChanged(oldSize - 1, categories.size)
     }
 
-    class ViewHolder(val _binding: OperationCategoryItemBinding) :
+    class ViewHolder(val _binding: CategoryItemBinding) :
         RecyclerView.ViewHolder(_binding.root) {
-        var binding: OperationCategoryItemBinding? = null
+        var binding: CategoryItemBinding? = null
 
         init {
-            binding = OperationCategoryItemBinding.bind(itemView)
+            binding = CategoryItemBinding.bind(itemView)
         }
 
         fun bind(

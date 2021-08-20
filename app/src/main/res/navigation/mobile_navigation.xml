@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/optionFragment"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletTransactionFragment"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.WalletTransactionFragment"
         android:label="fragment_option"
         tools:layout="@layout/fragment_wallet_transaction" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentConfirmOperationCreating"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.confirm.FragmentConfirmTransactionCreating"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.FragmentConfirmTransactionCreating"
         tools:layout="@layout/fragment_confirm_transaction_created"
         android:label="FragmentConfirmOperationCreating" >
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationCategory"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.FragmentSelectTransactionCategory"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.FragmentSelectTransactionCategory"
         tools:layout="@layout/fragment_select_transaction_category"
         android:label="FragmentSelectOperationCategory" >
         <action
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactiontype.FragmentSelectTransactionType"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.FragmentSelectTransactionType"
         tools:layout="@layout/fragment_select_transaction_type"
         android:label="FragmentSelectOperationType" >
         <action
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationValue"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactionsum.FragmentSelectTransactionValue"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.FragmentSelectTransactionValue"
         tools:layout="@layout/fragment_select_transaction_value"
         android:label="FragmentSelectOperationValue" >
         <action
@@ -141,7 +141,7 @@
     </fragment>
     <fragment
         android:id="@+id/enterWalletNameFragment"
-        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.enterwallet.EnterWalletNameFragment"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.wallets.EnterWalletNameFragment"
         android:label="fragment_enter_wallet_name"
         tools:layout="@layout/fragment_enter_wallet_name" >
         <action

@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.transactionsum
+package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
 import android.text.InputType
@@ -51,7 +51,7 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
         binding.layoutEnter.newOperationValueField.doOnTextChanged { _, _, _, _ ->
             val isEnabled = binding.layoutEnter.newOperationValueField.text.toString() != ""
             if (isEnabled) {
-                binding.layoutEnter.buttonConfirmOperationValue.setEnabled(context)
+                binding.layoutEnter.buttonConfirmOperationValue.setEnabled(requireContext())
             } else
                 binding.layoutEnter.buttonConfirmOperationValue.setDisabled(context)
             binding.layoutEnter.buttonConfirmOperationValue.isEnabled = isEnabled

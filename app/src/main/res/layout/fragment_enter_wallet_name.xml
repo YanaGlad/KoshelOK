@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.enterwallet.EnterWalletNameFragment">
+    tools:context=".ui.ui.wallets.EnterWalletNameFragment">
 
     <include
         android:id="@+id/layout_enter"
