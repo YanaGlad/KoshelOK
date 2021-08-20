@@ -16,7 +16,6 @@ import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 
 
 class WalletTransactionFragment : ToolbarFragment() {
-
     private val viewModel: WalletTransactionViewModel by viewModels()
     private val args: WalletTransactionFragmentArgs by navArgs()
 

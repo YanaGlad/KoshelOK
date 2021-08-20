@@ -37,7 +37,8 @@ class NewWalletFragment : ToolbarFragment() {
         }
 
         binding.currencyView.setOnClickListener {
-
+            val action = NewWalletFragmentDirections.actionNewWalletFragmentToCurrencyChoiceFragment()
+            findNavController().navigate(action)
         }
 
         binding.limitView.setOnClickListener {
