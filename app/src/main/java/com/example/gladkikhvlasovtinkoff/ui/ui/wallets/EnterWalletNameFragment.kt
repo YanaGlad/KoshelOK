@@ -30,10 +30,11 @@ class EnterWalletNameFragment : ToolbarFragment() {
     ): View {
         _binding = FragmentEnterWalletNameBinding.inflate(inflater)
 
+        configureToolbar()
         initLayout()
 
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
-            val action = EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToOptionFragment()
+            val action = EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment()
             findNavController().navigate(action)
         }
 

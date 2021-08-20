@@ -11,14 +11,12 @@ import org.xmlpull.v1.XmlPullParser
 internal class XmlMenuParser(private val context: Context) {
     companion object {
         private const val NO_ID = 0
-        private const val NO_TEXT = ""
         private const val NO_COLOR = Color.TRANSPARENT
 
         private const val MENU_TAG = "menu"
         private const val MENU_ITEM_TAG = "item"
     }
 
-    // We don't use namespaces
     private val namespace: String? = null
 
     fun inflate(menuId: Int): List<SwipeAction> {
@@ -35,13 +33,11 @@ internal class XmlMenuParser(private val context: Context) {
         var eventType = parser.eventType
         var tagName: String
 
-        // This loop will skip to the menu start tag
         do {
             if (eventType == XmlPullParser.START_TAG) {
                 tagName = parser.name
 
                 if (tagName == MENU_TAG) {
-                    // Go to next tag
                     eventType = parser.next()
                     break
                 }

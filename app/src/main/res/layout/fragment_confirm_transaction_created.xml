@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/name"
+        android:id="@+id/valueAttribute"
         layout="@layout/new_operation_selected_attribute_item"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -28,24 +28,24 @@
         app:layout_constraintTop_toBottomOf="@id/mainAttributesText" />
 
     <include
-        android:id="@+id/currency"
+        android:id="@+id/typeAttribute"
         layout="@layout/new_operation_selected_attribute_item"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name" />
+        app:layout_constraintTop_toBottomOf="@id/valueAttribute" />
 
     <include
-        android:id="@+id/limit"
+        android:id="@+id/categoryAttribute"
         layout="@layout/new_operation_selected_attribute_item"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/currency" />
+        app:layout_constraintTop_toBottomOf="@id/typeAttribute" />
 
     <TextView
         android:id="@+id/additionalAttributesText"
@@ -57,7 +57,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/limit" />
+        app:layout_constraintTop_toBottomOf="@id/categoryAttribute" />
 
     <include
         android:id="@+id/dateAttribute"

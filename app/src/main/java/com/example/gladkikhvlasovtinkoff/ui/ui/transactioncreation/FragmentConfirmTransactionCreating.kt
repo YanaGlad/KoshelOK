@@ -35,7 +35,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
 
         setupUiWithData(args.operationData)
 
-        binding.buttonConfirmOperationCreating.setOnClickListener{
+        binding.buttonConfirm.setOnClickListener{
             val action =
                 FragmentConfirmTransactionCreatingDirections.
                 actionFragmentConfirmOperationCreatingToOptionFragment(

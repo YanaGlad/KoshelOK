@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentEnterWalletNameBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 
-class NewWalletFragment : Fragment() {
+class NewWalletFragment : ToolbarFragment() {
 
     private var _binding: FragmentNewWalletBinding? = null
     private val binding get() = _binding!!
@@ -26,7 +29,25 @@ class NewWalletFragment : Fragment() {
     ): View {
         _binding = FragmentNewWalletBinding.inflate(inflater)
 
+        configureToolbar()
         initLayout()
+
+        binding.nameView.setOnClickListener {
+
+        }
+
+        binding.currencyView.setOnClickListener {
+
+        }
+
+        binding.limitView.setOnClickListener {
+
+        }
+
+        binding.buttonConfirm.setOnClickListener {
+            val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
+            findNavController().navigate(action)
+        }
 
         return binding.root
     }
@@ -45,5 +66,11 @@ class NewWalletFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun configureToolbar() {
+        activity?.let { activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.new_wallet))
+        }
     }
 }

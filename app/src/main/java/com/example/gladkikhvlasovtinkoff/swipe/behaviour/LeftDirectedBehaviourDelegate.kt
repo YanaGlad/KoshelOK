@@ -9,13 +9,12 @@ import com.example.gladkikhvlasovtinkoff.swipe.utils.clamp
 
 internal open class LeftDirectedBehaviourDelegate(
     private val actionCount: Int,
-    private val context: Context
+    context: Context
 ): BehaviourDelegate {
 
     protected val velocityHelper = VelocityHelper(context)
 
     override fun layoutAction(view: View, l: Int, r: Int, actionSize: Size) {
-        //reset view translation on relayout
         view.translationX = 0F
         view.layout(l - actionSize.width, 0, 0, actionSize.height)
     }
@@ -29,8 +28,6 @@ internal open class LeftDirectedBehaviourDelegate(
     }
 
     override fun isOpened(position: Int, actionSize: Size): Boolean {
-        // position is the left side of a view
-        // as we can move view only to left position belongs to [0, translateDistance]
         val translateDistance = actionSize.width * actionCount
         return position > (translateDistance / 2)
     }
