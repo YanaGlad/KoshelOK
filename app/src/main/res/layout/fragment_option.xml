@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/walletBalance" />
 
     <include
-        layout="@layout/expenditure"
+        layout="@layout/expenses"
         android:layout_width="0dp"
         android:layout_height="79dp"
         android:layout_marginStart="4dp"

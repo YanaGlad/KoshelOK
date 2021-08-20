@@ -36,10 +36,12 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
         setupUiWithData(args.operationData)
 
         binding.buttonConfirmOperationCreating.setOnClickListener{
+            val operationData = args.operationData
+            operationData.date = System.currentTimeMillis()
             val action =
                 FragmentConfirmTransactionCreatingDirections.
                 actionFragmentConfirmOperationCreatingToOptionFragment(
-                    args.operationData
+                    operationData
                 )
             findNavController().navigate(action)
         }
