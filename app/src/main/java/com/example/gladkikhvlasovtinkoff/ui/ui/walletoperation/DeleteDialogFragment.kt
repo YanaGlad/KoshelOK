@@ -39,6 +39,6 @@ class DeleteDialogFragment : DialogFragment() {
 
         } ?: throw NullPointerException()
 
-
     }
+
 }

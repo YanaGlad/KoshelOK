@@ -1,17 +1,15 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
+import com.example.gladkikhvlasovtinkoff.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationCategoryBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
@@ -19,7 +17,7 @@ import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
 
-class FragmentSelectOperationCategory : Fragment() {
+class FragmentSelectOperationCategory : ToolbarFragment() {
 
     private var _binding: FragmentSelectOperationCategoryBinding? = null
     private val binding get() = _binding!!
@@ -60,9 +58,13 @@ class FragmentSelectOperationCategory : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        configureToolbar()
+    }
 
-        (activity as MainActivity?)
-            ?.setActionBarTitle(getString(R.string.choose_category))
+    override fun configureToolbar() {
+        activity?.let{activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.choose_category))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

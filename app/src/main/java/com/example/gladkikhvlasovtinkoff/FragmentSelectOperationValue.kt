@@ -13,7 +13,7 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectOperationValu
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 
-class FragmentSelectOperationValue : Fragment() {
+class FragmentSelectOperationValue : ToolbarFragment() {
 
     private var _binding: FragmentSelectOperationValueBinding? = null
     private val binding get() = _binding!!
@@ -56,14 +56,18 @@ class FragmentSelectOperationValue : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-        (activity as MainActivity?)
-            ?.setActionBarTitle(resources.getString(R.string.enter_sum))
+        configureToolbar()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun configureToolbar() {
+        activity?.let{activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.enter_sum))
+        }
     }
 
 }

@@ -12,7 +12,7 @@ import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import java.lang.NullPointerException
 
-class FragmentSelectOperationType : Fragment() {
+class FragmentSelectOperationType : ToolbarFragment() {
 
     private var _binding: FragmentSelectOperationTypeBinding? = null
     private val binding get() = _binding!!
@@ -69,9 +69,13 @@ class FragmentSelectOperationType : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        configureToolbar()
+    }
 
-        (activity as MainActivity?)
-            ?.setActionBarTitle(getString(R.string.choose_operation_type))
+    override fun configureToolbar() {
+        activity?.let{activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.choose_operation_type))
+        }
     }
 
     private fun disableButton(){

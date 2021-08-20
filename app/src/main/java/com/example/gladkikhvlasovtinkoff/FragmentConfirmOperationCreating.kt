@@ -11,7 +11,7 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmOperationCre
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.model.WalletOperationBuilder
 
-class FragmentConfirmOperationCreating : Fragment(){
+class FragmentConfirmOperationCreating : ToolbarFragment(){
 
     private var _binding: FragmentConfirmOperationCreatedBinding? = null
     private val binding get() = _binding!!
@@ -45,9 +45,13 @@ class FragmentConfirmOperationCreating : Fragment(){
 
     override fun onResume() {
         super.onResume()
+        configureToolbar()
+    }
 
-        (activity as MainActivity?)
-            ?.setActionBarTitle(getString(R.string.new_operation))
+    override fun configureToolbar() {
+        activity?.let{activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.new_operation))
+        }
     }
 
     private fun setupUiWithData(operationData: WalletOperationBuilder) {
