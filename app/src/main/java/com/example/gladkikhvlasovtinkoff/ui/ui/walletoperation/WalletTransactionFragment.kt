@@ -22,25 +22,14 @@ class WalletTransactionFragment : ToolbarFragment() {
     private var _binding: FragmentWalletTransactionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var operationsAdapter: WalletOperationAdapter
-    private var transaction: WalletTransactionSample? = null
+    private  var operationsAdapter: WalletOperationAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO Egor refactor
-        args.newOperationData?.let { data ->
-            transaction = data
-
-            //TODO create const val for type
-            if (transaction!!.type == resources.getString(R.string.costs_text)) {
-                transaction!!.value = "- ${transaction!!.value}"
-            }
-        }
-        //Добавление данных в удаленную бд
-        //Обновление списка в соотвествии с данными бд
-        if (transaction != null)
-            viewModel.transactionList.value?.add(transaction!!.createModel())
+         //TODO - доделать обработку приходящего объекта ЕГОР
+//         if(args.newOperationData!!.)
+//        if (transaction != null)
+//            viewModel.transactionList.value?.add(transaction!!.createModel())
     }
 
     override fun onCreateView(
@@ -84,7 +73,7 @@ class WalletTransactionFragment : ToolbarFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = operationsAdapter
         }
-        operationsAdapter.submitList(viewModel.transactionList.value)
+        operationsAdapter?.submitList(viewModel.transactionList.value)
 
 
         viewModel.transactionList.observe(viewLifecycleOwner){
@@ -123,5 +112,6 @@ class WalletTransactionFragment : ToolbarFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        operationsAdapter = null
     }
 }

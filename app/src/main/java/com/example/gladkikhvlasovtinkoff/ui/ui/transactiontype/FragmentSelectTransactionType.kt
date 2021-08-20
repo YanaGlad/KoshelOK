@@ -54,11 +54,7 @@ class FragmentSelectTransactionType : ToolbarFragment() {
 
         binding.buttonConfirmOperationType.setOnClickListener {
             val operationData = args.operationData
-            operationData.type = if(binding.checkIncomeOperationType.visibility == View.VISIBLE)
-                context?.getString(R.string.income_text) ?: throw NullPointerException("Context must not be null at this moment")
-            else context?.getString(
-                R.string.costs_text
-            ) ?: throw NullPointerException("Context must not be null at this moment")
+            operationData.isIncome = binding.checkIncomeOperationType.visibility == View.VISIBLE
             val action =
                 FragmentSelectTransactionTypeDirections.
                 actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(operationData)

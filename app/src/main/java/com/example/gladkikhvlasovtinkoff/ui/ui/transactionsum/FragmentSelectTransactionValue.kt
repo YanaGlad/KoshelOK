@@ -34,7 +34,7 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
 
         binding.buttonConfirmOperationValue.setOnClickListener {
             val operationData = args.operationData
-            operationData.value = binding.newOperationValueField.text.toString()
+            operationData.amount = binding.newOperationValueField.text.toString()
             val action =
                 FragmentSelectTransactionValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(
                     operationData

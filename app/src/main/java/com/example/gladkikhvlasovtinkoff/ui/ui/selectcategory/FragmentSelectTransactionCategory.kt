@@ -25,7 +25,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
     private val binding get() = _binding!!
     private var categoriesAdapter: OperationCategoryAdapter? = null
 
-    private var categoryId: Int = -1
+    private var categoryName: String = ""
     private var imageId: Int = -1
 
 
@@ -45,8 +45,13 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
         binding.buttonConfirmOperationCategory.setOnClickListener {
             val operationData = args.operationData
-            operationData.imageId = imageId
-            operationData.categoryTextId = categoryId
+            //TODO - исправить id = 0 и description = ""
+            operationData.operationCategoryData = OperationCategoryData(
+                name = categoryName,
+                iconId = imageId,
+                id = 0,
+                description = ""
+            )
             val action =
                 FragmentSelectTransactionCategoryDirections.
                 actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
@@ -86,7 +91,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private fun onCategoryChecked(checkedData: OperationCategoryData) {
         binding.buttonConfirmOperationCategory.setEnabled(context)
-        categoryId = checkedData.nameId
+        categoryName = checkedData.name
         imageId = checkedData.iconId
     }
 

@@ -62,13 +62,14 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
 
     private fun setupUiWithData(operationData: WalletTransactionSample) {
         binding.valueAttribute.attributeName.text = getString(R.string.value_text)
-        binding.valueAttribute.attributeValue.text = operationData.value
+        binding.valueAttribute.attributeValue.text = operationData.amount
 
         binding.typeAttribute.attributeName.text = getString(R.string.type_text)
-        binding.typeAttribute.attributeValue.text = operationData.type
+        binding.typeAttribute.attributeValue.text = if(operationData.isIncome)
+            getString(R.string.income_text) else getString(R.string.costs_text)
 
         binding.categoryAttribute.attributeName.text = getString(R.string.category_text)
-        binding.categoryAttribute.attributeValue.text = resources.getString(operationData.categoryTextId)
+        binding.categoryAttribute.attributeValue.text = operationData.operationCategoryData.name
 
         binding.dateAttribute.attributeName.text = getString(R.string.operation_date_text)
         context?.let { context ->

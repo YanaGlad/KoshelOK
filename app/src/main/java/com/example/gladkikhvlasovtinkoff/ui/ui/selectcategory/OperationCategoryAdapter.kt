@@ -85,7 +85,7 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
                     itemView.context.theme
                 )
             )
-            binding?.categoryName?.text = itemView.context.getString(operationCategoryData.nameId)
+            binding?.categoryName?.text = operationCategoryData.name
             if (position == checkedPosition) {
                 binding?.isCategoryChecked?.visibility = View.VISIBLE
             } else

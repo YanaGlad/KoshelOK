@@ -1,5 +1,8 @@
 package com.example.gladkikhvlasovtinkoff.extension
 
+import android.content.Context
+import com.example.gladkikhvlasovtinkoff.R
+
 fun String.convertToStyled() : String {
     val firstIndex = this.indexOfFirst{ char ->
         char == ','
@@ -36,3 +39,7 @@ fun String.convertFromStyled() : String =
             }
         }
     }
+
+fun Boolean.getTransactionTypeString(context : Context) =
+    if(this) context.getString(R.string.income_text)
+    else context.getString(R.string.costs_text)
