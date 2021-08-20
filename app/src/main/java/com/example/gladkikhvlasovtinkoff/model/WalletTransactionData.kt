@@ -3,8 +3,9 @@ package com.example.gladkikhvlasovtinkoff.model
 
 data class WalletTransactionData (
     val date : Long,
-    val imageId : Int,
-    val categoryTextId : Int,
-    val type : String,
-    val value : String,
+    val walletId : Long,
+    val isIncome : Boolean,
+    val amount : String,
+    val currency: Currency,
+    val operationCategoryData: OperationCategoryData
     )

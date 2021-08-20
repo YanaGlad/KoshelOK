@@ -5,13 +5,22 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class WalletTransactionSample(
-    var date: Long = -1,
-    var imageId: Int = -1,
-    var categoryTextId: Int = -1,
-    var type: String = "",
-    var value: String = ""
+    var date: Long = UNDEFINED_ID.toLong(),
+    var walletId : Long = UNDEFINED_ID.toLong(),
+    var isIncome : Boolean = false,
+    var amount : String = UNDEFINED_STR,
+    var currency : Currency = Currency(UNDEFINED_STR, UNDEFINED_STR),
+    var operationCategoryData: OperationCategoryData = OperationCategoryData(UNDEFINED_STR,
+        UNDEFINED_ID, UNDEFINED_ID, UNDEFINED_STR)
 ) : Parcelable {
     fun createModel(): WalletTransactionData {
-        return WalletTransactionData(date, imageId, categoryTextId, type, value)
+        return WalletTransactionData(
+            date = date,
+            walletId = walletId,
+            isIncome = isIncome,
+            amount = amount,
+            currency = currency,
+            operationCategoryData = operationCategoryData
+        )
     }
 }
