@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCa
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation.WalletTransactionFragmentDirections
 
 class WalletsFragment : ToolbarFragment() {
     private val viewModel : WalletsViewModel by viewModels()
@@ -20,12 +22,25 @@ class WalletsFragment : ToolbarFragment() {
     private var _binding: FragmentWalletsBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                } })
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletsBinding.inflate(inflater)
         (activity as MainActivity).supportActionBar?.hide()
+
+
 
         viewModel.walletList.observe(viewLifecycleOwner){
             binding.noOperationMessage.visibility = if(viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE

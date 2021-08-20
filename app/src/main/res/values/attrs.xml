@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="buttonTextColor" format="color" />
+
     <declare-styleable name="SwipeToActionLayout">
         <attr name="sal_gravity" format="enum">
             <enum name="left" value="0" />

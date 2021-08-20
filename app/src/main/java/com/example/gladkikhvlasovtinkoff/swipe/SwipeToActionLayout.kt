@@ -3,7 +3,6 @@ package com.example.gladkikhvlasovtinkoff.swipe
 import android.content.Context
 import android.util.AttributeSet
 import android.view.*
-import androidx.annotation.MenuRes
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
 import com.example.gladkikhvlasovtinkoff.R
@@ -65,7 +64,7 @@ class SwipeToActionLayout @JvmOverloads constructor(
         }
     }
 
-    var actions: List<SwipeAction> = mutableListOf()
+    private var actions: List<SwipeAction> = mutableListOf()
         set(value) {
             if (value.isEmpty()) {
                 throw IllegalArgumentException("Items list cannot be null")
@@ -75,7 +74,7 @@ class SwipeToActionLayout @JvmOverloads constructor(
             reloadActions()
         }
 
-    var gravity: MenuGravity = MenuGravity.RIGHT
+    private var gravity: MenuGravity = MenuGravity.RIGHT
         set(value) {
             field = value
             reloadActions()
@@ -127,6 +126,7 @@ class SwipeToActionLayout @JvmOverloads constructor(
                 QuickActionsStates.FULL_OPENED -> {
                     menuListener?.onFullyOpened(this, actions.last())
                 }
+                else -> {}
             }
 
         }
@@ -148,23 +148,8 @@ class SwipeToActionLayout @JvmOverloads constructor(
         }
     }
 
-    fun setActionsRes(@MenuRes menuRes: Int) {
-        val barParser = XmlMenuParser(context)
-        val items = barParser.inflate(menuRes)
-        actions = items
-        reloadActions()
-    }
-
     fun close() {
         transitionToState(QuickActionsStates.CLOSED)
-    }
-
-    fun open() {
-        transitionToState(QuickActionsStates.OPENED)
-    }
-
-    fun fullyOpen() {
-        transitionToState(QuickActionsStates.FULL_OPENED)
     }
 
     private fun transitionToState(state: QuickActionsStates) {

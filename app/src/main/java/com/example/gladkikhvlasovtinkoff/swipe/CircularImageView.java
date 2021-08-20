@@ -19,23 +19,16 @@ import androidx.appcompat.widget.AppCompatImageView;
 public class CircularImageView extends AppCompatImageView {
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
-    // Default Values
-    private static final float DEFAULT_BORDER_WIDTH = 4;
-    private static final float DEFAULT_SHADOW_RADIUS = 8.0f;
-
-    // Properties
     private float borderWidth;
     private int canvasSize;
     private float shadowRadius;
     private int shadowColor = Color.BLACK;
 
-    // Object used to draw
     private Bitmap image;
     private Drawable drawable;
     private Paint paint;
     private Paint paintBorder;
 
-    //region Constructor & Init Method
     public CircularImageView(final Context context) {
         this(context, null);
     }
@@ -50,41 +43,9 @@ public class CircularImageView extends AppCompatImageView {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        // Init paint
         paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG | Paint.FILTER_BITMAP_FLAG);
         paintBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintBorder.setColor(Color.TRANSPARENT);
-    }
-    //endregion
-
-    //region Set Attr Method
-    public void setBorderWidth(float borderWidth) {
-        this.borderWidth = borderWidth;
-        requestLayout();
-        invalidate();
-    }
-
-    public void setBorderColor(int borderColor) {
-        if (paintBorder != null)
-            paintBorder.setColor(borderColor);
-        invalidate();
-    }
-
-    public void addShadow() {
-        if (shadowRadius == 0)
-            shadowRadius = DEFAULT_SHADOW_RADIUS;
-        drawShadow(shadowRadius, shadowColor);
-        invalidate();
-    }
-
-    public void setShadowRadius(float shadowRadius) {
-        drawShadow(shadowRadius, shadowColor);
-        invalidate();
-    }
-
-    public void setShadowColor(int shadowColor) {
-        drawShadow(shadowRadius, shadowColor);
-        invalidate();
     }
 
     @Override
@@ -94,37 +55,26 @@ public class CircularImageView extends AppCompatImageView {
 
     @Override
     public void setScaleType(ScaleType scaleType) {
-//        if (scaleType != SCALE_TYPE) {
-//            throw new IllegalArgumentException(String.format("ScaleType %s not supported. ScaleType.CENTER_CROP is used by default. So you don't need to use ScaleType.", scaleType));
-//        }
-    }
-    //endregion
 
-    //region Draw Method
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
-        // Load the bitmap
         loadBitmap();
 
-        // Check if image isn't null
         if (image == null)
             return;
 
         if (!isInEditMode()) {
-            canvasSize = canvas.getWidth();
-            if (canvas.getHeight() < canvasSize) {
-                canvasSize = canvas.getHeight();
+            canvasSize = getWidth();
+            if (getHeight() < canvasSize) {
+                canvasSize = getHeight();
             }
         }
 
-        // circleCenter is the x or y of the view's center
-        // radius is the radius in pixels of the cirle to be drawn
-        // paint contains the shader that will texture the shape
         int circleCenter = (int) (canvasSize - (borderWidth * 2)) / 2;
-        // Draw Border
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - (shadowRadius + shadowRadius / 2), paintBorder);
-        // Draw CircularImageView
-        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, circleCenter - (shadowRadius + shadowRadius / 2), paint);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, circleCenter - (shadowRadius + shadowRadius / 2), paint);
     }
 
     private void loadBitmap() {
@@ -144,29 +94,19 @@ public class CircularImageView extends AppCompatImageView {
         if (image != null) updateShader();
     }
 
-    private void drawShadow(float shadowRadius, int shadowColor) {
-        this.shadowRadius = shadowRadius;
-        this.shadowColor = shadowColor;
-        setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
-        paintBorder.setShadowLayer(shadowRadius, 0.0f, shadowRadius / 2, shadowColor);
-    }
+
 
     private void updateShader() {
         if (image == null)
             return;
 
-        // Crop Center Image
         image = cropBitmap(image);
-
-        // Create Shader
         BitmapShader shader = new BitmapShader(image, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
-        // Center Image in Shader
         Matrix matrix = new Matrix();
         matrix.setScale((float) canvasSize / (float) image.getWidth(), (float) canvasSize / (float) image.getHeight());
         shader.setLocalMatrix(matrix);
 
-        // Set Shader in Paint
         paint.setShader(shader);
     }
 
@@ -208,27 +148,22 @@ public class CircularImageView extends AppCompatImageView {
         if (!(intrinsicWidth > 0 && intrinsicHeight > 0)) return null;
 
         try {
-            // Create Bitmap object out of the drawable
             Bitmap bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             drawable.draw(canvas);
             return bitmap;
         } catch (OutOfMemoryError e) {
-            // Simply return null of failed bitmap creations
             Log.e(getClass().toString(), "Encountered OutOfMemoryError while generating bitmap!");
             return null;
         }
     }
-    //endregion
 
-    //region Mesure Method
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = measureWidth(widthMeasureSpec);
         int height = measureHeight(heightMeasureSpec);
-        /*int imageSize = (width < height) ? width : height;
-        setMeasuredDimension(imageSize, imageSize);*/
+
         setMeasuredDimension(width, height);
     }
 
@@ -238,13 +173,10 @@ public class CircularImageView extends AppCompatImageView {
         int specSize = MeasureSpec.getSize(measureSpec);
 
         if (specMode == MeasureSpec.EXACTLY) {
-            // The parent has determined an exact size for the child.
             result = specSize;
         } else if (specMode == MeasureSpec.AT_MOST) {
-            // The child can be as large as it wants up to the specified size.
             result = specSize;
         } else {
-            // The parent has not imposed any constraint on the child.
             result = canvasSize;
         }
 
@@ -257,18 +189,14 @@ public class CircularImageView extends AppCompatImageView {
         int specSize = MeasureSpec.getSize(measureSpecHeight);
 
         if (specMode == MeasureSpec.EXACTLY) {
-            // We were told how big to be
             result = specSize;
         } else if (specMode == MeasureSpec.AT_MOST) {
-            // The child can be as large as it wants up to the specified size.
             result = specSize;
         } else {
-            // Measure the text (beware: ascent is a negative number)
             result = canvasSize;
         }
 
         return (result + 2);
     }
-    //endregion
 }
 
