@@ -1,9 +1,9 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
+package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,7 +16,6 @@ import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 
 
 class WalletTransactionFragment : ToolbarFragment() {
-
     private val viewModel: WalletTransactionViewModel by viewModels()
     private val args: WalletTransactionFragmentArgs by navArgs()
 
@@ -28,6 +27,14 @@ class WalletTransactionFragment : ToolbarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val action = WalletTransactionFragmentDirections.actionOptionFragmentToWalletsFragment()
+                    findNavController().navigate(action)
+                } })
 
         // TODO Egor refactor
         args.newOperationData?.let { data ->
@@ -54,6 +61,7 @@ class WalletTransactionFragment : ToolbarFragment() {
 
         return binding.root
     }
+
 
     private fun initLayout() {
         binding.layoutWallet.info.text = getString(R.string.test_wallet_name)
@@ -96,10 +104,10 @@ class WalletTransactionFragment : ToolbarFragment() {
         operationsAdapter.submitList(viewModel.transactionList.value)
 
 
-        viewModel.transactionList.observe(viewLifecycleOwner){
+        viewModel.transactionList.observe(viewLifecycleOwner) {
             if (viewModel.transactionList.value!!.size == 0)
                 binding.layoutWallet.noEntries.visibility = View.VISIBLE
-            else  binding.layoutWallet.noEntries.visibility = View.GONE
+            else binding.layoutWallet.noEntries.visibility = View.GONE
         }
 
     }
@@ -133,4 +141,5 @@ class WalletTransactionFragment : ToolbarFragment() {
         super.onDestroy()
         _binding = null
     }
+
 }

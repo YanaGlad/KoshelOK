@@ -18,17 +18,6 @@ data class SwipeAction internal constructor(
 
     companion object {
 
-        fun withBackgroundColor(
-            @IdRes actionId: Int,
-            @DrawableRes iconId: Int,
-            @ColorInt iconTint: Int = Color.WHITE,
-            text: CharSequence?,
-            @ColorInt textColor: Int = Color.WHITE,
-            @ColorInt backgroundColor: Int
-        ): SwipeAction {
-            return SwipeAction(actionId, ColorDrawable(backgroundColor), iconId, text, iconTint, textColor)
-        }
-
         fun withBackgroundColorRes(
             context: Context,
             @IdRes actionId: Int,
@@ -40,17 +29,6 @@ data class SwipeAction internal constructor(
         ): SwipeAction {
             val color = ContextCompat.getColor(context, backgroundColorRes)
             return SwipeAction(actionId, ColorDrawable(color), iconId, text, iconTint, textColor)
-        }
-
-        fun withBackgroundDrawable(
-            @IdRes actionId: Int,
-            @DrawableRes iconId: Int,
-            @ColorInt iconTint: Int = Color.WHITE,
-            text: CharSequence?,
-            @ColorInt textColor: Int = Color.WHITE,
-            background: Drawable?
-        ): SwipeAction {
-            return SwipeAction(actionId, background, iconId, text, iconTint, textColor)
         }
 
     }

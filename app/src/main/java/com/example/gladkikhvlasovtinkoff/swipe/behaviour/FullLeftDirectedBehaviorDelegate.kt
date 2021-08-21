@@ -12,7 +12,7 @@ import com.example.gladkikhvlasovtinkoff.swipe.utils.min
 
 internal class FullLeftDirectedBehaviorDelegate(
     private val actionCount: Int,
-    private val context: Context
+    context: Context
 ): LeftDirectedBehaviourDelegate(actionCount, context) {
 
 
@@ -125,7 +125,7 @@ internal class FullLeftDirectedBehaviorDelegate(
                 distance * (actionCount - index + 1).toFloat() / actionCount
             )
         } else {
-            lastActionStateController.onTranslate(mainView, actionView, actionSize, dx, index)
+            lastActionStateController.onTranslate(mainView, actionView, actionSize, index)
         }
     }
 
@@ -161,12 +161,16 @@ internal class FullLeftDirectedBehaviorDelegate(
         view: View,
         actionSize: Size
     ): QuickActionsStates {
-        return if (isFullyOpened(view, actionSize)) {
-            QuickActionsStates.FULL_OPENED
-        } else if (isOpened(view.left, actionSize)) {
-            QuickActionsStates.OPENED
-        } else {
-            QuickActionsStates.CLOSED
+        return when {
+            isFullyOpened(view, actionSize) -> {
+                QuickActionsStates.FULL_OPENED
+            }
+            isOpened(view.left, actionSize) -> {
+                QuickActionsStates.OPENED
+            }
+            else -> {
+                QuickActionsStates.CLOSED
+            }
         }
     }
 

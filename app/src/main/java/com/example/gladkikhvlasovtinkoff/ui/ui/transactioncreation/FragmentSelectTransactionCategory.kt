@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
+package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
-import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCategoryBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
 import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
@@ -23,7 +23,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
     private val binding get() = _binding!!
-    private var categoriesAdapter: OperationCategoryAdapter? = null
+    private var categoriesAdapter: CategoryAdapter? = null
 
     private var categoryId: Int = -1
     private var imageId: Int = -1
@@ -94,7 +94,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
     private fun setupOperationCategoryList() {
         val categoryDataFactory: OperationCategoryDataFactory =
             OperationCategoryDataFactoryImpl()
-        categoriesAdapter = OperationCategoryAdapter()
+        categoriesAdapter = CategoryAdapter()
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)

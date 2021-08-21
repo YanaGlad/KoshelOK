@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.enterwallet
+package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,18 +9,18 @@ import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentEnterWalletNameBinding
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 
 
-class EnterWalletNameFragment : Fragment() {
+class EnterWalletNameFragment : ToolbarFragment() {
     private var _binding: FragmentEnterWalletNameBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -29,10 +29,11 @@ class EnterWalletNameFragment : Fragment() {
     ): View {
         _binding = FragmentEnterWalletNameBinding.inflate(inflater)
 
+        configureToolbar()
         initLayout()
 
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
-            val action = EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToOptionFragment()
+            val action = EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment()
             findNavController().navigate(action)
         }
 
@@ -46,6 +47,13 @@ class EnterWalletNameFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun configureToolbar() {
+        setHasOptionsMenu(true)
+        activity?.let { activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.setup_wallet_name))
+        }
     }
 
     private fun initLayout() {

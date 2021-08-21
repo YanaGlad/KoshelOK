@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.confirm
+package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -35,7 +35,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
 
         setupUiWithData(args.operationData)
 
-        binding.buttonConfirmOperationCreating.setOnClickListener{
+        binding.buttonConfirm.setOnClickListener{
             val action =
                 FragmentConfirmTransactionCreatingDirections.
                 actionFragmentConfirmOperationCreatingToOptionFragment(
