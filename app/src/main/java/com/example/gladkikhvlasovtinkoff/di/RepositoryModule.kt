@@ -11,7 +11,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 interface RepositoryModule {
+
     @Singleton
     @Binds
-    fun getTransactionRepository(transactionRepositoryImpl: TransactionRepositoryImpl) : TransactionRepository
+    fun bindTransactionRepository(transactionRepositoryImpl: TransactionRepositoryImpl): TransactionRepository
+
 }
