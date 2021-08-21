@@ -28,6 +28,13 @@ class CurrencyChoiceFragment : Fragment() {
     ): View {
         _binding = FragmentCurrencyChoiceBinding.inflate(inflater)
 
+        initRecyler()
+
+
+        return binding.root
+    }
+
+    private fun initRecyler() {
         currencyAdapter = CurrencyAdapter()
 
         binding.currencyRecycler.setHasFixedSize(true)
@@ -36,9 +43,6 @@ class CurrencyChoiceFragment : Fragment() {
             adapter = currencyAdapter
         }
         currencyAdapter.submitList(viewModel.currencyList.value)
-
-
-        return binding.root
     }
 
 }

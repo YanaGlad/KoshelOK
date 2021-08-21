@@ -33,7 +33,6 @@ class NewWalletFragment : ToolbarFragment() {
         initLayout()
 
         binding.nameView.setOnClickListener {
-
         }
 
         binding.currencyView.setOnClickListener {
@@ -42,7 +41,6 @@ class NewWalletFragment : ToolbarFragment() {
         }
 
         binding.limitView.setOnClickListener {
-
         }
 
         binding.buttonConfirm.setOnClickListener {
