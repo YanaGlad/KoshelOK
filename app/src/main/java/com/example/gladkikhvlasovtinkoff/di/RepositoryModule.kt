@@ -14,4 +14,6 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun getTransactionRepository(transactionRepositoryImpl: TransactionRepositoryImpl) : TransactionRepository
+
+
 }

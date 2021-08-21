@@ -1,7 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.model
 
 
-data class WalletTransactionData (
+data class WalletTransactionModel (
     val date : Long = UNDEFINED_ID.toLong(),
     val walletId : Long = UNDEFINED_ID.toLong(),
     val isIncome : Boolean = false,
