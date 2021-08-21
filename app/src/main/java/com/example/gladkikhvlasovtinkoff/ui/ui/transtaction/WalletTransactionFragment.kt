@@ -3,6 +3,7 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,13 +24,26 @@ class WalletTransactionFragment : ToolbarFragment() {
     private val binding get() = _binding!!
 
     private  var operationsAdapter: WalletOperationAdapter? = null
+    private var transaction: WalletTransactionSample? = null
 
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+         requireActivity()
+             .onBackPressedDispatcher
+             .addCallback(this, object : OnBackPressedCallback(true) {
+                 override fun handleOnBackPressed() {
+                     val action = WalletTransactionFragmentDirections.actionOptionFragmentToWalletsFragment()
+                     findNavController().navigate(action)
+                 } })
+
          //TODO - доделать обработку приходящего объекта ЕГОР
-//         if(args.newOperationData!!.)
-//        if (transaction != null)
-//            viewModel.transactionList.value?.add(transaction!!.createModel())
+         args.newOperationData?.let { data ->
+             transaction = data
+         }
+
+         if (transaction != null)
+             viewModel.transactionList.value?.add(transaction!!.createModel())
     }
 
     override fun onCreateView(
@@ -37,10 +51,17 @@ class WalletTransactionFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletTransactionBinding.inflate(layoutInflater, container, false)
-
-
+        initLayout()
         return binding.root
     }
+
+    private fun initLayout() {
+        binding.layoutWallet.info.text = getString(R.string.test_wallet_name)
+        binding.layoutWallet.income.incomeText.text = getString(R.string.income_text)
+        binding.layoutWallet.expenditure.expenditureText.text = getString(R.string.costs_text)
+        binding.layoutWallet.buttonAddOperation.text = getString(R.string.add_operation_text)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configureToolbar()
@@ -57,7 +78,7 @@ class WalletTransactionFragment : ToolbarFragment() {
     }
 
     private fun initWalletRecycler() {
-        operationsAdapter = WalletOperationAdapter { _, action ->
+        operationsAdapter = WalletOperationAdapter(requireContext()) { _, action ->
             when (action.actionId) {
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
                 R.id.delete -> {
