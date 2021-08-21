@@ -8,14 +8,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCategoryBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
-import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
-import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
-import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
-import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactory
-import com.example.gladkikhvlasovtinkoff.model.OperationCategoryDataFactoryImpl
+import com.example.gladkikhvlasovtinkoff.model.*
+import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,9 +22,9 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
     private val binding get() = _binding!!
-    private var categoriesAdapter: CategoryAdapter? = null
+    private var categoriesAdapter: OperationCategoryAdapter? = null
 
-    private var categoryId: Int = -1
+    private var categoryName: String = ""
     private var imageId: Int = -1
 
 
@@ -45,8 +44,13 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
         binding.buttonConfirmOperationCategory.setOnClickListener {
             val operationData = args.operationData
-            operationData.imageId = imageId
-            operationData.categoryTextId = categoryId
+            //TODO - исправить id = 0 и description = ""
+            operationData.transactionCategoryData = TransactionCategoryData(
+                name = categoryName,
+                iconId = imageId,
+                id = UNDEFINED_ID,
+                description = UNDEFINED_STR
+            )
             val action =
                 FragmentSelectTransactionCategoryDirections.
                 actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
@@ -70,36 +74,41 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupOperationCategoryList()
+        setupOperationCategoryList(args.operationData.isIncome)
         categoriesAdapter?.checkedItem?.observe(viewLifecycleOwner) { checkedData ->
             if (checkedData != null)
                 onCategoryChecked(checkedData)
             else
                 onCategoryUnchecked()
         }
+
     }
+
 
     private fun onCategoryUnchecked() {
         binding.buttonConfirmOperationCategory.setDisabled(context)
 
     }
 
-    private fun onCategoryChecked(checkedData: OperationCategoryData) {
+    private fun onCategoryChecked(checkedData: TransactionCategoryData) {
         binding.buttonConfirmOperationCategory.setEnabled(context)
-        categoryId = checkedData.nameId
+        categoryName = checkedData.name
         imageId = checkedData.iconId
     }
 
 
-    private fun setupOperationCategoryList() {
-        val categoryDataFactory: OperationCategoryDataFactory =
-            OperationCategoryDataFactoryImpl()
-        categoriesAdapter = CategoryAdapter()
+    private fun setupOperationCategoryList(isIncome : Boolean) {
+        val categoryDataFactory: TransactionCategoryDataFactory =
+            if(isIncome) DefaultIncomeCategoriesFactory()
+            else DefaultExpensesCategoriesFactory()
+        categoriesAdapter = OperationCategoryAdapter()
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        categoriesAdapter?.addItems(categoryDataFactory.getCategories())
+        context?.let { context ->
+            categoriesAdapter?.addItems(categoryDataFactory.getCategories(context))
+        }
     }
 
 

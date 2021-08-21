@@ -10,7 +10,7 @@ const val MILLIS_IN_DAY = 86400000
 
 @SuppressLint("SimpleDateFormat")
 fun Long.getTimeString() : String {
-    val date = Date(this)
+    val date = Date(this * 1000)
     val format = SimpleDateFormat("HH:mm")
     return format.format(date)
 }
@@ -21,7 +21,7 @@ fun Long.getDayString(context : Context) : String =
         0L -> context.getString(R.string.today)
         1L -> context.getString(R.string.yesterday)
         else -> {
-            val date = Date(this)
+            val date = Date(this * 1000)
             val format = SimpleDateFormat("dd MMM")
             format.format(date)
         }
