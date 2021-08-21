@@ -3,20 +3,24 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.WalletOperationAdapter
 
 class WalletsFragment : ToolbarFragment() {
-    private val viewModel : WalletsViewModel by viewModels()
-
+    private val viewModel: WalletsViewModel by viewModels()
     private var _binding: FragmentWalletsBinding? = null
     private val binding get() = _binding!!
+    private var operationsAdapter: WalletsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +30,8 @@ class WalletsFragment : ToolbarFragment() {
             .addCallback(this, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     activity?.finish()
-                } })
+                }
+            })
     }
 
     override fun onCreateView(
@@ -36,10 +41,29 @@ class WalletsFragment : ToolbarFragment() {
         _binding = FragmentWalletsBinding.inflate(inflater)
         (activity as MainActivity).supportActionBar?.hide()
 
+        operationsAdapter = WalletsAdapter(requireContext()) { _, action ->
+            when (action.actionId) {
+                R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
+                R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
+                R.id.delete -> {
+                    val deleteDialog = DeleteDialogFragment()
+                    val manager = activity?.supportFragmentManager
+                    manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
+                }
+            }
+        }
+
+        binding.layoutWallet.walletRecycle.setHasFixedSize(true)
+        binding.layoutWallet.walletRecycle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = operationsAdapter
+        }
+        operationsAdapter?.submitList(viewModel.walletList.value)
 
 
-        viewModel.walletList.observe(viewLifecycleOwner){
-            binding.noOperationMessage.visibility = if(viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
+        viewModel.walletList.observe(viewLifecycleOwner) {
+            binding.noOperationMessage.visibility =
+                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
         }
 
         initLayout()
@@ -49,7 +73,6 @@ class WalletsFragment : ToolbarFragment() {
             findNavController().navigate(action)
             (activity as MainActivity).supportActionBar?.show()
         }
-
 
         return binding.root
     }

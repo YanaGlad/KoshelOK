@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.gladkikhvlasovtinkoff.swipe.SwipeToActionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeToAction"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:sal_gravity="right"
+    app:sal_isFullActionSupported="false"
+    app:sal_items="@menu/swipe_wallet_menu"
+    app:sal_shouldVibrateOnQuickAction="false">
+
+    <include
+        android:id="@+id/data"
+        layout="@layout/wallet_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</com.example.gladkikhvlasovtinkoff.swipe.SwipeToActionLayout>
