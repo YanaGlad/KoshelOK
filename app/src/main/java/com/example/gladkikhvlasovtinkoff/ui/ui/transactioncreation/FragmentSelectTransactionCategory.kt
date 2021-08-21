@@ -27,13 +27,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
     private var categoryName: String = ""
     private var imageId: Int = -1
 
-
     private val args: FragmentSelectTransactionCategoryArgs by navArgs()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,24 +35,38 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSelectTransactionCategoryBinding.inflate(inflater)
+        return binding.root
+    }
 
-        binding.buttonConfirmOperationCategory.setOnClickListener {
-            val operationData = args.operationData
-            //TODO - исправить id = 0 и description = ""
-            operationData.transactionCategoryData = TransactionCategoryData(
-                name = categoryName,
-                iconId = imageId,
-                id = UNDEFINED_ID,
-                description = UNDEFINED_STR
-            )
-            val action = FragmentSelectTransactionCategoryDirections.
-                actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
-                    operationData
-                )
-            findNavController().navigate(action)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupOperationCategoryList(args.operationData.isIncome)
+        categoriesAdapter?.checkedItem?.observe(viewLifecycleOwner) { checkedData ->
+            if (checkedData != null)
+                onCategoryChecked(checkedData)
+            else
+                onCategoryUnchecked()
         }
 
-        return binding.root
+        binding.buttonConfirmOperationCategory.setOnClickListener {
+            onConfirm()
+        }
+    }
+
+    private fun onConfirm(){
+        //TODO - id, description
+        val operationData = args.operationData
+        operationData.transactionCategoryData = TransactionCategoryData(
+            name = categoryName,
+            iconId = imageId,
+            id = UNDEFINED_ID,
+            description = UNDEFINED_STR
+        )
+        val action =
+            FragmentSelectTransactionCategoryDirections.
+            actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
+                args.operationData
+            )
+        findNavController().navigate(action)
     }
 
     override fun onResume() {
@@ -72,21 +80,8 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupOperationCategoryList(args.operationData.isIncome)
-        categoriesAdapter?.checkedItem?.observe(viewLifecycleOwner) { checkedData ->
-            if (checkedData != null)
-                onCategoryChecked(checkedData)
-            else
-                onCategoryUnchecked()
-        }
-
-    }
-
-
     private fun onCategoryUnchecked() {
         binding.buttonConfirmOperationCategory.setDisabled(context)
-
     }
 
     private fun onCategoryChecked(checkedData: TransactionCategoryData) {
@@ -94,7 +89,6 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         categoryName = checkedData.name
         imageId = checkedData.iconId
     }
-
 
     private fun setupOperationCategoryList(isIncome : Boolean) {
         val categoryDataFactory: TransactionCategoryDataFactory =
@@ -109,7 +103,6 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
             categoriesAdapter?.addItems(categoryDataFactory.getCategories(context))
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

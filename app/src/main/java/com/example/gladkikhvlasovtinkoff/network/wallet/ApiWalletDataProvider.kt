@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 class ApiWalletDataProvider @Inject constructor(private val api : TransactionApi)
     : RemoteWalletDataProvider {
+
     override fun findWalletById(walletId: Long): Single<WalletData> =
         api.findWalletById(walletId)
             .map{ response ->

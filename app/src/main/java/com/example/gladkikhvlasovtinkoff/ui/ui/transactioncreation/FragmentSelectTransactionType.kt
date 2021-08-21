@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
@@ -29,7 +30,18 @@ class FragmentSelectTransactionType : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSelectTransactionTypeBinding.inflate(inflater)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupSelectTypeListeners()
+
+        binding.buttonConfirmOperationType.setOnClickListener {
+            onNextNavigate()
+            }
+    }
+
+    private fun setupSelectTypeListeners() {
         binding.textCostsType.setOnClickListener {
             if (binding.checkCostsOperationType.visibility == View.GONE) {
                 binding.checkCostsOperationType.visibility = View.VISIBLE
@@ -40,7 +52,6 @@ class FragmentSelectTransactionType : ToolbarFragment() {
                 disableButton()
             }
         }
-
         binding.textIncomeType.setOnClickListener {
             if (binding.checkIncomeOperationType.visibility == View.GONE) {
                 binding.checkIncomeOperationType.visibility = View.VISIBLE
@@ -51,28 +62,20 @@ class FragmentSelectTransactionType : ToolbarFragment() {
                 disableButton()
             }
         }
+    }
 
-        binding.buttonConfirmOperationType.setOnClickListener {
-            val operationData = args.operationData
-            operationData.isIncome = binding.checkIncomeOperationType.visibility == View.VISIBLE
-            val action =
-                FragmentSelectTransactionTypeDirections.
-                actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(operationData)
-            findNavController().navigate(action)
-        }
-
-        return binding.root
+    private fun onNextNavigate(){
+        val operationData = args.operationData
+        operationData.isIncome = binding.checkIncomeOperationType.visibility == View.VISIBLE
+        val action =
+            FragmentSelectTransactionTypeDirections.
+            actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(operationData)
+        findNavController().navigate(action)
     }
 
     override fun onResume() {
         super.onResume()
         configureToolbar()
-    }
-
-    override fun configureToolbar() {
-        activity?.let{activity ->
-            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.choose_operation_type))
-        }
     }
 
     private fun disableButton(){
@@ -84,9 +87,14 @@ class FragmentSelectTransactionType : ToolbarFragment() {
 
     }
 
+    override fun configureToolbar() {
+        activity?.let{activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.choose_operation_type))
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

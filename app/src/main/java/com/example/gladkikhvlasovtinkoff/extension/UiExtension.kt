@@ -1,6 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.extension
 
-import android.content.Context
+import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.OnBackPressedCallback
@@ -9,12 +9,14 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.LimitFragmentDirections
 import com.google.android.material.textfield.TextInputEditText
 
 //TODO change to extension
-fun setupNaviagtion(
+fun setupNavigation(
     fragment: Fragment,
     activity: AppCompatActivity,
     navController: NavController,
@@ -31,29 +33,25 @@ fun setupNaviagtion(
 }
 
 
-fun setupTextStyleAndObserve(editText : TextInputEditText, confirmButton : AppCompatButton, context : Context) {
-    editText.addTextChangedListener(object : TextWatcher {
+fun EditText.setupTextStyleAndObserve(buttonObserver : Button) {
+    this.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
 
         override fun afterTextChanged(s: Editable?) {
-            editText.removeTextChangedListener(this)
+            this@setupTextStyleAndObserve.removeTextChangedListener(this)
             val isEnabled = s.toString() != ""
-            editText.setText(
+            this@setupTextStyleAndObserve.setText(
                 s?.toString()?.styleInput() ?: ""
             )
-
-            if (isEnabled) {
-                confirmButton.setEnabled(context)
-            } else
-                confirmButton.setDisabled(context)
-
-            editText.setSelection(
-                editText.text?.toString()?.length ?: 0
+            buttonObserver.isEnabled = isEnabled
+            buttonObserver.isEnabled = isEnabled
+            this@setupTextStyleAndObserve.setSelection(
+                this@setupTextStyleAndObserve.text?.toString()?.length ?: 0
             )
-            editText.addTextChangedListener(this)
+            this@setupTextStyleAndObserve.addTextChangedListener(this)
         }
     })
 }
