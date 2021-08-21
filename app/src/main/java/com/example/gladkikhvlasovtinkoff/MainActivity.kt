@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -56,6 +57,10 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
 
     override fun setToolbarTitle(title: String) {
         supportActionBar?.title = title
+    }
+
+    override fun setToolbarBackButtonIcon(resourceId: Int) {
+        supportActionBar?.setHomeAsUpIndicator(resourceId)
     }
 
 }

@@ -37,6 +37,12 @@ class EnterWalletNameFragment : ToolbarFragment() {
             findNavController().navigate(action)
         }
 
+        observeTextChanged()
+
+        return binding.root
+    }
+
+    private fun observeTextChanged() {
         binding.layoutEnter.newOperationValueField.doOnTextChanged { _, _, _, _ ->
             val isEnabled = binding.layoutEnter.newOperationValueField.text.toString() != ""
             if (isEnabled) {
@@ -45,8 +51,6 @@ class EnterWalletNameFragment : ToolbarFragment() {
                 binding.layoutEnter.buttonConfirmOperationValue.setDisabled(context)
             binding.layoutEnter.buttonConfirmOperationValue.isEnabled = isEnabled
         }
-
-        return binding.root
     }
 
     override fun configureToolbar() {

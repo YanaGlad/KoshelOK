@@ -31,11 +31,8 @@ class NewWalletFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewWalletBinding.inflate(inflater)
-        (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_arrow)
-
         configureToolbar()
         initLayout()
-
 
         binding.nameView.setOnClickListener {
         }
@@ -76,7 +73,9 @@ class NewWalletFragment : ToolbarFragment() {
 
     override fun configureToolbar() {
         activity?.let { activity ->
-            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.new_wallet))
+            val holder  = activity as ToolbarHolder
+            holder.setToolbarTitle(getString(R.string.new_wallet))
+            holder.setToolbarBackButtonIcon(R.drawable.ic_back_arrow)
         }
     }
 }
