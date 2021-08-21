@@ -12,7 +12,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.LimitFragmentDirections
 import com.google.android.material.textfield.TextInputEditText
 
 //TODO change to extension

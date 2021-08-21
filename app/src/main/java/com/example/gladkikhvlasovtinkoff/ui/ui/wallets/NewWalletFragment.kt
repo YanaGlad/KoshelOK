@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentEnterWalletNameBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
+import com.example.gladkikhvlasovtinkoff.extension.setupNaviagtion
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 
@@ -28,9 +31,11 @@ class NewWalletFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewWalletBinding.inflate(inflater)
+        (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_arrow)
 
         configureToolbar()
         initLayout()
+
 
         binding.nameView.setOnClickListener {
         }

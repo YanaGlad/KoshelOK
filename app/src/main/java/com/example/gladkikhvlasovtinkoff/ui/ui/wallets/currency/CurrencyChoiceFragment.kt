@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
+import androidx.core.content.ContextCompat
 import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -51,17 +52,36 @@ class CurrencyChoiceFragment : Fragment() {
 
     private fun expandRecyclerAnimation() {
         binding.showMore.setOnClickListener {
-            expanded = if (expanded) {
-                _layoutManager.setScrollEnabled(false)
-                binding.motionLayout.transitionToStart()
-                binding.showMore.text = getString(R.string.show_more)
-                false
-            } else {
-                _layoutManager.setScrollEnabled(true)
-                binding.motionLayout.transitionToEnd()
-                binding.showMore.text = getString(R.string.hide_show_more)
-                true
-            }
+            expandRecyclerView()
+        }
+        binding.down.setOnClickListener {
+            expandRecyclerView()
+        }
+    }
+
+    private fun expandRecyclerView() {
+        expanded = if (expanded) {
+            _layoutManager.setScrollEnabled(false)
+            binding.motionLayout.transitionToStart()
+            binding.showMore.text = getString(R.string.show_more)
+            binding.down.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_down_expand
+                )
+            )
+            false
+        } else {
+            _layoutManager.setScrollEnabled(true)
+            binding.motionLayout.transitionToEnd()
+            binding.showMore.text = getString(R.string.hide_show_more)
+            binding.down.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_up_expand
+                )
+            )
+            true
         }
     }
 }

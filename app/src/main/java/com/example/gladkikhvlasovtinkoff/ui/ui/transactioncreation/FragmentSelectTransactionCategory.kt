@@ -51,8 +51,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
                 id = UNDEFINED_ID,
                 description = UNDEFINED_STR
             )
-            val action =
-                FragmentSelectTransactionCategoryDirections.
+            val action = FragmentSelectTransactionCategoryDirections.
                 actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
                     operationData
                 )

@@ -14,7 +14,6 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
-import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.WalletOperationAdapter
 
 class WalletsFragment : ToolbarFragment() {
     private val viewModel: WalletsViewModel by viewModels()
@@ -34,13 +33,35 @@ class WalletsFragment : ToolbarFragment() {
             })
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletsBinding.inflate(inflater)
+
         (activity as MainActivity).supportActionBar?.hide()
 
+        initLayout()
+        initRecycler()
+
+
+        viewModel.walletList.observe(viewLifecycleOwner) {
+            binding.noOperationMessage.visibility =
+                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
+        }
+
+
+        binding.layoutWallet.buttonAddOperation.setOnClickListener {
+            val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment()
+            findNavController().navigate(action)
+            (activity as MainActivity).supportActionBar?.show()
+        }
+
+        return binding.root
+    }
+
+    private fun initRecycler() {
         operationsAdapter = WalletsAdapter(requireContext()) { _, action ->
             when (action.actionId) {
                 R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
@@ -59,22 +80,6 @@ class WalletsFragment : ToolbarFragment() {
             adapter = operationsAdapter
         }
         operationsAdapter?.submitList(viewModel.walletList.value)
-
-
-        viewModel.walletList.observe(viewLifecycleOwner) {
-            binding.noOperationMessage.visibility =
-                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
-        }
-
-        initLayout()
-
-        binding.layoutWallet.buttonAddOperation.setOnClickListener {
-            val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment()
-            findNavController().navigate(action)
-            (activity as MainActivity).supportActionBar?.show()
-        }
-
-        return binding.root
     }
 
     private fun initLayout() {
@@ -82,8 +87,7 @@ class WalletsFragment : ToolbarFragment() {
         binding.layoutWallet.info.setTextColor(Color.WHITE)
         binding.layoutWallet.walletBalance.setTextColor(Color.WHITE)
         binding.layoutWallet.income.incomeText.text = getString(R.string.total_income)
-        binding.layoutWallet.expenditure.expenditureText.text =
-            getString(R.string.total_expenditure)
+        binding.layoutWallet.expenditure.expenditureText.text = getString(R.string.total_expenditure)
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.create_wallet)
     }
 
@@ -107,5 +111,6 @@ class WalletsFragment : ToolbarFragment() {
         super.onDestroy()
 
     }
+
 
 }
