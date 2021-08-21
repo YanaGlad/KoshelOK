@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
         setupToolbar()
     }
 
+
     private fun setupToolbar(){
         binding.toolBar.title = ""
         binding.toolBar.inflateMenu(R.menu.menu_main)

@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.transactiontype
+package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
 import android.view.LayoutInflater

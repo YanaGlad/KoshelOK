@@ -10,7 +10,7 @@ import com.example.gladkikhvlasovtinkoff.swipe.utils.clamp
 
 internal class FullRightDirectedBehaviorDelegate(
     private val actionCount: Int,
-    private val context: Context
+    context: Context
 ) : RightDirectedBehaviourDelegate(actionCount, context) {
 
     private inner class LastActionDelegate : LastActionStateController.Delegate {
@@ -99,13 +99,12 @@ internal class FullRightDirectedBehaviorDelegate(
                     0F
                 )
         } else {
-            lastActionStateController.onTranslate(mainView, actionView, actionSize, dx, index)
+            lastActionStateController.onTranslate(mainView, actionView, actionSize, index)
         }
     }
 
     override fun isOpened(position: Int, actionSize: Size): Boolean {
-        // position is the left side of a view
-        // as we can move view only to left position belongs to [-translateDistance, 0]
+
         val translateDistance = actionSize.width * actionCount
         return position < (-translateDistance / 2) && position >= -translateDistance
     }
@@ -124,8 +123,7 @@ internal class FullRightDirectedBehaviorDelegate(
     }
 
     private fun isFullyOpened(view: View, actionSize: Size): Boolean {
-        // position is the left side of a view
-        // as we can move view only to left position belongs to [-translateDistance, 0]
+
         val translateDistance = actionSize.width * actionCount
         val position = view.left
         return position < -translateDistance

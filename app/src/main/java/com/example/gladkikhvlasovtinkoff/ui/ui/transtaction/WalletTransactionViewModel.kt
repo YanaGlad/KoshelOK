@@ -1,9 +1,7 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.walletoperation
+package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionData
 
 class WalletTransactionViewModel : ViewModel() {

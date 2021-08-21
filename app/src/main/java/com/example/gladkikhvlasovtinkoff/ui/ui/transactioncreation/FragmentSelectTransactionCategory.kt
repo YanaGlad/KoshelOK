@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
+package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,7 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCa
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.*
+import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

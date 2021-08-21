@@ -3,22 +3,30 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionCategoryBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 
-class WalletsFragment : Fragment() {
+class WalletsFragment : ToolbarFragment() {
+    private val viewModel : WalletsViewModel by viewModels()
+
     private var _binding: FragmentWalletsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                } })
     }
 
     override fun onCreateView(
@@ -28,9 +36,16 @@ class WalletsFragment : Fragment() {
         _binding = FragmentWalletsBinding.inflate(inflater)
         (activity as MainActivity).supportActionBar?.hide()
 
+
+
+        viewModel.walletList.observe(viewLifecycleOwner){
+            binding.noOperationMessage.visibility = if(viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
+        }
+
         initLayout()
+
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
-            val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment()
+            val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment()
             findNavController().navigate(action)
             (activity as MainActivity).supportActionBar?.show()
         }
@@ -57,6 +72,12 @@ class WalletsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return true
+    }
+
+    override fun configureToolbar() {
+        activity?.let { activity ->
+            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.setup_wallet_name))
+        }
     }
 
     override fun onDestroy() {

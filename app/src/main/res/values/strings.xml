@@ -66,4 +66,14 @@
     <string name="gas_station">Бензин</string>
     <string name="rent">Кварплата</string>
     <string name="travel">Отдых</string>
+    <string name="no_wallets_yet">У вас пока нет созданных кошельков</string>
+    <string name="wallet_name_entry">Название кошелька</string>
+    <string name="setup_wallet_name">Придумайте название</string>
+    <string name="next">Далее</string>
+    <string name="enter_name">Введите название</string>
+    <string name="enter_sum_suggest">Введите сумму операции</string>
+    <string name="wallet_name_title">Название</string>
+    <string name="currency">Валюта</string>
+    <string name="limit">Лимит</string>
+    <string name="new_wallet">Новый кошелек</string>
 </resources>
