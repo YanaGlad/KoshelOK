@@ -81,4 +81,5 @@
     <string name="show_more">Показать больше</string>
     <string name="hide_show_more">Свернуть</string>
     <string name="hidden_wallets">Скрытые кошельки</string>
+    <string name="create_category">Создать категорию</string>
 </resources>
