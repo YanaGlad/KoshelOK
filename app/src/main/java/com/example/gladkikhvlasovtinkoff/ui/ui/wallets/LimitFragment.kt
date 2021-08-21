@@ -1,23 +1,18 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentLimitBinding
-import com.example.gladkikhvlasovtinkoff.extension.setupNaviagtion
+import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.extension.setupTextStyleAndObserve
-import com.example.gladkikhvlasovtinkoff.extension.styleInput
-
 
 class LimitFragment : Fragment() {
 
@@ -26,11 +21,11 @@ class LimitFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupNaviagtion(
-            this,
-            activity as AppCompatActivity,
-            findNavController(),
-            LimitFragmentDirections.actionLimitFragmentToNewWalletFragment()
+        setupNavigation(
+            fragment = this,
+            activity = activity as AppCompatActivity,
+            navController = findNavController(),
+            action = LimitFragmentDirections.actionLimitFragmentToNewWalletFragment()
         )
     }
 
@@ -44,7 +39,7 @@ class LimitFragment : Fragment() {
         binding.layoutEnter.newOperationValueField.inputType =
             InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
-        setupTextStyleAndObserve(binding.layoutEnter.newOperationValueField,  binding.layoutEnter.buttonConfirmOperationValue)
+        binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(binding.layoutEnter.buttonConfirmOperationValue)
 
         (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
         binding.layoutEnter.buttonConfirmOperationValue.text = getString(R.string.save)

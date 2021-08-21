@@ -36,12 +36,9 @@ class WalletsFragment : ToolbarFragment() {
         _binding = FragmentWalletsBinding.inflate(inflater)
         (activity as MainActivity).supportActionBar?.hide()
 
-
-
         viewModel.walletList.observe(viewLifecycleOwner){
             binding.noOperationMessage.visibility = if(viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
         }
-
         initLayout()
 
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
@@ -49,7 +46,6 @@ class WalletsFragment : ToolbarFragment() {
             findNavController().navigate(action)
             (activity as MainActivity).supportActionBar?.show()
         }
-
 
         return binding.root
     }
@@ -70,7 +66,6 @@ class WalletsFragment : ToolbarFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         return true
     }
 
@@ -82,7 +77,6 @@ class WalletsFragment : ToolbarFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-
     }
 
 }

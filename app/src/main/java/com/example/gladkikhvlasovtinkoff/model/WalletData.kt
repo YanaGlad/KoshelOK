@@ -5,7 +5,7 @@ data class WalletData (
     val userId : Long,
     val name : String,
     val limit : Long,
-    val amount : Long,
+    val amount : String,
     val currency : Currency
     )
 

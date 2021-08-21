@@ -23,4 +23,14 @@ class WalletTransactionSample(
             transactionCategoryData = transactionCategoryData
         )
     }
+
+    val isDateDefined
+    get() = date != UNDEFINED_ID.toLong()
+
+    val isValid
+        get() =
+            date != UNDEFINED_ID.toLong() &&
+                    amount != UNDEFINED_STR && currency.code != UNDEFINED_STR &&
+                    currency.name != UNDEFINED_STR && transactionCategoryData.iconId != UNDEFINED_ID
+                    && transactionCategoryData.name != UNDEFINED_STR
 }
