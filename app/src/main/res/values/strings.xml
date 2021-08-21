@@ -80,4 +80,5 @@
     <string name="limit_description">Лимит на траты</string>
     <string name="show_more">Показать больше</string>
     <string name="hide_show_more">Свернуть</string>
+    <string name="hidden_wallets">Скрытые кошельки</string>
 </resources>
