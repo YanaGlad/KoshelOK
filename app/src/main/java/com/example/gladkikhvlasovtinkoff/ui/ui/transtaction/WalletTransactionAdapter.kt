@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.SwipingTransactionDataItemBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
-import com.example.gladkikhvlasovtinkoff.extension.styleText
+import com.example.gladkikhvlasovtinkoff.extension.getTransactionTypeString
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionData
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
@@ -70,16 +70,14 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
             binding.data.imageOperation.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     binding.root.context.resources,
-                    walletOperations.imageId,
+                    walletOperations.transactionCategoryData.iconId,
                     binding.root.context.theme
                 )
 
             )
-            binding.data.money.text = if (walletOperations.value.length > 3) walletOperations.value.styleText() else walletOperations.value
-                        binding.data.subtitleOperation.text =
-                    walletOperations.type
+            //TODO добавить стайлинг текста
             binding.data.titleOperation.text =
-                binding.root.context.getString(walletOperations.categoryTextId)
+                walletOperations.transactionCategoryData.name
             binding.data.time.text = walletOperations.date.getTimeString()
         }
 
@@ -89,7 +87,7 @@ class WalletOperationAdapter internal constructor(private val onActionClicked: O
 
         override fun onOpened(view: View) {
             val transaction = list[adapterPosition]
-            actionsBindHelper.closeOtherThan(transaction.type)
+            actionsBindHelper.closeOtherThan(transaction.isIncome.getTransactionTypeString(view.context))
         }
 
         override fun onFullyOpened(view: View, quickAction: SwipeAction) {

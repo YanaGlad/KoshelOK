@@ -3,7 +3,6 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,39 +15,21 @@ import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 
 
 class WalletTransactionFragment : ToolbarFragment() {
+
     private val viewModel: WalletTransactionViewModel by viewModels()
     private val args: WalletTransactionFragmentArgs by navArgs()
 
     private var _binding: FragmentWalletTransactionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var operationsAdapter: WalletOperationAdapter
-    private var transaction: WalletTransactionSample? = null
+    private  var operationsAdapter: WalletOperationAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    val action = WalletTransactionFragmentDirections.actionOptionFragmentToWalletsFragment()
-                    findNavController().navigate(action)
-                } })
-
-        // TODO Egor refactor
-        args.newOperationData?.let { data ->
-            transaction = data
-
-            //TODO create const val for type
-            if (transaction!!.type == resources.getString(R.string.costs_text)) {
-                transaction!!.value = "- ${transaction!!.value}"
-            }
-        }
-        //Добавление данных в удаленную бд
-        //Обновление списка в соотвествии с данными бд
-        if (transaction != null)
-            viewModel.transactionList.value?.add(transaction!!.createModel())
+         //TODO - доделать обработку приходящего объекта ЕГОР
+//         if(args.newOperationData!!.)
+//        if (transaction != null)
+//            viewModel.transactionList.value?.add(transaction!!.createModel())
     }
 
     override fun onCreateView(
@@ -57,17 +38,8 @@ class WalletTransactionFragment : ToolbarFragment() {
     ): View {
         _binding = FragmentWalletTransactionBinding.inflate(layoutInflater, container, false)
 
-        initLayout()
 
         return binding.root
-    }
-
-
-    private fun initLayout() {
-        binding.layoutWallet.info.text = getString(R.string.test_wallet_name)
-        binding.layoutWallet.income.incomeText.text = getString(R.string.income_text)
-        binding.layoutWallet.expenditure.expenditureText.text = getString(R.string.costs_text)
-        binding.layoutWallet.buttonAddOperation.text = getString(R.string.add_operation_text)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,13 +73,13 @@ class WalletTransactionFragment : ToolbarFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = operationsAdapter
         }
-        operationsAdapter.submitList(viewModel.transactionList.value)
+        operationsAdapter?.submitList(viewModel.transactionList.value)
 
 
-        viewModel.transactionList.observe(viewLifecycleOwner) {
+        viewModel.transactionList.observe(viewLifecycleOwner){
             if (viewModel.transactionList.value!!.size == 0)
                 binding.layoutWallet.noEntries.visibility = View.VISIBLE
-            else binding.layoutWallet.noEntries.visibility = View.GONE
+            else  binding.layoutWallet.noEntries.visibility = View.GONE
         }
 
     }
@@ -140,6 +112,6 @@ class WalletTransactionFragment : ToolbarFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        operationsAdapter = null
     }
-
 }

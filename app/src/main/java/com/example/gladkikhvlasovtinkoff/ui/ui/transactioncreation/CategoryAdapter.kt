@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
+package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +8,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.CategoryItemBinding
-import com.example.gladkikhvlasovtinkoff.model.OperationCategoryData
+import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
 
-    private val categories: MutableList<OperationCategoryData> = mutableListOf()
+    private val categories: MutableList<TransactionCategoryData> = mutableListOf()
     private var checkedPosition = -1
 
-    private var _checkedItem: MutableLiveData<OperationCategoryData?> = MutableLiveData(null)
-    val checkedItem: LiveData<OperationCategoryData?>
+    private var _checkedItem: MutableLiveData<TransactionCategoryData?> = MutableLiveData(null)
+    val checkedItem: LiveData<TransactionCategoryData?>
         get() = _checkedItem
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -59,7 +59,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = categories.size
 
-    fun addItems(categories: List<OperationCategoryData>) {
+    fun addItems(categories: List<TransactionCategoryData>) {
         val oldSize = categories.size
         this.categories.addAll(categories)
         notifyItemRangeChanged(oldSize - 1, categories.size)
@@ -74,18 +74,18 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
         }
 
         fun bind(
-            operationCategoryData: OperationCategoryData,
+            transactionCategoryData: TransactionCategoryData,
             position: Int,
             checkedPosition: Int
         ) {
             binding?.categoryImage?.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     itemView.resources,
-                    operationCategoryData.iconId,
+                    transactionCategoryData.iconId,
                     itemView.context.theme
                 )
             )
-            binding?.categoryName?.text = itemView.context.getString(operationCategoryData.nameId)
+            binding?.categoryName?.text = transactionCategoryData.name
             if (position == checkedPosition) {
                 binding?.isCategoryChecked?.visibility = View.VISIBLE
             } else

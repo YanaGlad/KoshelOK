@@ -1,8 +1,11 @@
 package com.example.gladkikhvlasovtinkoff.model
 
-data class WalletData(
-    val userId: Long,
-    val walletId: Long,
-    val name: String,
-    val amount: String
-)
+class WalletData (
+    val id : Long,
+    val userId : Long,
+    val name : String,
+    val limit : String,
+    val amount : String,
+    val currency : Currency
+    )
+

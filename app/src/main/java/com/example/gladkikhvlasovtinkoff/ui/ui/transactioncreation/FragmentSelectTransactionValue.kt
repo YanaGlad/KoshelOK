@@ -1,17 +1,19 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionValueBinding
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
+import com.example.gladkikhvlasovtinkoff.extension.styleInput
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,11 +34,10 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
     ): View {
         _binding = FragmentSelectTransactionValueBinding.inflate(inflater)
 
-        initLayout()
-
-        binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
+       binding.layoutEnter.buttonConfirmOperationValue
+           .setOnClickListener {
             val operationData = args.operationData
-            operationData.value = binding.layoutEnter.newOperationValueField.text.toString()
+            operationData.amount = binding.layoutEnter.newOperationValueField.text.toString()
             val action =
                 FragmentSelectTransactionValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(
                     operationData
@@ -45,25 +46,30 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
             findNavController().navigate(action)
         }
 
-        binding.layoutEnter.newOperationValueField.inputType =
-            InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+        binding.layoutEnter.newOperationValueField.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
-        binding.layoutEnter.newOperationValueField.doOnTextChanged { _, _, _, _ ->
-            val isEnabled = binding.layoutEnter.newOperationValueField.text.toString() != ""
-            if (isEnabled) {
-                binding.layoutEnter.buttonConfirmOperationValue.setEnabled(requireContext())
-            } else
-                binding.layoutEnter.buttonConfirmOperationValue.setDisabled(context)
-            binding.layoutEnter.buttonConfirmOperationValue.isEnabled = isEnabled
-        }
+        binding.layoutEnter.newOperationValueField.addTextChangedListener (object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.layoutEnter.newOperationValueField.removeTextChangedListener(this)
+                val isEnabled = s.toString() != ""
+                binding.layoutEnter.newOperationValueField.setText(s?.toString()?.styleInput() ?: "")
+                if (isEnabled) {
+                    binding.layoutEnter.buttonConfirmOperationValue.setEnabled(context)
+                } else
+                    binding.layoutEnter.buttonConfirmOperationValue.setDisabled(context)
+                binding.layoutEnter.buttonConfirmOperationValue.isEnabled = isEnabled
+                binding.layoutEnter.newOperationValueField.setSelection(
+                    binding.layoutEnter.newOperationValueField.text?.toString()?.length ?: 0)
+                binding.layoutEnter.newOperationValueField.addTextChangedListener(this)
+            }
+        })
 
         return binding.root
     }
-
-    private fun initLayout() {
-        binding.layoutEnter.newOperationValueBlock.hint = getString(R.string.operation_value_text)
-    }
-
 
     override fun onResume() {
         super.onResume()
@@ -76,7 +82,7 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
     }
 
     override fun configureToolbar() {
-        activity?.let { activity ->
+        activity?.let{activity ->
             (activity as ToolbarHolder).setToolbarTitle(getString(R.string.enter_sum))
         }
     }

@@ -22,9 +22,6 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
 
     val args: FragmentConfirmTransactionCreatingArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,10 +33,12 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
         setupUiWithData(args.operationData)
 
         binding.buttonConfirm.setOnClickListener{
+            val operationData = args.operationData
+            operationData.date = System.currentTimeMillis()
             val action =
                 FragmentConfirmTransactionCreatingDirections.
                 actionFragmentConfirmOperationCreatingToOptionFragment(
-                    args.operationData
+                    operationData
                 )
             findNavController().navigate(action)
         }
@@ -60,13 +59,14 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
 
     private fun setupUiWithData(operationData: WalletTransactionSample) {
         binding.valueAttribute.attributeName.text = getString(R.string.value_text)
-        binding.valueAttribute.attributeValue.text = operationData.value
+        binding.valueAttribute.attributeValue.text = operationData.amount
 
         binding.typeAttribute.attributeName.text = getString(R.string.type_text)
-        binding.typeAttribute.attributeValue.text = operationData.type
+        binding.typeAttribute.attributeValue.text = if(operationData.isIncome)
+            getString(R.string.income_text) else getString(R.string.costs_text)
 
         binding.categoryAttribute.attributeName.text = getString(R.string.category_text)
-        binding.categoryAttribute.attributeValue.text = resources.getString(operationData.categoryTextId)
+        binding.categoryAttribute.attributeValue.text = operationData.transactionCategoryData.name
 
         binding.dateAttribute.attributeName.text = getString(R.string.operation_date_text)
         context?.let { context ->
