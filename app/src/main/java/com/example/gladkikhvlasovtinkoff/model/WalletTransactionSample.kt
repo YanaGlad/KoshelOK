@@ -13,8 +13,8 @@ class WalletTransactionSample(
     var transactionCategoryData: TransactionCategoryData = TransactionCategoryData(UNDEFINED_STR,
         UNDEFINED_ID, UNDEFINED_ID, UNDEFINED_STR)
 ) : Parcelable {
-    fun createModel(): WalletTransactionData {
-        return WalletTransactionData(
+    fun createModel(): WalletTransactionModel {
+        return WalletTransactionModel(
             date = date,
             walletId = walletId,
             isIncome = isIncome,

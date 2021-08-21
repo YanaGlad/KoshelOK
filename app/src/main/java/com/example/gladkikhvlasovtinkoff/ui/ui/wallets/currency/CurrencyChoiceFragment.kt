@@ -1,21 +1,24 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.core.view.marginBottom
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCurrencyChoiceBinding
 
 
 class CurrencyChoiceFragment : Fragment() {
     private val viewModel: CurrencyChoiceViewModel by viewModels()
-
+    private lateinit var _layoutManager: CustomGridLayoutManager
     private var _binding: FragmentCurrencyChoiceBinding? = null
     private val binding get() = _binding!!
     private lateinit var currencyAdapter: CurrencyAdapter
+    private var expanded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,23 +33,35 @@ class CurrencyChoiceFragment : Fragment() {
 
         initRecyler()
 
-
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     private fun initRecyler() {
         currencyAdapter = CurrencyAdapter()
-
         binding.currencyRecycler.setHasFixedSize(true)
+        _layoutManager = CustomGridLayoutManager(context)
         binding.currencyRecycler.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = _layoutManager
             adapter = currencyAdapter
         }
         currencyAdapter.submitList(viewModel.currencyList.value)
+
+        expandRecyclerAnimation()
     }
 
+    private fun expandRecyclerAnimation() {
+        binding.showMore.setOnClickListener {
+            expanded = if (expanded) {
+                _layoutManager.setScrollEnabled(false)
+                binding.motionLayout.transitionToStart()
+                binding.showMore.text = getString(R.string.show_more)
+                false
+            } else {
+                _layoutManager.setScrollEnabled(true)
+                binding.motionLayout.transitionToEnd()
+                binding.showMore.text = getString(R.string.hide_show_more)
+                true
+            }
+        }
+    }
 }
