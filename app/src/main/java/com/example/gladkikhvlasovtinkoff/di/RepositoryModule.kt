@@ -1,7 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.di
 
-import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
-import com.example.gladkikhvlasovtinkoff.repository.TransactionRepositoryImpl
+import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
+import com.example.gladkikhvlasovtinkoff.repository.WalletRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ interface RepositoryModule {
 
     @Singleton
     @Binds
-    fun bindTransactionRepository(transactionRepositoryImpl: TransactionRepositoryImpl): TransactionRepository
+    fun bindWalletRepository(walletRepositoryImpl: WalletRepositoryImpl): WalletRepository
 
 }
