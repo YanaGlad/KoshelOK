@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentLimitBinding
+import com.example.gladkikhvlasovtinkoff.extension.setupNaviagtion
 
 
 class LimitFragment : Fragment() {
@@ -19,17 +21,14 @@ class LimitFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_arrow)
-                    val action = LimitFragmentDirections.actionLimitFragmentToNewWalletFragment()
-                    findNavController().navigate(action)
-                } })
-
+        setupNaviagtion(
+            this,
+            activity as AppCompatActivity,
+            findNavController(),
+            LimitFragmentDirections.actionLimitFragmentToNewWalletFragment()
+        )
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
