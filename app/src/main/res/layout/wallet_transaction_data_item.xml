@@ -42,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/date_operation"
         tools:text="Супермаркеты" />
 
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/subtitle_operation"
         android:layout_width="188dp"
@@ -51,7 +52,6 @@
         app:layout_constraintStart_toEndOf="@+id/image_operation"
         app:layout_constraintTop_toBottomOf="@+id/title_operation"
         tools:text="Пополнение" />
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/money"

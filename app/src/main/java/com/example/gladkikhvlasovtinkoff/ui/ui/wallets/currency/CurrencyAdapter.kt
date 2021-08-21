@@ -31,7 +31,7 @@ class CurrencyAdapter :
             holder.binding.switchMaterial.isChecked = false
 
         holder.binding.switchMaterial.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
+            if(isChecked) {
                 for (i in list.indices){
                     if(holder.binding.switchMaterial.isChecked && i!=position)
                         list[i].isChekced = false
