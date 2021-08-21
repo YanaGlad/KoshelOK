@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/mainAttributesText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/main_attributes"
@@ -21,8 +21,8 @@
         android:id="@+id/valueAttribute"
         layout="@layout/new_operation_selected_attribute_item"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mainAttributesText" />
@@ -31,8 +31,8 @@
         android:id="@+id/typeAttribute"
         layout="@layout/new_operation_selected_attribute_item"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/valueAttribute" />
@@ -41,8 +41,8 @@
         android:id="@+id/categoryAttribute"
         layout="@layout/new_operation_selected_attribute_item"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/typeAttribute" />
@@ -63,8 +63,8 @@
         android:id="@+id/dateAttribute"
         layout="@layout/new_operation_selected_attribute_item"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/additionalAttributesText" />

@@ -93,6 +93,15 @@
         <argument
             android:name="operationData"
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
+        <action
+            android:id="@+id/action_fragmentSelectOperationCategory_to_fragmentSelectOperationType"
+            app:destination="@id/fragmentSelectOperationType" />
+        <action
+            android:id="@+id/action_fragmentSelectOperationCategory_to_fragmentSelectOperationValue"
+            app:destination="@id/fragmentSelectOperationValue" />
+        <action
+            android:id="@+id/action_fragmentSelectOperationCategory_to_currencyChoiceFragment"
+            app:destination="@id/currencyChoiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
@@ -125,6 +134,9 @@
         <argument
             android:name="operationData"
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
+        <action
+            android:id="@+id/action_fragmentSelectOperationValue_to_fragmentConfirmOperationCreating"
+            app:destination="@id/fragmentConfirmOperationCreating" />
     </fragment>
     <fragment
         android:id="@+id/walletsFragment"

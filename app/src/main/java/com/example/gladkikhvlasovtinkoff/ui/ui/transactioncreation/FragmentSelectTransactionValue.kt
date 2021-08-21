@@ -8,14 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionValueBinding
-import com.example.gladkikhvlasovtinkoff.extension.setDisabled
-import com.example.gladkikhvlasovtinkoff.extension.setEnabled
-import com.example.gladkikhvlasovtinkoff.extension.setupTextStyleAndObserve
-import com.example.gladkikhvlasovtinkoff.extension.styleInput
+import com.example.gladkikhvlasovtinkoff.extension.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.google.android.material.textfield.TextInputEditText
@@ -29,7 +27,6 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
 
     private val args: FragmentSelectTransactionValueArgs by navArgs()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,27 +34,32 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
     ): View {
         _binding = FragmentSelectTransactionValueBinding.inflate(inflater)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.layoutEnter.buttonConfirmOperationValue
             .setOnClickListener {
-                val operationData = args.operationData
-                operationData.amount = binding.layoutEnter.newOperationValueField.text.toString()
-                val action =
-                    FragmentSelectTransactionValueDirections.actionFragmentSelectOperationValueToFragmentSelectOperationType(
-                        operationData
-                    )
-
-                findNavController().navigate(action)
+                onNextNavigate()
             }
 
         binding.layoutEnter.newOperationValueField.inputType =
             InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
-        setupTextStyleAndObserve(binding.layoutEnter.newOperationValueField, binding.layoutEnter.buttonConfirmOperationValue)
-
-        return binding.root
+        binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(binding.layoutEnter.buttonConfirmOperationValue)
     }
 
-
+    private fun onNextNavigate(){
+        val operationData = args.operationData
+        operationData.amount = binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
+        val action : NavDirections = if(!operationData.isValid)
+            FragmentSelectTransactionValueDirections
+                .actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData)
+        else
+            FragmentSelectTransactionValueDirections
+                .actionFragmentSelectOperationValueToFragmentConfirmOperationCreating(operationData)
+        findNavController().navigate(action)
+     }
 
     override fun onResume() {
         super.onResume()
@@ -74,5 +76,4 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
             (activity as ToolbarHolder).setToolbarTitle(getString(R.string.enter_sum))
         }
     }
-
 }

@@ -3,7 +3,6 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,7 +12,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
-import com.example.gladkikhvlasovtinkoff.extension.setupNaviagtion
+import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 
 
@@ -30,14 +29,12 @@ class WalletTransactionFragment : ToolbarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setupNaviagtion(
-            this,
-            activity as AppCompatActivity,
-            findNavController(),
-            WalletTransactionFragmentDirections.actionOptionFragmentToWalletsFragment()
+        setupNavigation(
+            fragment = this,
+            activity = activity as AppCompatActivity,
+            navController = findNavController(),
+            action = WalletTransactionFragmentDirections.actionOptionFragmentToWalletsFragment()
         )
-
         //TODO - доделать обработку приходящего объекта ЕГОР
         args.newOperationData?.let { data ->
             transaction = data
@@ -63,12 +60,15 @@ class WalletTransactionFragment : ToolbarFragment() {
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.add_operation_text)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configureToolbar()
         initWalletRecycler()
         setupButtonListener()
-
+        viewModel.transactionList.observe(viewLifecycleOwner) {
+            if (viewModel.transactionList.value!!.size == 0)
+                binding.layoutWallet.noEntries.visibility = View.VISIBLE
+            else binding.layoutWallet.noEntries.visibility = View.GONE
+        }
     }
 
     override fun configureToolbar() {
@@ -89,26 +89,16 @@ class WalletTransactionFragment : ToolbarFragment() {
                 }
             }
         }
-
         binding.layoutWallet.walletRecycle.setHasFixedSize(true)
         binding.layoutWallet.walletRecycle.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = operationsAdapter
         }
         operationsAdapter?.submitList(viewModel.transactionList.value)
-
-
-        viewModel.transactionList.observe(viewLifecycleOwner) {
-            if (viewModel.transactionList.value!!.size == 0)
-                binding.layoutWallet.noEntries.visibility = View.VISIBLE
-            else binding.layoutWallet.noEntries.visibility = View.GONE
-        }
-
     }
 
     private fun setupButtonListener() {
         val navController = findNavController()
-
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
             val action =
                 WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
@@ -119,8 +109,8 @@ class WalletTransactionFragment : ToolbarFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

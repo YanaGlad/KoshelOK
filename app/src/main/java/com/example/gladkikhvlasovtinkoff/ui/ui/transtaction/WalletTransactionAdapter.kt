@@ -41,11 +41,9 @@ class WalletOperationAdapter internal constructor(
             currentList, onActionClicked
         )
 
-
     override fun onBindViewHolder(holder: WalletOperationViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 
     class OperationDiffUtil : DiffUtil.ItemCallback<WalletTransactionModel>() {
         override fun areItemsTheSame(
@@ -96,7 +94,6 @@ class WalletOperationAdapter internal constructor(
         override fun onClosed(view: View) {
         }
 
-
         override fun onOpened(view: View) {
             val transaction = list[adapterPosition]
             actionsBindHelper.closeOtherThan(transaction.isIncome.getTransactionTypeString(view.context))
@@ -109,6 +106,5 @@ class WalletOperationAdapter internal constructor(
             onActionClick(list[adapterPosition], action)
             binding.swipeToAction.close()
         }
-
     }
 }

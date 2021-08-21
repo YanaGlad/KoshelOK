@@ -13,7 +13,7 @@ data class WalletTransactionModel (
 
     val isValid
     get() =
-        date != UNDEFINED_ID.toLong() && walletId != UNDEFINED_ID.toLong() &&
+        date != UNDEFINED_ID.toLong() &&
                 amount != UNDEFINED_STR && currency.code != UNDEFINED_STR &&
                 currency.name != UNDEFINED_STR && transactionCategoryData.iconId != UNDEFINED_ID
                 && transactionCategoryData.name != UNDEFINED_STR
