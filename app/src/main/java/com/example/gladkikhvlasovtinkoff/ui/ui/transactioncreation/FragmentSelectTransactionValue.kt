@@ -47,19 +47,21 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
             InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
         binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(binding.layoutEnter.buttonConfirmOperationValue)
+        binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(binding.layoutEnter.buttonConfirmOperationValue)
     }
 
-    private fun onNextNavigate(){
+    private fun onNextNavigate() {
         val operationData = args.operationData
-        operationData.amount = binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
-        val action : NavDirections = if(!operationData.isValid)
+        operationData.amount =
+            binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
+        val action: NavDirections = if (!operationData.isValid)
             FragmentSelectTransactionValueDirections
                 .actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData)
         else
             FragmentSelectTransactionValueDirections
                 .actionFragmentSelectOperationValueToFragmentConfirmOperationCreating(operationData)
         findNavController().navigate(action)
-     }
+    }
 
     override fun onResume() {
         super.onResume()

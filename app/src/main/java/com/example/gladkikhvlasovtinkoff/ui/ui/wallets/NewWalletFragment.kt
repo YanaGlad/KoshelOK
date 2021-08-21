@@ -1,15 +1,12 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentEnterWalletNameBinding
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
-import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 
@@ -28,7 +25,6 @@ class NewWalletFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewWalletBinding.inflate(inflater)
-
         configureToolbar()
         initLayout()
 
@@ -71,7 +67,9 @@ class NewWalletFragment : ToolbarFragment() {
 
     override fun configureToolbar() {
         activity?.let { activity ->
-            (activity as ToolbarHolder).setToolbarTitle(getString(R.string.new_wallet))
+            val holder  = activity as ToolbarHolder
+            holder.setToolbarTitle(getString(R.string.new_wallet))
+            holder.setToolbarBackButtonIcon(R.drawable.ic_back_arrow)
         }
     }
 }

@@ -33,20 +33,24 @@ class EnterWalletNameFragment : ToolbarFragment() {
         initLayout()
 
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
-            val action = EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment()
+            val action =
+                EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment()
             findNavController().navigate(action)
         }
 
+        observeTextChanged()
+
+        return binding.root
+    }
+
+    private fun observeTextChanged() {
         binding.layoutEnter.newOperationValueField.doOnTextChanged { _, _, _, _ ->
             val isEnabled = binding.layoutEnter.newOperationValueField.text.toString() != ""
             if (isEnabled) {
                 binding.layoutEnter.buttonConfirmOperationValue.setEnabled(context)
             } else
                 binding.layoutEnter.buttonConfirmOperationValue.setDisabled(context)
-            binding.layoutEnter.buttonConfirmOperationValue.isEnabled = isEnabled
         }
-
-        return binding.root
     }
 
     override fun configureToolbar() {

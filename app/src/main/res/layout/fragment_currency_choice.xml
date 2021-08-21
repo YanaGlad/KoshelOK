@@ -7,36 +7,48 @@
     android:layout_height="match_parent"
     tools:context=".ui.ui.wallets.currency.CurrencyChoiceFragment">
 
-  <androidx.constraintlayout.motion.widget.MotionLayout
-      android:id="@+id/motionLayout"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layoutDescription="@xml/fragment_currency_choice_scene"
-       >
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/currencyRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        app:layout_constraintBottom_toTopOf="@+id/show_more"
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layoutDescription="@xml/fragment_currency_choice_scene"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currencyRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:layout_constraintBottom_toTopOf="@+id/show_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/show_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_more"
-        android:textColor="@color/purple"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
-        app:layout_constraintTop_toBottomOf="@+id/currencyRecycler" />
-  </androidx.constraintlayout.motion.widget.MotionLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/show_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/show_more"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
+            app:layout_constraintTop_toBottomOf="@+id/currencyRecycler" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            android:paddingEnd="20dp"
+            android:src="@drawable/ic_down_expand"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
+            app:layout_constraintTop_toBottomOf="@+id/currencyRecycler" />
+ 
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

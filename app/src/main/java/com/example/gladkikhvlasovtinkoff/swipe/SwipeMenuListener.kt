@@ -8,4 +8,4 @@ interface SwipeMenuListener {
     fun onFullyOpened(view: View, quickAction: SwipeAction)
 
     fun onActionClicked(view: View, action: SwipeAction)
-}
+ }

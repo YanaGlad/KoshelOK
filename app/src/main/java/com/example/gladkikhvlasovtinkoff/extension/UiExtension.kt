@@ -48,8 +48,12 @@ fun EditText.setupTextStyleAndObserve(buttonObserver : Button) {
             this@setupTextStyleAndObserve.setText(
                 s?.toString()?.styleInput() ?: ""
             )
-            buttonObserver.isEnabled = isEnabled
-            buttonObserver.isEnabled = isEnabled
+
+            if (isEnabled) {
+                buttonObserver.setEnabled(context)
+            } else
+                buttonObserver.setDisabled(context)
+
             this@setupTextStyleAndObserve.setSelection(
                 this@setupTextStyleAndObserve.text?.toString()?.length ?: 0
             )
