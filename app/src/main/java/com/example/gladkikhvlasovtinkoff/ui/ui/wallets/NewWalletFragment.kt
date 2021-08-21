@@ -41,6 +41,8 @@ class NewWalletFragment : ToolbarFragment() {
         }
 
         binding.limitView.setOnClickListener {
+            val action = NewWalletFragmentDirections.actionNewWalletFragmentToLimitFragment()
+            findNavController().navigate(action)
         }
 
         binding.buttonConfirm.setOnClickListener {
