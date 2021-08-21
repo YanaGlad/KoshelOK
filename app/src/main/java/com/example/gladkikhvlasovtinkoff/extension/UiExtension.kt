@@ -3,6 +3,8 @@ package com.example.gladkikhvlasovtinkoff.extension
 import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton

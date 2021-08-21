@@ -8,14 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionValueBinding
-import com.example.gladkikhvlasovtinkoff.extension.setDisabled
-import com.example.gladkikhvlasovtinkoff.extension.setEnabled
-import com.example.gladkikhvlasovtinkoff.extension.setupTextStyleAndObserve
-import com.example.gladkikhvlasovtinkoff.extension.styleInput
+import com.example.gladkikhvlasovtinkoff.extension.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.google.android.material.textfield.TextInputEditText
@@ -49,13 +47,14 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
             InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
         binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(binding.layoutEnter.buttonConfirmOperationValue)
-        setupTextStyleAndObserve(binding.layoutEnter.newOperationValueField, binding.layoutEnter.buttonConfirmOperationValue)
+        binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(binding.layoutEnter.buttonConfirmOperationValue)
     }
 
-    private fun onNextNavigate(){
+    private fun onNextNavigate() {
         val operationData = args.operationData
-        operationData.amount = binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
-        val action : NavDirections = if(!operationData.isValid)
+        operationData.amount =
+            binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
+        val action: NavDirections = if (!operationData.isValid)
             FragmentSelectTransactionValueDirections
                 .actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData)
         else

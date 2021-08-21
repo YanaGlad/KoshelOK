@@ -41,10 +41,8 @@ class LimitFragment : Fragment() {
         binding.layoutEnter.newOperationValueField.inputType =
             InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
-        setupTextStyleAndObserve(
-            editText = binding.layoutEnter.newOperationValueField,
-            confirmButton = binding.layoutEnter.buttonConfirmOperationValue,
-            context = requireContext()
+        binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(
+            binding.layoutEnter.buttonConfirmOperationValue,
         )
 
         (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
