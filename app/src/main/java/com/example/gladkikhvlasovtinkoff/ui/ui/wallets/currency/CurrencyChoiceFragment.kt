@@ -33,24 +33,23 @@ class CurrencyChoiceFragment : Fragment() {
 
         initRecyler()
 
-
         return binding.root
     }
 
     private fun initRecyler() {
         currencyAdapter = CurrencyAdapter()
-
         binding.currencyRecycler.setHasFixedSize(true)
-
         _layoutManager = CustomGridLayoutManager(context)
-
         binding.currencyRecycler.apply {
             layoutManager = _layoutManager
             adapter = currencyAdapter
         }
         currencyAdapter.submitList(viewModel.currencyList.value)
 
+        expandRecyclerAnimation()
+    }
 
+    private fun expandRecyclerAnimation() {
         binding.showMore.setOnClickListener {
             expanded = if (expanded) {
                 _layoutManager.setScrollEnabled(false)
