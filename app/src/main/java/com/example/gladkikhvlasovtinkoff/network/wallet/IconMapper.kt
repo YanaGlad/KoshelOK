@@ -4,54 +4,45 @@ import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_ID
 import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
+import java.lang.IllegalArgumentException
 
 class IconMapper {
 
-    companion object {
-        private const val SALARY = "salary"
-        private const val PART_TIME = "part-time"
-        private const val GIFT = "gift"
-        private const val CAPITALIZATION = "capitalization"
-        private const val RESTAURANTS = "restaurants"
-        private const val SUPERMARKETS = "supermarkets"
-        private const val SPORTS = "sports"
-        private const val PUBLIC_TRANSPORT = "public-transport"
-        private const val PHARMACY = "pharmacy"
-        private const val GAS_STATION = "gas-station"
-        private const val RENT = "rent"
-        private const val TRAVEL = "travel"
+    enum class IconNameId{
+        Salary, PartTime, Gift, Capitalization,
+        Restaurants, Supermarkets, Sports, PublicTransport,
+        Pharmacy, GasStation, Rent, Travel
     }
 
-    fun getIconIdByName(name : String) : Int =
-        when(name) {
-            SALARY, PART_TIME -> R.drawable.ic_salary
-            GIFT -> R.drawable.ic_gift
-            CAPITALIZATION -> R.drawable.ic_capitalisation
-            RESTAURANTS -> R.drawable.ic_restaurants
-            SUPERMARKETS -> R.drawable.ic_supermarket
-            SPORTS -> R.drawable.ic_sport
-            PUBLIC_TRANSPORT -> R.drawable.ic_public_transport
-            PHARMACY -> R.drawable.ic_pharmacy
-            GAS_STATION -> R.drawable.ic_gas_station
-            RENT -> R.drawable.ic_rent
-            TRAVEL -> R.drawable.ic_travel
-            else -> UNDEFINED_ID
+    fun getIconIdByNameId(nameId : IconNameId) : Int =
+        when(nameId) {
+            IconNameId.Salary, IconNameId.PartTime -> R.drawable.ic_salary
+            IconNameId.Gift -> R.drawable.ic_gift
+            IconNameId.Capitalization -> R.drawable.ic_capitalisation
+            IconNameId.Restaurants -> R.drawable.ic_restaurants
+            IconNameId.Supermarkets -> R.drawable.ic_supermarket
+            IconNameId.Sports -> R.drawable.ic_sport
+            IconNameId.PublicTransport -> R.drawable.ic_public_transport
+            IconNameId.Pharmacy -> R.drawable.ic_pharmacy
+            IconNameId.GasStation -> R.drawable.ic_gas_station
+            IconNameId.Rent -> R.drawable.ic_rent
+            IconNameId.Travel -> R.drawable.ic_travel
         }
 
-    fun getIdentifierForCategoryName(context : Context, name : String) : String =
+    fun getIdentifierForCategoryName(context : Context, name : String) : IconNameId =
         when(name){
-            context.getString(R.string.salary) -> SALARY
-            context.getString(R.string.part_time) -> PART_TIME
-            context.getString(R.string.gift) -> GIFT
-            context.getString(R.string.capitalization) -> CAPITALIZATION
-            context.getString(R.string.restaurants) -> RESTAURANTS
-            context.getString(R.string.supermarket) -> SUPERMARKETS
-            context.getString(R.string.sport) -> SPORTS
-            context.getString(R.string.public_transport) -> PUBLIC_TRANSPORT
-            context.getString(R.string.pharmacy) -> PHARMACY
-            context.getString(R.string.gas_station) -> GAS_STATION
-            context.getString(R.string.rent) -> RENT
-            context.getString(R.string.travel) -> TRAVEL
-            else -> UNDEFINED_STR
+            context.getString(R.string.salary) -> IconNameId.Salary
+            context.getString(R.string.part_time) -> IconNameId.PartTime
+            context.getString(R.string.gift) -> IconNameId.Gift
+            context.getString(R.string.capitalization) -> IconNameId.Capitalization
+            context.getString(R.string.restaurants) -> IconNameId.Restaurants
+            context.getString(R.string.supermarket) -> IconNameId.Supermarkets
+            context.getString(R.string.sport) -> IconNameId.Sports
+            context.getString(R.string.public_transport) -> IconNameId.PublicTransport
+            context.getString(R.string.pharmacy) -> IconNameId.Pharmacy
+            context.getString(R.string.gas_station) -> IconNameId.GasStation
+            context.getString(R.string.rent) -> IconNameId.Rent
+            context.getString(R.string.travel) -> IconNameId.Travel
+            else -> throw IllegalArgumentException("cannot convert this name to category identifier")
         }
 }
