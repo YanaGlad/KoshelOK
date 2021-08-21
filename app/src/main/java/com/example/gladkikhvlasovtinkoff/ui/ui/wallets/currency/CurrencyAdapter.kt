@@ -30,6 +30,7 @@ class CurrencyAdapter :
         if(!getItem(position).isChekced)
             holder.binding.currencySwitcher.isChecked = false
 
+
         holder.binding.currencySwitcher.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 for (i in list.indices){

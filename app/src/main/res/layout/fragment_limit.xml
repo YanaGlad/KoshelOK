@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.ui.wallets.LimitFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <include
+        android:id="@+id/layout_enter"
+        layout="@layout/layout_enter"
+        />
 
 </FrameLayout>

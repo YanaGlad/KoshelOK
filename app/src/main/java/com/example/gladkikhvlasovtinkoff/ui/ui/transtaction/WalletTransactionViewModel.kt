@@ -2,19 +2,19 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gladkikhvlasovtinkoff.model.WalletTransactionData
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 
 class WalletTransactionViewModel : ViewModel() {
-    var transactionList : MutableLiveData<ArrayList<WalletTransactionData>> = MutableLiveData<ArrayList<WalletTransactionData>>()
+    var transactionList : MutableLiveData<ArrayList<WalletTransactionModel>> = MutableLiveData<ArrayList<WalletTransactionModel>>()
 
     //получение списка из бд
 
     init {
 
-        val list = ArrayList<WalletTransactionData>()
+        val list = ArrayList<WalletTransactionModel>()
 
 //        list.add(
-//            WalletTransactionData(
+//            WalletTransactionModel(
 //                System.currentTimeMillis(),
 //                R.drawable.ic_capitalisation,
 //                R.string.supermarket,
@@ -24,7 +24,7 @@ class WalletTransactionViewModel : ViewModel() {
 //        )
 //
 //        list.add(
-//            WalletTransactionData(
+//            WalletTransactionModel(
 //                System.currentTimeMillis() - MILLIS_IN_DAY,
 //                R.drawable.ic_salary,
 //                R.string.salary,

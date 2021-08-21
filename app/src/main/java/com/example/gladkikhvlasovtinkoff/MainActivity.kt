@@ -25,12 +25,13 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
     }
 
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         binding.toolBar.title = ""
         binding.toolBar.inflateMenu(R.menu.menu_main)
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_arrow)
 
         binding.toolBar.setNavigationOnClickListener { onBackPressed() }
     }
@@ -48,14 +49,14 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
         val count: Int = supportFragmentManager.backStackEntryCount
         if (count == 0) {
             super.onBackPressed()
-         } else {
+        } else {
             supportFragmentManager.popBackStack()
         }
     }
 
     override fun setToolbarTitle(title: String) {
         supportActionBar?.title = title
-     }
+    }
 
 }
 
