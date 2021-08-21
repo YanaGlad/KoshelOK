@@ -25,7 +25,23 @@ class CurrencyAdapter :
 
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
+        val list = currentList
         holder.bind(getItem(position))
+        if(!getItem(position).isChekced)
+            holder.binding.switchMaterial.isChecked = false
+
+        holder.binding.switchMaterial.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
+                for (i in list.indices){
+                    if(holder.binding.switchMaterial.isChecked && i!=position)
+                        list[i].isChekced = false
+                    else if( i == position)
+                        list[i].isChekced = true
+                }
+            }
+            submitList(list)
+         }
+
     }
 
 
@@ -34,8 +50,9 @@ class CurrencyAdapter :
         override fun areItemsTheSame(
             oldItem: CurrencyDataI,
             newItem: CurrencyDataI
-        ): Boolean =
-            oldItem.name == newItem.name
+        ): Boolean {
+           return oldItem.isChekced == newItem.isChekced
+        }
 
         override fun areContentsTheSame(
             oldItem: CurrencyDataI,
@@ -46,7 +63,7 @@ class CurrencyAdapter :
     }
 
     class CurrencyViewHolder(
-        private val binding: CurrencySwitcherBinding
+        val binding: CurrencySwitcherBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(walletOperations: CurrencyDataI) {
