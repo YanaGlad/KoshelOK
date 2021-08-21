@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ui.wallets.currency.CurrencyChoiceFragment">
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/currencyRecycler"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+  <androidx.constraintlayout.motion.widget.MotionLayout
+      android:id="@+id/motionLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layoutDescription="@xml/fragment_currency_choice_scene"
+       >
 
-      />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/currencyRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toTopOf="@+id/show_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/show_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_more"
+        android:textColor="@color/purple"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
+        app:layout_constraintTop_toBottomOf="@+id/currencyRecycler" />
+  </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

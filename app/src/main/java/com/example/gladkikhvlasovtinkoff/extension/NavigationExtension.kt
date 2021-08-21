@@ -11,6 +11,7 @@ import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.LimitFragmentDirections
 
+//TODO change to extension
 fun setupNaviagtion(
     fragment: Fragment,
     activity: AppCompatActivity,

@@ -15,18 +15,18 @@ import com.example.gladkikhvlasovtinkoff.extension.convertToStyled
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.extension.getTransactionTypeString
-import com.example.gladkikhvlasovtinkoff.model.WalletTransactionData
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
 import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 
-typealias OnActionClick = (transaction: WalletTransactionData, action: SwipeAction) -> Unit
+typealias OnActionClick = (transaction: WalletTransactionModel, action: SwipeAction) -> Unit
 
 class WalletOperationAdapter internal constructor(
     val context: Context,
     private val onActionClicked: OnActionClick
 ) :
-    ListAdapter<WalletTransactionData, WalletOperationAdapter.WalletOperationViewHolder>(
+    ListAdapter<WalletTransactionModel, WalletOperationAdapter.WalletOperationViewHolder>(
         OperationDiffUtil()
     ) {
 
@@ -47,16 +47,16 @@ class WalletOperationAdapter internal constructor(
     }
 
 
-    class OperationDiffUtil : DiffUtil.ItemCallback<WalletTransactionData>() {
+    class OperationDiffUtil : DiffUtil.ItemCallback<WalletTransactionModel>() {
         override fun areItemsTheSame(
-            oldItem: WalletTransactionData,
-            newItem: WalletTransactionData
+            oldItem: WalletTransactionModel,
+            newItem: WalletTransactionModel
         ): Boolean =
             oldItem.date == newItem.date
 
         override fun areContentsTheSame(
-            oldItem: WalletTransactionData,
-            newItem: WalletTransactionData
+            oldItem: WalletTransactionModel,
+            newItem: WalletTransactionModel
         ): Boolean =
             oldItem == newItem
 
@@ -65,12 +65,12 @@ class WalletOperationAdapter internal constructor(
     class WalletOperationViewHolder(
         private val context: Context,
         private val binding: SwipingTransactionDataItemBinding,
-        private val list: List<WalletTransactionData>,
+        private val list: List<WalletTransactionModel>,
         val onActionClick: OnActionClick
     ) : RecyclerView.ViewHolder(binding.root), SwipeMenuListener {
         private val actionsBindHelper = ActionBindHelper()
 
-        fun bind(walletOperations: WalletTransactionData) {
+        fun bind(walletOperations: WalletTransactionModel) {
             binding.swipeToAction.menuListener = this
 
             binding.data.dateOperation.text =
