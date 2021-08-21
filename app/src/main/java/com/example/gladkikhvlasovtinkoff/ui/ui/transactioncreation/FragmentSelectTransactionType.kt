@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
@@ -14,14 +13,12 @@ import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.NullPointerException
 
 @AndroidEntryPoint
 class FragmentSelectTransactionType : ToolbarFragment() {
 
     private var _binding: FragmentSelectTransactionTypeBinding? = null
     private val binding get() = _binding!!
-
     private val args: FragmentSelectTransactionTypeArgs by navArgs()
 
     override fun onCreateView(

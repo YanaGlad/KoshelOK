@@ -45,13 +45,6 @@ class WalletsFragment : ToolbarFragment() {
         initLayout()
         initRecycler()
 
-
-        viewModel.walletList.observe(viewLifecycleOwner) {
-            binding.noOperationMessage.visibility =
-                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
-        }
-
-
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
             val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment()
             findNavController().navigate(action)
@@ -80,6 +73,12 @@ class WalletsFragment : ToolbarFragment() {
             adapter = operationsAdapter
         }
         operationsAdapter?.submitList(viewModel.walletList.value)
+
+
+        viewModel.walletList.observe(viewLifecycleOwner) {
+            binding.noOperationMessage.visibility =
+                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
+        }
     }
 
     private fun initLayout() {

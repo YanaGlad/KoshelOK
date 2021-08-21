@@ -4,8 +4,8 @@ package com.example.gladkikhvlasovtinkoff.extension
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 
-private val DIGITS_BEFORE_COMMA = 16
-private val DIGITS_AFTER_COMMA = 6
+private const val DIGITS_BEFORE_COMMA = 16
+private const val DIGITS_AFTER_COMMA = 6
 
 
 fun String.convertToStyled() : String {

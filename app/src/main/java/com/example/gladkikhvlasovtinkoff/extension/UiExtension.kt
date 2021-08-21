@@ -1,21 +1,16 @@
 package com.example.gladkikhvlasovtinkoff.extension
 
-import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.LimitFragmentDirections
-import com.google.android.material.textfield.TextInputEditText
 
 //TODO change to extension
 fun setupNavigation(

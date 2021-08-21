@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
-import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
@@ -25,7 +24,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
     private var _binding: FragmentConfirmTransactionCreatedBinding? = null
     private val binding get() = _binding!!
 
-    val args: FragmentConfirmTransactionCreatingArgs by navArgs()
+    private val args: FragmentConfirmTransactionCreatingArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
