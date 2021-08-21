@@ -28,19 +28,20 @@ class CurrencyAdapter :
         val list = currentList
         holder.bind(getItem(position))
         if(!getItem(position).isChekced)
-            holder.binding.switchMaterial.isChecked = false
+            holder.binding.currencySwitcher.isChecked = false
 
-        holder.binding.switchMaterial.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked) {
+
+        holder.binding.currencySwitcher.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
                 for (i in list.indices){
-                    if(holder.binding.switchMaterial.isChecked && i!=position)
+                    if(holder.binding.currencySwitcher.isChecked && i!=position)
                         list[i].isChekced = false
                     else if( i == position)
                         list[i].isChekced = true
                 }
             }
             submitList(list)
-         }
+        }
 
     }
 
@@ -51,7 +52,7 @@ class CurrencyAdapter :
             oldItem: CurrencyDataI,
             newItem: CurrencyDataI
         ): Boolean {
-           return oldItem.isChekced == newItem.isChekced
+            return oldItem.isChekced == newItem.isChekced
         }
 
         override fun areContentsTheSame(
@@ -67,7 +68,7 @@ class CurrencyAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(walletOperations: CurrencyDataI) {
-            binding.switchMaterial.text = "Russian ruble"
+            binding.currencySwitcher.text = "Russian ruble"
 
         }
 
