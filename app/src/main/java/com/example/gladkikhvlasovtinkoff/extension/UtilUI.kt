@@ -1,6 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.extension
 
-import android.app.Activity
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.OnBackPressedCallback
@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.google.android.material.textfield.TextInputEditText
@@ -32,7 +31,7 @@ fun setupNaviagtion(
 }
 
 
-fun setupTextStyleAndObserve(editText : TextInputEditText, confirm : AppCompatButton) {
+fun setupTextStyleAndObserve(editText : TextInputEditText, confirmButton : AppCompatButton, context : Context) {
     editText.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -45,8 +44,12 @@ fun setupTextStyleAndObserve(editText : TextInputEditText, confirm : AppCompatBu
             editText.setText(
                 s?.toString()?.styleInput() ?: ""
             )
-            confirm.isEnabled = isEnabled
-            confirm.isEnabled = isEnabled
+
+            if (isEnabled) {
+                confirmButton.setEnabled(context)
+            } else
+                confirmButton.setDisabled(context)
+
             editText.setSelection(
                 editText.text?.toString()?.length ?: 0
             )
