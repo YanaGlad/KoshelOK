@@ -34,6 +34,10 @@ class CurrencyChoiceFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     private fun initRecyler() {
         currencyAdapter = CurrencyAdapter()
 

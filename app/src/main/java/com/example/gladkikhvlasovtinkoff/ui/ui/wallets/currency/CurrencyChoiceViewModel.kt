@@ -10,9 +10,9 @@ class CurrencyChoiceViewModel : ViewModel() {
 
     init {
         currencyList.value = ArrayList()
-        currencyList.value?.add(CurrencyDataI("00299", "Dollar"))
-        currencyList.value?.add(CurrencyDataI("12314", "Ruble"))
-        currencyList.value?.add(CurrencyDataI("423525", "Euro"))
+        currencyList.value?.add(CurrencyDataI("00299", "Dollar", false))
+        currencyList.value?.add(CurrencyDataI("12314", "Ruble", false))
+        currencyList.value?.add(CurrencyDataI("423525", "Euro", false))
 
     }
 

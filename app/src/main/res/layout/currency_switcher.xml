@@ -8,7 +8,7 @@
         android:id="@+id/switchMaterial"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:checked="true"
+        android:checked="false"
         android:layout_margin="8dp"
         android:text="Российский рубль"
         app:layout_constraintEnd_toEndOf="parent"
