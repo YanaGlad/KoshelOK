@@ -3,102 +3,108 @@ package com.example.gladkikhvlasovtinkoff.model
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 
+
+enum class userCateroryKeys {
+    Supermarket, Avia, Jewelery, Restaurants, Pharmancy, Cafe, Connection, Theatre, Train, Pets, Sport, Inernet, Transport, Medicine,
+    Travel, Charity, Music, Service, Gift, Mobile,  Home, Cinema, Car, Education, Tv, Wallet, Clothing, Finance, Entertainment, Other
+}
+
 class CategoryFactory : TransactionCategoryDataFactory {
 
     override fun getCategories(context: Context): List<TransactionCategoryData> =
         listOf(
             TransactionCategoryData(
-                name = context.getString(R.string.supermarket),
+                name = userCateroryKeys.Supermarket.name,
                 iconId = R.drawable.ic_supermarket,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.avia),
+                name = userCateroryKeys.Avia.name ,
                 iconId = R.drawable.ic_avia,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.jewelery),
+                name = userCateroryKeys.Jewelery.name,
                 iconId = R.drawable.ic_jewelry,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.restaurants),
+                name = userCateroryKeys.Restaurants.name,
                 iconId = R.drawable.ic_restaurants_2,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.pharmancy),
+                name = userCateroryKeys.Pharmancy.name,
                 iconId = R.drawable.ic_pharmacy,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.cafe),
+                name = userCateroryKeys.Cafe.name,
                 iconId = R.drawable.ic_restaurants,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.svyaz),
+                name = userCateroryKeys.Connection.name,
                 iconId = R.drawable.ic_svyaz,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.theatre),
+                name = userCateroryKeys.Theatre.name,
                 iconId = R.drawable.ic_theatre,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.train),
+                name = userCateroryKeys.Train.name,
                 iconId = R.drawable.ic_train,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.pets),
+                name = userCateroryKeys.Pets.name,
                 iconId = R.drawable.ic_pets,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.sport),
+                name = userCateroryKeys.Sport.name,
                 iconId = R.drawable.ic_sport,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.inernet),
+                name = userCateroryKeys.Inernet.name,
                 iconId = R.drawable.ic_internet,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.public_transport),
+                name = userCateroryKeys.Transport.name,
                 iconId = R.drawable.ic_transport,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.travel),
+                name = userCateroryKeys.Travel.name,
                 iconId = R.drawable.ic_travel,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.charity),
+                name = userCateroryKeys.Charity.name,
                 iconId = R.drawable.ic_charity,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.music),
+                name = userCateroryKeys.Music.name,
                 iconId = R.drawable.ic_music,
                 id = UNDEFINED_ID,
                 description = ""
@@ -110,79 +116,79 @@ class CategoryFactory : TransactionCategoryDataFactory {
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.gift),
+                name = userCateroryKeys.Gift.name,
                 iconId = R.drawable.ic_souvenirs,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.mobile),
+                name = userCateroryKeys.Mobile.name,
                 iconId = R.drawable.ic_mobile,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.home),
+                name = userCateroryKeys.Home.name,
                 iconId = R.drawable.ic_home,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.cinema),
+                name = userCateroryKeys.Cinema.name,
                 iconId = R.drawable.ic_cinema,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.car),
+                name = userCateroryKeys.Car.name,
                 iconId = R.drawable.ic_car,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.medicine),
+                name = userCateroryKeys.Medicine.name,
                 iconId = R.drawable.ic_medicine,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.education),
+                name = userCateroryKeys.Education.name,
                 iconId = R.drawable.ic_education,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.tv),
+                name = userCateroryKeys.Tv.name,
                 iconId = R.drawable.ic_tv,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.wallet),
+                name = userCateroryKeys.Wallet.name,
                 iconId = R.drawable.ic_wallet,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.clothing),
+                name = userCateroryKeys.Clothing.name,
                 iconId = R.drawable.ic_clothing,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.finance),
+                name = userCateroryKeys.Finance.name,
                 iconId = R.drawable.ic_finance,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.entertainment),
+                name = userCateroryKeys.Entertainment.name,
                 iconId = R.drawable.ic_entertainment,
                 id = UNDEFINED_ID,
                 description = ""
             ),
             TransactionCategoryData(
-                name = context.getString(R.string.other),
+                name = userCateroryKeys.Other.name,
                 iconId = R.drawable.ic_resource_else,
                 id = UNDEFINED_ID,
                 description = ""
