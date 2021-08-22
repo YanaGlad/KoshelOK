@@ -102,6 +102,13 @@
         <action
             android:id="@+id/action_fragmentSelectOperationCategory_to_currencyChoiceFragment"
             app:destination="@id/currencyChoiceFragment" />
+        <action
+            android:id="@+id/action_fragmentSelectOperationCategory_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
@@ -205,4 +212,8 @@
             android:id="@+id/action_limitFragment_to_newWalletFragment"
             app:destination="@id/newWalletFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/createCategoryFragment"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CreateCategoryFragment"
+        android:label="CreateCategoryFragment" />
 </navigation>
