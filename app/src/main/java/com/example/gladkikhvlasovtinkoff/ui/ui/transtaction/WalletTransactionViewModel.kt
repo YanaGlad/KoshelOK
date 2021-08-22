@@ -1,11 +1,15 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gladkikhvlasovtinkoff.R
+import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
+import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 
 class WalletTransactionViewModel : ViewModel() {
-    var transactionList : MutableLiveData<ArrayList<WalletTransactionModel>> = MutableLiveData<ArrayList<WalletTransactionModel>>()
+    var transactionList: MutableList<WalletTransactionModel> =
+        mutableListOf()
 
     //получение списка из бд
 
@@ -13,25 +17,206 @@ class WalletTransactionViewModel : ViewModel() {
 
         val list = ArrayList<WalletTransactionModel>()
 
-//        list.add(
-//            WalletTransactionModel(
-//                System.currentTimeMillis(),
-//                R.drawable.ic_capitalisation,
-//                R.string.supermarket,
-//                "Траты",
-//                "-12000"
-//            )
-//        )
-//
-//        list.add(
-//            WalletTransactionModel(
-//                System.currentTimeMillis() - MILLIS_IN_DAY,
-//                R.drawable.ic_salary,
-//                R.string.salary,
-//                "Пополнение",
-//                "130000"
-//            )
-//        )
-        transactionList.value = list
+        list.apply {
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis(),
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis(),
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis(),
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis(),
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis() - MILLIS_IN_DAY,
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis() - MILLIS_IN_DAY * 2,
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis() - MILLIS_IN_DAY * 3,
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis() - MILLIS_IN_DAY * 4,
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis() - MILLIS_IN_DAY * 5,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    walletId = 0,
+                    isIncome = false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis() - MILLIS_IN_DAY * 6,
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome = false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+        }
+        transactionList = list
     }
 }

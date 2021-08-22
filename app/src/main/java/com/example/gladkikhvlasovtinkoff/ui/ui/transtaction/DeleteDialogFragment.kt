@@ -24,7 +24,7 @@ class DeleteDialogFragment : DialogFragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                .setPositiveButton(getString(R.string.delete)) { dialog, id ->
+                .setPositiveButton(getString(R.string.delete)) { _, _ ->
                     Toast.makeText(
                         activity, "DELETE",
                         Toast.LENGTH_SHORT
@@ -36,7 +36,6 @@ class DeleteDialogFragment : DialogFragment() {
             val delete: Button = alert.getButton(DialogInterface.BUTTON_POSITIVE)
             delete.setTextColor(Color.RED)
             alert
-
         } ?: throw NullPointerException()
     }
 }

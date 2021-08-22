@@ -6,6 +6,7 @@
     android:layout_gravity="center"
     android:clickable="false"
     android:id="@+id/attributeItemLayout"
+    style="@style/AppSelectableItem"
     android:foregroundGravity="center">
 
     <androidx.appcompat.widget.AppCompatTextView

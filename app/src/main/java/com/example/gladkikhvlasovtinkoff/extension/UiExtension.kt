@@ -35,7 +35,7 @@ fun setupNavigation(
 }
 
 
-fun EditText.setupTextStyleAndObserve(buttonObserver : Button) {
+fun EditText.setupTextStyleAndObserve(buttonObserver: Button) {
     this.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
