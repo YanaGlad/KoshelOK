@@ -15,6 +15,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
+import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
 
@@ -88,8 +89,8 @@ class WalletTransactionFragment : ToolbarFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = baseAdapter
         }
-        addDecorators()
         submitAdapterList()
+        addDecorators()
     }
 
     private fun initAdapter() {
@@ -108,10 +109,10 @@ class WalletTransactionFragment : ToolbarFragment() {
     }
 
     private fun submitAdapterList() {
-        val list : List<DelegateItem> = viewModel.transactionList.map{
-            TransactionDelegateItem(walletTransactionModel = it)
-        }
-        baseAdapter?.submitList(list)
+        // TODO - перенести обработку во вью модель
+         context?.let { context ->
+             baseAdapter?.submitList(viewModel.transactionList.toDelegateItemListWithDate(context))
+         }
     }
 
     private fun addDecorators() {

@@ -40,6 +40,66 @@ class WalletTransactionViewModel : ViewModel() {
             )
             add(
                 WalletTransactionModel(
+                    date = System.currentTimeMillis(),
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis(),
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
+                    date = System.currentTimeMillis(),
+                    walletId = 0,
+                    transactionCategoryData =
+                    TransactionCategoryData(
+                        name = "chototam",
+                        iconId = R.drawable.ic_gas_station,
+                        id = 5,
+                        description = ""
+                    ),
+                    isIncome =
+                    false,
+                    amount = "isgjsiog",
+                    currency = Currency(
+                        code = "au",
+                        name = "rubli"
+                    )
+                )
+            )
+            add(
+                WalletTransactionModel(
                     date = System.currentTimeMillis() - MILLIS_IN_DAY,
                     walletId = 0,
                     transactionCategoryData =

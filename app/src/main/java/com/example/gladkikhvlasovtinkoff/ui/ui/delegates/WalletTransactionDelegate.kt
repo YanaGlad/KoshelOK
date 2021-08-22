@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.R
+import com.example.gladkikhvlasovtinkoff.databinding.DateItemBinding
 import com.example.gladkikhvlasovtinkoff.databinding.SwipingTransactionDataItemBinding
+import com.example.gladkikhvlasovtinkoff.databinding.WalletTransactionDataItemBinding
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.extension.getTransactionTypeString
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
@@ -22,9 +24,10 @@ class WalletTransactionDelegate internal constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
         WalletOperationViewHolder(
-            binding = SwipingTransactionDataItemBinding.inflate(LayoutInflater.from(parent.context)),
+            view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.swiping_transaction_data_item, parent, false),
             onActionClick = onActionClicked
-            )
+        )
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
@@ -38,12 +41,13 @@ class WalletTransactionDelegate internal constructor(
         item is TransactionDelegateItem
 
     class WalletOperationViewHolder(
-        private val binding: SwipingTransactionDataItemBinding,
+        val view: View,
         val onActionClick: OnActionClick
-    ) : RecyclerView.ViewHolder(binding.root), SwipeMenuListener {
+    ) : RecyclerView.ViewHolder(view), SwipeMenuListener {
 
         private val actionsBindHelper = ActionBindHelper()
-        private lateinit var item : WalletTransactionModel
+        private lateinit var item: WalletTransactionModel
+        private val binding = SwipingTransactionDataItemBinding.bind(view)
 
         fun bind(walletOperations: WalletTransactionModel) {
             item = walletOperations
