@@ -30,7 +30,7 @@ class LimitFragment : Fragment() {
             //TODO сохранение лимита и передача данных
             val action = LimitFragmentDirections.actionLimitFragmentToNewWalletFragment()
             findNavController().navigate(action)
-            (activity as ToolbarHolder).setToolbarBackButtonIcon(R.drawable.ic_back_arrow)
+            (activity as ToolbarHolder).setToolbarNavigationButtonIcon(R.drawable.ic_back_arrow)
         }
 
         return binding.root

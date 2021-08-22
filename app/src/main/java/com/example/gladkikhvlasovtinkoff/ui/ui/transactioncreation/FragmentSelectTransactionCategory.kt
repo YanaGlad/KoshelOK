@@ -115,5 +115,4 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         _binding = null
         categoriesAdapter = null
     }
-
 }

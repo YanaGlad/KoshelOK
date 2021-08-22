@@ -1,86 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/startGuideline"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/incomeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/endGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textIncomeType"
+        android:orientation="horizontal"
+        android:padding="16dp"
         style="@style/AppSelectableItem"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="10dp"
-        android:height="40dp"
-        android:gravity="center_vertical"
-        android:text="@string/text_income"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/checkIncomeOperationType"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textCostsType"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textIncomeType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="@string/text_income"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/checkIncomeOperationType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:contentDescription="@string/is_category_checked_text"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_checked" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/expensesLayout"
         style="@style/AppSelectableItem"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:height="40dp"
-        android:gravity="center_vertical"
-        android:text="@string/text_costs"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/checkCostsOperationType"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/textIncomeType" />
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/incomeLayout">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textCostsType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="@string/text_costs"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/checkCostsOperationType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:contentDescription="@string/is_category_checked_text"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_checked" />
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonConfirmOperationType"
         style="@style/AppDisabledButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/endGuideline"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline" />
-
-    <ImageView
-        android:id="@+id/checkIncomeOperationType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:contentDescription="@string/is_category_checked_text"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/textIncomeType"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textIncomeType"
-        app:srcCompat="@drawable/ic_checked" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/checkCostsOperationType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:contentDescription="@string/is_category_checked_text"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/textCostsType"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textCostsType"
-        app:srcCompat="@drawable/ic_checked" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
