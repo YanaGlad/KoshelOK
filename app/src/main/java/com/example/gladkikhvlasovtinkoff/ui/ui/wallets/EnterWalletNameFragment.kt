@@ -8,6 +8,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentEnterWalletNameBinding
+import com.example.gladkikhvlasovtinkoff.extension.observeTextChanged
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
@@ -33,19 +34,9 @@ class EnterWalletNameFragment : ToolbarFragment() {
             findNavController().navigate(action)
         }
 
-        observeTextChanged()
+        binding.layoutEnter.newOperationValueField.observeTextChanged(binding.layoutEnter.buttonConfirmOperationValue)
 
         return binding.root
-    }
-
-    private fun observeTextChanged() {
-        binding.layoutEnter.newOperationValueField.doOnTextChanged { _, _, _, _ ->
-            val isEnabled = binding.layoutEnter.newOperationValueField.text.toString() != ""
-            if (isEnabled) {
-                binding.layoutEnter.buttonConfirmOperationValue.setEnabled(context)
-            } else
-                binding.layoutEnter.buttonConfirmOperationValue.setDisabled(context)
-        }
     }
 
     override fun configureToolbar() {

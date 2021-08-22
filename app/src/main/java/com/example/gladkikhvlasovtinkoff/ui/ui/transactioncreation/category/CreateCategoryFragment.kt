@@ -20,8 +20,8 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryA
 class CreateCategoryFragment : Fragment() {
     private var _binding: FragmentCreateCategoryBinding? = null
     private val binding get() = _binding!!
-    private var categoriesAdapter: OperationCategoryAdapter? = null
 
+    private var categoriesAdapter: OperationCategoryAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
@@ -30,7 +32,18 @@ fun setupNavigation(
 }
 
 
-fun EditText.setupTextStyleAndObserve(buttonObserver : Button) {
+fun EditText.observeTextChanged(button: AppCompatButton) {
+    doOnTextChanged { _, _, _, _ ->
+        val isEnabled = text.toString() != ""
+        if (isEnabled) {
+            button.setEnabled(context)
+        } else
+            button.setDisabled(context)
+    }
+}
+
+
+fun EditText.setupTextStyleAndObserve(buttonObserver: Button) {
     this.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 

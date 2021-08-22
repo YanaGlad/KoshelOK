@@ -51,6 +51,7 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
         val operationData = args.operationData
         operationData.amount =
             binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
+
         val action: NavDirections = if (!operationData.isValid)
             FragmentSelectTransactionValueDirections
                 .actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData)
