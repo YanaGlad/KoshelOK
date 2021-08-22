@@ -1,15 +1,17 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCreateCategoryBinding
 import com.example.gladkikhvlasovtinkoff.model.CategoryFactory
+import com.example.gladkikhvlasovtinkoff.model.userCateroryKeys
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
 
 
@@ -64,6 +66,8 @@ class CreateCategoryFragment : Fragment() {
         }
 
         context?.let { context ->
+            val list = CategoryFactory().getCategories(context)
+
             categoriesAdapter?.addItems(CategoryFactory().getCategories(context))
 
         }

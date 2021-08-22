@@ -10,25 +10,29 @@ class DefaultIncomeCategoriesFactory : TransactionCategoryDataFactory{
                 name = context.getString(R.string.salary),
                 iconId = R.drawable.ic_salary,
                 id = UNDEFINED_ID,
-                description = ""
+                description = "",
+                color = R.color.income_dot_color
             ),
             TransactionCategoryData(
                 name = context.getString(R.string.part_time),
                 iconId = R.drawable.ic_salary,
                 id = UNDEFINED_ID,
-                description = ""
+                description = "",
+                color = R.color.income_dot_color
             ),
             TransactionCategoryData(
                 name = context.getString(R.string.gift),
                 iconId = R.drawable.ic_gift,
                 id = UNDEFINED_ID,
-                description = ""
+                description = "",
+                color = R.color.income_dot_color
             ),
             TransactionCategoryData(
                 name = context.getString(R.string.capitalization),
                 iconId = R.drawable.ic_capitalisation,
                 id = UNDEFINED_ID,
-                description = ""
+                description = "",
+                color = R.color.income_dot_color
             )
         )
 }

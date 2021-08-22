@@ -64,7 +64,8 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
             name = categoryName,
             iconId = imageId,
             id = UNDEFINED_ID,
-            description = UNDEFINED_STR
+            description = UNDEFINED_STR,
+            color = UNDEFINED_ID
         )
         val action =
             FragmentSelectTransactionCategoryDirections.

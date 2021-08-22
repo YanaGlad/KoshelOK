@@ -1,14 +1,18 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.CategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
+import com.example.gladkikhvlasovtinkoff.model.userCateroryKeys
 
 class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
 
@@ -78,7 +82,8 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
             position: Int,
             checkedPosition: Int
         ) {
-            binding?.categoryImage?.setImageDrawable(
+            binding?.categoryDot?.setImageResource(transactionCategoryData.color)
+            binding?.categoryImageIcon?.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     itemView.resources,
                     transactionCategoryData.iconId,
