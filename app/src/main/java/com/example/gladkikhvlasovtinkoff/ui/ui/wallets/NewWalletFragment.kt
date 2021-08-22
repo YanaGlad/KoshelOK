@@ -69,7 +69,7 @@ class NewWalletFragment : ToolbarFragment() {
         activity?.let { activity ->
             val holder  = activity as ToolbarHolder
             holder.setToolbarTitle(getString(R.string.new_wallet))
-            holder.setToolbarBackButtonIcon(R.drawable.ic_back_arrow)
+            holder.setToolbarNavigationButtonIcon(R.drawable.ic_back_arrow)
         }
     }
 }

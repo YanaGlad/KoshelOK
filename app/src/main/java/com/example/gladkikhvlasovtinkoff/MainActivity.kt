@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
         supportActionBar?.title = title
     }
 
-    override fun setToolbarBackButtonIcon(resourceId: Int) {
+    override fun setToolbarNavigationButtonIcon(resourceId: Int) {
         supportActionBar?.setHomeAsUpIndicator(resourceId)
     }
 

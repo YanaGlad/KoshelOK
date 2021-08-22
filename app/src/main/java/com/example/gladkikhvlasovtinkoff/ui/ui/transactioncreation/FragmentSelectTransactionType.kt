@@ -38,7 +38,7 @@ class FragmentSelectTransactionType : ToolbarFragment() {
 
         binding.buttonConfirmOperationType.setOnClickListener {
             onNextNavigate()
-            }
+        }
     }
 
     private fun setupSelectTypeListeners() {

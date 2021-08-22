@@ -11,7 +11,6 @@ import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentLimitBinding
 import com.example.gladkikhvlasovtinkoff.extension.setupTextStyleAndObserve
-import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 
 
@@ -31,7 +30,7 @@ class LimitFragment : Fragment() {
             //TODO сохранение лимита и передача данных
             val action = LimitFragmentDirections.actionLimitFragmentToNewWalletFragment()
             findNavController().navigate(action)
-            (activity as ToolbarHolder).setToolbarBackButtonIcon(R.drawable.ic_back_arrow)
+            (activity as ToolbarHolder).setToolbarNavigationButtonIcon(R.drawable.ic_back_arrow)
         }
 
         return binding.root
