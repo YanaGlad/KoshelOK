@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
@@ -35,8 +36,26 @@ class CreateCategoryFragment : Fragment() {
         _binding = FragmentCreateCategoryBinding.inflate(inflater)
         setupOperationCategoryList()
 
+        initDefaultAttributes()
+
+        binding.nameCategory.setOnClickListener {
+            val action =
+                CreateCategoryFragmentDirections.actionCreateCategoryFragmentToCreateCategoryNameFragment()
+            findNavController().navigate(action)
+        }
+        binding.typeCategory.setOnClickListener {
+
+        }
 
         return binding.root
+    }
+
+    private fun initDefaultAttributes() {
+        binding.name.attributeName.text = getString(R.string.wallet_name_title)
+        binding.name.attributeValue.text = getString(R.string.new_category)
+
+        binding.type.attributeName.text = getString(R.string.type_text)
+        binding.type.attributeValue.text = getString(R.string.income_text)
     }
 
     private fun setupOperationCategoryList() {

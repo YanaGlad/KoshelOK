@@ -34,10 +34,10 @@ class CreateCategoryNameFragment : Fragment() {
         _binding = FragmentCreateCategoryNameBinding.inflate(layoutInflater)
 
         binding.layoutEnter.newOperationValueField.observeTextChanged(binding.layoutEnter.buttonConfirmOperationValue)
+        binding.layoutEnter.newOperationValueField.setText(getString(R.string.new_category))
 
         return binding.root
     }
-
 
 
 }

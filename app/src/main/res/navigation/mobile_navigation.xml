@@ -215,5 +215,18 @@
     <fragment
         android:id="@+id/createCategoryFragment"
         android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CreateCategoryFragment"
-        android:label="CreateCategoryFragment" />
+        android:label="CreateCategoryFragment" >
+        <action
+            android:id="@+id/action_createCategoryFragment_to_createCategoryNameFragment"
+            app:destination="@id/createCategoryNameFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createCategoryNameFragment"
+        android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CreateCategoryNameFragment"
+        android:label="fragment_create_category_name"
+        tools:layout="@layout/fragment_create_category_name" />
 </navigation>
