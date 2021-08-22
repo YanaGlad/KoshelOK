@@ -85,7 +85,7 @@ class WalletOperationAdapter internal constructor(
             binding.data.titleOperation.text = walletOperations.transactionCategoryData.name
             binding.data.time.text = walletOperations.date.getTimeString()
             binding.data.dateOperation.text = walletOperations.date.getDayString(context)
-            binding.data.money.text = walletOperations.amount.convertToStyled()
+            binding.data.money.text = walletOperations.amount
             binding.data.subtitleOperation.text =
                 if (walletOperations.isIncome) context.getString(R.string.income_text)
                 else context.getString(R.string.costs_text)

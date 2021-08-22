@@ -42,23 +42,23 @@ class FragmentSelectTransactionType : ToolbarFragment() {
     }
 
     private fun setupSelectTypeListeners() {
-        binding.textCostsType.setOnClickListener {
-            if (binding.checkCostsOperationType.visibility == View.GONE) {
+        binding.expensesLayout.setOnClickListener {
+            if (binding.checkCostsOperationType.visibility == View.INVISIBLE) {
                 binding.checkCostsOperationType.visibility = View.VISIBLE
-                binding.checkIncomeOperationType.visibility = View.GONE
+                binding.checkIncomeOperationType.visibility = View.INVISIBLE
                 enableButton()
             } else{
-                binding.checkCostsOperationType.visibility = View.GONE
+                binding.checkCostsOperationType.visibility = View.INVISIBLE
                 disableButton()
             }
         }
-        binding.textIncomeType.setOnClickListener {
-            if (binding.checkIncomeOperationType.visibility == View.GONE) {
+        binding.incomeLayout.setOnClickListener {
+            if (binding.checkIncomeOperationType.visibility == View.INVISIBLE) {
                 binding.checkIncomeOperationType.visibility = View.VISIBLE
-                binding.checkCostsOperationType.visibility = View.GONE
+                binding.checkCostsOperationType.visibility = View.INVISIBLE
                 enableButton()
             } else {
-                binding.checkIncomeOperationType.visibility = View.GONE
+                binding.checkIncomeOperationType.visibility = View.INVISIBLE
                 disableButton()
             }
         }

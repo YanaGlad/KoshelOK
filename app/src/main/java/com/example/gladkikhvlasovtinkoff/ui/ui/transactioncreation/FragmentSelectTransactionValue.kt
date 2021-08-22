@@ -37,6 +37,7 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupUi()
         binding.layoutEnter.buttonConfirmOperationValue
             .setOnClickListener {
                 onNextNavigate()
@@ -49,6 +50,10 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
             .setupTextStyleAndObserve(buttonObserver = binding.layoutEnter.buttonConfirmOperationValue)
         binding.layoutEnter.newOperationValueField
             .setupTextStyleAndObserve(buttonObserver = binding.layoutEnter.buttonConfirmOperationValue)
+    }
+
+    private fun setupUi() {
+        binding.layoutEnter.newOperationValueBlock.hint = getString(R.string.operation_value_text)
     }
 
     private fun onNextNavigate() {
