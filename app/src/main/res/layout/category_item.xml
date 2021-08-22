@@ -6,7 +6,7 @@
     android:layout_height="56dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/category_dot"
+        android:id="@+id/transaction_dot"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="14dp"
@@ -35,9 +35,9 @@
         android:layout_marginStart="24dp"
         android:text="@string/test_category_name"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/category_dot"
-        app:layout_constraintStart_toEndOf="@+id/category_dot"
-        app:layout_constraintTop_toTopOf="@+id/category_dot" />
+        app:layout_constraintBottom_toBottomOf="@+id/transaction_dot"
+        app:layout_constraintStart_toEndOf="@+id/transaction_dot"
+        app:layout_constraintTop_toTopOf="@+id/transaction_dot" />
 
     <ImageView
         android:id="@+id/isCategoryChecked"

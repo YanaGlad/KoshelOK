@@ -82,7 +82,7 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
             position: Int,
             checkedPosition: Int
         ) {
-            binding?.categoryDot?.setImageResource(transactionCategoryData.color)
+            binding?.transactionDot?.setImageResource(transactionCategoryData.color)
             binding?.categoryImageIcon?.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     itemView.resources,
