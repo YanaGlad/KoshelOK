@@ -16,7 +16,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
-import java.util.*
+import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
 
 
 class WalletTransactionFragment : ToolbarFragment() {
@@ -27,7 +27,7 @@ class WalletTransactionFragment : ToolbarFragment() {
     private var _binding: FragmentWalletTransactionBinding? = null
     private val binding get() = _binding!!
 
-    private var operationsAdapter: WalletOperationAdapter? = null
+    private var baseAdapter: BaseAdapter? = null
     private var transaction: WalletTransactionSample? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class WalletTransactionFragment : ToolbarFragment() {
         }
 
         if (transaction != null)
-            viewModel.transactionList.value?.add(transaction!!.createModel())
+            viewModel.transactionList.add(transaction!!.createModel())
     }
 
     override fun onCreateView(
@@ -67,11 +67,11 @@ class WalletTransactionFragment : ToolbarFragment() {
         configureToolbar()
         initWalletRecycler()
         setupButtonListener()
-        viewModel.transactionList.observe(viewLifecycleOwner) {
-            if (viewModel.transactionList.value!!.size == 0)
-                binding.layoutWallet.noEntries.visibility = View.VISIBLE
-            else binding.layoutWallet.noEntries.visibility = View.GONE
-        }
+//        viewModel.transactionList.observe(viewLifecycleOwner) {
+//            if (viewModel.transactionList.value!!.size == 0)
+//                binding.layoutWallet.noEntries.visibility = View.VISIBLE
+//            else binding.layoutWallet.noEntries.visibility = View.GONE
+//        }
     }
 
     override fun configureToolbar() {
@@ -86,14 +86,15 @@ class WalletTransactionFragment : ToolbarFragment() {
         binding.layoutWallet.walletRecycle.setHasFixedSize(true)
         binding.layoutWallet.walletRecycle.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = operationsAdapter
+            adapter = baseAdapter
         }
-        operationsAdapter?.submitList(viewModel.transactionList.value)
         addDecorators()
+        submitAdapterList()
     }
 
     private fun initAdapter() {
-        operationsAdapter = WalletOperationAdapter(requireContext()) { _, action ->
+        baseAdapter = BaseAdapter()
+        baseAdapter?.addDelegate(WalletTransactionDelegate{ _, action ->
             when (action.actionId) {
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
                 R.id.delete -> {
@@ -102,7 +103,15 @@ class WalletTransactionFragment : ToolbarFragment() {
                     manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
                 }
             }
+        })
+        baseAdapter?.addDelegate(DateDelegate())
+    }
+
+    private fun submitAdapterList() {
+        val list : List<DelegateItem> = viewModel.transactionList.map{
+            TransactionDelegateItem(walletTransactionModel = it)
         }
+        baseAdapter?.submitList(list)
     }
 
     private fun addDecorators() {
@@ -147,6 +156,6 @@ class WalletTransactionFragment : ToolbarFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        operationsAdapter = null
+        baseAdapter = null
     }
 }

@@ -1,6 +1,5 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
@@ -9,8 +8,8 @@ import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 
 class WalletTransactionViewModel : ViewModel() {
-    var transactionList: MutableLiveData<ArrayList<WalletTransactionModel>> =
-        MutableLiveData<ArrayList<WalletTransactionModel>>()
+    var transactionList: MutableList<WalletTransactionModel> =
+        mutableListOf()
 
     //получение списка из бд
 
@@ -158,6 +157,6 @@ class WalletTransactionViewModel : ViewModel() {
                 )
             )
         }
-        transactionList.value = list
+        transactionList = list
     }
 }

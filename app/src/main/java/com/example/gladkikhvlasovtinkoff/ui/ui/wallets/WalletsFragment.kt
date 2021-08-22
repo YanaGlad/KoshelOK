@@ -82,7 +82,6 @@ class WalletsFragment : ToolbarFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-
     }
 
 }
