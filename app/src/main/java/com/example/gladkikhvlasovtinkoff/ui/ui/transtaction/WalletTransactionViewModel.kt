@@ -27,7 +27,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome =
                     false,
@@ -47,7 +48,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome =
                     false,
@@ -67,7 +69,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome =
                     false,
@@ -87,7 +90,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome =
                     false,
@@ -107,7 +111,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome =
                     false,
@@ -127,7 +132,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome =
                     false,
@@ -147,7 +153,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome =
                     false,
@@ -167,7 +174,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome =
                     false,
@@ -186,7 +194,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     walletId = 0,
                     isIncome = false,
@@ -206,7 +215,8 @@ class WalletTransactionViewModel : ViewModel() {
                         name = "chototam",
                         iconId = R.drawable.ic_gas_station,
                         id = 5,
-                        description = ""
+                        description = "",
+                        color = R.color.default_dot_color
                     ),
                     isIncome = false,
                     amount = "isgjsiog",
