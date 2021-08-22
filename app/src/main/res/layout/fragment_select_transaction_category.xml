@@ -17,6 +17,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/create_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_category"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/operationCategoryList" />
+
         <androidx.appcompat.widget.AppCompatButton
             style="@style/AppDisabledButtonStyle"
             android:id="@+id/buttonConfirmOperationCategory"

@@ -25,13 +25,13 @@ class WalletsAdapter internal constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder =
         WalletViewHolder(
-            context,
             SwipeWalletItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             ),
-            currentList,onActionClicked
+            currentList,
+            onActionClicked
         )
 
 
@@ -56,7 +56,6 @@ class WalletsAdapter internal constructor(
     }
 
     class WalletViewHolder(
-        private val context: Context,
         private val binding: SwipeWalletItemBinding,
         private val list: List<WalletData>,
         val onActionClick: OnActionClick
@@ -70,7 +69,6 @@ class WalletsAdapter internal constructor(
         }
 
         override fun onClosed(view: View) {
-         
         }
 
 

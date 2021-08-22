@@ -1,22 +1,19 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentSelectTransactionValueBinding
-import com.example.gladkikhvlasovtinkoff.extension.*
+import com.example.gladkikhvlasovtinkoff.extension.convertFromStyled
+import com.example.gladkikhvlasovtinkoff.extension.setupTextStyleAndObserve
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,6 +57,7 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
         val operationData = args.operationData
         operationData.amount =
             binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
+
         val action: NavDirections = if (!operationData.isValid)
             FragmentSelectTransactionValueDirections
                 .actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData)

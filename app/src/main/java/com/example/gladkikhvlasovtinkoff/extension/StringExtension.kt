@@ -4,6 +4,7 @@ package com.example.gladkikhvlasovtinkoff.extension
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 
+ 
 
 private const val DIGITS_BEFORE_COMMA = 12
 private const val DIGITS_AFTER_COMMA = 2

@@ -35,15 +35,15 @@ class WalletsFragment : ToolbarFragment() {
     ): View {
         _binding = FragmentWalletsBinding.inflate(inflater)
         (activity as MainActivity).supportActionBar?.hide()
-
-
+ 
 
         viewModel.walletList.observe(viewLifecycleOwner){
             binding.noOperationMessage.visibility = if(viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
         }
 
         initLayout()
-
+        initRecycler()
+ 
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
             val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment()
             findNavController().navigate(action)
@@ -51,7 +51,33 @@ class WalletsFragment : ToolbarFragment() {
         }
 
 
-        return binding.root
+ 
+    private fun initRecycler() {
+        operationsAdapter = WalletsAdapter(requireContext()) { _, action ->
+            when (action.actionId) {
+                R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
+                R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
+                R.id.delete -> {
+                    val deleteDialog = DeleteDialogFragment()
+                    val manager = activity?.supportFragmentManager
+                    manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
+                }
+            }
+        }
+
+        binding.layoutWallet.walletRecycle.setHasFixedSize(true)
+        binding.layoutWallet.walletRecycle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = operationsAdapter
+        }
+        operationsAdapter?.submitList(viewModel.walletList.value)
+
+
+        viewModel.walletList.observe(viewLifecycleOwner) {
+            binding.noOperationMessage.visibility =
+                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
+        }
+ 
     }
 
     private fun initLayout() {

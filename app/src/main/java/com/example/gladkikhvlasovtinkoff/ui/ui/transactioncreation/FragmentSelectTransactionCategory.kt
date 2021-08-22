@@ -47,6 +47,11 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
                 onCategoryUnchecked()
         }
 
+        binding.createCategory.setOnClickListener {
+            val action = FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToCreateCategoryFragment()
+            findNavController().navigate(action)
+        }
+
         binding.buttonConfirmOperationCategory.setOnClickListener {
             onConfirm()
         }

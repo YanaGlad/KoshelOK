@@ -2,9 +2,6 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_ID
-import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
-import java.lang.IllegalArgumentException
 
 class IconMapper {
 

@@ -21,16 +21,18 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class RetrofitModule {
 
-    private val  CONNECT_TIMEOUT = 10L
+    private val CONNECT_TIMEOUT = 10L
     private val WRITE_TIMEOUT = 30L
     private val READ_TIMEOUT = 10L
 
 
     @Provides
     @Reusable
-    fun provideHttpClient() : OkHttpClient =
+    fun provideHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
-            .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+            .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)

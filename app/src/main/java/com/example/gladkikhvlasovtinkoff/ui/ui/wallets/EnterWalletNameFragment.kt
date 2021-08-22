@@ -1,7 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentEnterWalletNameBinding
+import com.example.gladkikhvlasovtinkoff.extension.observeTextChanged
 import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
@@ -18,10 +18,6 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 class EnterWalletNameFragment : ToolbarFragment() {
     private var _binding: FragmentEnterWalletNameBinding? = null
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,19 +34,9 @@ class EnterWalletNameFragment : ToolbarFragment() {
             findNavController().navigate(action)
         }
 
-        observeTextChanged()
+        binding.layoutEnter.newOperationValueField.observeTextChanged(binding.layoutEnter.buttonConfirmOperationValue)
 
         return binding.root
-    }
-
-    private fun observeTextChanged() {
-        binding.layoutEnter.newOperationValueField.doOnTextChanged { _, _, _, _ ->
-            val isEnabled = binding.layoutEnter.newOperationValueField.text.toString() != ""
-            if (isEnabled) {
-                binding.layoutEnter.buttonConfirmOperationValue.setEnabled(context)
-            } else
-                binding.layoutEnter.buttonConfirmOperationValue.setDisabled(context)
-        }
     }
 
     override fun configureToolbar() {

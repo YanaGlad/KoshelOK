@@ -22,5 +22,49 @@ class WalletsViewModel : ViewModel() {
                 Currency("weq", "dollar")
             )
         )
+
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                12323,
+                "13123",
+                Currency("weq", "dollar")
+            )
+        )
+
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                12323,
+                "13123",
+                Currency("weq", "dollar")
+            )
+        )
+
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                12323,
+                "13123",
+                Currency("weq", "dollar")
+            )
+        )
+
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                12323,
+                "13123",
+                Currency("weq", "dollar")
+            )
+        )
     }
 }

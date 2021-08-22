@@ -15,24 +15,26 @@ class NewWalletFragment : ToolbarFragment() {
     private var _binding: FragmentNewWalletBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewWalletBinding.inflate(inflater)
+
         configureToolbar()
         initLayout()
+        setupFragmentNavigation()
 
+        return binding.root
+    }
+
+    private fun setupFragmentNavigation() {
         binding.nameView.setOnClickListener {
         }
 
         binding.currencyView.setOnClickListener {
-            val action = NewWalletFragmentDirections.actionNewWalletFragmentToCurrencyChoiceFragment()
+            val action =
+                NewWalletFragmentDirections.actionNewWalletFragmentToCurrencyChoiceFragment()
             findNavController().navigate(action)
         }
 
@@ -45,8 +47,6 @@ class NewWalletFragment : ToolbarFragment() {
             val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
             findNavController().navigate(action)
         }
-
-        return binding.root
     }
 
     private fun initLayout() {

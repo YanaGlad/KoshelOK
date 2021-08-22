@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -93,19 +94,54 @@
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddOperation"
-        app:layout_constraintEnd_toEndOf="@+id/wallet_recycle"
+        app:layout_constraintEnd_toEndOf="@+id/wallet_recycle_lay"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toTopOf="@+id/wallet_recycle" />
+        app:layout_constraintTop_toTopOf="@+id/wallet_recycle_lay" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/wallet_recycle"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/wallet_recycle_lay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddOperation"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/income"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/income">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/wallet_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/show_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/hidden_wallets"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wallet_recycle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="112dp"
+            android:paddingEnd="20dp"
+            android:src="@drawable/ic_down_expand"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/wallet_recycle"
+            app:layout_constraintTop_toBottomOf="@+id/wallet_recycle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+ 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
