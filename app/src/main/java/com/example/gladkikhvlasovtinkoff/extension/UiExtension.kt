@@ -31,7 +31,7 @@ fun setupNavigation(
         })
 }
 
-
+ 
 fun EditText.observeTextChanged(button: AppCompatButton) {
     doOnTextChanged { _, _, _, _ ->
         val isEnabled = text.toString() != ""
@@ -42,7 +42,7 @@ fun EditText.observeTextChanged(button: AppCompatButton) {
     }
 }
 
-
+ 
 fun EditText.setupTextStyleAndObserve(buttonObserver: Button) {
     this.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
+import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
+import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
 
 
 class WalletTransactionFragment : ToolbarFragment() {
@@ -24,7 +28,7 @@ class WalletTransactionFragment : ToolbarFragment() {
     private var _binding: FragmentWalletTransactionBinding? = null
     private val binding get() = _binding!!
 
-    private var operationsAdapter: WalletOperationAdapter? = null
+    private var baseAdapter: BaseAdapter? = null
     private var transaction: WalletTransactionSample? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +45,7 @@ class WalletTransactionFragment : ToolbarFragment() {
         }
 
         if (transaction != null)
-            viewModel.transactionList.value?.add(transaction!!.createModel())
+            viewModel.transactionList.add(transaction!!.createModel())
     }
 
     override fun onCreateView(
@@ -64,11 +68,11 @@ class WalletTransactionFragment : ToolbarFragment() {
         configureToolbar()
         initWalletRecycler()
         setupButtonListener()
-        viewModel.transactionList.observe(viewLifecycleOwner) {
-            if (viewModel.transactionList.value!!.size == 0)
-                binding.layoutWallet.noEntries.visibility = View.VISIBLE
-            else binding.layoutWallet.noEntries.visibility = View.GONE
-        }
+//        viewModel.transactionList.observe(viewLifecycleOwner) {
+//            if (viewModel.transactionList.value!!.size == 0)
+//                binding.layoutWallet.noEntries.visibility = View.VISIBLE
+//            else binding.layoutWallet.noEntries.visibility = View.GONE
+//        }
     }
 
     override fun configureToolbar() {
@@ -79,7 +83,19 @@ class WalletTransactionFragment : ToolbarFragment() {
     }
 
     private fun initWalletRecycler() {
-        operationsAdapter = WalletOperationAdapter(requireContext()) { _, action ->
+        initAdapter()
+        binding.layoutWallet.walletRecycle.setHasFixedSize(true)
+        binding.layoutWallet.walletRecycle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = baseAdapter
+        }
+        submitAdapterList()
+        addDecorators()
+    }
+
+    private fun initAdapter() {
+        baseAdapter = BaseAdapter()
+        baseAdapter?.addDelegate(WalletTransactionDelegate{ _, action ->
             when (action.actionId) {
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
                 R.id.delete -> {
@@ -88,13 +104,30 @@ class WalletTransactionFragment : ToolbarFragment() {
                     manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
                 }
             }
-        }
-        binding.layoutWallet.walletRecycle.setHasFixedSize(true)
-        binding.layoutWallet.walletRecycle.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = operationsAdapter
-        }
-        operationsAdapter?.submitList(viewModel.transactionList.value)
+        })
+        baseAdapter?.addDelegate(DateDelegate())
+    }
+
+    private fun submitAdapterList() {
+        // TODO - перенести обработку во вью модель
+         context?.let { context ->
+             baseAdapter?.submitList(viewModel.transactionList.toDelegateItemListWithDate(context))
+         }
+    }
+
+    private fun addDecorators() {
+        binding.layoutWallet.walletRecycle.addItemDecoration(
+            DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+                .apply {
+                    ResourcesCompat.getDrawable(resources, R.drawable.item_divider, context?.theme)
+                        ?.let { drawable ->
+                            setDrawable(
+                                drawable
+                            )
+                        }
+                }
+        )
+
     }
 
     private fun setupButtonListener() {
@@ -124,6 +157,6 @@ class WalletTransactionFragment : ToolbarFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        operationsAdapter = null
+        baseAdapter = null
     }
 }

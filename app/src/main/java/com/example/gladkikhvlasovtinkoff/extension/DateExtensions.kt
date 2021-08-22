@@ -27,4 +27,9 @@ fun Long.getDayString(context : Context) : String =
         }
     }
 
+fun Long.getDateString() : String {
+    val date = Date(this)
+    val format = SimpleDateFormat("dd/MM/yyyy")
+    return format.format(date)
+}
 

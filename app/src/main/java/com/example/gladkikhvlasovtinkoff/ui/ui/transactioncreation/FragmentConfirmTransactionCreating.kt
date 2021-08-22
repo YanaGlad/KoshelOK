@@ -29,7 +29,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // TODO - СДЕЛАТЬ ВЫБОР ВАЛЮТЫ
-        args.operationData.currency = com.example.gladkikhvlasovtinkoff.model.Currency(
+        args.operationData.currency = Currency(
             code = "rub", "Rubli blin"
         )
     }
@@ -104,16 +104,14 @@ class FragmentConfirmTransactionCreating : ToolbarFragment(){
         ).show()
     }
 
-
-    private fun getDatePickerListener(cal : Calendar) : DatePickerDialog.OnDateSetListener {
-        return DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-        cal.set(Calendar.YEAR, year)
-        cal.set(Calendar.MONTH, monthOfYear)
-        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-        args.operationData.date = cal.timeInMillis
-        setupUiWithData(args.operationData)
-    }
-    }
+    private fun getDatePickerListener(cal : Calendar) : DatePickerDialog.OnDateSetListener =
+        DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            args.operationData.date = cal.timeInMillis
+            setupUiWithData(args.operationData)
+        }
 
     private fun setupUiWithData(operationData: WalletTransactionSample) {
         binding.valueAttribute.attributeName.text = getString(R.string.value_text)

@@ -30,11 +30,11 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSelectTransactionValueBinding.inflate(inflater)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupUi()
         binding.layoutEnter.buttonConfirmOperationValue
             .setOnClickListener {
                 onNextNavigate()
@@ -43,8 +43,14 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
         binding.layoutEnter.newOperationValueField.inputType =
             InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
-        binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(binding.layoutEnter.buttonConfirmOperationValue)
-        binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(binding.layoutEnter.buttonConfirmOperationValue)
+        binding.layoutEnter.newOperationValueField
+            .setupTextStyleAndObserve(buttonObserver = binding.layoutEnter.buttonConfirmOperationValue)
+        binding.layoutEnter.newOperationValueField
+            .setupTextStyleAndObserve(buttonObserver = binding.layoutEnter.buttonConfirmOperationValue)
+    }
+
+    private fun setupUi() {
+        binding.layoutEnter.newOperationValueBlock.hint = getString(R.string.operation_value_text)
     }
 
     private fun onNextNavigate() {
@@ -66,14 +72,14 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
         configureToolbar()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     override fun configureToolbar() {
         activity?.let { activity ->
             (activity as ToolbarHolder).setToolbarTitle(getString(R.string.enter_sum))
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

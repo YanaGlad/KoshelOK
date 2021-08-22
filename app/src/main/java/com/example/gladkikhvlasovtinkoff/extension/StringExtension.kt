@@ -4,9 +4,10 @@ package com.example.gladkikhvlasovtinkoff.extension
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 
-private const val DIGITS_BEFORE_COMMA = 16
-private const val DIGITS_AFTER_COMMA = 6
+ 
 
+private const val DIGITS_BEFORE_COMMA = 12
+private const val DIGITS_AFTER_COMMA = 2
 
 fun String.convertToStyled() : String {
     val firstCommaIndex = this.getNumOfDigitsBeforeComma()
@@ -61,8 +62,13 @@ fun String.convertFromStyled() : String =
                     }
                 }
                 else if (!containDot && currentBeforeComma <= DIGITS_BEFORE_COMMA) {
-                    append(char)
-                    currentBeforeComma++
+                    if(this.length == 1 && this[0] == '0'){
+                        if(char != '0')
+                            this[0] = char
+                    }else {
+                        append(char)
+                        currentBeforeComma++
+                    }
                 }
                 else if (containDot && currentAfterComma < DIGITS_AFTER_COMMA){
                     append(char)
