@@ -3,7 +3,7 @@ package com.example.gladkikhvlasovtinkoff.model
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 
-class CreateCategoryFactory : TransactionCategoryDataFactory {
+class CategoryFactory : TransactionCategoryDataFactory {
 
     override fun getCategories(context: Context): List<TransactionCategoryData> =
         listOf(
