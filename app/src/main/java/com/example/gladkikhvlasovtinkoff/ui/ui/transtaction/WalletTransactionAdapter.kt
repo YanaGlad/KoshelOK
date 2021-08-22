@@ -70,9 +70,6 @@ class WalletOperationAdapter internal constructor(
 
         fun bind(walletOperations: WalletTransactionModel) {
             binding.swipeToAction.menuListener = this
-
-            binding.data.dateOperation.text =
-                walletOperations.date.getDayString(binding.root.context)
             binding.data.imageOperation.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     binding.root.context.resources,
@@ -84,15 +81,13 @@ class WalletOperationAdapter internal constructor(
             //TODO добавить стайлинг текста
             binding.data.titleOperation.text = walletOperations.transactionCategoryData.name
             binding.data.time.text = walletOperations.date.getTimeString()
-            binding.data.dateOperation.text = walletOperations.date.getDayString(context)
             binding.data.money.text = walletOperations.amount
             binding.data.subtitleOperation.text =
                 if (walletOperations.isIncome) context.getString(R.string.income_text)
                 else context.getString(R.string.costs_text)
         }
 
-        override fun onClosed(view: View) {
-        }
+        override fun onClosed(view: View) {}
 
         override fun onOpened(view: View) {
             val transaction = list[adapterPosition]

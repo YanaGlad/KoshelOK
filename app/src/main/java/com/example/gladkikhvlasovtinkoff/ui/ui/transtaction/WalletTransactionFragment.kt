@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
@@ -14,6 +16,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
+import java.util.*
 
 
 class WalletTransactionFragment : ToolbarFragment() {
@@ -79,6 +82,17 @@ class WalletTransactionFragment : ToolbarFragment() {
     }
 
     private fun initWalletRecycler() {
+        initAdapter()
+        binding.layoutWallet.walletRecycle.setHasFixedSize(true)
+        binding.layoutWallet.walletRecycle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = operationsAdapter
+        }
+        operationsAdapter?.submitList(viewModel.transactionList.value)
+        addDecorators()
+    }
+
+    private fun initAdapter() {
         operationsAdapter = WalletOperationAdapter(requireContext()) { _, action ->
             when (action.actionId) {
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
@@ -89,12 +103,21 @@ class WalletTransactionFragment : ToolbarFragment() {
                 }
             }
         }
-        binding.layoutWallet.walletRecycle.setHasFixedSize(true)
-        binding.layoutWallet.walletRecycle.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = operationsAdapter
-        }
-        operationsAdapter?.submitList(viewModel.transactionList.value)
+    }
+
+    private fun addDecorators() {
+        binding.layoutWallet.walletRecycle.addItemDecoration(
+            DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+                .apply {
+                    ResourcesCompat.getDrawable(resources, R.drawable.item_divider, context?.theme)
+                        ?.let { drawable ->
+                            setDrawable(
+                                drawable
+                            )
+                        }
+                }
+        )
+
     }
 
     private fun setupButtonListener() {
