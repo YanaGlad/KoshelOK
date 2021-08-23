@@ -111,7 +111,6 @@ class WalletsFragment : ToolbarFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         return true
     }
 
