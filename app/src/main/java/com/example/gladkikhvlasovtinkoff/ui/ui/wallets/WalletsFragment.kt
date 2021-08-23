@@ -41,24 +41,32 @@ class WalletsFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletsBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).supportActionBar?.hide()
-
-
-        viewModel.walletList.observe(viewLifecycleOwner) {
-            binding.noOperationMessage.visibility =
-                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
-        }
-
+        setupViewModel()
         initLayout()
         initRecycler()
+        setupNavigation()
 
+    }
+
+    private fun setupNavigation() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
             val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment()
             findNavController().navigate(action)
             (activity as MainActivity).supportActionBar?.show()
         }
+    }
 
-        return binding.root
+    private fun setupViewModel() {
+        viewModel.walletList.observe(viewLifecycleOwner) {
+            binding.noOperationMessage.visibility =
+                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
+        }
     }
 
 
