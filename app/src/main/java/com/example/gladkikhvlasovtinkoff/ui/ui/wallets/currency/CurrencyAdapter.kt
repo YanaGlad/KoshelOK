@@ -7,73 +7,71 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.CurrencySwitcherBinding
 import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.CurrencyData
 
 
-class CurrencyAdapter(val onCurrencySwitcher : OnCurrencySwitcher) :
-    ListAdapter<CurrencyData, CurrencyAdapter.CurrencyViewHolder>(
+class CurrencyAdapter  constructor(private val switcher : OnCurrencySwitcher):
+    ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder>(
         OperationDiffUtil()
     ) {
+    interface OnCurrencySwitcher {
+        fun onCurrencySwitch(currency: Currency)
+    }
 
+    private var lastChecked: Int = -1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
-        CurrencyViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
+        val holder = CurrencyViewHolder(
             CurrencySwitcherBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
-
-
-    override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        val list = currentList
-        holder.bind(getItem(position))
-        if(!getItem(position).isChekced)
-            holder.binding.currencySwitcher.isChecked = false
-
-
-        holder.binding.currencySwitcher.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-                onCurrencySwitcher.changeViewModel(Currency(getItem(position).id, getItem(position).code, getItem(position).name))
-
-                for (i in list.indices){
-                    if(holder.binding.currencySwitcher.isChecked && i!=position)
-                        list[i].isChekced = false
-                    else if( i == position)
-                        list[i].isChekced = true
-                }
+        holder.binding.currencySwitcher.setOnClickListener {
+            if (holder.adapterPosition != RecyclerView.NO_POSITION) {
+                onItemChecked(holder.adapterPosition)
             }
-            submitList(list)
+        }
+        return holder
+    }
+
+    private fun onItemChecked(position: Int){
+        val oldPosition = lastChecked
+        if (position == oldPosition && position >= 0) {
+            lastChecked = -1
+            notifyItemChanged(oldPosition)
+        } else {
+            lastChecked = position
+            if (oldPosition >= 0)
+                notifyItemChanged(oldPosition)
+            notifyItemChanged(position)
+            switcher.onCurrencySwitch(getItem(position))
         }
     }
 
+    override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
+        holder.bind(getItem(position), position, lastChecked)
+    }
 
-    //Currency data!
-    class OperationDiffUtil : DiffUtil.ItemCallback<CurrencyData>() {
+
+    class OperationDiffUtil : DiffUtil.ItemCallback<Currency>() {
         override fun areItemsTheSame(
-            oldItem: CurrencyData,
-            newItem: CurrencyData
-        ): Boolean {
-            return oldItem.isChekced == newItem.isChekced
-        }
+            oldItem: Currency,
+            newItem: Currency
+        ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: CurrencyData,
-            newItem: CurrencyData
-        ): Boolean =
-            oldItem == newItem
-
+            oldItem: Currency,
+            newItem: Currency
+        ): Boolean = oldItem == newItem
     }
 
     class CurrencyViewHolder(
         val binding: CurrencySwitcherBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(walletOperations: CurrencyData) {
-            binding.currencySwitcher.text = walletOperations.name
-
+        fun bind(currency: Currency, position: Int, lastChecked: Int) {
+            binding.currencySwitcher.text = currency.name
+            binding.currencySwitcher.isChecked = position == lastChecked
         }
-
     }
 }

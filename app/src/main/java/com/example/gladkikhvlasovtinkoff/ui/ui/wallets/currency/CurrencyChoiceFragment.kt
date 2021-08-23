@@ -12,13 +12,11 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCurrencyChoiceBinding
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class CurrencyChoiceFragment : Fragment() {
 
-interface OnCurrencySwitcher {
-    fun changeViewModel(currency: Currency)
-}
-
-class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
     private val viewModel: CurrencyChoiceViewModel by viewModels()
     private lateinit var _layoutManager: CustomGridLayoutManager
     private var _binding: FragmentCurrencyChoiceBinding? = null
@@ -27,32 +25,50 @@ class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
     private var expanded = false
 
     private val args: CurrencyChoiceFragmentArgs by navArgs()
-    private lateinit var walletDataSample: WalletDataSample
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCurrencyChoiceBinding.inflate(inflater)
-
-        walletDataSample = args.walletDataSample
-
-        initRecyler()
-
         return binding.root
     }
 
-    private fun initRecyler() {
-        currencyAdapter = CurrencyAdapter(this)
+ 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initRecycler()
+        viewModel.viewState.observe(viewLifecycleOwner){ viewState ->
+            handleViewState(viewState)
+        }
+    }
+
+    private fun handleViewState(viewState: CurrencyListViewState) =
+        when(viewState){
+            is CurrencyListViewState.Loaded -> currencyAdapter.submitList(viewState.list)
+            else -> onUnexpectedError()
+        }
+ 
+
+    private fun onUnexpectedError() {
+    }
+
+    private fun initRecycler() {
+        currencyAdapter = CurrencyAdapter(object : CurrencyAdapter.OnCurrencySwitcher{
+            override fun onCurrencySwitch(currency: Currency) {
+               onCurrencySwitched(currency)
+            }
+        })
         binding.currencyRecycler.setHasFixedSize(true)
         _layoutManager = CustomGridLayoutManager(context)
         binding.currencyRecycler.apply {
             layoutManager = _layoutManager
             adapter = currencyAdapter
         }
-        currencyAdapter.submitList(viewModel.currencyList.value)
-
         expandRecyclerAnimation()
+    }
+
+    private fun onCurrencySwitched(currency: Currency) {
+        args.walletDataSample.currency = currency
     }
 
     private fun expandRecyclerAnimation() {
@@ -89,10 +105,5 @@ class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
             true
         }
     }
-
-    override fun changeViewModel(currency: Currency) {
-        val change = walletDataSample
-        change.currency = currency
-        walletDataSample = change
-    }
+ 
 }
