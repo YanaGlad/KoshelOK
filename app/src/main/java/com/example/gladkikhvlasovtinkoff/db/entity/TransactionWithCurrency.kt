@@ -18,6 +18,7 @@ data class TransactionWithCurrency (
     val currencyId : Long,
     @Relation(parentColumn = "currency_id", entityColumn = "id", entity = CurrencyDB::class)
     val currency: CurrencyDB,
-    @Embedded
+
+    @Relation(parentColumn = "currency_id", entityColumn = "category_id", entity = CategoryDB::class)
     val transactionCategoryData: CategoryDB
 )

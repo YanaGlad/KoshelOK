@@ -109,8 +109,6 @@ class WalletsFragment : ToolbarFragment() {
             adapter = operationsAdapter
         }
  
-        operationsAdapter?.submitList(viewModel.walletList.value)
-
         binding.layoutWallet.hiddenWalletRecycle.setHasFixedSize(true)
         binding.layoutWallet.hiddenWalletRecycle.apply {
             layoutManager = LinearLayoutManager(context)
@@ -118,15 +116,7 @@ class WalletsFragment : ToolbarFragment() {
         }
 
         operationsHiddenAdapter?.submitList(viewModel.hiddenWalletList.value)
-
-
-        viewModel.walletList.observe(viewLifecycleOwner) {
-            binding.noOperationMessage.visibility =
-                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
-        }
- 
-
-    }
+   }
 
     private fun expandRecyclerAnimation() {
         binding.layoutWallet.showMore.setOnClickListener {

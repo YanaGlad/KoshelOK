@@ -3,6 +3,7 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,59 +51,9 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
         MutableLiveData<ArrayList<WalletData>>()
 
     init {
-        walletList.value = ArrayList()
-        hiddenWalletList.value = ArrayList()
+         hiddenWalletList.value = ArrayList()
 
-        walletList.value!!.add(
-            WalletData(
-                1020,
-                1313,
-                "Wallet 1",
-                "12323",
-                "13123",
-                Currency(id = 555,"weq", "dollar")
-            )
-        )
-        walletList.value!!.add(
-            WalletData(
-                1020,
-                1313,
-                "Wallet 1",
-                "12323",
-                "13123",
-                Currency(id = 555,"weq", "dollar")
-            )
-        )
-        walletList.value!!.add(
-            WalletData(
-                1020,
-                1313,
-                "Wallet 1",
-                "12323",
-                "13123",
-                Currency(id = 555,"weq", "dollar")
-            )
-        )
-        walletList.value!!.add(
-            WalletData(
-                1020,
-                1313,
-                "Wallet 1",
-                "12323",
-                "13123",
-                Currency(id = 555,"weq", "dollar")
-            )
-        )
-        walletList.value!!.add(
-            WalletData(
-                1020,
-                1313,
-                "Wallet 1",
-                "12323",
-                "13123",
-                Currency(id = 555,"weq", "dollar")
-            )
-        )
+
         hiddenWalletList.value!!.add(
             WalletData(
                 1020,
@@ -110,7 +61,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
                 "Wallet 9",
                 "12323",
                 "200000",
-                Currency(id = 555,"weq", "euro")
+                Currency(id = 555, "weq", "euro")
             )
         )
 
@@ -121,8 +72,9 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
                 "My wallet",
                 "12323",
                 "121100",
-                Currency(id = 555,"weq", "euro")
+                Currency(id = 555, "weq", "euro")
             )
         )
+    }
 
 }
