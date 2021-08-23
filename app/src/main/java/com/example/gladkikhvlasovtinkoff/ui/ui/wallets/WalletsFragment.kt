@@ -47,7 +47,6 @@ class WalletsFragment : ToolbarFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).supportActionBar?.hide()
-        setupViewModel()
         initLayout()
         initRecycler()
         setupNavigation()
@@ -59,13 +58,6 @@ class WalletsFragment : ToolbarFragment() {
             val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment()
             findNavController().navigate(action)
             (activity as MainActivity).supportActionBar?.show()
-        }
-    }
-
-    private fun setupViewModel() {
-        viewModel.walletList.observe(viewLifecycleOwner) {
-            binding.noOperationMessage.visibility =
-                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
         }
     }
 
