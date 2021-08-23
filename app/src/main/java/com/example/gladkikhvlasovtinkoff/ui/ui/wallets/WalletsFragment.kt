@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,8 +24,9 @@ class WalletsFragment : ToolbarFragment() {
 
     private var _binding: FragmentWalletsBinding? = null
     private val binding get() = _binding!!
-
+    private var expanded = false
     private var operationsAdapter: WalletsAdapter? = null
+    private var operationsHiddenAdapter: WalletsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +53,8 @@ class WalletsFragment : ToolbarFragment() {
         (activity as MainActivity).supportActionBar?.hide()
         initLayout()
         initRecycler()
+        expandRecyclerAnimation()
         setupNavigation()
-
     }
 
     private fun setupNavigation() {
@@ -82,6 +84,23 @@ class WalletsFragment : ToolbarFragment() {
             }
         }
 
+        operationsHiddenAdapter = WalletsAdapter(requireContext()) { _, action ->
+            when (action.actionId) {
+                R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
+                R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
+                R.id.delete -> {
+                    val deleteDialog = DeleteDialogFragment()
+                    val manager = activity?.supportFragmentManager
+                    manager?.let {
+                        deleteDialog.show(
+                            it,
+                            getString(R.string.delete_dialog_tag)
+                        )
+                    }
+                }
+            }
+        }
+
         binding.layoutWallet.walletRecycle.setHasFixedSize(true)
         binding.layoutWallet.walletRecycle.apply {
             layoutManager = LinearLayoutManager(context)
@@ -89,12 +108,54 @@ class WalletsFragment : ToolbarFragment() {
         }
         operationsAdapter?.submitList(viewModel.walletList.value)
 
+        binding.layoutWallet.hiddenWalletRecycle.setHasFixedSize(true)
+        binding.layoutWallet.hiddenWalletRecycle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = operationsHiddenAdapter
+        }
+
+        operationsHiddenAdapter?.submitList(viewModel.hiddenWalletList.value)
+
 
         viewModel.walletList.observe(viewLifecycleOwner) {
             binding.noOperationMessage.visibility =
                 if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
         }
 
+    }
+
+    private fun expandRecyclerAnimation() {
+        binding.layoutWallet.showMore.setOnClickListener {
+            expandRecyclerView()
+        }
+        binding.layoutWallet.down.setOnClickListener {
+            expandRecyclerView()
+        }
+    }
+
+    //TODO create extension accepting lambda
+    private fun expandRecyclerView() {
+        expanded = if (expanded) {
+            binding.layoutWallet.motionLayout.transitionToStart()
+            binding.layoutWallet.showMore.text = getString(R.string.show_more)
+            binding.layoutWallet.down.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_down_expand
+                )
+            )
+            false
+        } else {
+            binding.layoutWallet.motionLayout.transitionToEnd()
+            binding.layoutWallet.showMore.text = getString(R.string.hide_show_more)
+            binding.layoutWallet.down.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_up_expand
+                )
+            )
+            true
+        }
     }
 
     private fun initLayout() {
@@ -105,6 +166,10 @@ class WalletsFragment : ToolbarFragment() {
         binding.layoutWallet.expenditure.expenditureText.text =
             getString(R.string.total_expenditure)
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.create_wallet)
+
+        binding.layoutWallet.showMore.setOnClickListener {
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

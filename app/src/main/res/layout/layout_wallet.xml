@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,10 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        tools:text="@string/test_wallet_name"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/test_wallet_name" />
 
     <TextView
         android:id="@+id/walletBalance"
@@ -69,10 +68,10 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonAddOperation"
+        style="@style/AppActiveButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        style="@style/AppActiveButtonStyle"
         android:text="@string/add_operation_text"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/no_entries"
@@ -111,7 +110,6 @@
             android:id="@+id/wallet_recycle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -121,6 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/hidden_wallets"
             android:textColor="@color/purple"
             android:textSize="16sp"
@@ -131,17 +130,32 @@
             android:id="@+id/down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="112dp"
+            android:layout_marginTop="16dp"
             android:paddingEnd="20dp"
             android:src="@drawable/ic_down_expand"
             android:textColor="@color/purple"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/wallet_recycle"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wallet_recycle" />
+
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutDescription="@xml/fragment_currency_choice_scene_s"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/show_more">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hidden_wallet_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
- 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
