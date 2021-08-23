@@ -6,6 +6,9 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
+    style="@style/AppSelectableItem"
+    android:id="@+id/main_layout"
+
     >
 
     <de.hdodenhof.circleimageview.CircleImageView

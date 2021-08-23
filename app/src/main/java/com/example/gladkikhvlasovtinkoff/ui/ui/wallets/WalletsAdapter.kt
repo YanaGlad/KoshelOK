@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,10 @@ class WalletsAdapter internal constructor(
         OperationDiffUtil()
     ) {
 
+    internal interface OnWalletClick {
+        fun onWalletClick(walletData: WalletData, position: Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder =
         WalletViewHolder(
             SwipeWalletItemBinding.inflate(
@@ -37,6 +42,19 @@ class WalletsAdapter internal constructor(
 
     override fun onBindViewHolder(holder: WalletViewHolder, position: Int) {
         holder.bind(getItem(position))
+
+        val onWalletClickListener = object : OnWalletClick {
+            override fun onWalletClick(walletData: WalletData, position: Int) {
+                 Toast.makeText(context, "DA", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        holder.itemView.setOnClickListener {
+            onWalletClickListener.onWalletClick(
+                getItem(position),
+                position
+            )
+        }
     }
 
 
@@ -66,6 +84,11 @@ class WalletsAdapter internal constructor(
             binding.swipeToAction.menuListener = this
             binding.data.walletItemName.text = walletOperations.name
             binding.data.walletItemBalance.text = walletOperations.amount
+
+            binding.data.mainLayout.setOnClickListener {
+                //TODO go to exact wallet fragment
+                Toast.makeText(itemView.context, "AAAAAA", Toast.LENGTH_SHORT).show()
+            }
         }
 
         override fun onClosed(view: View) {
