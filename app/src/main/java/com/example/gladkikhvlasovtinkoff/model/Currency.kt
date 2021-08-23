@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class Currency (
-    val code : String,
-    val name : String
+    var code : String,
+    var name : String
     ) : Parcelable

@@ -109,4 +109,5 @@
     <string name="entertainment">Развлечения</string>
     <string name="other">Другое</string>
     <string name="new_category">Новая категория</string>
+    <string name="not_setup">Не установлен</string>
 </resources>
