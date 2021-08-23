@@ -23,7 +23,7 @@ class CurrencyAdapter :
                 false
             )
         )
-        holder.itemView.setOnClickListener {
+        holder.binding.currencySwitcher.setOnClickListener {
             if (holder.adapterPosition != RecyclerView.NO_POSITION) {
                 onItemChecked(holder.adapterPosition)
             }
@@ -64,7 +64,6 @@ class CurrencyAdapter :
     class CurrencyViewHolder(
         val binding: CurrencySwitcherBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(currency: Currency, position: Int, lastChecked: Int) {
             binding.currencySwitcher.text = currency.name
             binding.currencySwitcher.isChecked = position == lastChecked

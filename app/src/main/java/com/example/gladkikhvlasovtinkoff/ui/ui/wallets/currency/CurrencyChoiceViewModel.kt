@@ -38,6 +38,7 @@ class CurrencyChoiceViewModel
         currencyList.add(Currency(17, "12314", "Ruble"))
         currencyList.add(Currency(18, "423525", "Euro"))
         addCurrencies(currencyList)
+        getCurrencies()
     }
 
     fun addCurrencies(currencies : List<Currency>){
