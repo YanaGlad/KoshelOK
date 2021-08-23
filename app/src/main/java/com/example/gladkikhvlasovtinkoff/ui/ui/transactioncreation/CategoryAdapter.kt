@@ -1,14 +1,18 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.CategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
+import com.example.gladkikhvlasovtinkoff.model.userCateroryKeys
 
 class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
 
@@ -31,10 +35,12 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
             }
         }
 
+
         return holder
     }
 
     private fun onItemChecked(position: Int) {
+
         val oldPosition = checkedPosition
         if (position == oldPosition && position >= 0) {
             checkedPosition = -1
@@ -47,11 +53,13 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
         }
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(categories[position], position, checkedPosition)
     }
+
 
     override fun getItemCount(): Int = categories.size
 
@@ -61,26 +69,33 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
         notifyItemRangeChanged(oldSize - 1, categories.size)
     }
 
-    class ViewHolder(val binding: CategoryItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val _binding: CategoryItemBinding) :
+        RecyclerView.ViewHolder(_binding.root) {
+        var binding: CategoryItemBinding? = null
+
+        init {
+            binding = CategoryItemBinding.bind(itemView)
+        }
 
         fun bind(
             transactionCategoryData: TransactionCategoryData,
             position: Int,
             checkedPosition: Int
         ) {
-            binding.categoryImage.setImageDrawable(
+            binding?.transactionDot?.setImageResource(transactionCategoryData.color)
+            binding?.categoryImageIcon?.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     itemView.resources,
                     transactionCategoryData.iconId,
                     itemView.context.theme
                 )
             )
-            binding.categoryName.text = transactionCategoryData.name
+            binding?.categoryName?.text = transactionCategoryData.name
             if (position == checkedPosition) {
-                binding.isCategoryChecked.visibility = View.VISIBLE
+                binding?.isCategoryChecked?.visibility = View.VISIBLE
             } else
-                binding.isCategoryChecked.visibility = View.GONE
+                binding?.isCategoryChecked?.visibility = View.GONE
         }
+
     }
 }

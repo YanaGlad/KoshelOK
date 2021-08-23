@@ -8,5 +8,6 @@ class TransactionCategoryData (
     val name : String,
     val iconId : Int,
     val id : Int ,
-    val description : String
+    val description : String,
+    val color : Int
     ) : Parcelable

@@ -5,27 +5,39 @@
     style="@style/AppSelectableItem"
     android:layout_height="56dp">
 
-    <ImageView
-        android:id="@+id/categoryImage"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/transaction_dot"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_costs_dot"
-        android:contentDescription="@string/category_icon_text" />
+        android:contentDescription="@string/category_icon_text"
+        android:src="@color/black"
+        />
+
+    <ImageView
+        android:id="@+id/category_image_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="14dp"
+        android:contentDescription="@string/category_icon_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_costs_dot" />
 
     <TextView
         android:id="@+id/categoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:text="@string/test_category_name"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/categoryImage"
-        app:layout_constraintStart_toEndOf="@+id/categoryImage"
-        app:layout_constraintTop_toTopOf="@+id/categoryImage" />
+        app:layout_constraintBottom_toBottomOf="@+id/transaction_dot"
+        app:layout_constraintStart_toEndOf="@+id/transaction_dot"
+        app:layout_constraintTop_toTopOf="@+id/transaction_dot" />
 
     <ImageView
         android:id="@+id/isCategoryChecked"

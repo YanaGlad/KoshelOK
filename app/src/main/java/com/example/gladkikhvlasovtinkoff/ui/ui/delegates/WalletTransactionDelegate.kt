@@ -51,6 +51,7 @@ class WalletTransactionDelegate internal constructor(
 
         fun bind(walletOperations: WalletTransactionModel) {
             item = walletOperations
+            binding.data.transactionDot.setImageResource(walletOperations.transactionCategoryData.color)
             binding.swipeToAction.menuListener = this
             binding.data.imageOperation.setImageDrawable(
                 ResourcesCompat.getDrawable(

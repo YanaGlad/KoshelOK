@@ -11,5 +11,15 @@
     <color name="dark_gray">#ff333333</color>
     <color name="light_gray">#ff9299A2</color>
     <color name="white_seconadry">#DFDFDF</color>
+    <color name="income_dot_color">#00B92D</color>
+    <color name="restraunts_dot_color">#7765C0</color>
+    <color name="supermarket_dot_color">#339FEE</color>
+    <color name="sport_dot_color">#994747</color>
+    <color name="transport_dot_color">#EE33BA</color>
+    <color name="pharmacy_dot_color">#16DC71</color>
+    <color name="gas_dot_color">#EEA333</color>
+    <color name="rent_dot_color">#91397D</color>
+    <color name="travel_dot_color">#EEDB33</color>
+    <color name="default_dot_color">#5833EE</color>
 
 </resources>
