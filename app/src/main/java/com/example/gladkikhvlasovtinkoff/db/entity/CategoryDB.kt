@@ -1,6 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.db
-
-import androidx.room.PrimaryKey
+package com.example.gladkikhvlasovtinkoff.db.entity
 
 data class CategoryDB(
     val name: String,

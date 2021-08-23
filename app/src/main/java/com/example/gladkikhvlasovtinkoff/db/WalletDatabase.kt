@@ -2,6 +2,8 @@ package com.example.gladkikhvlasovtinkoff.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
+import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB
 
 @Database(entities = [WalletDB::class, TransactionDB::class, CurrencyDB::class], version = 1,
     exportSchema = false)

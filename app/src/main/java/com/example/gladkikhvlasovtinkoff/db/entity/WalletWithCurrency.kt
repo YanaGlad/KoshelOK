@@ -1,6 +1,7 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.entity
 
 import androidx.room.Relation
+import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
 
 
 data class WalletWithCurrency (
