@@ -1,10 +1,8 @@
 package com.example.gladkikhvlasovtinkoff.db
 
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.gladkikhvlasovtinkoff.model.Currency
 
 @Entity(tableName = "wallet")
 data class WalletDB(
