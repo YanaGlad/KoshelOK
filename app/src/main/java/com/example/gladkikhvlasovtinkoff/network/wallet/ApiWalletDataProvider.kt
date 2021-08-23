@@ -18,6 +18,7 @@ class ApiWalletDataProvider @Inject constructor(private val api : TransactionApi
                     limit = response.limit,
                     amount = response.balance,
                     currency = Currency(
+                        id = response.currency.id,
                         code = response.currency.code,
                         name = response.currency.name
                     )
@@ -35,6 +36,7 @@ class ApiWalletDataProvider @Inject constructor(private val api : TransactionApi
                         limit = wallet.limit,
                         amount = wallet.balance,
                         currency = Currency(
+                            id = wallet.currency.id,
                             code = wallet.currency.code,
                             name = wallet.currency.name
                         )

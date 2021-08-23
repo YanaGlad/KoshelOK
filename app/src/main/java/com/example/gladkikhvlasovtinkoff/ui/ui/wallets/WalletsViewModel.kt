@@ -17,9 +17,9 @@ class WalletsViewModel : ViewModel() {
                 1020,
                 1313,
                 "Wallet 1",
-                12323,
+                "12323",
                 "13123",
-                Currency("weq", "dollar")
+                Currency(id = 555,"weq", "dollar")
             )
         )
 
@@ -28,9 +28,9 @@ class WalletsViewModel : ViewModel() {
                 1020,
                 1313,
                 "Wallet 1",
-                12323,
+                "12323",
                 "13123",
-                Currency("weq", "dollar")
+                Currency(id = 555,"weq", "dollar")
             )
         )
 
@@ -39,9 +39,9 @@ class WalletsViewModel : ViewModel() {
                 1020,
                 1313,
                 "Wallet 1",
-                12323,
+                "12323",
                 "13123",
-                Currency("weq", "dollar")
+                Currency(id = 555,"weq", "dollar")
             )
         )
 
@@ -50,9 +50,9 @@ class WalletsViewModel : ViewModel() {
                 1020,
                 1313,
                 "Wallet 1",
-                12323,
+                "12323",
                 "13123",
-                Currency("weq", "dollar")
+                Currency(id = 555,"weq", "dollar")
             )
         )
 
@@ -61,9 +61,9 @@ class WalletsViewModel : ViewModel() {
                 1020,
                 1313,
                 "Wallet 1",
-                12323,
+                "12323",
                 "13123",
-                Currency("weq", "dollar")
+                Currency(id = 555,"weq", "dollar")
             )
         )
     }

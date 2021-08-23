@@ -34,6 +34,7 @@ class WalletTransactionViewModel : ViewModel() {
                     false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -55,6 +56,7 @@ class WalletTransactionViewModel : ViewModel() {
                     false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -76,6 +78,7 @@ class WalletTransactionViewModel : ViewModel() {
                     false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -97,6 +100,7 @@ class WalletTransactionViewModel : ViewModel() {
                     false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -118,6 +122,7 @@ class WalletTransactionViewModel : ViewModel() {
                     false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -139,6 +144,7 @@ class WalletTransactionViewModel : ViewModel() {
                     false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -160,6 +166,7 @@ class WalletTransactionViewModel : ViewModel() {
                     false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -181,6 +188,7 @@ class WalletTransactionViewModel : ViewModel() {
                     false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -201,6 +209,7 @@ class WalletTransactionViewModel : ViewModel() {
                     isIncome = false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
@@ -221,6 +230,7 @@ class WalletTransactionViewModel : ViewModel() {
                     isIncome = false,
                     amount = "isgjsiog",
                     currency = Currency(
+                        id = 555,
                         code = "au",
                         name = "rubli"
                     )
