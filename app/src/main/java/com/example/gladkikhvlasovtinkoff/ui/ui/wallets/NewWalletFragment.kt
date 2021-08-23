@@ -85,7 +85,7 @@ class NewWalletFragment : ToolbarFragment() {
 
         binding.limit.attributeName.text = getString(R.string.limit)
         binding.limit.attributeValue.text =
-            if (walletDataSample.limit != -1L) walletDataSample.limit.toString()
+            if (walletDataSample.limit  != "") walletDataSample.limit
                 .convertToStyled() else getString(
                 R.string.not_setup
             )

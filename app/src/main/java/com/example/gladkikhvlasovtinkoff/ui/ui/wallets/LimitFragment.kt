@@ -41,9 +41,8 @@ class LimitFragment : ToolbarFragment() {
     private fun setupNavigation() {
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
             val walletDataSample = args.walletDataSample
-            walletDataSample.limit =
-                binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
-                    .toLong()
+            walletDataSample.limit = binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
+
             val action =
                 LimitFragmentDirections.actionLimitFragmentToNewWalletFragment(walletDataSample)
             findNavController().navigate(action)
