@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
+import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WalletsFragment() : ToolbarFragment() {
+class WalletsFragment : ToolbarFragment() {
     private val viewModel: WalletsViewModel by viewModels()
 
     private var _binding: FragmentWalletsBinding? = null
@@ -56,7 +57,9 @@ class WalletsFragment() : ToolbarFragment() {
 
     private fun setupNavigation() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
-            val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment()
+            val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment(
+                WalletDataSample()
+            )
             findNavController().navigate(action)
             (activity as MainActivity).supportActionBar?.show()
         }

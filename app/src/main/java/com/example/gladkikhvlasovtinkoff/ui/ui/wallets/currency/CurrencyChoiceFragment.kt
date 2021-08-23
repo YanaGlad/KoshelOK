@@ -7,24 +7,24 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCurrencyChoiceBinding
+import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CurrencyChoiceFragment : Fragment() {
 
-interface OnCurrencySwitcher {
-    fun changeViewModel(currency: Currency)
-}
-
-class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
     private val viewModel: CurrencyChoiceViewModel by viewModels()
     private lateinit var _layoutManager: CustomGridLayoutManager
     private var _binding: FragmentCurrencyChoiceBinding? = null
     private val binding get() = _binding!!
     private lateinit var currencyAdapter: CurrencyAdapter
     private var expanded = false
+
+    private val args: CurrencyChoiceFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,11 +48,14 @@ class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
         }
 
     private fun onUnexpectedError() {
-
     }
 
     private fun initRecycler() {
-        currencyAdapter = CurrencyAdapter()
+        currencyAdapter = CurrencyAdapter(object : CurrencyAdapter.OnCurrencySwitcher{
+            override fun onCurrencySwitch(currency: Currency) {
+               onCurrencySwitched(currency)
+            }
+        })
         binding.currencyRecycler.setHasFixedSize(true)
         _layoutManager = CustomGridLayoutManager(context)
         binding.currencyRecycler.apply {
@@ -60,6 +63,10 @@ class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
             adapter = currencyAdapter
         }
         expandRecyclerAnimation()
+    }
+
+    private fun onCurrencySwitched(currency: Currency) {
+        args.walletDataSample.currency = currency
     }
 
     private fun expandRecyclerAnimation() {

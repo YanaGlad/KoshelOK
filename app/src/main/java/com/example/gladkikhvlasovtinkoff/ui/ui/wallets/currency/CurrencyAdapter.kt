@@ -9,10 +9,14 @@ import com.example.gladkikhvlasovtinkoff.databinding.CurrencySwitcherBinding
 import com.example.gladkikhvlasovtinkoff.model.Currency
 
 
-class CurrencyAdapter :
+class CurrencyAdapter  constructor(private val switcher : OnCurrencySwitcher):
     ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder>(
         OperationDiffUtil()
     ) {
+    interface OnCurrencySwitcher {
+        fun onCurrencySwitch(currency: Currency)
+    }
+
     private var lastChecked: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
@@ -41,6 +45,7 @@ class CurrencyAdapter :
             if (oldPosition >= 0)
                 notifyItemChanged(oldPosition)
             notifyItemChanged(position)
+            switcher.onCurrencySwitch(getItem(position))
         }
     }
 
