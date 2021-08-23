@@ -27,9 +27,9 @@ class WalletsFragment : ToolbarFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
+        activity
+            ?.onBackPressedDispatcher
+            ?.addCallback(this, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     activity?.finish()
                 }
