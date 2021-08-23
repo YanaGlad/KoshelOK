@@ -3,75 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ConstraintSet android:id="@+id/start">
-        <Constraint android:id="@+id/constraintLayout" />
+        <Constraint android:id="@+id/layout_currencies_all" />
         <Constraint
-            android:id="@+id/currencyRecycler"
+            android:id="@+id/layout_currencies_all"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             app:layout_constraintBottom_toTopOf="@+id/show_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-        <Constraint
-            layout="@layout/show_more"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
-            app:layout_constraintTop_toBottomOf="@+id/currencyRecycler"
-            />
 
-        <Constraint
-            app:layout_constraintStart_toEndOf="@+id/show_more"
-            android:id="@+id/down_arrow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_editor_absoluteX="133dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
-        <Constraint
-            app:layout_constraintStart_toEndOf="@+id/show_more"
-            android:id="@+id/wrew"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-        <Constraint
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/currencyRecycler"
-            android:id="@+id/down"
-            app:layout_editor_absoluteX="200dp" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@id/constraintLayout" />
+        <Constraint android:id="@id/layout_currencies_all" />
         <Constraint
-            android:id="@+id/currencyRecycler"
+            android:id="@+id/layout_currencies_all"
             android:layout_width="match_parent"
-            android:layout_height="680dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toTopOf="@+id/show_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/show_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hide_show_more"
-            android:textColor="@color/purple"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
-            app:layout_constraintTop_toBottomOf="@+id/currencyRecycler"
-            />
 
-        <Constraint
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/currencyRecycler"
-            android:id="@+id/down"
-            app:layout_editor_absoluteX="200dp" />
     </ConstraintSet>
 
     <Transition

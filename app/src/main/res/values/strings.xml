@@ -109,4 +109,6 @@
     <string name="entertainment">Развлечения</string>
     <string name="other">Другое</string>
     <string name="new_category">Новая категория</string>
+    <string name="not_setup">Не установлен</string>
+    <string name="choose_currency">Выберите валюту</string>
 </resources>

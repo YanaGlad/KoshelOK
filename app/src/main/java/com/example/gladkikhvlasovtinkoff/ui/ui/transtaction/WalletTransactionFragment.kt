@@ -23,12 +23,13 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
 class WalletTransactionFragment : ToolbarFragment() {
 
     private val viewModel: WalletTransactionViewModel by viewModels()
-    private val args: WalletTransactionFragmentArgs by navArgs()
 
     private var _binding: FragmentWalletTransactionBinding? = null
     private val binding get() = _binding!!
 
     private var baseAdapter: BaseAdapter? = null
+
+    private val args: WalletTransactionFragmentArgs by navArgs()
     private var transaction: WalletTransactionSample? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,7 +128,6 @@ class WalletTransactionFragment : ToolbarFragment() {
                         }
                 }
         )
-
     }
 
     private fun setupButtonListener() {
