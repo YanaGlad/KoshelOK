@@ -1,10 +1,9 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 
 @Entity(tableName = "transaction")
 data class TransactionDB (

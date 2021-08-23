@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.entity
 
 import androidx.room.PrimaryKey
 

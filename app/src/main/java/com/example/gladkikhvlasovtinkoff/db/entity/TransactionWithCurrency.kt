@@ -1,8 +1,9 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.entity
 
-import androidx.room.Embedded
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
+import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
 
 data class TransactionWithCurrency (
     @PrimaryKey
