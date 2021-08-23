@@ -7,12 +7,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCurrencyChoiceBinding
-import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 
@@ -38,12 +35,7 @@ class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
     ): View {
         _binding = FragmentCurrencyChoiceBinding.inflate(inflater)
 
-        viewModel.dataSample.value = args.walletDataSample
         walletDataSample = args.walletDataSample
-
-        viewModel.dataSample.observe(viewLifecycleOwner) {
-            walletDataSample = viewModel.dataSample.value!!
-        }
 
         initRecyler()
 
@@ -99,9 +91,8 @@ class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
     }
 
     override fun changeViewModel(currency: Currency) {
-        val change = viewModel.dataSample
-        change.value!!.currency = currency
-
-        viewModel.dataSample.value = change.value
+        val change = walletDataSample
+        change.currency = currency
+        walletDataSample = change
     }
 }
