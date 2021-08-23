@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class Currency (
+data class Currency (
     val id : Long,
     val code : String,
     val name : String

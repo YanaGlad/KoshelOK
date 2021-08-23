@@ -7,15 +7,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCurrencyChoiceBinding
-import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
-import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class CurrencyChoiceFragment : Fragment() {
 
 interface OnCurrencySwitcher {
     fun changeViewModel(currency: Currency)
@@ -29,37 +26,39 @@ class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
     private lateinit var currencyAdapter: CurrencyAdapter
     private var expanded = false
 
-    private val args: CurrencyChoiceFragmentArgs by navArgs()
-    private lateinit var walletDataSample: WalletDataSample
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCurrencyChoiceBinding.inflate(inflater)
-
-        viewModel.dataSample.value = args.walletDataSample
-        walletDataSample = args.walletDataSample
-
-        viewModel.dataSample.observe(viewLifecycleOwner) {
-            walletDataSample = viewModel.dataSample.value!!
-        }
-
-        initRecyler()
-
         return binding.root
     }
 
-    private fun initRecyler() {
-        currencyAdapter = CurrencyAdapter(this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initRecycler()
+        viewModel.viewState.observe(viewLifecycleOwner){ viewState ->
+            handleViewState(viewState)
+        }
+    }
+
+    private fun handleViewState(viewState: CurrencyListViewState) =
+        when(viewState){
+            is CurrencyListViewState.Loaded -> currencyAdapter.submitList(viewState.list)
+            else -> onUnexpectedError()
+        }
+
+    private fun onUnexpectedError() {
+
+    }
+
+    private fun initRecycler() {
+        currencyAdapter = CurrencyAdapter()
         binding.currencyRecycler.setHasFixedSize(true)
         _layoutManager = CustomGridLayoutManager(context)
         binding.currencyRecycler.apply {
             layoutManager = _layoutManager
             adapter = currencyAdapter
         }
-        currencyAdapter.submitList(viewModel.currencyList.value)
-
         expandRecyclerAnimation()
     }
 
@@ -96,12 +95,5 @@ class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
             )
             true
         }
-    }
-
-    override fun changeViewModel(currency: Currency) {
-        val change = viewModel.dataSample
-        change.value!!.currency = currency
-
-        viewModel.dataSample.value = change.value
     }
 }

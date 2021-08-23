@@ -30,7 +30,6 @@ class OperationCategoryAdapter(
             CategoryItemBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false), isGridIcon
         )
-
         holder.itemView.setOnClickListener {
             if (holder.adapterPosition != RecyclerView.NO_POSITION) {
                 onItemChecked(holder.adapterPosition)
@@ -52,7 +51,6 @@ class OperationCategoryAdapter(
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
         }
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
