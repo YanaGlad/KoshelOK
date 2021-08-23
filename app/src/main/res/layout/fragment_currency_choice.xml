@@ -39,7 +39,6 @@
                 android:layout_marginStart="8dp"
                 android:text="@string/show_more"
                 style="@style/AppSelectableItem"
-
                 android:textColor="@color/purple"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/currencyRecycler"

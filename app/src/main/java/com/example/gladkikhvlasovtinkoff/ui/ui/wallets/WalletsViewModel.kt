@@ -10,6 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
+ 
 @HiltViewModel
 class WalletsViewModel @Inject constructor(val repository: WalletRepository): ViewModel() {
     companion object{
@@ -43,6 +44,85 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe()
-    }
+     }
+    
+        var hiddenWalletList: MutableLiveData<ArrayList<WalletData>> =
+        MutableLiveData<ArrayList<WalletData>>()
+
+    init {
+        walletList.value = ArrayList()
+        hiddenWalletList.value = ArrayList()
+
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                "12323",
+                "13123",
+                Currency(id = 555,"weq", "dollar")
+            )
+        )
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                "12323",
+                "13123",
+                Currency(id = 555,"weq", "dollar")
+            )
+        )
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                "12323",
+                "13123",
+                Currency(id = 555,"weq", "dollar")
+            )
+        )
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                "12323",
+                "13123",
+                Currency(id = 555,"weq", "dollar")
+            )
+        )
+        walletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 1",
+                "12323",
+                "13123",
+                Currency(id = 555,"weq", "dollar")
+            )
+        )
+        hiddenWalletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "Wallet 9",
+                "12323",
+                "200000",
+                Currency(id = 555,"weq", "euro")
+            )
+        )
+
+        hiddenWalletList.value!!.add(
+            WalletData(
+                1020,
+                1313,
+                "My wallet",
+                "12323",
+                "121100",
+                Currency(id = 555,"weq", "euro")
+            )
+        )
 
 }

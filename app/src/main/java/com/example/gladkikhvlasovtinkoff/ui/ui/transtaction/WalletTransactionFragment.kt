@@ -54,11 +54,13 @@ class WalletTransactionFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletTransactionBinding.inflate(layoutInflater, container, false)
-        initLayout()
         return binding.root
     }
 
     private fun initLayout() {
+        binding.layoutWallet.hiddenWalletRecycle.visibility = View.GONE
+        binding.layoutWallet.down.visibility = View.GONE
+        binding.layoutWallet.showMore.visibility = View.GONE
         binding.layoutWallet.info.text = getString(R.string.test_wallet_name)
         binding.layoutWallet.income.incomeText.text = getString(R.string.income_text)
         binding.layoutWallet.expenditure.expenditureText.text = getString(R.string.costs_text)
@@ -67,6 +69,7 @@ class WalletTransactionFragment : ToolbarFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configureToolbar()
+        initLayout()
         initWalletRecycler()
         setupButtonListener()
 //        viewModel.transactionList.observe(viewLifecycleOwner) {
