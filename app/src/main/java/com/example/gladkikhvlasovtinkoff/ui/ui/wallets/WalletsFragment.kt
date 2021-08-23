@@ -23,7 +23,6 @@ class WalletsFragment : ToolbarFragment() {
 
     private var operationsAdapter: WalletsAdapter? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

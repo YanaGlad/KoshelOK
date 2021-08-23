@@ -7,48 +7,58 @@
     android:layout_height="match_parent"
     tools:context=".ui.ui.wallets.currency.CurrencyChoiceFragment">
 
+
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motionLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layoutDescription="@xml/fragment_currency_choice_scene"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/currencyRecycler"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_currencies_all"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            app:layout_constraintBottom_toTopOf="@+id/show_more"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/currencyRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/show_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/show_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/show_more"
-            android:textColor="@color/purple"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
-            app:layout_constraintTop_toBottomOf="@+id/currencyRecycler" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/show_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/show_more"
+                style="@style/AppSelectableItem"
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/purple"
-            android:textSize="16sp"
-            android:paddingEnd="20dp"
-            android:src="@drawable/ic_down_expand"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
-            app:layout_constraintTop_toBottomOf="@+id/currencyRecycler" />
- 
+                android:textColor="@color/purple"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/currencyRecycler"
+                app:layout_constraintTop_toBottomOf="@+id/currencyRecycler" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="20dp"
+                android:src="@drawable/ic_down_expand"
+                android:textColor="@color/purple"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.934"
+                app:layout_constraintStart_toEndOf="@+id/show_more"
+                app:layout_constraintTop_toBottomOf="@+id/currencyRecycler" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
