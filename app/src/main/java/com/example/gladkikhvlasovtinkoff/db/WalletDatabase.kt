@@ -12,4 +12,5 @@ abstract class WalletDatabase : RoomDatabase(){
     abstract fun walletDao() : WalletDao
     abstract fun transactionDao() : TransactionDao
     abstract fun currencyDao() : CurrencyDao
+    abstract fun categoryDao() : CategoryDao
 }

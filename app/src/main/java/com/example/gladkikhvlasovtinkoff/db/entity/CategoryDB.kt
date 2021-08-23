@@ -12,5 +12,8 @@ data class CategoryDB(
     val name: String,
     val iconId: Int,
     val description: String,
-    val color: Int
+    val colorRed: Int,
+    val colorBlue: Int,
+    val colorGreen: Int
+
 )

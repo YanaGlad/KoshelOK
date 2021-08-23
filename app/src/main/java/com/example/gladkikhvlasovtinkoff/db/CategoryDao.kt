@@ -1,6 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.db
 
 import androidx.room.*
+import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
 import io.reactivex.Flowable
 import io.reactivex.Single
 
