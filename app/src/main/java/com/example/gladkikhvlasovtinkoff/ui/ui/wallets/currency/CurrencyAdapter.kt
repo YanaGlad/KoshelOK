@@ -6,71 +6,69 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.CurrencySwitcherBinding
-import com.example.gladkikhvlasovtinkoff.model.CurrencyDataI
+import com.example.gladkikhvlasovtinkoff.model.Currency
 
 
 class CurrencyAdapter :
-    ListAdapter<CurrencyDataI, CurrencyAdapter.CurrencyViewHolder>(
+    ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder>(
         OperationDiffUtil()
     ) {
+    private var lastChecked: Int = -1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
-        CurrencyViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
+        val holder = CurrencyViewHolder(
             CurrencySwitcherBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
+        holder.itemView.setOnClickListener {
+            if (holder.adapterPosition != RecyclerView.NO_POSITION) {
+                onItemChecked(holder.adapterPosition)
+            }
+        }
+        return holder
+    }
 
+    private fun onItemChecked(position: Int){
+        val oldPosition = lastChecked
+        if (position == oldPosition && position >= 0) {
+            lastChecked = -1
+            notifyItemChanged(oldPosition)
+        } else {
+            lastChecked = position
+            if (oldPosition >= 0)
+                notifyItemChanged(oldPosition)
+            notifyItemChanged(position)
+        }
+    }
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        val list = currentList
-        holder.bind(getItem(position))
-        if(!getItem(position).isChekced)
-            holder.binding.currencySwitcher.isChecked = false
-
-
-        holder.binding.currencySwitcher.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                for (i in list.indices){
-                    if(holder.binding.currencySwitcher.isChecked && i!=position)
-                        list[i].isChekced = false
-                    else if( i == position)
-                        list[i].isChekced = true
-                }
-            }
-            submitList(list)
-        }
-
+        holder.bind(getItem(position), position, lastChecked)
     }
 
 
-    //Currency data!
-    class OperationDiffUtil : DiffUtil.ItemCallback<CurrencyDataI>() {
+    class OperationDiffUtil : DiffUtil.ItemCallback<Currency>() {
         override fun areItemsTheSame(
-            oldItem: CurrencyDataI,
-            newItem: CurrencyDataI
-        ): Boolean {
-            return oldItem.isChekced == newItem.isChekced
-        }
+            oldItem: Currency,
+            newItem: Currency
+        ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: CurrencyDataI,
-            newItem: CurrencyDataI
-        ): Boolean =
-            oldItem == newItem
-
+            oldItem: Currency,
+            newItem: Currency
+        ): Boolean = oldItem == newItem
     }
 
     class CurrencyViewHolder(
         val binding: CurrencySwitcherBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(walletOperations: CurrencyDataI) {
-            binding.currencySwitcher.text = "Russian ruble"
-
+        fun bind(currency: Currency, position: Int, lastChecked: Int) {
+            binding.currencySwitcher.text = currency.name
+            binding.currencySwitcher.isChecked = position == lastChecked
         }
-
     }
+
 }

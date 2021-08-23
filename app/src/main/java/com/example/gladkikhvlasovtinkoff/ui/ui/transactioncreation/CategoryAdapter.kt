@@ -28,19 +28,15 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
             CategoryItemBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
         )
-
         holder.itemView.setOnClickListener {
             if (holder.adapterPosition != RecyclerView.NO_POSITION) {
                 onItemChecked(holder.adapterPosition)
             }
         }
-
-
         return holder
     }
 
     private fun onItemChecked(position: Int) {
-
         val oldPosition = checkedPosition
         if (position == oldPosition && position >= 0) {
             checkedPosition = -1
@@ -53,7 +49,6 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
         }
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

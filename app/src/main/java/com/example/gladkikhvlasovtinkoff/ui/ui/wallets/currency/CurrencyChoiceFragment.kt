@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCurrencyChoiceBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CurrencyChoiceFragment : Fragment() {
+
     private val viewModel: CurrencyChoiceViewModel by viewModels()
     private lateinit var _layoutManager: CustomGridLayoutManager
     private var _binding: FragmentCurrencyChoiceBinding? = null
@@ -24,13 +26,27 @@ class CurrencyChoiceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCurrencyChoiceBinding.inflate(inflater)
-
-        initRecyler()
-
         return binding.root
     }
 
-    private fun initRecyler() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initRecycler()
+        viewModel.viewState.observe(viewLifecycleOwner){ viewState ->
+            handleViewState(viewState)
+        }
+    }
+
+    private fun handleViewState(viewState: CurrencyListViewState) =
+        when(viewState){
+            is CurrencyListViewState.Loaded -> currencyAdapter.submitList(viewState.list)
+            else -> onUnexpectedError()
+        }
+
+    private fun onUnexpectedError() {
+
+    }
+
+    private fun initRecycler() {
         currencyAdapter = CurrencyAdapter()
         binding.currencyRecycler.setHasFixedSize(true)
         _layoutManager = CustomGridLayoutManager(context)
@@ -38,8 +54,6 @@ class CurrencyChoiceFragment : Fragment() {
             layoutManager = _layoutManager
             adapter = currencyAdapter
         }
-        currencyAdapter.submitList(viewModel.currencyList.value)
-
         expandRecyclerAnimation()
     }
 

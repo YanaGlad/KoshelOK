@@ -14,8 +14,10 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class WalletsFragment : ToolbarFragment() {
+@AndroidEntryPoint
+class WalletsFragment() : ToolbarFragment() {
     private val viewModel: WalletsViewModel by viewModels()
 
     private var _binding: FragmentWalletsBinding? = null
@@ -26,7 +28,6 @@ class WalletsFragment : ToolbarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         activity
             ?.onBackPressedDispatcher
             ?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -84,13 +85,6 @@ class WalletsFragment : ToolbarFragment() {
         binding.layoutWallet.walletRecycle.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = operationsAdapter
-        }
-        operationsAdapter?.submitList(viewModel.walletList.value)
-
-
-        viewModel.walletList.observe(viewLifecycleOwner) {
-            binding.noOperationMessage.visibility =
-                if (viewModel.walletList.value!!.size == 0) View.VISIBLE else View.GONE
         }
 
     }
