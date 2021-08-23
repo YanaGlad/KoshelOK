@@ -17,7 +17,6 @@ import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 typealias OnActionClick = (transaction: WalletData, action: SwipeAction) -> Unit
 
 class WalletsAdapter internal constructor(
-    val context: Context,
     private val onActionClicked: OnActionClick
 ) :
     ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(
@@ -45,7 +44,7 @@ class WalletsAdapter internal constructor(
 
         val onWalletClickListener = object : OnWalletClick {
             override fun onWalletClick(walletData: WalletData, position: Int) {
-                 Toast.makeText(context, "DA", Toast.LENGTH_SHORT).show()
+                 Toast.makeText(holder.itemView.context, "DA", Toast.LENGTH_SHORT).show()
             }
         }
 

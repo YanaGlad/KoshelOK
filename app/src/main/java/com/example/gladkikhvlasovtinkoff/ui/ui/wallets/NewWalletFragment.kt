@@ -67,7 +67,7 @@ class NewWalletFragment : ToolbarFragment() {
         }
 
         binding.buttonConfirm.setOnClickListener {
-            val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
+            val action = NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample)
             findNavController().navigate(action)
         }
     }
