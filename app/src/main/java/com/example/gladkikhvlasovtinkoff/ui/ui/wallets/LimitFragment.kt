@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentLimitBinding
+import com.example.gladkikhvlasovtinkoff.extension.convertFromStyled
 import com.example.gladkikhvlasovtinkoff.extension.setupTextStyleAndObserve
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
@@ -32,17 +33,22 @@ class LimitFragment : ToolbarFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         configureToolbar()
         initLayout()
+        setupNavigation()
+    }
 
+    private fun setupNavigation() {
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
-            //TODO сохранение лимита и передача данных
-            val action = LimitFragmentDirections.actionLimitFragmentToNewWalletFragment(args.walletDataSample)
+            val walletDataSample = args.walletDataSample
+            walletDataSample.limit =
+                binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
+                    .toLong()
+            val action =
+                LimitFragmentDirections.actionLimitFragmentToNewWalletFragment(walletDataSample)
             findNavController().navigate(action)
             (activity as ToolbarHolder).setToolbarNavigationButtonIcon(R.drawable.ic_back_arrow)
         }
-
     }
 
     override fun configureToolbar() {

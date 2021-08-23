@@ -29,21 +29,26 @@ class EnterWalletNameFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEnterWalletNameBinding.inflate(inflater)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         configureToolbar()
         initLayout()
+        setupNavigation()
+    }
 
+    private fun setupNavigation() {
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
             val walletDataSample = args.walletDataSample
             walletDataSample.name = binding.layoutEnter.newOperationValueField.text.toString()
             val action =
-                EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment(walletDataSample)
+                EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment(
+                    walletDataSample
+                )
             findNavController().navigate(action)
         }
-
-        binding.layoutEnter.newOperationValueField.observeTextChanged(binding.layoutEnter.buttonConfirmOperationValue)
-
-        return binding.root
     }
 
     override fun configureToolbar() {
@@ -55,5 +60,6 @@ class EnterWalletNameFragment : ToolbarFragment() {
 
     private fun initLayout() {
         binding.layoutEnter.newOperationValueBlock.hint = getString(R.string.wallet_name_entry)
+        binding.layoutEnter.newOperationValueField.observeTextChanged(binding.layoutEnter.buttonConfirmOperationValue)
     }
 }

@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
+import com.example.gladkikhvlasovtinkoff.extension.convertToStyled
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
@@ -22,7 +23,6 @@ class NewWalletFragment : ToolbarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         args.walletDataSample.let { data ->
             walletDataSample = data
         }
@@ -33,37 +33,36 @@ class NewWalletFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewWalletBinding.inflate(inflater)
-
-        configureToolbar()
-
-        walletDataSample.currency.code = "rub"
-        walletDataSample.currency.name = "Russian ruble"
-
-        walletDataSample.limit = 0
-
-        initLayout()
-        setupFragmentNavigation()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        configureToolbar()
+        initLayout()
+        setupFragmentNavigation()
     }
 
     private fun setupFragmentNavigation() {
         binding.nameView.setOnClickListener {
+            val action =
+                NewWalletFragmentDirections.actionNewWalletFragmentToEnterWalletNameFragment(
+                    walletDataSample
+                )
+            findNavController().navigate(action)
         }
 
         binding.currencyView.setOnClickListener {
             val action =
-                NewWalletFragmentDirections.actionNewWalletFragmentToCurrencyChoiceFragment(walletDataSample)
+                NewWalletFragmentDirections.actionNewWalletFragmentToCurrencyChoiceFragment(
+                    walletDataSample
+                )
             findNavController().navigate(action)
         }
 
         binding.limitView.setOnClickListener {
-            val action = NewWalletFragmentDirections.actionNewWalletFragmentToLimitFragment(walletDataSample)
+            val action =
+                NewWalletFragmentDirections.actionNewWalletFragmentToLimitFragment(walletDataSample)
             findNavController().navigate(action)
         }
 
@@ -76,16 +75,18 @@ class NewWalletFragment : ToolbarFragment() {
     private fun initLayout() {
 
         binding.name.attributeName.text = getString(R.string.wallet_name_title)
-        binding.name.attributeValue.text = walletDataSample.name //TODO get name from parcel
+        binding.name.attributeValue.text = walletDataSample.name
 
         binding.currency.attributeName.text = getString(R.string.currency)
         binding.currency.attributeValue.text =
-            walletDataSample.currency.name.toString() //TODO default value + currency choice
-
+            if (walletDataSample.currency.name != "") walletDataSample.currency.name else getString(
+                R.string.choose_currency
+            )
 
         binding.limit.attributeName.text = getString(R.string.limit)
         binding.limit.attributeValue.text =
-            if (walletDataSample.limit != 0L) walletDataSample.limit.toString() else getString(
+            if (walletDataSample.limit != -1L) walletDataSample.limit.toString()
+                .convertToStyled() else getString(
                 R.string.not_setup
             )
 

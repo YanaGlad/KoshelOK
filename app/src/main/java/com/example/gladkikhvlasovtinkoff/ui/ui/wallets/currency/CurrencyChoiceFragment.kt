@@ -7,11 +7,21 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCurrencyChoiceBinding
+import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
+import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 
 
-class CurrencyChoiceFragment : Fragment() {
+interface OnCurrencySwitcher {
+    fun changeViewModel(currency: Currency)
+}
+
+class CurrencyChoiceFragment : Fragment(), OnCurrencySwitcher {
     private val viewModel: CurrencyChoiceViewModel by viewModels()
     private lateinit var _layoutManager: CustomGridLayoutManager
     private var _binding: FragmentCurrencyChoiceBinding? = null
@@ -19,11 +29,21 @@ class CurrencyChoiceFragment : Fragment() {
     private lateinit var currencyAdapter: CurrencyAdapter
     private var expanded = false
 
+    private val args: CurrencyChoiceFragmentArgs by navArgs()
+    private lateinit var walletDataSample: WalletDataSample
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCurrencyChoiceBinding.inflate(inflater)
+
+        viewModel.dataSample.value = args.walletDataSample
+        walletDataSample = args.walletDataSample
+
+        viewModel.dataSample.observe(viewLifecycleOwner) {
+            walletDataSample = viewModel.dataSample.value!!
+        }
 
         initRecyler()
 
@@ -31,7 +51,7 @@ class CurrencyChoiceFragment : Fragment() {
     }
 
     private fun initRecyler() {
-        currencyAdapter = CurrencyAdapter()
+        currencyAdapter = CurrencyAdapter(this)
         binding.currencyRecycler.setHasFixedSize(true)
         _layoutManager = CustomGridLayoutManager(context)
         binding.currencyRecycler.apply {
@@ -76,5 +96,12 @@ class CurrencyChoiceFragment : Fragment() {
             )
             true
         }
+    }
+
+    override fun changeViewModel(currency: Currency) {
+        val change = viewModel.dataSample
+        change.value!!.currency = currency
+
+        viewModel.dataSample.value = change.value
     }
 }
