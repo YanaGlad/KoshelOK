@@ -1,6 +1,9 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category
 
+import android.R.color
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +16,13 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentCreateCategoryBindi
 import com.example.gladkikhvlasovtinkoff.model.CategoryFactory
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
+import java.lang.String
 
 
 class CreateCategoryFragment : Fragment() {
     private var _binding: FragmentCreateCategoryBinding? = null
     private val binding get() = _binding!!
-
+    //private val cp = ColorPicker(activity, 89, 77, 244)
     private var categoriesAdapter: OperationCategoryAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,18 +47,17 @@ class CreateCategoryFragment : Fragment() {
         binding.typeCategory.setOnClickListener {
 
         }
-        val cp = ColorPicker(activity, 0, 0, 0)
+        val cp = ColorPicker(activity, 89, 77, 244)
 
         cp.setCallback {
-            Toast.makeText(context, "Choose",Toast.LENGTH_SHORT).show()
+            val factory = CategoryFactory()
+            factory.color = cp.color
+             categoriesAdapter?.addItems(factory.getCategories(requireContext()))
             cp.dismiss()
         }
 
         binding.chooseColor.setOnClickListener {
             if (cp.isShowing) cp.dismiss() else cp.show()
-
-            val selectedColor = cp.getColor();
-
         }
 
         return binding.root
@@ -79,9 +82,10 @@ class CreateCategoryFragment : Fragment() {
         }
 
         context?.let { context ->
-            val list = CategoryFactory().getCategories(context)
-
-            categoriesAdapter?.addItems(CategoryFactory().getCategories(context))
+            val factory = CategoryFactory()
+            val cp = ColorPicker(activity, 89, 77, 244)
+            factory.color = cp.color
+            categoriesAdapter?.addItems(factory.getCategories(context))
 
         }
     }

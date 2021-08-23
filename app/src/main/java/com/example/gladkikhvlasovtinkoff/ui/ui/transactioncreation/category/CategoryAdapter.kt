@@ -1,22 +1,19 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.CategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
-import com.example.gladkikhvlasovtinkoff.model.userCateroryKeys
 
 class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
 
-    private val categories: MutableList<TransactionCategoryData> = mutableListOf()
+    private val categories: MutableList<TransactionCategoryData> = arrayListOf()
     private var checkedPosition = -1
 
     private var _checkedItem: MutableLiveData<TransactionCategoryData?> = MutableLiveData(null)
@@ -34,13 +31,10 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
                 onItemChecked(holder.adapterPosition)
             }
         }
-
-
         return holder
     }
 
     private fun onItemChecked(position: Int) {
-
         val oldPosition = checkedPosition
         if (position == oldPosition && position >= 0) {
             checkedPosition = -1
@@ -56,6 +50,22 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
 
     }
 
+    class CategoryDiffUtil : DiffUtil.ItemCallback<TransactionCategoryData>() {
+        override fun areItemsTheSame(
+            oldItem: TransactionCategoryData,
+            newItem: TransactionCategoryData
+        ): Boolean =
+            oldItem.name == newItem.name
+
+        override fun areContentsTheSame(
+            oldItem: TransactionCategoryData,
+            newItem: TransactionCategoryData
+        ): Boolean =
+            oldItem.equals(newItem)
+
+    }
+
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(categories[position], position, checkedPosition)
     }
@@ -64,9 +74,10 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
     override fun getItemCount(): Int = categories.size
 
     fun addItems(categories: List<TransactionCategoryData>) {
-        val oldSize = categories.size
+        this.categories.clear()
         this.categories.addAll(categories)
-        notifyItemRangeChanged(oldSize - 1, categories.size)
+
+        notifyDataSetChanged()
     }
 
     class ViewHolder(val _binding: CategoryItemBinding) :
@@ -82,7 +93,9 @@ class OperationCategoryAdapter : RecyclerView.Adapter<OperationCategoryAdapter.V
             position: Int,
             checkedPosition: Int
         ) {
-            binding?.transactionDot?.setImageResource(transactionCategoryData.color)
+            // binding?.transactionDot?.setImageResource(transactionCategoryData.color)
+            binding?.transactionDot?.setColorFilter(transactionCategoryData.color)
+
             binding?.categoryImageIcon?.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     itemView.resources,

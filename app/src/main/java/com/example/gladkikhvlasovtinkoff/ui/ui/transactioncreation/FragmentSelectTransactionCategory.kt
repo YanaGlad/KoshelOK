@@ -98,8 +98,8 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private fun setupOperationCategoryList(isIncome : Boolean) {
         val categoryDataFactory: TransactionCategoryDataFactory =
-            if(isIncome) DefaultIncomeCategoriesFactory()
-            else DefaultExpensesCategoriesFactory()
+            if(isIncome) DefaultIncomeCategoriesFactory(requireActivity())
+            else DefaultExpensesCategoriesFactory(requireActivity())
         categoriesAdapter = OperationCategoryAdapter()
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
