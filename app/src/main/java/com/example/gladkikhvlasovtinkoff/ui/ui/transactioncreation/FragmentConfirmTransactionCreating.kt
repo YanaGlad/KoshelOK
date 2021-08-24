@@ -74,14 +74,14 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
             onNavigateToAttributes(
                 FragmentConfirmTransactionCreatingDirections
                     .actionFragmentConfirmOperationCreatingToFragmentSelectOperationValue(
-                        args.operationData, args.walletData)
+                        args.operationData, args.walletData )
             )
         }
         binding.typeAttribute.attributeItemLayout.setOnClickListener {
             onNavigateToAttributes(
                 FragmentConfirmTransactionCreatingDirections
                     .actionFragmentConfirmOperationCreatingToFragmentSelectOperationType(
-                        args.operationData, args.walletData)
+                        args.operationData, args.walletData )
             )
         }
         binding.categoryAttribute.attributeItemLayout.setOnClickListener {

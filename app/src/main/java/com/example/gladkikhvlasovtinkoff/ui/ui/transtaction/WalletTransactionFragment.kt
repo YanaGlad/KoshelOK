@@ -153,7 +153,9 @@ class WalletTransactionFragment : ToolbarFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_settings) {
-            Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show()
+            val action = WalletTransactionFragmentDirections.actionOptionFragmentToNewWalletFragment(
+                args.walletData, true)
+            findNavController().navigate(action)
         }
         return true
     }

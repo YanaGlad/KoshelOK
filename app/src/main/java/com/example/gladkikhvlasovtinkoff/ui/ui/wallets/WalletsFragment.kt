@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WalletsFragment : ToolbarFragment() {
     private val viewModel: WalletsViewModel by viewModels()
-    private val args : WalletsFragmentArgs by navArgs()
+    private val args: WalletsFragmentArgs by navArgs()
 
     private var _binding: FragmentWalletsBinding? = null
     private val binding get() = _binding!!
@@ -46,7 +46,7 @@ class WalletsFragment : ToolbarFragment() {
     }
 
     private fun handleArguments(walletData: WalletDataSample?) {
-        walletData?.let{ walletData ->
+        walletData?.let { walletData ->
             viewModel.addWallet(walletData)
         }
     }
@@ -67,7 +67,7 @@ class WalletsFragment : ToolbarFragment() {
         expandRecyclerAnimation()
         setupNavigation()
 
-        viewModel.viewState.observe(viewLifecycleOwner){
+        viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
     }
@@ -79,14 +79,12 @@ class WalletsFragment : ToolbarFragment() {
 
                 binding.noOperationMessage.visibility =
                     if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
-
-                         binding.skeletonWallet.showOriginal()
-
             }
             else -> {
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
+        binding.skeletonWallet.showOriginal()
 
     }
 
@@ -103,9 +101,19 @@ class WalletsFragment : ToolbarFragment() {
 
     private fun initRecycler() {
         walletsAdapter = WalletsAdapter(
-            object : WalletsAdapter.OnWalletClickListener{
+            object : WalletsAdapter.OnWalletClickListener {
                 override fun onWalletClick(walletData: WalletData, position: Int) {
-                    navigateToWallet(walletData, position)
+                    navigateToWallet(
+                        WalletDataSample
+                            (
+                            walletData.id,
+                            walletData.userId,
+                            walletData.name,
+                            walletData.limit,
+                            walletData.amount,
+                            walletData.currency
+                        ), position
+                    )
                 }
             }
         )
@@ -132,9 +140,9 @@ class WalletsFragment : ToolbarFragment() {
         }
     }
 
-    private fun navigateToWallet(walletData : WalletData, position: Int){
+    private fun navigateToWallet(walletData: WalletDataSample, position: Int) {
         val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment(
-            walletData  = walletData
+            walletData = walletData
         )
         findNavController().navigate(action)
     }
