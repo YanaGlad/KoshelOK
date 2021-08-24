@@ -20,6 +20,12 @@ interface  TransactionApi {
  
     @POST("wallet/v1/delete/{id}")
     fun deleteWallet(@Body walletResponse: WalletResponse)
+ 
+    @POST("wallet/v1/crete")
+    fun createWallet( @Field("id")  walletId : Long) : Single<WalletData>
+
+    @POST("wallet/v1/delete/{id}")
+    fun deleteWallet(@Body walletResponse: WalletResponse)
 
     @POST("wallet/v1/wallet/v1/update-name")
     fun updateWallet(@Field("id")  walletId : Long, @Field("name")  name : String): Single<WalletData>

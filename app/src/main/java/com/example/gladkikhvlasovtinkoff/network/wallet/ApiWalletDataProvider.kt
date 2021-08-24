@@ -3,7 +3,9 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.WalletResponse
+ 
 import io.reactivex.Scheduler
+ 
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -89,10 +91,10 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
  
 //    override fun findWalletById(walletId: Long): Single<WalletData> =
 //        api.findWalletById(walletId)
-//            .map{ response ->
+//            .map { response ->
 //                WalletData(
 //                    id = response.id,
-//                    userId = response.,
+//                    userId = response.userId,
 //                    name = response.name,
 //                    limit = response.limit,
 //                    amount = response.balance,
@@ -106,8 +108,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 //
 //    override fun getAllWalletByUserId(userId: Long): Single<List<WalletData>> =
 //        api.getAllWalletsByUserId(userId)
-//            .map{ list ->
-//                list.map{ wallet ->
+//            .map { list ->
+//                list.map { wallet ->
 //                    WalletData(
 //                        id = wallet.id,
 //                        userId = wallet.userId,
@@ -121,6 +123,46 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 //                        )
 //                    )
 //                }
-//            } 
+ 
+//            }
+//
+//    override fun createWallet(walletId: Long): Single<WalletData> =
+//        api.createWallet(walletId)
+//            .map { response ->
+//                WalletData(
+//                    id = response.id,
+//                    userId = response.userId,
+//                    name = response.name,
+//                    limit = response.limit,
+//                    amount = response.amount,
+//                    currency = Currency(
+//                        id = response.currency.id,
+//                        code = response.currency.code,
+//                        name = response.currency.name
+//                    )
+//                )
+//            }
+//
+//
+//    override fun deleteWallet(walletResponse: WalletResponse) {
+//        api.deleteWallet(walletResponse)
+//    }
+//
+//    override fun updateWallet(walletId: Long, name: String) : Single<WalletData> =
+//        api.updateWallet(walletId, name).map { response ->
+//            WalletData(
+//                id = response.id,
+//                userId = response.userId,
+//                name = response.name,
+//                limit = response.limit,
+//                amount = response.amount,
+//                currency = Currency(
+//                    id = response.currency.id,
+//                    code = response.currency.code,
+//                    name = response.currency.name
+//                )
+//            )
+//        }
+ 
  
 }

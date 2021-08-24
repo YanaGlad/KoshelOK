@@ -82,7 +82,6 @@ class WalletsFragment : ToolbarFragment() {
                 binding.noOperationMessage.visibility =
                     if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
  
-
                 binding.skeletonWallet.showOriginal()
  
             }
@@ -91,7 +90,8 @@ class WalletsFragment : ToolbarFragment() {
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
  
-     }
+        binding.skeletonWallet.showOriginal()
+    }
  
 
     private fun setupNavigation() {
@@ -115,7 +115,10 @@ class WalletsFragment : ToolbarFragment() {
         )
         { _, action ->
             when (action.actionId) {
-                R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
+                R.id.hide -> {
+                    Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
+
+                }
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
                 R.id.delete -> {
                     val deleteDialog = DeleteDialogFragment()
@@ -139,8 +142,8 @@ class WalletsFragment : ToolbarFragment() {
     private fun navigateToWallet(walletData: WalletData) {
         val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment(
  
-            null, walletData  = walletData
-  
+            null, walletId = walletData.id
+ 
         )
         findNavController().navigate(action)
     }
