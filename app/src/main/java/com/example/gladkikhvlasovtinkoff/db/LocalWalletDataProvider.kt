@@ -6,9 +6,9 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 
 interface LocalWalletDataProvider {
-    fun getWalletsByUserId(id : Long) : Flowable<List<WalletData>>
+    fun getWalletsByUsername(username : String) : Flowable<List<WalletData>>
     fun getWalletById(id : Long) : Single<WalletData>
-    fun insertWallet(wallet: WalletData) : Completable
-    fun deleteWallet(wallet: WalletData) : Completable
-    fun updateWallet(wallet: WalletData) : Completable
+    fun insertWallet(wallet: WalletData)
+    fun deleteWallet(wallet: WalletData)
+    fun updateWallet(wallet: WalletData)
 }

@@ -2,166 +2,98 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.WalletResponse
-
-import io.reactivex.Scheduler
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi) :
     RemoteWalletDataProvider {
 
-
-//    override fun findWalletById(walletId: Long): Single<WalletData> =
-//        api.findWalletById(walletId)
-//            .map { response ->
-//                WalletData(
-//                    id = response.id,
-//                    userId = response.userId,
-//                    name = response.name,
-//                    limit = response.limit,
-//                    amount = response.balance,
-//                    currency = Currency(
-//                        id = response.currency.id,
-//                        code = response.currency.code,
-//                        name = response.currency.name
-//                    )
-//                )
-//            }
-//
-//    override fun getAllWalletByUserId(userId: Long): Single<List<WalletData>> =
-//        api.getAllWalletsByUserId(userId)
-//            .map { list ->
-//                list.map { wallet ->
-//                    WalletData(
-//                        id = wallet.id,
-//                        userId = wallet.userId,
-//                        name = wallet.name,
-//                        limit = wallet.limit,
-//                        amount = wallet.balance,
-//                        currency = Currency(
-//                            id = wallet.currency.id,
-//                            code = wallet.currency.code,
-//                            name = wallet.currency.name
-//                        )
-//                    )
-//                }
-//            }
-//
-//    override fun createWallet(walletId: Long): Single<WalletData> =
-//        api.createWallet(walletId)
-//            .map { response ->
-//                WalletData(
-//                    id = response.id,
-//                    userId = response.userId,
-//                    name = response.name,
-//                    limit = response.limit,
-//                    amount = response.amount,
-//                    currency = Currency(
-//                        id = response.currency.id,
-//                        code = response.currency.code,
-//                        name = response.currency.name
-//                    )
-//                )
-//            }
-//
-//
-//    override fun deleteWallet(walletResponse: WalletResponse) {
-//        api.deleteWallet(walletResponse)
-//    }
-//
-//    override fun updateWallet(walletId: Long, name: String) : Single<WalletData> =
-//        api.updateWallet(walletId, name).map { response ->
-//            WalletData(
-//                id = response.id,
-//                userId = response.userId,
-//                name = response.name,
-//                limit = response.limit,
-//                amount = response.amount,
-//                currency = Currency(
-//                    id = response.currency.id,
-//                    code = response.currency.code,
-//                    name = response.currency.name
-//                )
-//            )
-//        }
-//
-//    override fun findWalletById(walletId: Long): Single<WalletData> =
-//        api.findWalletById(walletId)
-//            .map { response ->
-//                WalletData(
-//                    id = response.id,
-//                    userId = response.userId,
-//                    name = response.name,
-//                    limit = response.limit,
-//                    amount = response.balance,
-//                    currency = Currency(
-//                        id = response.currency.id,
-//                        code = response.currency.code,
-//                        name = response.currency.name
-//                    )
-//                )
-//            }
-//
-//    override fun getAllWalletByUserId(userId: Long): Single<List<WalletData>> =
-//        api.getAllWalletsByUserId(userId)
-//            .map { list ->
-//                list.map { wallet ->
-//                    WalletData(
-//                        id = wallet.id,
-//                        userId = wallet.userId,
-//                        name = wallet.name,
-//                        limit = wallet.limit,
-//                        amount = wallet.balance,
-//                        currency = Currency(
-//                            id = wallet.currency.id,
-//                            code = wallet.currency.code,
-//                            name = wallet.currency.name
-//                        )
-//                    )
-//                }
-
-//            }
-//
-//    override fun createWallet(walletId: Long): Single<WalletData> =
-//        api.createWallet(walletId)
-//            .map { response ->
-//                WalletData(
-//                    id = response.id,
-//                    userId = response.userId,
-//                    name = response.name,
-//                    limit = response.limit,
-//                    amount = response.amount,
-//                    currency = Currency(
-//                        id = response.currency.id,
-//                        code = response.currency.code,
-//                        name = response.currency.name
-//                    )
-//                )
-//            }
-//
-//
-//    override fun deleteWallet(walletResponse: WalletResponse) {
-//        api.deleteWallet(walletResponse)
-//    }
-//
-//    override fun updateWallet(walletId: Long, name: String) : Single<WalletData> =
-//        api.updateWallet(walletId, name).map { response ->
-//            WalletData(
-//                id = response.id,
-//                userId = response.userId,
-//                name = response.name,
-//                limit = response.limit,
-//                amount = response.amount,
-//                currency = Currency(
-//                    id = response.currency.id,
-//                    code = response.currency.code,
-//                    name = response.currency.name
-//                )
-//            )
-//        }
+    override fun addUser(userRequest: UserRequest): Single<UserResponse> =
+        api.createUser(userRequest)
 
 
+    override fun getAllCurrencies(): Single<List<Currency>> =
+        api.getAllCurrencies()
+            .map{ responseList ->
+                responseList.map{ currencyResponse ->
+                    Currency(
+                        code = currencyResponse.code,
+                        name = currencyResponse.name
+                    )
+                }
+            }
+
+    override fun findWalletById(walletId: Long): Single<WalletData> =
+        api.findWalletById(walletId)
+            .map{ response ->
+                WalletData(
+                    id = response.id,
+                    username = response.user.name,
+                    name = response.name,
+                    limit = response.limit,
+                    amount = response.balance,
+                    currency = Currency(
+                        code = response.currency.code,
+                        name = response.currency.name
+                    )
+                )
+            }
+
+    override fun getAllWalletByUsername(username: String): Single<List<WalletData>> =
+        api.getAllWalletsByUsername(username)
+            .map{ wallets ->
+                wallets.map{ response ->
+                    WalletData(
+                        id = response.id,
+                        username = response.user.name,
+                        name = response.name,
+                        limit = response.limit,
+                        amount = response.balance,
+                        currency = Currency(
+                            code = response.currency.code,
+                            name = response.currency.name
+                        )
+                    )
+                }
+            }
+
+    override fun createWallet(walletRequest: WalletCreateRequest): Single<WalletData> =
+        api.createWallet(walletRequest)
+            .map{ response ->
+                WalletData(
+                    id = response.id,
+                    username = response.user.name,
+                    name = response.name,
+                    limit = response.limit,
+                    amount = response.balance,
+                    currency = Currency(
+                        code = response.currency.code,
+                        name = response.currency.name
+                    )
+                )
+            }
+
+    override fun deleteWallet(walletId: Long) =
+        api.deleteWallet(walletId)
+
+    override fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData> =
+        api.updateWallet(walletUpdateRequest)
+            .map{response ->
+                WalletData(
+                    id = response.id,
+                    username = response.user.name,
+                    name = response.name,
+                    limit = response.limit,
+                    amount = response.balance,
+                    currency = Currency(
+                        code = response.currency.code,
+                        name = response.currency.name
+                    )
+                )
+            }
 }

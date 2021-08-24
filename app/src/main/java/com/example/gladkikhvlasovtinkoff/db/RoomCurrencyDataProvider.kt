@@ -9,6 +9,7 @@ import javax.inject.Inject
 
 class RoomCurrencyDataProvider @Inject constructor(val dao: CurrencyDao) :
     LocalCurrencyDataProvider {
+
     override fun getCurrencies(): Flowable<List<Currency>> =
         dao.getCurrencies()
             .map { currencies ->
@@ -30,7 +31,6 @@ class RoomCurrencyDataProvider @Inject constructor(val dao: CurrencyDao) :
             }
 
     override fun insertCurrencies(currencies: List<Currency>) =
-        Completable.create { emitter ->
             dao.insertCurrencies(currencies =
             currencies.map { currency ->
                 CurrencyDB(
@@ -39,7 +39,5 @@ class RoomCurrencyDataProvider @Inject constructor(val dao: CurrencyDao) :
                 )
             }
             )
-            emitter.onComplete()
-        }
 
 }

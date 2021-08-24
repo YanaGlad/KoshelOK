@@ -8,5 +8,5 @@ import io.reactivex.Single
 
 interface CurrencyRepository {
     fun getCurrencies() : Flowable<CurrencyListViewState>
-    fun insertCurrencies(currencies : List<Currency>) : Completable
+    fun loadCurrencies() : Completable
 }

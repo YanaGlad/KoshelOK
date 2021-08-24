@@ -3,29 +3,61 @@ package com.example.gladkikhvlasovtinkoff.repository
 import com.example.gladkikhvlasovtinkoff.db.LocalWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.lang.Exception
 import javax.inject.Inject
 
 class WalletRepositoryImpl @Inject constructor(
     private val remoteWalletDataProvider: RemoteWalletDataProvider,
-    private val localWalletDataProvider : LocalWalletDataProvider
-) : WalletRepository{
+    private val localWalletDataProvider: LocalWalletDataProvider
+) : WalletRepository {
+
+    //TODO = вынести логику в другое место
+    override fun addUser(userRequest: UserRequest): Single<UserResponse> =
+        remoteWalletDataProvider.addUser(userRequest)
+
+
     override fun addWallet(wallet: WalletData): Completable =
-        localWalletDataProvider.insertWallet(wallet)
+        remoteWalletDataProvider.createWallet(
+            WalletCreateRequest(
+                currencyCharCode = wallet.currency.code,
+                limit = wallet.limit,
+                name = wallet.name,
+                username = wallet.username
+            )
+        ).flatMapCompletable { walletData ->
+            Completable.create { emitter ->
+                try {
+                    localWalletDataProvider
+                        .insertWallet(walletData)
+                    emitter.onComplete()
+                } catch (e: Exception) {
+                    emitter.onError(e)
+                }
+            }
+        }
+
 
     override fun deleteWaller(wallet: WalletData): Completable =
-        localWalletDataProvider.deleteWallet(wallet)
+        Completable.create {
+            localWalletDataProvider.deleteWallet(wallet)
+        }
 
-    override fun getWalletsByUserId(userId: Long): Flowable<WalletListViewState> =
-        localWalletDataProvider.getWalletsByUserId(userId)
-            .map{
+    override fun getWalletsByUsername(username: String): Flowable<WalletListViewState> =
+        localWalletDataProvider.getWalletsByUsername(username)
+            .map {
                 WalletListViewState.Loaded(it)
             }
 
     override fun updateWallet(wallet: WalletData): Completable =
-        localWalletDataProvider.updateWallet(wallet)
+        Completable.create {
+            localWalletDataProvider.updateWallet(wallet)
+        }
 
 }
