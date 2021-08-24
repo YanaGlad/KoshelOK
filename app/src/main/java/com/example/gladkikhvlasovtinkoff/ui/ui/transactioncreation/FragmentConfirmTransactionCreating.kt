@@ -47,6 +47,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        configureToolbar()
         setupUiWithData(args.operationData)
 
         binding.buttonConfirm.setOnClickListener {

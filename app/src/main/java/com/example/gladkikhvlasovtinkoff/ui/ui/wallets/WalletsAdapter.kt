@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,6 @@ import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 typealias OnActionClick = (transaction: WalletData, action: SwipeAction) -> Unit
 
 class WalletsAdapter internal constructor(
-    val navController: NavController,
     private val onActionClicked: OnActionClick
 ) :
     ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(
@@ -31,8 +31,7 @@ class WalletsAdapter internal constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder =
         WalletViewHolder(
-            navController,
-            SwipeWalletItemBinding.inflate(
+             SwipeWalletItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -76,8 +75,7 @@ class WalletsAdapter internal constructor(
     }
 
     class WalletViewHolder(
-        val navController: NavController,
-        private val binding: SwipeWalletItemBinding,
+         private val binding: SwipeWalletItemBinding,
         private val list: List<WalletData>,
         val onActionClick: OnActionClick
     ) : RecyclerView.ViewHolder(binding.root), SwipeMenuListener {
@@ -93,7 +91,7 @@ class WalletsAdapter internal constructor(
                     null,
                     walletOperations.id
                 )
-                navController.navigate(action)
+                itemView.findNavController().navigate(action)
             }
         }
 
