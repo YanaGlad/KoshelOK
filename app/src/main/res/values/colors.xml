@@ -21,5 +21,6 @@
     <color name="rent_dot_color">#91397D</color>
     <color name="travel_dot_color">#EEDB33</color>
     <color name="default_dot_color">#5833EE</color>
+    <color name="gray_card_background">#5C9C9C9C</color>
 
 </resources>
