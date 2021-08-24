@@ -31,8 +31,8 @@ class FragmentSelectTransactionType : ToolbarFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        configureToolbar()
         setupSelectTypeListeners()
-
         binding.buttonConfirmOperationType.setOnClickListener {
             onNextNavigate()
         }

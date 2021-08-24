@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
@@ -18,8 +19,11 @@ import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class WalletTransactionFragment : ToolbarFragment() {
 
     private val viewModel: WalletTransactionViewModel by viewModels()
@@ -34,6 +38,7 @@ class WalletTransactionFragment : ToolbarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity as MainActivity).supportActionBar?.show()
         setupNavigation(
             fragment = this,
             activity = activity as AppCompatActivity,
@@ -48,6 +53,13 @@ class WalletTransactionFragment : ToolbarFragment() {
         if (transaction != null)
             viewModel.transactionList.add(transaction!!.createModel())
     }
+
+//    private fun handleViewState(viewState: TransactionListViewState?) {
+//        when (viewState) {
+//            is TransactionListViewState.Loaded -> baseAdapter?.
+//            submitList(viewState.list)
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +80,7 @@ class WalletTransactionFragment : ToolbarFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        configureToolbar()
+     //   configureToolbar()
         initLayout()
         initWalletRecycler()
         setupButtonListener()
@@ -84,6 +96,11 @@ class WalletTransactionFragment : ToolbarFragment() {
         activity?.let { activity ->
             (activity as ToolbarHolder).setToolbarTitle("")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        configureToolbar()
     }
 
     private fun initWalletRecycler() {
