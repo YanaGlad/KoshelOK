@@ -130,6 +130,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper {
                             getString(R.string.delete_dialog_tag)
                         )
                     }
+                  //  walletsAdapter!!.notifyDataSetChanged()
                 }
             }
         }
