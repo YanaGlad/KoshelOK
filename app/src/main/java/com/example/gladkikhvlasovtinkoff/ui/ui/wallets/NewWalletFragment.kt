@@ -13,7 +13,9 @@ import com.example.gladkikhvlasovtinkoff.extension.convertToStyled
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewWalletFragment : ToolbarFragment() {
     private val viewModel: NewWalletFragmentViewModel by viewModels()
 
@@ -49,7 +51,7 @@ class NewWalletFragment : ToolbarFragment() {
         binding.nameView.setOnClickListener {
             val action =
                 NewWalletFragmentDirections.actionNewWalletFragmentToEnterWalletNameFragment(
-                    walletDataSample
+                    walletDataSample, true
                 )
             findNavController().navigate(action)
         }
@@ -69,12 +71,22 @@ class NewWalletFragment : ToolbarFragment() {
         }
 
         binding.buttonConfirm.setOnClickListener {
-            val action = NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample)
-            findNavController().navigate(action)
+            if (!args.isEdit) {
+                val action =
+                    NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample)
+                findNavController().navigate(action)
+            } else {
+                viewModel.updateWallet(walletDataSample)
+                val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 
     private fun initLayout() {
+
+        if(args.isEdit)
+            binding.buttonConfirm.text = getString(R.string.save)
 
         binding.name.attributeName.text = getString(R.string.wallet_name_title)
         binding.name.attributeValue.text = walletDataSample.name
