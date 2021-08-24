@@ -31,12 +31,8 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO - СДЕЛАТЬ ВЫБОР ВАЛЮТЫ
-        args.operationData.currency = Currency(
-            id = 555,
-            code = "rub",
-            name = "Rubli blin"
-        )
+        args.operationData.currency = args.walletData.currency
+        args.operationData.walletId = args.walletData.id    
     }
 
     override fun onCreateView(
@@ -60,8 +56,19 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
                 showDatePicker(activity)
             }
         }
+
+        viewModel.viewState.observe(viewLifecycleOwner){ viewState ->
+            handleViewState(viewState)
+        }
         setupAttributeChangeListeners()
     }
+
+    private fun handleViewState(viewState: ConfirmCreatingViewState?) {
+        when(viewState){
+            is ConfirmCreatingViewState.SuccessCreating -> onWalletCreated()
+        }
+    }
+
 
     private fun setupAttributeChangeListeners() {
         binding.valueAttribute.attributeItemLayout.setOnClickListener {
@@ -92,13 +99,14 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
     }
 
     private fun onConfirm() {
-        val operationData = args.operationData
-        if (!operationData.isDateDefined)
-            operationData.date = System.currentTimeMillis()
-        val action =
-            FragmentConfirmTransactionCreatingDirections.actionFragmentConfirmOperationCreatingToOptionFragment(
-                operationData, args.walletData
-            )
+        context?.let {
+            viewModel.addWallet(it, args.operationData)
+        }
+    }
+
+    private fun onWalletCreated(){
+        val action = FragmentConfirmTransactionCreatingDirections
+            .actionFragmentConfirmOperationCreatingToOptionFragment(walletData = args.walletData)
         findNavController().navigate(action)
     }
 

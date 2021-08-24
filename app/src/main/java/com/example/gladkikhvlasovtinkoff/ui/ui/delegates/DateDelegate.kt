@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.DateItemBinding
+import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.model.TransactionDate
 
 class DateDelegate : AdapterDelegate {
@@ -22,7 +23,7 @@ class DateDelegate : AdapterDelegate {
 
     class ViewHolder(val binding : DateItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(date : TransactionDate) {
-            binding.dateValue.text = date.dateDay
+            binding.dateValue.text = date.dateTimestamp.getDayString(binding.root.context)
         }
     }
 }

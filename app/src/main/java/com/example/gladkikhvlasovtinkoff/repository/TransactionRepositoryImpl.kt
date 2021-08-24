@@ -2,6 +2,7 @@ package com.example.gladkikhvlasovtinkoff.repository
 
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.db.LocalTransactionDataProvider
+import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.TransactionListViewState
 import io.reactivex.Completable
@@ -23,11 +24,9 @@ class TransactionRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<TransactionListViewState> =
+    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<List<WalletTransactionModel>> =
         localDataProvider.getAllTransactionsByWalletId(walletId)
-            .map {
-                TransactionListViewState.Loaded(it)
-            }
+
 
 
     override fun getTransactionById(transactionId: Long): Single<TransactionListViewState> {
