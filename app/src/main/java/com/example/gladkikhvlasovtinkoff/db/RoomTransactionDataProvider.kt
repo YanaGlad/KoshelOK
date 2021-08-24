@@ -25,7 +25,6 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                 isIncome = item.isIncome,
                 amount = item.amount,
                 currency = CurrencyDB(
-                    id = item.currency.id,
                     code = item.currency.code,
                     name = item.currency.name
                 ),
@@ -61,7 +60,6 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                             isIncome = transition.isIncome,
                             amount = transition.amount,
                             currency = Currency(
-                                id = transition.currency.id,
                                 code = transition.currency.code,
                                 name = transition.currency.name
                             ),

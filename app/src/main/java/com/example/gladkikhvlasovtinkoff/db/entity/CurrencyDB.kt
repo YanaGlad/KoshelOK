@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "currency")
 data class CurrencyDB (
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "currency_id")
-    val id : Long,
+    @ColumnInfo(name = "code")
     val code : String,
     @ColumnInfo(name = "currency_name")
     val name : String
