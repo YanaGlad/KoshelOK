@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
+import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.WalletTransactionViewModel.Companion.TEMP_USER_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -32,7 +34,8 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
         repository.addUser(userRequest = UserRequest(
             name = "testoviy chelik",
             username = TEMP_USERNAME
-        ))
+        )
+        )
             .doOnError{
                 it.printStackTrace()
             }
@@ -58,7 +61,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
         repository.addWallet(
             WalletData(
                 id = TEMP_WALLET_ID.toLong(),
-                userId =TEMP_USER_ID,
+                username = TEMP_USERNAME,
                 name = walletData.name,
                 limit = walletData.limit,
                 amount = walletData.amount,
@@ -77,7 +80,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
     }
 
     fun getWalletList() {
-        repository.getWalletsByUserId(TEMP_USER_ID)
+        repository.getWalletsByUsername(TEMP_USERNAME)
             .doOnNext { viewState ->
                 val list = (viewState as? WalletListViewState.Loaded)?.list
                 TEMP_WALLET_ID = 1
