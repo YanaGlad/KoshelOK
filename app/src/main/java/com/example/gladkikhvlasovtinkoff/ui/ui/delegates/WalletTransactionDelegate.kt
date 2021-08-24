@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.delegates
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +52,12 @@ class WalletTransactionDelegate internal constructor(
 
         fun bind(walletOperations: WalletTransactionModel) {
             item = walletOperations
-//            binding.data.transactionDot.setImageResource(walletOperations.transactionCategoryData.color)
+            binding.data.transactionDot.setColorFilter(
+                Color.rgb(
+                    walletOperations.transactionCategoryData.colorRed,
+                    walletOperations.transactionCategoryData.colorGreen,
+                    walletOperations.transactionCategoryData.colorBlue
+                ))
             binding.swipeToAction.menuListener = this
             binding.data.imageOperation.setImageDrawable(
                 ResourcesCompat.getDrawable(

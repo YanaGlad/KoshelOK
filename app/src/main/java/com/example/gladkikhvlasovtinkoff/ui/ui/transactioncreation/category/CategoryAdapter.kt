@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,8 +80,13 @@ class OperationCategoryAdapter(
             position: Int,
             checkedPosition: Int
         ) {
-            // binding?.transactionDot?.setImageResource(transactionCategoryData.color)
-//            binding?.transactionDot?.setColorFilter(transactionCategoryData.color)
+            binding?.transactionDot?.setColorFilter(
+                    Color.rgb(
+                        transactionCategoryData.colorRed,
+                        transactionCategoryData.colorGreen,
+                        transactionCategoryData.colorBlue
+                    )
+            )
 
             binding?.categoryImageIcon?.setImageDrawable(
                 ResourcesCompat.getDrawable(
