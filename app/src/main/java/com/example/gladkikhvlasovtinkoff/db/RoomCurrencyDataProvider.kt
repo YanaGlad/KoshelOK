@@ -14,18 +14,16 @@ class RoomCurrencyDataProvider @Inject constructor(val dao: CurrencyDao) :
             .map { currencies ->
                 currencies.map { currency ->
                     Currency(
-                        id = currency.id,
                         code = currency.code,
                         name = currency.name
                     )
                 }
             }
 
-    override fun getCurrencyById(id: Long): Single<Currency> =
-        dao.getCurrencyById(id)
+    override fun getCurrencyByCode(code: String): Single<Currency> =
+        dao.getCurrencyByCode(code)
             .map { currency ->
                 Currency(
-                    id = currency.id,
                     code = currency.code,
                     name = currency.name
                 )
@@ -36,7 +34,6 @@ class RoomCurrencyDataProvider @Inject constructor(val dao: CurrencyDao) :
             dao.insertCurrencies(currencies =
             currencies.map { currency ->
                 CurrencyDB(
-                    id = currency.id,
                     code = currency.code,
                     name = currency.name
                 )

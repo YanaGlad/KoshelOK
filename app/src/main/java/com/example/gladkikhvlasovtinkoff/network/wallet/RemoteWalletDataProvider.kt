@@ -7,8 +7,8 @@ import io.reactivex.Single
 
 interface RemoteWalletDataProvider {
 
-    fun findWalletById(walletId : Long) : Single<WalletData>
-    fun getAllWalletByUserId(userId : Long) : Single<List<WalletData>>
+//    fun findWalletById(walletId : Long) : Single<WalletData>
+//    fun getAllWalletByUserId(userId : Long) : Single<List<WalletData>>
 //    fun getCurrencyById(currencyId : Long) : Single<CurrencyResponse>
 //    fun getAllCurrencies() : Single<List<CurrencyResponse>>
 //    fun getUserByUsername(username : String) : Single<UserResponse>

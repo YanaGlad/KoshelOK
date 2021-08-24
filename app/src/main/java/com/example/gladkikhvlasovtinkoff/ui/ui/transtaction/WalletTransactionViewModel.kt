@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
+import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
@@ -53,16 +54,20 @@ class WalletTransactionViewModel @Inject constructor(val repository: Transaction
     }
 
     fun getTransactionListByWalletId() {
-        repository.getAllTransactionsByWalletId(TEMP_WALLET_ID)
+        repository.getAllTransactionsByWalletId(1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.computation())
+            .map{
+                TransactionListViewState.Loaded(it.toDelegateItemListWithDate())
+            }
             .doOnNext { viewState ->
-                if (viewState != null)
                     _viewState.postValue(viewState)
 
             }
             .doOnError {
                 _viewState.postValue(TransactionListViewState.Error.UnexpectedError)
             }
-            .subscribeOn(Schedulers.io())
+
             .observeOn(Schedulers.io())
             .subscribe()
     }

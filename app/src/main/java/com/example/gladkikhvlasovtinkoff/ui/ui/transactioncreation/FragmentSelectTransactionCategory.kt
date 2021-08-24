@@ -26,6 +26,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private var categoryName: String = ""
     private var imageId: Int = -1
+    private var rgbColors : Triple<Int, Int, Int> = Triple(0, 0, 0)
 
     private val args: FragmentSelectTransactionCategoryArgs by navArgs()
 
@@ -60,16 +61,15 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
     }
 
     private fun onConfirm(){
-        //TODO - id, description
         val operationData = args.operationData
         operationData.transactionCategoryData = TransactionCategoryData(
             name = categoryName,
             iconId = imageId,
             id = UNDEFINED_ID.toLong(),
             description = UNDEFINED_STR,
-            colorBlue = UNDEFINED_ID,
-            colorRed = UNDEFINED_ID,
-            colorGreen = UNDEFINED_ID
+            colorBlue = rgbColors.third,
+            colorRed = rgbColors.first,
+            colorGreen = rgbColors.second
         )
         val action =
             FragmentSelectTransactionCategoryDirections.
@@ -98,6 +98,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         binding.buttonConfirmOperationCategory.setEnabled(context)
         categoryName = checkedData.name
         imageId = checkedData.iconId
+        rgbColors = Triple(checkedData.colorRed, checkedData.colorGreen, checkedData.colorBlue)
     }
 
     private fun setupOperationCategoryList(isIncome : Boolean) {
