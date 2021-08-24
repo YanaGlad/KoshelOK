@@ -74,10 +74,20 @@ class WalletsFragment : ToolbarFragment() {
 
     private fun handleViewState(viewState: WalletListViewState?) {
         when (viewState) {
-            is WalletListViewState.Loaded -> walletsAdapter?.
-            submitList(viewState.list)
+            is WalletListViewState.Loaded -> {
+                walletsAdapter?.submitList(viewState.list)
+
+                binding.noOperationMessage.visibility =
+                    if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
+
+                         binding.skeletonWallet.showOriginal()
+
+            }
+            else -> {
+            }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
+
     }
 
     private fun setupNavigation() {
@@ -171,10 +181,8 @@ class WalletsFragment : ToolbarFragment() {
         binding.layoutWallet.expenditure.expenditureText.text =
             getString(R.string.total_expenditure)
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.create_wallet)
+        binding.skeletonWallet.showSkeleton()
 
-        binding.layoutWallet.showMore.setOnClickListener {
-
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
