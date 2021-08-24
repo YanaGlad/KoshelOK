@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
@@ -14,6 +15,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 
 class NewWalletFragment : ToolbarFragment() {
+    private val viewModel: NewWalletFragmentViewModel by viewModels()
 
     private var _binding: FragmentNewWalletBinding? = null
     private val binding get() = _binding!!
