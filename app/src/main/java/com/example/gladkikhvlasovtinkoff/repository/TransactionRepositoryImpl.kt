@@ -1,4 +1,37 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
-class TransactionRepositoryImpl {
+import com.example.gladkikhvlasovtinkoff.db.LocalTransactionDataProvider
+import com.example.gladkikhvlasovtinkoff.db.LocalWalletDataProvider
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
+import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
+import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.TransactionListViewState
+import io.reactivex.Flowable
+import io.reactivex.Single
+import javax.inject.Inject
+
+class TransactionRepositoryImpl @Inject constructor(
+    private val transactionDataProvider: LocalTransactionDataProvider) :TransactionRepository {
+    override fun addTransaction(item: TransactionListViewState) {
+        TODO("Not yet implemented")
+    }
+
+    override fun addTransactions(items: List<TransactionListViewState>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<TransactionListViewState> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getTransactionById(transactionId: Long): Single<TransactionListViewState> {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteTransaction(item: TransactionListViewState) {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateTransaction(item: TransactionListViewState) {
+        TODO("Not yet implemented")
+    }
 }
