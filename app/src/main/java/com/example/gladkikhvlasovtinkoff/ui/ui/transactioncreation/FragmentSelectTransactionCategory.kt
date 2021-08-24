@@ -26,6 +26,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private var categoryName: String = ""
     private var imageId: Int = -1
+    private var rgbColors : Triple<Int, Int, Int> = Triple(0, 0, 0)
 
     private val args: FragmentSelectTransactionCategoryArgs by navArgs()
 
@@ -60,19 +61,20 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
     }
 
     private fun onConfirm(){
-        //TODO - id, description
         val operationData = args.operationData
         operationData.transactionCategoryData = TransactionCategoryData(
             name = categoryName,
             iconId = imageId,
-            id = UNDEFINED_ID,
+            id = UNDEFINED_ID.toLong(),
             description = UNDEFINED_STR,
-            color = UNDEFINED_ID
+            colorBlue = rgbColors.third,
+            colorRed = rgbColors.first,
+            colorGreen = rgbColors.second
         )
         val action =
             FragmentSelectTransactionCategoryDirections.
             actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
-                args.operationData
+                args.operationData, args.walletData
             )
         findNavController().navigate(action)
     }
@@ -96,12 +98,13 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         binding.buttonConfirmOperationCategory.setEnabled(context)
         categoryName = checkedData.name
         imageId = checkedData.iconId
+        rgbColors = Triple(checkedData.colorRed, checkedData.colorGreen, checkedData.colorBlue)
     }
 
     private fun setupOperationCategoryList(isIncome : Boolean) {
         val categoryDataFactory: TransactionCategoryDataFactory =
-            if(isIncome) DefaultIncomeCategoriesFactory(requireActivity())
-            else DefaultExpensesCategoriesFactory(requireActivity())
+            if(isIncome) DefaultIncomeCategoriesFactory()
+            else DefaultExpensesCategoriesFactory()
         categoriesAdapter = OperationCategoryAdapter()
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter

@@ -11,7 +11,7 @@ interface  TransactionApi {
 
     @GET("wallet/v1/findUser/{userId}")
     fun getAllWalletsByUserId(@Path("userId") userId : Long) : Single<List<WalletResponse>>
-
+ 
     @POST("wallet/v1/crete")
     fun createWallet( @Field("id")  walletId : Long) : Single<WalletData>
 
@@ -20,5 +20,6 @@ interface  TransactionApi {
 
     @POST("wallet/v1/wallet/v1/update-name")
     fun updateWallet(@Field("id")  walletId : Long, @Field("name")  name : String): Single<WalletData>
+ 
 
 }

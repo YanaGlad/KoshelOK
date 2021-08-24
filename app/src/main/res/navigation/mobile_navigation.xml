@@ -41,6 +41,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
+ 
             android:name="walletId"
             app:argType="long" />
         <action
@@ -50,6 +51,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+             android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
+ 
     </fragment>
     <fragment
         android:id="@+id/fragmentConfirmOperationCreating"
@@ -87,6 +91,9 @@
         <argument
             android:name="operationData"
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
+        <argument
+            android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationCategory"
@@ -119,6 +126,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
@@ -135,6 +145,9 @@
         <argument
             android:name="operationData"
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
+        <argument
+            android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationValue"
@@ -154,6 +167,9 @@
         <action
             android:id="@+id/action_fragmentSelectOperationValue_to_fragmentConfirmOperationCreating"
             app:destination="@id/fragmentConfirmOperationCreating" />
+        <argument
+            android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
     </fragment>
     <fragment
         android:id="@+id/walletsFragment"
