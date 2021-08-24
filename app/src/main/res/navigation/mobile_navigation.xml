@@ -157,6 +157,11 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/enterWalletNameFragment"
@@ -179,13 +184,6 @@
         android:name="com.example.gladkikhvlasovtinkoff.ui.ui.wallets.NewWalletFragment"
         android:label="fragment_new_wallet"
         tools:layout="@layout/fragment_new_wallet" >
-        <action
-            android:id="@+id/action_newWalletFragment_to_optionFragment"
-            app:destination="@id/optionFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_newWalletFragment_to_currencyChoiceFragment"
             app:destination="@id/currencyChoiceFragment"
@@ -210,6 +208,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_newWalletFragment_to_walletsFragment"
+            app:destination="@id/walletsFragment" />
     </fragment>
     <fragment
         android:id="@+id/currencyChoiceFragment"

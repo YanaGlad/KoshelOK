@@ -2,7 +2,6 @@ package com.example.gladkikhvlasovtinkoff.db
 
 import androidx.room.*
 import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB
-import com.example.gladkikhvlasovtinkoff.db.entity.TransactionWithCurrency
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -15,10 +14,10 @@ interface TransactionDao {
     fun insertTransactions(items : List<TransactionDB>)
 
     @Query(value = "Select * from `transaction` where walletId = :walletId order by date desc")
-    fun getAllTransactionsByWalletId(walletId : Long) : Flowable<List<TransactionWithCurrency>>
+    fun getAllTransactionsByWalletId(walletId : Long) : Flowable<List<TransactionDB>>
 
     @Query(value = "Select * from `transaction` where id =:transactionId")
-    fun getTransactionById(transactionId : Long) : Single<TransactionWithCurrency>
+    fun getTransactionById(transactionId : Long) : Single<TransactionDB>
 
     @Delete()
     fun deleteTransaction(item : TransactionDB)

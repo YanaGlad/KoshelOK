@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "transaction")
 data class TransactionDB (
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val id : Long,
     val date : Long,
     val walletId : Long,
     val isIncome : Boolean,
     val amount : String,
-    @ColumnInfo(name ="currency_id")
-    val currencyId: Long,
+    @Embedded
+    val currency: CurrencyDB,
     @Embedded
     val transactionCategoryData: CategoryDB
     )
