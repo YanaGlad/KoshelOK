@@ -75,7 +75,8 @@ class WalletsFragment : ToolbarFragment() {
         when (viewState) {
             is WalletListViewState.Loaded -> walletsAdapter?.
             submitList(viewState.list)
-        }
+         }
+        binding.layoutWallet.walletRecycle.adapter = walletsAdapter
     }
 
     private fun setupNavigation() {
