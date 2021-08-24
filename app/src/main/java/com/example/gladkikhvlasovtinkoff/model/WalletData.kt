@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class WalletData (
     val id : Long,
-    val userId : Long,
+    val username : String,
     val name : String,
     val limit : String,
     val amount : String,

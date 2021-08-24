@@ -16,16 +16,30 @@ import javax.inject.Inject
 @HiltViewModel
 class WalletsViewModel @Inject constructor(val repository: WalletRepository): ViewModel() {
     companion object {
-        const val TEMP_USER_ID = 1L
+        const val TEMP_USERNAME = "test-tincoffJJ"
         var TEMP_WALLET_ID = 1
     }
     init{
         getWalletList()
+        //        addUser()
     }
 
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
         get() = _viewState
+
+    private fun addUser(){
+        repository.addUser(userRequest = UserRequest(
+            name = "testoviy chelik",
+            username = TEMP_USERNAME
+        ))
+            .doOnError{
+                it.printStackTrace()
+            }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+    }
+
 
     fun deleteWallet(wallet : WalletData ){
         repository.deleteWaller(wallet )
@@ -66,7 +80,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
         repository.getWalletsByUserId(TEMP_USER_ID)
             .doOnNext { viewState ->
                 val list = (viewState as? WalletListViewState.Loaded)?.list
-//                TEMP_WALLET_ID =  list?.last()?.id?.plus(1)?.toInt() ?: 1
+                TEMP_WALLET_ID = 1
                 _viewState.postValue(viewState)
             }
             .doOnError {

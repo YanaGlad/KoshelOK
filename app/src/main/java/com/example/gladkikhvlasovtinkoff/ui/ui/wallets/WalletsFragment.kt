@@ -107,7 +107,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper {
                         WalletDataSample
                             (
                             walletData.id,
-                            walletData.userId,
+                            walletData.username,
                             walletData.name,
                             walletData.limit,
                             walletData.amount,

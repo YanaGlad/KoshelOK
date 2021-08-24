@@ -6,7 +6,7 @@ import androidx.room.*
 data class WalletDB(
     @PrimaryKey(autoGenerate = false)
     val id: Long,
-    val userId: Long,
+    val username: String,
     val name: String,
     val limit: String,
     val amount: String,

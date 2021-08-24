@@ -18,22 +18,18 @@ class CurrencyChoiceViewModel
     val viewState: LiveData<CurrencyListViewState>
         get() = _viewState
 
-    init {
-        val currencyList = mutableListOf<Currency>()
-        currencyList.add(Currency( "DOL", "Dollar"))
-        currencyList.add(Currency("RUB", "Ruble"))
-        currencyList.add(Currency( "EUR", "Euro"))
-        addCurrencies(currencyList)
+    init{
         getCurrencies()
+        loadCurrencies()
     }
 
-    fun addCurrencies(currencies : List<Currency>){
-        repository.insertCurrencies(currencies)
-            .doOnError{
-                _viewState.postValue(CurrencyListViewState.Error.UnexpectedError)
-            }
-            .observeOn(Schedulers.io())
+    fun loadCurrencies(){
+        repository.loadCurrencies()
             .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .doOnError{
+                it.printStackTrace()
+            }
             .subscribe()
     }
 

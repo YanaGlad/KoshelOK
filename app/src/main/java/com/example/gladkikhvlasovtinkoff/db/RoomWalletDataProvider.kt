@@ -13,14 +13,14 @@ import javax.inject.Inject
 class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
     LocalWalletDataProvider {
 
-    override fun getWalletsByUserId(userId : Long): Flowable<List<WalletData>> =
-        dao.getWalletsByUserId(userId)
+    override fun getWalletsByUsername(username : String): Flowable<List<WalletData>> =
+        dao.getWalletsByUsername(username)
             .map { wallets ->
                 wallets
                     .map { wallet ->
                         WalletData(
                             id = wallet.id,
-                            userId = wallet.userId,
+                            username = wallet.username,
                             name = wallet.name,
                             limit = wallet.limit,
                             amount = wallet.amount,
@@ -38,7 +38,7 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
             .map { wallet ->
                 WalletData(
                     id = wallet.id,
-                    userId = wallet.userId,
+                    username = wallet.username,
                     name = wallet.name,
                     limit = wallet.limit,
                     amount = wallet.amount,
@@ -52,13 +52,11 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
     //TODO - подумать насчет обработки ошибки и стоит ли их вообще делать
     //TODO - заменить повторяющийся код
 
-    override fun insertWallet(wallet: WalletData): Completable =
-        Completable.create { emitter ->
-            try {
+    override fun insertWallet(wallet: WalletData) =
                 dao.insertWallet(
                     WalletDB(
                         id = wallet.id,
-                        userId = wallet.userId,
+                        username = wallet.username,
                         name = wallet.name,
                         limit = wallet.limit,
                         amount = wallet.amount,
@@ -68,19 +66,12 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         )
                     )
                 )
-                emitter.onComplete()
-            } catch (e: Exception) {
-                emitter.onError(e)
-            }
-        }
 
-    override fun deleteWallet(wallet: WalletData): Completable =
-        Completable.create { emitter ->
-            try {
+    override fun deleteWallet(wallet: WalletData) =
                 dao.deleteWallet(
                     WalletDB(
                         id = wallet.id,
-                        userId = wallet.userId,
+                        username = wallet.username,
                         name = wallet.name,
                         limit = wallet.limit,
                         amount = wallet.amount,
@@ -90,19 +81,14 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         )
                     )
                 )
-                emitter.onComplete()
-            } catch (e: Exception) {
-                emitter.onError(e)
-            }
-        }
 
-    override fun updateWallet(wallet: WalletData): Completable =
-        Completable.create { emitter ->
-            try {
+
+
+    override fun updateWallet(wallet: WalletData) =
                 dao.updateWallet(
                     WalletDB(
                         id = wallet.id,
-                        userId = wallet.userId,
+                        username = wallet.username,
                         name = wallet.name,
                         limit = wallet.limit,
                         amount = wallet.amount,
@@ -112,10 +98,4 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         )
                     )
                 )
-                emitter.onComplete()
-            } catch (e: Exception) {
-                emitter.onError(e)
-            }
-        }
-
 }

@@ -8,5 +8,5 @@ import io.reactivex.Single
 interface LocalCurrencyDataProvider {
     fun getCurrencies() : Flowable<List<Currency>>
     fun getCurrencyByCode(code : String) : Single<Currency>
-    fun insertCurrencies(currencies : List<Currency>) : Completable
+    fun insertCurrencies(currencies : List<Currency>)
 }

@@ -34,7 +34,7 @@ class CurrencyChoiceFragment : Fragment() {
         return binding.root
     }
 
- 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRecycler()
         viewModel.viewState.observe(viewLifecycleOwner){ viewState ->
@@ -44,10 +44,11 @@ class CurrencyChoiceFragment : Fragment() {
 
     private fun handleViewState(viewState: CurrencyListViewState) =
         when(viewState){
-            is CurrencyListViewState.Loaded -> currencyAdapter.submitList(viewState.list)
+            is CurrencyListViewState.Loaded -> currencyAdapter.
+            submitList(viewState.list)
             else -> onUnexpectedError()
         }
- 
+
 
     private fun onUnexpectedError() {
     }
@@ -105,5 +106,5 @@ class CurrencyChoiceFragment : Fragment() {
             true
         }
     }
- 
+
 }
