@@ -67,12 +67,22 @@ class NewWalletFragment : ToolbarFragment() {
         }
 
         binding.buttonConfirm.setOnClickListener {
-            val action = NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample)
-            findNavController().navigate(action)
+            if(!args.isEdit) {
+                val action =
+                    NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample)
+                findNavController().navigate(action)
+            }else{
+
+                val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 
     private fun initLayout() {
+
+        if (args.isEdit)
+            binding.buttonConfirm.text = getString(R.string.save)
 
         binding.name.attributeName.text = getString(R.string.wallet_name_title)
         binding.name.attributeValue.text = walletDataSample.name
@@ -85,7 +95,7 @@ class NewWalletFragment : ToolbarFragment() {
 
         binding.limit.attributeName.text = getString(R.string.limit)
         binding.limit.attributeValue.text =
-            if (walletDataSample.limit  != "") walletDataSample.limit
+            if (walletDataSample.limit != "") walletDataSample.limit
                 .convertToStyled() else getString(
                 R.string.not_setup
             )

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.SwipeWalletItemBinding
 import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
 import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
@@ -23,7 +24,7 @@ class WalletsAdapter internal constructor(
     ) {
 
     interface OnWalletClickListener {
-        fun onWalletClick(walletData: WalletData, position: Int)
+        fun onWalletClick(walletData: WalletData , position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder {

@@ -92,7 +92,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
             operationData.date = System.currentTimeMillis()
         val action =
             FragmentConfirmTransactionCreatingDirections.actionFragmentConfirmOperationCreatingToOptionFragment(
-                operationData, operationData.walletId
+                operationData, walletData = null
             )
         findNavController().navigate(action)
     }

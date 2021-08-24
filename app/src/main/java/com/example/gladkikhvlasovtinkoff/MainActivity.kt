@@ -38,13 +38,6 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_settings) {
-            Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
-        }
-        return true
-    }
-
 
     override fun onBackPressed() {
         val count: Int = supportFragmentManager.backStackEntryCount

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
+import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
@@ -168,8 +169,8 @@ class WalletTransactionFragment : ToolbarFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_settings) {
-            //TODO navigate to settings
-         //   val action = WalletTransactionFragmentDirections.actionOptionFragmentToNewWalletFragment()
+            val action = WalletTransactionFragmentDirections.actionOptionFragmentToNewWalletFragment(args.walletData!!, true)
+            findNavController().navigate(action)
         }
         return true
     }

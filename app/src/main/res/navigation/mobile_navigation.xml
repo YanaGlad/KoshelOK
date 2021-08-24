@@ -40,10 +40,7 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <argument
 
-            android:name="walletId"
-            app:argType="long" />
         <action
             android:id="@+id/action_optionFragment_to_newWalletFragment"
             app:destination="@id/newWalletFragment"
@@ -51,7 +48,12 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
- 
+        <argument
+            android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
     </fragment>
     <fragment
         android:id="@+id/fragmentConfirmOperationCreating"
@@ -181,6 +183,10 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/enterWalletNameFragment"
@@ -230,6 +236,17 @@
         <action
             android:id="@+id/action_newWalletFragment_to_walletsFragment"
             app:destination="@id/walletsFragment" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_newWalletFragment_to_optionFragment"
+            app:destination="@id/optionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/currencyChoiceFragment"

@@ -48,9 +48,14 @@ class WalletsFragment : ToolbarFragment() {
     }
 
     private fun handleArguments(walletData: WalletDataSample?) {
-        walletData?.let { walletData ->
-            viewModel.addWallet(walletData)
-        }
+
+            walletData?.let { walletData ->
+                {
+                    if (!args.isEdit)
+                    viewModel.addWallet(walletData)
+                    else viewModel.addWallet(walletData)
+                }
+            }
     }
 
     override fun onCreateView(
@@ -81,18 +86,18 @@ class WalletsFragment : ToolbarFragment() {
 
                 binding.noOperationMessage.visibility =
                     if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
- 
+
                 binding.skeletonWallet.showOriginal()
- 
+
             }
             else -> {
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
- 
+
         binding.skeletonWallet.showOriginal()
     }
- 
+
 
     private fun setupNavigation() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
@@ -109,7 +114,17 @@ class WalletsFragment : ToolbarFragment() {
         walletsAdapter = WalletsAdapter(
             object : WalletsAdapter.OnWalletClickListener {
                 override fun onWalletClick(walletData: WalletData, position: Int) {
-                    navigateToWallet(walletData)
+                    navigateToWallet(
+                        WalletDataSample
+                            (
+                            walletData.id,
+                            walletData.userId,
+                            walletData.name,
+                            walletData.limit,
+                            walletData.amount,
+                            walletData.currency
+                        )
+                    )
                 }
             }
         )
@@ -139,11 +154,9 @@ class WalletsFragment : ToolbarFragment() {
         }
     }
 
-    private fun navigateToWallet(walletData: WalletData) {
+    private fun navigateToWallet(walletData: WalletDataSample) {
         val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment(
- 
-            null, walletId = walletData.id
- 
+            null, walletData
         )
         findNavController().navigate(action)
     }
