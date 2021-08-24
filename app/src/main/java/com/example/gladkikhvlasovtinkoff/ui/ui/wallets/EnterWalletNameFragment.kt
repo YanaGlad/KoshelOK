@@ -45,7 +45,7 @@ class EnterWalletNameFragment : ToolbarFragment() {
             walletDataSample.name = binding.layoutEnter.newOperationValueField.text.toString()
             val action =
                 EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment(
-                    walletDataSample
+                    walletDataSample, args.isEdit
                 )
             findNavController().navigate(action)
         }

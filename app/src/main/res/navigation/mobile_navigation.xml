@@ -44,7 +44,9 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
 
     </fragment>
     <fragment
@@ -85,7 +87,7 @@
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationCategory"
@@ -120,7 +122,7 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
@@ -139,7 +141,7 @@
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationValue"
@@ -161,7 +163,7 @@
             app:destination="@id/fragmentConfirmOperationCreating" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
     </fragment>
     <fragment
         android:id="@+id/walletsFragment"
@@ -203,6 +205,10 @@
         <argument
             android:name="walletDataSample"
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/newWalletFragment"
@@ -236,6 +242,17 @@
         <action
             android:id="@+id/action_newWalletFragment_to_walletsFragment"
             app:destination="@id/walletsFragment" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_newWalletFragment_to_optionFragment"
+            app:destination="@id/optionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/currencyChoiceFragment"
