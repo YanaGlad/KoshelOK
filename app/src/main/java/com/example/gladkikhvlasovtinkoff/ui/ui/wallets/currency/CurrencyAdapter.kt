@@ -58,7 +58,7 @@ class CurrencyAdapter  constructor(private val switcher : OnCurrencySwitcher):
         override fun areItemsTheSame(
             oldItem: Currency,
             newItem: Currency
-        ): Boolean = oldItem.id == newItem.id
+        ): Boolean = oldItem.code == newItem.code
 
         override fun areContentsTheSame(
             oldItem: Currency,

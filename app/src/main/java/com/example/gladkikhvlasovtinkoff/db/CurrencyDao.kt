@@ -13,8 +13,8 @@ interface CurrencyDao {
     @Query("Select * from currency")
     fun getCurrencies() : Flowable<List<CurrencyDB>>
 
-    @Query("Select * from currency where currency_id = :id")
-    fun getCurrencyById(id : Long) : Single<CurrencyDB>
+    @Query("Select * from currency where code = :code")
+    fun getCurrencyByCode(code : String) : Single<CurrencyDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCurrencies(currencies : List<CurrencyDB>)

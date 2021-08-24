@@ -41,6 +41,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
+ 
             android:name="walletId"
             app:argType="long" />
         <action
@@ -50,6 +51,10 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+ 
+             android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData" />
+ 
     </fragment>
     <fragment
         android:id="@+id/fragmentConfirmOperationCreating"

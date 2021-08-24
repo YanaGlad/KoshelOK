@@ -81,13 +81,18 @@ class WalletsFragment : ToolbarFragment() {
 
                 binding.noOperationMessage.visibility =
                     if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
+ 
+
+                binding.skeletonWallet.showOriginal()
+ 
             }
             else -> {
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
-        binding.skeletonWallet.showOriginal()
-    }
+ 
+     }
+ 
 
     private fun setupNavigation() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
@@ -133,7 +138,9 @@ class WalletsFragment : ToolbarFragment() {
 
     private fun navigateToWallet(walletData: WalletData) {
         val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment(
-            null, walletId = walletData.id
+ 
+            null, walletData  = walletData
+  
         )
         findNavController().navigate(action)
     }
