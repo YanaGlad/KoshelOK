@@ -1,9 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
 import com.example.gladkikhvlasovtinkoff.db.LocalTransactionDataProvider
-import com.example.gladkikhvlasovtinkoff.db.LocalWalletDataProvider
-import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
-import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.TransactionListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -19,9 +16,12 @@ class TransactionRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<TransactionListViewState> {
-        TODO("Not yet implemented")
-    }
+    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<TransactionListViewState> =
+        transactionDataProvider.getAllTransactionsByWalletId(walletId)
+            .map {
+                TransactionListViewState.Loaded(it)
+            }
+
 
     override fun getTransactionById(transactionId: Long): Single<TransactionListViewState> {
         TODO("Not yet implemented")

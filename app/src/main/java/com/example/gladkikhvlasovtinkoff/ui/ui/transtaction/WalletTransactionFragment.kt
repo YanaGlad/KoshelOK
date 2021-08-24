@@ -19,8 +19,10 @@ import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class WalletTransactionFragment : ToolbarFragment() {
 
     private val viewModel: WalletTransactionViewModel by viewModels()
