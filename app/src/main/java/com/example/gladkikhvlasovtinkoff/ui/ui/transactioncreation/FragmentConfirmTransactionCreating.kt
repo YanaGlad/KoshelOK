@@ -31,7 +31,6 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
         super.onCreate(savedInstanceState)
         // TODO - СДЕЛАТЬ ВЫБОР ВАЛЮТЫ
         args.operationData.currency = Currency(
-            id = 555,
             code = "rub",
             name = "Rubli blin"
         )

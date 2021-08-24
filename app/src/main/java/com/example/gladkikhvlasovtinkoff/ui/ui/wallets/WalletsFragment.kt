@@ -110,7 +110,10 @@ class WalletsFragment : ToolbarFragment() {
         )
         { _, action ->
             when (action.actionId) {
-                R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
+                R.id.hide -> {
+                    Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
+
+                }
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
                 R.id.delete -> {
                     val deleteDialog = DeleteDialogFragment()

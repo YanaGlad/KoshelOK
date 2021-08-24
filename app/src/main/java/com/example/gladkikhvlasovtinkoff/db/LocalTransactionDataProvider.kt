@@ -7,9 +7,9 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 
 interface LocalTransactionDataProvider {
-    fun insertTransaction(item : WalletTransactionModel)
+   // fun insertTransaction(item : WalletTransactionModel)
     fun insertTransactions(items : List<WalletTransactionModel>)
-    fun getAllTransactionsByWalletId(walletId : Long) : Flowable<List<WalletTransactionModel>>
+    //fun getAllTransactionsByWalletId(walletId : Long) : Flowable<List<WalletTransactionModel>>
     fun getTransactionById(transactionId : Long) : Single<WalletTransactionModel>
     fun deleteTransaction(item : WalletTransactionModel)
     fun updateTransaction(item : WalletTransactionModel)

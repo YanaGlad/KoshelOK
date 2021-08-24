@@ -50,22 +50,22 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
             .subscribe()
     }
 
-    fun getTransactionListByWalletId(){
-        repository.getAllTransactionsByWalletId(TEMP_WALLET_ID)
-            .doOnNext {  viewState ->
-                if(viewState!=null)
-                    _viewState.postValue(viewState)
-
-            }
-            .doOnError {
-                _viewState.postValue(TransactionListViewState.Error.UnexpectedError)
-            }
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .subscribe()
-    }
+//    fun getTransactionListByWalletId(){
+//        repository.getAllTransactionsByWalletId(TEMP_WALLET_ID)
+//            .doOnNext {  viewState ->
+//                if(viewState!=null)
+//                    _viewState.postValue(viewState)
+//
+//            }
+//            .doOnError {
+//                _viewState.postValue(TransactionListViewState.Error.UnexpectedError)
+//            }
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(Schedulers.io())
+//            .subscribe()
+//    }
 
     init {
-        getTransactionListByWalletId()
+        //getTransactionListByWalletId()
     }
 }

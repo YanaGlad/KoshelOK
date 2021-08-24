@@ -18,11 +18,11 @@ class TransactionRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<TransactionListViewState> =
-        transactionDataProvider.getAllTransactionsByWalletId(walletId)
-            .map {
-                TransactionListViewState.Loaded(it)
-            }
+//    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<TransactionListViewState> =
+//        transactionDataProvider.getAllTransactionsByWalletId(walletId)
+//            .map {
+//                TransactionListViewState.Loaded(it)
+//            }
 
 
     override fun getTransactionById(transactionId: Long): Single<TransactionListViewState> {
