@@ -64,12 +64,10 @@ class FragmentSelectTransactionValue : ToolbarFragment() {
 
         val action: NavDirections = if (!operationData.isValid)
             FragmentSelectTransactionValueDirections
-                .actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData,
-                    args.walletData)
+                .actionFragmentSelectOperationValueToFragmentSelectOperationType(operationData)
         else
             FragmentSelectTransactionValueDirections
-                .actionFragmentSelectOperationValueToFragmentConfirmOperationCreating(operationData,
-                    args.walletData)
+                .actionFragmentSelectOperationValueToFragmentConfirmOperationCreating(operationData)
         findNavController().navigate(action)
     }
 

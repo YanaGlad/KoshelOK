@@ -22,4 +22,5 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindCurrencyRepository(currencyRepositoryImpl: CurrencyRepositoryImpl): CurrencyRepository
+
 }

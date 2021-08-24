@@ -1,9 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
-import android.content.Context
 import com.example.gladkikhvlasovtinkoff.db.LocalTransactionDataProvider
- 
-import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
  
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.TransactionListViewState
@@ -14,6 +11,7 @@ import javax.inject.Inject
 
 class TransactionRepositoryImpl @Inject constructor(
  
+ 
     private val localDataProvider: LocalTransactionDataProvider) :TransactionRepository {
 
     override fun addTransaction(context : Context, item: WalletTransactionModel) =
@@ -22,15 +20,17 @@ class TransactionRepositoryImpl @Inject constructor(
             emitter.onComplete()
         }
 
- 
+  
 
     override fun addTransactions(items: List<TransactionListViewState>) {
         TODO("Not yet implemented")
     }
 
-    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<List<WalletTransactionModel>> =
-        localDataProvider.getAllTransactionsByWalletId(walletId)
-
+    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<TransactionListViewState> =
+        transactionDataProvider.getAllTransactionsByWalletId(walletId)
+            .map {
+                TransactionListViewState.Loaded(it)
+            }
 
 
     override fun getTransactionById(transactionId: Long): Single<TransactionListViewState> {

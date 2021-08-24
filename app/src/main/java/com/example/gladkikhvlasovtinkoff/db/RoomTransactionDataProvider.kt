@@ -1,21 +1,15 @@
 package com.example.gladkikhvlasovtinkoff.db
 
-import android.content.Context
-import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
-import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
 import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB
-import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
-import com.example.gladkikhvlasovtinkoff.extension.getIdentifierForCategoryName
 import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
     : LocalTransactionDataProvider {
+ 
     override fun insertTransaction(context : Context, item : WalletTransactionModel) =
         dao.insertTransaction(
             TransactionDB(
@@ -41,8 +35,7 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                     )
             )
         )
-
-
+ 
     override fun insertTransactions(items: List<WalletTransactionModel>) {
         TODO("Not yet implemented")
     }
@@ -54,7 +47,6 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                     .map {
                         transition ->
                         WalletTransactionModel(
-                            id = transition.id,
                             date = transition.date,
                             walletId = transition.walletId,
                             isIncome = transition.isIncome,
@@ -62,18 +54,8 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                             currency = Currency(
                                 code = transition.currency.code,
                                 name = transition.currency.name
-                            ),
-                            TransactionCategoryData(
-                                id = transition.transactionCategoryData.id,
-                                name = transition.transactionCategoryData.name,
-                                iconId = getIconIdByNameId(
-                                      transition.transactionCategoryData.stringId
-                                ),
-                                description = transition.transactionCategoryData.description,
-                                colorRed = transition.transactionCategoryData.colorRed,
-                                colorBlue = transition.transactionCategoryData.colorBlue,
-                                colorGreen = transition.transactionCategoryData.colorGreen
                             )
+
                         )
                     }
 
@@ -91,6 +73,5 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
     override fun updateTransaction(item: WalletTransactionModel) {
         TODO("Not yet implemented")
     }
-
 
 }
