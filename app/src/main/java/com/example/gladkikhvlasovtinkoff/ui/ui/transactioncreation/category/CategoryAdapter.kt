@@ -80,7 +80,7 @@ class OperationCategoryAdapter(
             checkedPosition: Int
         ) {
             // binding?.transactionDot?.setImageResource(transactionCategoryData.color)
-            binding?.transactionDot?.setColorFilter(transactionCategoryData.color)
+//            binding?.transactionDot?.setColorFilter(transactionCategoryData.color)
 
             binding?.categoryImageIcon?.setImageDrawable(
                 ResourcesCompat.getDrawable(

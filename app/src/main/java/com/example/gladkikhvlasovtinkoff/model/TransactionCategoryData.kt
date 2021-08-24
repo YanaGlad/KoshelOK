@@ -7,7 +7,9 @@ import kotlinx.parcelize.Parcelize
 class TransactionCategoryData (
     val name : String,
     val iconId : Int,
-    val id : Int ,
+    val id : Long ,
     val description : String,
-    val color : Int
-    ) : Parcelable
+    val colorRed: Int,
+    val colorBlue: Int,
+    val colorGreen: Int
+) : Parcelable

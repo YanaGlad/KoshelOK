@@ -3,18 +3,17 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.WalletResponse
- 
+
 import io.reactivex.Scheduler
- 
+
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi) :
     RemoteWalletDataProvider {
 
- 
+
 //    override fun findWalletById(walletId: Long): Single<WalletData> =
 //        api.findWalletById(walletId)
 //            .map { response ->
@@ -123,7 +122,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 //                        )
 //                    )
 //                }
- 
+
 //            }
 //
 //    override fun createWallet(walletId: Long): Single<WalletData> =
@@ -163,6 +162,6 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 //                )
 //            )
 //        }
- 
- 
+
+
 }
