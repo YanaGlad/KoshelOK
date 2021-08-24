@@ -18,6 +18,9 @@ import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
+import com.faltenreich.skeletonlayout.createSkeleton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +33,7 @@ class WalletsFragment : ToolbarFragment() {
     private var expanded = false
     private var walletsAdapter: WalletsAdapter? = null
     private var walletsHiddenAdapter: WalletsAdapter? = null
-
+    private lateinit var skeleton: Skeleton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,13 +79,17 @@ class WalletsFragment : ToolbarFragment() {
             is WalletListViewState.Loaded -> {
                 walletsAdapter?.submitList(viewState.list)
 
-                binding.noOperationMessage.visibility = if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
+                binding.noOperationMessage.visibility =
+                    if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
+
+                binding.skeletonWallet.showOriginal()
+
             }
             else -> {
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
-    }
+     }
 
     private fun setupNavigation() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
@@ -144,6 +151,7 @@ class WalletsFragment : ToolbarFragment() {
 
     //TODO create extension accepting lambda
     private fun expandRecyclerView() {
+        skeleton.showOriginal()
         expanded = if (expanded) {
             binding.layoutWallet.motionLayout.transitionToStart()
             binding.layoutWallet.showMore.text = getString(R.string.show_more)
@@ -155,6 +163,7 @@ class WalletsFragment : ToolbarFragment() {
             )
             false
         } else {
+
             binding.layoutWallet.motionLayout.transitionToEnd()
             binding.layoutWallet.showMore.text = getString(R.string.hide_show_more)
             binding.layoutWallet.down.setImageDrawable(
@@ -169,12 +178,13 @@ class WalletsFragment : ToolbarFragment() {
 
     private fun initLayout() {
         binding.layoutWallet.info.text = getString(R.string.total_sum)
-        binding.layoutWallet.info.setTextColor(Color.WHITE)
+
         binding.layoutWallet.walletBalance.setTextColor(Color.WHITE)
         binding.layoutWallet.income.incomeText.text = getString(R.string.total_income)
         binding.layoutWallet.expenditure.expenditureText.text =
             getString(R.string.total_expenditure)
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.create_wallet)
+        binding.skeletonWallet.showSkeleton()
 
     }
 
