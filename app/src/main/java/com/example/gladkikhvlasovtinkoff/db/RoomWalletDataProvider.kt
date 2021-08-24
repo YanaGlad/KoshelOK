@@ -25,7 +25,6 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                             limit = wallet.limit,
                             amount = wallet.amount,
                             currency = Currency(
-                                id = wallet.currency.id,
                                 code = wallet.currency.code,
                                 name = wallet.currency.name
                             )
@@ -44,7 +43,6 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                     limit = wallet.limit,
                     amount = wallet.amount,
                     currency = Currency(
-                        id = wallet.currency.id,
                         code = wallet.currency.code,
                         name = wallet.currency.name
                     )
@@ -65,7 +63,6 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         limit = wallet.limit,
                         amount = wallet.amount,
                         currency = CurrencyDB(
-                            id = wallet.currency.id,
                             code = wallet.currency.code,
                             name = wallet.currency.name
                         )
@@ -88,7 +85,6 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         limit = wallet.limit,
                         amount = wallet.amount,
                         currency = CurrencyDB(
-                            id = wallet.currency.id,
                             code = wallet.currency.code,
                             name = wallet.currency.name
                         )
@@ -111,7 +107,6 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         limit = wallet.limit,
                         amount = wallet.amount,
                         currency = CurrencyDB(
-                            id = wallet.currency.id,
                             code = wallet.currency.code,
                             name = wallet.currency.name
                         )
