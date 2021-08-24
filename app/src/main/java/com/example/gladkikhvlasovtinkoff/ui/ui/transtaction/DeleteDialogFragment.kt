@@ -9,8 +9,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.gladkikhvlasovtinkoff.R
+import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
 
-class DeleteDialogFragment : DialogFragment() {
+class DeleteDialogFragment(val deleteHelper: DeleteHelper, val walletData: WalletData? = null) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -25,10 +27,7 @@ class DeleteDialogFragment : DialogFragment() {
                     ).show()
                 }
                 .setPositiveButton(getString(R.string.delete)) { _, _ ->
-                    Toast.makeText(
-                        activity, "DELETE",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    deleteHelper.delete(walletData!!)
                 }
 
             val alert: AlertDialog = builder.create()

@@ -59,6 +59,7 @@ class EnterWalletNameFragment : ToolbarFragment() {
     }
 
     private fun initLayout() {
+        binding.layoutEnter.newOperationValueField.setText(args.walletDataSample.name)
         binding.layoutEnter.newOperationValueBlock.hint = getString(R.string.wallet_name_entry)
         binding.layoutEnter.newOperationValueField.observeTextChanged(binding.layoutEnter.buttonConfirmOperationValue)
     }

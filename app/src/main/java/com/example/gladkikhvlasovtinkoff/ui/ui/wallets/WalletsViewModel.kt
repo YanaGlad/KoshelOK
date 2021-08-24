@@ -27,6 +27,19 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
     val viewState: LiveData<WalletListViewState>
         get() = _viewState
 
+    fun deleteWallet(wallet : WalletData ){
+        repository.deleteWaller(wallet )
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .doOnComplete {
+                _viewState.postValue(WalletListViewState.SuccessOperation)
+            }
+            .doOnError {
+                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
+            }
+            .subscribe()
+    }
+
     fun addWallet(walletData: WalletDataSample) {
         repository.addWallet(
             WalletData(
@@ -53,7 +66,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
         repository.getWalletsByUserId(TEMP_USER_ID)
             .doOnNext { viewState ->
                 val list = (viewState as? WalletListViewState.Loaded)?.list
-                TEMP_WALLET_ID = 1
+                TEMP_WALLET_ID =  list?.last()?.id?.plus(1)?.toInt() ?: 1
                 _viewState.postValue(viewState)
             }
             .doOnError {

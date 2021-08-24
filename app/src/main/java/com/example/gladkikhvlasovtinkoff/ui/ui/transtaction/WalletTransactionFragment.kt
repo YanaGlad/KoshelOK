@@ -17,14 +17,16 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
+import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WalletTransactionFragment : ToolbarFragment() {
+class WalletTransactionFragment : ToolbarFragment(), DeleteHelper {
 
     private val viewModel: WalletTransactionViewModel by viewModels()
 
@@ -112,7 +114,7 @@ class WalletTransactionFragment : ToolbarFragment() {
             when (action.actionId) {
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
                 R.id.delete -> {
-                    val deleteDialog = DeleteDialogFragment()
+                    val deleteDialog = DeleteDialogFragment(this)
                     val manager = activity?.supportFragmentManager
                     manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
                 }
@@ -165,5 +167,11 @@ class WalletTransactionFragment : ToolbarFragment() {
         super.onDestroy()
         _binding = null
         baseAdapter = null
+    }
+
+
+
+    override fun delete(pos: WalletData) {
+        TODO("Not yet implemented")
     }
 }
