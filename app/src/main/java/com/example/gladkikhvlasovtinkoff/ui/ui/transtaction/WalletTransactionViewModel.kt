@@ -1,10 +1,12 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
+import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
@@ -15,7 +17,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class WalletTransactionViewModel@Inject constructor(val repository: TransactionRepository) : ViewModel() {
+class WalletTransactionViewModel @Inject constructor(val repository: TransactionRepository) :
+    ViewModel() {
     var transactionList: MutableList<WalletTransactionModel> =
         mutableListOf()
 
@@ -28,8 +31,9 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
     val viewState: LiveData<TransactionListViewState>
         get() = _viewState
 
-    fun addTransaction(transaction : WalletTransactionSample){
+    fun addTransaction(transaction: WalletTransactionSample, context: Context) {
         repository.addTransaction(
+            context,
             WalletTransactionModel(
                 date = transaction.date,
                 walletId = transaction.walletId,
@@ -38,8 +42,7 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
                 currency = transaction.currency,
                 transactionCategoryData = transaction.transactionCategoryData
             )
-        )
-            .subscribeOn(Schedulers.io())
+        ).subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .doOnComplete {
                 _viewState.postValue(TransactionListViewState.SuccessOperation)
@@ -50,17 +53,21 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
             .subscribe()
     }
 
-    fun getTransactionListByWalletId(){
-        repository.getAllTransactionsByWalletId(TEMP_WALLET_ID)
-            .doOnNext {  viewState ->
-                if(viewState!=null)
+    fun getTransactionListByWalletId() {
+        repository.getAllTransactionsByWalletId(1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.computation())
+            .map{
+                TransactionListViewState.Loaded(it.toDelegateItemListWithDate())
+            }
+            .doOnNext { viewState ->
                     _viewState.postValue(viewState)
 
             }
             .doOnError {
                 _viewState.postValue(TransactionListViewState.Error.UnexpectedError)
             }
-            .subscribeOn(Schedulers.io())
+
             .observeOn(Schedulers.io())
             .subscribe()
     }

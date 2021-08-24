@@ -10,10 +10,9 @@ data class CategoryDB(
     @ColumnInfo(name ="category_id")
     val id : Long,
     val name: String,
-    val iconId: Int,
+    val stringId : String,
     val description: String,
     val colorRed: Int,
     val colorBlue: Int,
     val colorGreen: Int
-
 )
