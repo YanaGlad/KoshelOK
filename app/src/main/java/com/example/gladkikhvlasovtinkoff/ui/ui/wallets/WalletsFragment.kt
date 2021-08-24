@@ -65,6 +65,7 @@ class WalletsFragment : ToolbarFragment() {
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
+
         viewModel.viewState.observe(viewLifecycleOwner){
             handleViewState(it)
         }

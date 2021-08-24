@@ -18,6 +18,7 @@ import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 
 
 class WalletTransactionFragment : ToolbarFragment() {
@@ -48,6 +49,13 @@ class WalletTransactionFragment : ToolbarFragment() {
         if (transaction != null)
             viewModel.transactionList.add(transaction!!.createModel())
     }
+
+//    private fun handleViewState(viewState: TransactionListViewState?) {
+//        when (viewState) {
+//            is TransactionListViewState.Loaded -> baseAdapter?.
+//            submitList(viewState.list)
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

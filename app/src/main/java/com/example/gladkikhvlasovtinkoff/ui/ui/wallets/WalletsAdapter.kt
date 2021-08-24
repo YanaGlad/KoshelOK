@@ -47,7 +47,7 @@ class WalletsAdapter internal constructor(
 
         val onWalletClickListener = object : OnWalletClick {
             override fun onWalletClick(walletData: WalletData, position: Int) {
-                 Toast.makeText(holder.itemView.context, "DA", Toast.LENGTH_SHORT).show()
+                Toast.makeText(holder.itemView.context, "DA", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -76,7 +76,7 @@ class WalletsAdapter internal constructor(
     }
 
     class WalletViewHolder(
-        val  navController: NavController,
+        val navController: NavController,
         private val binding: SwipeWalletItemBinding,
         private val list: List<WalletData>,
         val onActionClick: OnActionClick
@@ -89,7 +89,10 @@ class WalletsAdapter internal constructor(
             binding.data.walletItemBalance.text = walletOperations.amount
 
             binding.data.mainLayout.setOnClickListener {
-                val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment()
+                val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment(
+                    null,
+                    walletOperations.id
+                )
                 navController.navigate(action)
             }
         }
