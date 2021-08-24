@@ -124,7 +124,7 @@ class WalletsFragment : ToolbarFragment() {
 
     private fun navigateToWallet(walletData : WalletData, position: Int){
         val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment(
-            null, walletId  = walletData.id
+            null, walletData  = walletData
         )
         findNavController().navigate(action)
     }

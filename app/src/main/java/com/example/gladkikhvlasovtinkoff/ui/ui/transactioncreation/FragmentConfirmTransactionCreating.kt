@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -26,6 +27,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
     private val binding get() = _binding!!
 
     private val args: FragmentConfirmTransactionCreatingArgs by navArgs()
+    private val viewModel : ConfirmCreatingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,19 +67,22 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
         binding.valueAttribute.attributeItemLayout.setOnClickListener {
             onNavigateToAttributes(
                 FragmentConfirmTransactionCreatingDirections
-                    .actionFragmentConfirmOperationCreatingToFragmentSelectOperationValue(args.operationData)
+                    .actionFragmentConfirmOperationCreatingToFragmentSelectOperationValue(
+                        args.operationData, args.walletData)
             )
         }
         binding.typeAttribute.attributeItemLayout.setOnClickListener {
             onNavigateToAttributes(
                 FragmentConfirmTransactionCreatingDirections
-                    .actionFragmentConfirmOperationCreatingToFragmentSelectOperationType(args.operationData)
+                    .actionFragmentConfirmOperationCreatingToFragmentSelectOperationType(
+                        args.operationData, args.walletData)
             )
         }
         binding.categoryAttribute.attributeItemLayout.setOnClickListener {
             onNavigateToAttributes(
                 FragmentConfirmTransactionCreatingDirections
-                    .actionFragmentConfirmOperationCreatingToFragmentSelectOperationCategory(args.operationData)
+                    .actionFragmentConfirmOperationCreatingToFragmentSelectOperationCategory(
+                        args.operationData, args.walletData)
             )
         }
     }
@@ -92,7 +97,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
             operationData.date = System.currentTimeMillis()
         val action =
             FragmentConfirmTransactionCreatingDirections.actionFragmentConfirmOperationCreatingToOptionFragment(
-                operationData, operationData.walletId
+                operationData, args.walletData
             )
         findNavController().navigate(action)
     }

@@ -11,4 +11,6 @@ interface  TransactionApi {
 
     @GET("wallet/v1/findUser/{userId}")
     fun getAllWalletsByUserId(@Path("userId") userId : Long) : Single<List<WalletResponse>>
+
+
 }

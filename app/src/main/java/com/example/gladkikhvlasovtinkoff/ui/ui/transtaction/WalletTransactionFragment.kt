@@ -155,7 +155,7 @@ class WalletTransactionFragment : ToolbarFragment() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
             val action =
                 WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
-                    WalletTransactionSample()
+                    WalletTransactionSample(), args.walletData
                 )
             navController.navigate(action)
         }

@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class WalletTransactionViewModel@Inject constructor(val repository: TransactionRepository) : ViewModel() {
+class WalletTransactionViewModel @Inject constructor(val repository: TransactionRepository) :
+    ViewModel() {
     var transactionList: MutableList<WalletTransactionModel> =
         mutableListOf()
 
@@ -28,8 +30,9 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
     val viewState: LiveData<TransactionListViewState>
         get() = _viewState
 
-    fun addTransaction(transaction : WalletTransactionSample){
+    fun addTransaction(transaction: WalletTransactionSample, context: Context) {
         repository.addTransaction(
+            context,
             WalletTransactionModel(
                 date = transaction.date,
                 walletId = transaction.walletId,
@@ -38,8 +41,7 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
                 currency = transaction.currency,
                 transactionCategoryData = transaction.transactionCategoryData
             )
-        )
-            .subscribeOn(Schedulers.io())
+        ).subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .doOnComplete {
                 _viewState.postValue(TransactionListViewState.SuccessOperation)
@@ -50,10 +52,10 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
             .subscribe()
     }
 
-    fun getTransactionListByWalletId(){
+    fun getTransactionListByWalletId() {
         repository.getAllTransactionsByWalletId(TEMP_WALLET_ID)
-            .doOnNext {  viewState ->
-                if(viewState!=null)
+            .doOnNext { viewState ->
+                if (viewState != null)
                     _viewState.postValue(viewState)
 
             }

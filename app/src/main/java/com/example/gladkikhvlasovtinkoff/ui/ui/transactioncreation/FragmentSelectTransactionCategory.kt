@@ -65,14 +65,16 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         operationData.transactionCategoryData = TransactionCategoryData(
             name = categoryName,
             iconId = imageId,
-            id = UNDEFINED_ID,
+            id = UNDEFINED_ID.toLong(),
             description = UNDEFINED_STR,
-            color = UNDEFINED_ID
+            colorBlue = UNDEFINED_ID,
+            colorRed = UNDEFINED_ID,
+            colorGreen = UNDEFINED_ID
         )
         val action =
             FragmentSelectTransactionCategoryDirections.
             actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
-                args.operationData
+                args.operationData, args.walletData
             )
         findNavController().navigate(action)
     }
@@ -100,8 +102,8 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private fun setupOperationCategoryList(isIncome : Boolean) {
         val categoryDataFactory: TransactionCategoryDataFactory =
-            if(isIncome) DefaultIncomeCategoriesFactory(requireActivity())
-            else DefaultExpensesCategoriesFactory(requireActivity())
+            if(isIncome) DefaultIncomeCategoriesFactory()
+            else DefaultExpensesCategoriesFactory()
         categoriesAdapter = OperationCategoryAdapter()
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
