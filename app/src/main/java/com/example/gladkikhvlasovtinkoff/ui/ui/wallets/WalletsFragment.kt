@@ -89,7 +89,7 @@ class WalletsFragment : ToolbarFragment() {
 
 
     private fun initRecycler() {
-        walletsAdapter = WalletsAdapter { _, action ->
+        walletsAdapter = WalletsAdapter(findNavController()) { _, action ->
             when (action.actionId) {
                 R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
@@ -106,7 +106,7 @@ class WalletsFragment : ToolbarFragment() {
             }
         }
 
-        walletsHiddenAdapter = WalletsAdapter { _, action ->
+        walletsHiddenAdapter = WalletsAdapter(findNavController()) { _, action ->
             when (action.actionId) {
                 R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()

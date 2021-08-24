@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 typealias OnActionClick = (transaction: WalletData, action: SwipeAction) -> Unit
 
 class WalletsAdapter internal constructor(
+    val navController: NavController,
     private val onActionClicked: OnActionClick
 ) :
     ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(
@@ -29,6 +31,7 @@ class WalletsAdapter internal constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder =
         WalletViewHolder(
+            navController,
             SwipeWalletItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -73,6 +76,7 @@ class WalletsAdapter internal constructor(
     }
 
     class WalletViewHolder(
+        val  navController: NavController,
         private val binding: SwipeWalletItemBinding,
         private val list: List<WalletData>,
         val onActionClick: OnActionClick
@@ -85,8 +89,8 @@ class WalletsAdapter internal constructor(
             binding.data.walletItemBalance.text = walletOperations.amount
 
             binding.data.mainLayout.setOnClickListener {
-                //TODO go to exact wallet fragment
-                Toast.makeText(itemView.context, "AAAAAA", Toast.LENGTH_SHORT).show()
+                val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment()
+                navController.navigate(action)
             }
         }
 

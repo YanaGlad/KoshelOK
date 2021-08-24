@@ -5,8 +5,9 @@ import androidx.room.RoomDatabase
 import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
 import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
 import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB
+import com.example.gladkikhvlasovtinkoff.db.entity.WalletDB
 
-@Database(entities = [WalletDB::class, TransactionDB::class, CurrencyDB::class, CategoryDB::class], version = 1,
+@Database(entities = [WalletDB::class, TransactionDB::class, CurrencyDB::class, CategoryDB::class], version = 2,
     exportSchema = false)
 abstract class WalletDatabase : RoomDatabase(){
     abstract fun walletDao() : WalletDao
