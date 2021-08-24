@@ -49,8 +49,7 @@ class WalletsFragment : ToolbarFragment() {
 
     private fun handleArguments(walletData: WalletDataSample?) {
 
-            walletData?.let { walletData ->
-                {
+            walletData?.let { walletData -> {
                     if (!args.isEdit)
                     viewModel.addWallet(walletData)
                     else viewModel.addWallet(walletData)

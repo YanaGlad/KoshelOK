@@ -1,9 +1,11 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
@@ -12,8 +14,12 @@ import com.example.gladkikhvlasovtinkoff.extension.convertToStyled
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewWalletFragment : ToolbarFragment() {
+
+    private val viewModel: NewWalletFragmentViewModel by viewModels()
 
     private var _binding: FragmentNewWalletBinding? = null
     private val binding get() = _binding!!
@@ -26,6 +32,9 @@ class NewWalletFragment : ToolbarFragment() {
         args.walletDataSample.let { data ->
             walletDataSample = data
         }
+
+        val res = args.isEdit
+        Log.d("TATAT", args.toString())
     }
 
     override fun onCreateView(
@@ -47,7 +56,7 @@ class NewWalletFragment : ToolbarFragment() {
         binding.nameView.setOnClickListener {
             val action =
                 NewWalletFragmentDirections.actionNewWalletFragmentToEnterWalletNameFragment(
-                    walletDataSample
+                    walletDataSample, args.isEdit
                 )
             findNavController().navigate(action)
         }
@@ -67,12 +76,12 @@ class NewWalletFragment : ToolbarFragment() {
         }
 
         binding.buttonConfirm.setOnClickListener {
-            if(!args.isEdit) {
+            if (!args.isEdit) {
                 val action =
                     NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample)
                 findNavController().navigate(action)
-            }else{
-
+            } else {
+                viewModel.updateWallet(walletDataSample)
                 val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
                 findNavController().navigate(action)
             }

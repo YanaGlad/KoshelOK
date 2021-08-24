@@ -6,7 +6,9 @@ import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class WalletRepositoryImpl @Inject constructor(
@@ -27,5 +29,6 @@ class WalletRepositoryImpl @Inject constructor(
 
     override fun updateWallet(wallet: WalletData): Completable =
         localWalletDataProvider.updateWallet(wallet)
+
 
 }

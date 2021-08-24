@@ -43,9 +43,10 @@ class EnterWalletNameFragment : ToolbarFragment() {
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
             val walletDataSample = args.walletDataSample
             walletDataSample.name = binding.layoutEnter.newOperationValueField.text.toString()
+
             val action =
                 EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment(
-                    walletDataSample
+                    walletDataSample, args.isEdit
                 )
             findNavController().navigate(action)
         }

@@ -203,6 +203,10 @@
         <argument
             android:name="walletDataSample"
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/newWalletFragment"
