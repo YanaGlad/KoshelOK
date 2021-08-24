@@ -1,11 +1,19 @@
 package com.example.gladkikhvlasovtinkoff.db
 
+ 
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
+ 
+import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB
+import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
+import io.reactivex.Flowable
+ 
 import io.reactivex.Single
 import javax.inject.Inject
 
 class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
     : LocalTransactionDataProvider {
+ 
 //    override fun insertTransaction(context : Context, item : WalletTransactionModel) =
 //        dao.insertTransaction(
 //            TransactionDB(
@@ -32,11 +40,12 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
 //            )
 //        )
 
-
+ 
     override fun insertTransactions(items: List<WalletTransactionModel>) {
         TODO("Not yet implemented")
     }
 
+ 
 //    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<List<WalletTransactionModel>> {
 //        return dao.getAllTransactionsByWalletId(walletId)
 //            .map { transitions->
@@ -69,6 +78,7 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
 //
 //            }
 //    }
+ 
 
     override fun getTransactionById(transactionId: Long): Single<WalletTransactionModel> {
         TODO("Not yet implemented")
@@ -81,6 +91,5 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
     override fun updateTransaction(item: WalletTransactionModel) {
         TODO("Not yet implemented")
     }
-
 
 }

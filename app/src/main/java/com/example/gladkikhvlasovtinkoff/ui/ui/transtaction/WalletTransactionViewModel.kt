@@ -50,6 +50,7 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
             .subscribe()
     }
 
+ 
 //    fun getTransactionListByWalletId(){
 //        repository.getAllTransactionsByWalletId(TEMP_WALLET_ID)
 //            .doOnNext {  viewState ->
@@ -64,6 +65,7 @@ class WalletTransactionViewModel@Inject constructor(val repository: TransactionR
 //            .observeOn(Schedulers.io())
 //            .subscribe()
 //    }
+ 
 
     init {
         //getTransactionListByWalletId()
