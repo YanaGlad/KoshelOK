@@ -12,16 +12,7 @@ interface  TransactionApi {
     @GET("wallet/v1/findUser/{userId}")
     fun getAllWalletsByUserId(@Path("userId") userId : Long) : Single<List<WalletResponse>>
  
-    @POST("wallet/v1/crete")
-    fun createWallet( @Field("id")  walletId : Long) : Single<WalletData>
- 
-    @POST("wallet/v1/crete")
-    fun createWallet( @Field("id")  walletId : Long) : Single<WalletData>
- 
-    @POST("wallet/v1/delete/{id}")
-    fun deleteWallet(@Body walletResponse: WalletResponse)
- 
-    @POST("wallet/v1/crete")
+    @POST("wallet/v1/create")
     fun createWallet( @Field("id")  walletId : Long) : Single<WalletData>
 
     @POST("wallet/v1/delete/{id}")

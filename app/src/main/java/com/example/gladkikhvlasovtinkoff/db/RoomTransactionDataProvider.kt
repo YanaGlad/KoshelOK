@@ -5,7 +5,6 @@ import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
  
 import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB
 import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import io.reactivex.Flowable
  
 import io.reactivex.Single
