@@ -7,6 +7,6 @@ class WalletResponse (
         @SerializedName("currency") val currency : CurrencyResponse,
         @SerializedName("id") val id : Long,
         @SerializedName("name") val name : String,
-        @SerializedName("user") val user  : UserResponse,
+        @SerializedName("userId") val userId  : Long,
         @SerializedName("limit") val limit : String
         )

@@ -84,17 +84,11 @@ class WalletTransactionFragment : ToolbarFragment() {
         initLayout()
         initWalletRecycler()
         setupButtonListener()
-        viewModel.viewState.observe(viewLifecycleOwner) { viewState ->
-            handleViewState(viewState)
-        }
-    }
-
-    private fun handleViewState(viewState: TransactionListViewState) {
-        when(viewState){
-            is TransactionListViewState.Loaded ->
-                baseAdapter?.submitList(viewState.list)
-        }
-        binding.layoutWallet.walletRecycle.adapter = baseAdapter
+//        viewModel.transactionList.observe(viewLifecycleOwner) {
+//            if (viewModel.transactionList.value!!.size == 0)
+//                binding.layoutWallet.noEntries.visibility = View.VISIBLE
+//            else binding.layoutWallet.noEntries.visibility = View.GONE
+//        }
     }
 
     override fun configureToolbar() {
@@ -116,6 +110,7 @@ class WalletTransactionFragment : ToolbarFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = baseAdapter
         }
+        submitAdapterList()
         addDecorators()
     }
 
@@ -132,6 +127,13 @@ class WalletTransactionFragment : ToolbarFragment() {
             }
         })
         baseAdapter?.addDelegate(DateDelegate())
+    }
+
+    private fun submitAdapterList() {
+        // TODO - перенести обработку во вью модель
+         context?.let { context ->
+             baseAdapter?.submitList(viewModel.transactionList.toDelegateItemListWithDate(context))
+         }
     }
 
     private fun addDecorators() {
@@ -153,7 +155,7 @@ class WalletTransactionFragment : ToolbarFragment() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
             val action =
                 WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
-                    WalletTransactionSample(), args.walletData
+                    WalletTransactionSample()
                 )
             navController.navigate(action)
         }
@@ -166,7 +168,8 @@ class WalletTransactionFragment : ToolbarFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_settings) {
-            Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show()
+            //TODO navigate to settings
+         //   val action = WalletTransactionFragmentDirections.actionOptionFragmentToNewWalletFragment()
         }
         return true
     }

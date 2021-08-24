@@ -16,15 +16,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <com.faltenreich.skeletonlayout.SkeletonLayout
+        android:id="@+id/skeleton_wallet"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        app:maskColor="@color/gray_card_background"
+        app:showShimmer="true"
+        app:shimmerDurationInMillis="2000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
     <include
         android:id="@+id/layout_wallet"
         layout="@layout/layout_wallet"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+      />
+
+    </com.faltenreich.skeletonlayout.SkeletonLayout>
+
 
     <TextView
         android:id="@+id/noOperationMessage"
@@ -32,7 +47,8 @@
         android:layout_height="wrap_content"
         android:text="@string/no_wallets_yet"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/layout_wallet"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/skeleton_wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />

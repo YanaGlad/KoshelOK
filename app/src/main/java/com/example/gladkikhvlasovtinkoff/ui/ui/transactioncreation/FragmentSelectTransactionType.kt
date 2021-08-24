@@ -66,8 +66,7 @@ class FragmentSelectTransactionType : ToolbarFragment() {
         operationData.isIncome = binding.checkIncomeOperationType.visibility == View.VISIBLE
         val action =
             FragmentSelectTransactionTypeDirections.
-            actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(operationData,
-                args.walletData)
+            actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(operationData)
         findNavController().navigate(action)
     }
 

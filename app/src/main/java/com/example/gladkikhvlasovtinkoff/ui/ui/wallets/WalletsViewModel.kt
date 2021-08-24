@@ -53,7 +53,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
         repository.getWalletsByUserId(TEMP_USER_ID)
             .doOnNext { viewState ->
                 val list = (viewState as? WalletListViewState.Loaded)?.list
-//                TEMP_WALLET_ID =   list?.last()?.id?.plus(1)?.toInt() ?: 1
+                TEMP_WALLET_ID =   list?.last()?.id?.plus(1)?.toInt() ?: 1
                 _viewState.postValue(viewState)
             }
             .doOnError {

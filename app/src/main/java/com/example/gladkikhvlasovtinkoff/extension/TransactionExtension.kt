@@ -7,7 +7,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.DateDelegateItem
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.DelegateItem
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.TransactionDelegateItem
 
-fun List<WalletTransactionModel>.toDelegateItemListWithDate() : List<DelegateItem>{
+fun List<WalletTransactionModel>.toDelegateItemListWithDate(context: Context) : List<DelegateItem>{
     val delegateItemList: MutableList<DelegateItem> = mutableListOf()
     var lastDate = ""
     this
@@ -16,7 +16,7 @@ fun List<WalletTransactionModel>.toDelegateItemListWithDate() : List<DelegateIte
             if (transaction.date.getDateString() != lastDate) {
                 delegateItemList.add(
                     DateDelegateItem(
-                        TransactionDate(transaction.date)
+                        TransactionDate(transaction.date.getDayString(context))
                     )
                 )
                 delegateItemList.add(
