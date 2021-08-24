@@ -1,12 +1,8 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,45 +15,36 @@ import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 typealias OnActionClick = (transaction: WalletData, action: SwipeAction) -> Unit
 
 class WalletsAdapter internal constructor(
+    private val clickListener: OnWalletClickListener,
     private val onActionClicked: OnActionClick
 ) :
     ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(
         OperationDiffUtil()
     ) {
 
-    internal interface OnWalletClick {
+    interface OnWalletClickListener {
         fun onWalletClick(walletData: WalletData, position: Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder =
-        WalletViewHolder(
-             SwipeWalletItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder {
+        val holder = WalletViewHolder(
+            SwipeWalletItemBinding.inflate(
                 LayoutInflater.from(parent.context),
-                parent,
-                false
+                parent, false
             ),
-            currentList,
             onActionClicked
         )
-
+        holder.binding.data.mainLayout.setOnClickListener {
+            if (holder.adapterPosition != RecyclerView.NO_POSITION) {
+                clickListener.onWalletClick(getItem(holder.adapterPosition), holder.adapterPosition)
+            }
+        }
+        return holder
+    }
 
     override fun onBindViewHolder(holder: WalletViewHolder, position: Int) {
         holder.bind(getItem(position))
-
-        val onWalletClickListener = object : OnWalletClick {
-            override fun onWalletClick(walletData: WalletData, position: Int) {
-                Toast.makeText(holder.itemView.context, "DA", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        holder.itemView.setOnClickListener {
-            onWalletClickListener.onWalletClick(
-                getItem(position),
-                position
-            )
-        }
     }
-
 
     class OperationDiffUtil : DiffUtil.ItemCallback<WalletData>() {
         override fun areItemsTheSame(
@@ -71,47 +58,36 @@ class WalletsAdapter internal constructor(
             newItem: WalletData
         ): Boolean =
             oldItem == newItem
-
     }
 
     class WalletViewHolder(
-         private val binding: SwipeWalletItemBinding,
-        private val list: List<WalletData>,
-        val onActionClick: OnActionClick
+        val binding: SwipeWalletItemBinding,
+        private val onActionClick: OnActionClick
     ) : RecyclerView.ViewHolder(binding.root), SwipeMenuListener {
+
         private val actionsBindHelper = ActionBindHelper()
+        private lateinit var item : WalletData
 
         fun bind(walletOperations: WalletData) {
+            item = walletOperations
             binding.swipeToAction.menuListener = this
             binding.data.walletItemName.text = walletOperations.name
             binding.data.walletItemBalance.text = walletOperations.amount
-
-            binding.data.mainLayout.setOnClickListener {
-                val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment(
-                    null,
-                    walletOperations.id
-                )
-                itemView.findNavController().navigate(action)
-            }
         }
 
         override fun onClosed(view: View) {
         }
 
-
         override fun onOpened(view: View) {
-            val walletData = list[adapterPosition]
+            val walletData = item
             actionsBindHelper.closeOtherThan(walletData.name)
         }
 
-        override fun onFullyOpened(view: View, quickAction: SwipeAction) {
-        }
+        override fun onFullyOpened(view: View, quickAction: SwipeAction) {}
 
         override fun onActionClicked(view: View, action: SwipeAction) {
-            onActionClick(list[adapterPosition], action)
+            onActionClick(item, action)
             binding.swipeToAction.close()
         }
     }
-
-
 }

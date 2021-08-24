@@ -17,7 +17,7 @@ import javax.inject.Inject
 class WalletsViewModel @Inject constructor(val repository: WalletRepository): ViewModel() {
     companion object {
         const val TEMP_USER_ID = 1L
-        const val TEMP_WALLET_ID = 1L
+        var TEMP_WALLET_ID = 1
     }
     init{
         getWalletList()
@@ -30,7 +30,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
     fun addWallet(walletData: WalletDataSample) {
         repository.addWallet(
             WalletData(
-                id = TEMP_WALLET_ID,
+                id = TEMP_WALLET_ID.toLong(),
                 userId =TEMP_USER_ID,
                 name = walletData.name,
                 limit = walletData.limit,
@@ -52,7 +52,8 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
     fun getWalletList() {
         repository.getWalletsByUserId(TEMP_USER_ID)
             .doOnNext { viewState ->
-                if(viewState!=null)
+                val list = (viewState as? WalletListViewState.Loaded)?.list
+                TEMP_WALLET_ID =   list?.last()?.id?.plus(1)?.toInt() ?: 1
                 _viewState.postValue(viewState)
             }
             .doOnError {

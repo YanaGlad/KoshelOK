@@ -14,6 +14,7 @@ import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.extension.exhaustive
+import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
@@ -91,7 +92,14 @@ class WalletsFragment : ToolbarFragment() {
 
 
     private fun initRecycler() {
-        walletsAdapter = WalletsAdapter( ) { _, action ->
+        walletsAdapter = WalletsAdapter(
+            object : WalletsAdapter.OnWalletClickListener{
+                override fun onWalletClick(walletData: WalletData, position: Int) {
+                    navigateToWallet(walletData, position)
+                }
+            }
+        )
+        { _, action ->
             when (action.actionId) {
                 R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
@@ -107,36 +115,18 @@ class WalletsFragment : ToolbarFragment() {
                 }
             }
         }
-
-        walletsHiddenAdapter = WalletsAdapter( ) { _, action ->
-            when (action.actionId) {
-                R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
-                R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
-                R.id.delete -> {
-                    val deleteDialog = DeleteDialogFragment()
-                    val manager = activity?.supportFragmentManager
-                    manager?.let {
-                        deleteDialog.show(
-                            it,
-                            getString(R.string.delete_dialog_tag)
-                        )
-                    }
-                }
-            }
-        }
-
         binding.layoutWallet.walletRecycle.setHasFixedSize(true)
         binding.layoutWallet.walletRecycle.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = walletsAdapter
         }
+    }
 
-        binding.layoutWallet.hiddenWalletRecycle.setHasFixedSize(true)
-        binding.layoutWallet.hiddenWalletRecycle.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = walletsHiddenAdapter
-        }
-
+    private fun navigateToWallet(walletData : WalletData, position: Int){
+        val action = WalletsFragmentDirections.actionWalletsFragmentToOptionFragment(
+            null, walletId  = walletData.id
+        )
+        findNavController().navigate(action)
     }
 
     private fun expandRecyclerAnimation() {
