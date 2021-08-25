@@ -4,7 +4,7 @@ package com.example.gladkikhvlasovtinkoff.extension
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 
- 
+
 
 private const val DIGITS_BEFORE_COMMA = 12
 private const val DIGITS_AFTER_COMMA = 2
@@ -15,7 +15,7 @@ fun String.convertToStyled() : String {
     return integerPart.addDigitsAfterComma(firstCommaIndex, this)
 }
 
-private fun String.addDigitsAfterComma(commaIndex : Int, initialStr : String) : String =
+private fun String.addDigitsAfterComma(commaIndex: Int, initialStr: String) : String =
     if(commaIndex < initialStr.length){
         buildString {
             append(this@addDigitsAfterComma)
@@ -25,7 +25,7 @@ private fun String.addDigitsAfterComma(commaIndex : Int, initialStr : String) : 
     }
     else this
 
-private fun String.getNumBeforeComma(commaIndex : Int) : String =
+private fun String.getNumBeforeComma(commaIndex: Int) : String =
     buildString {
         var digitInLastGroup = 0
         for(i in commaIndex - 1 downTo 0 ) {
@@ -80,6 +80,16 @@ fun String.convertFromStyled() : String =
 
 fun String.styleInput() = this.convertFromStyled().convertToStyled()
 
-fun Boolean.getTransactionTypeString(context : Context) =
+fun Boolean.getTransactionTypeString(context: Context) =
     if(this) context.getString(R.string.income_text)
     else context.getString(R.string.costs_text)
+
+fun String.convertCurrencyCodeToSymbol() : String =
+    when(this){
+        "EUR" -> "€"
+        "RUB" -> "₽"
+        "USD" -> "$"
+        "UAH" -> "₴"
+        "GBP" -> "£"
+        else -> this
+    }

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCurrencyChoiceBinding
+import com.example.gladkikhvlasovtinkoff.extension.styleListToAppropriateForm
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,11 +45,14 @@ class CurrencyChoiceFragment : Fragment() {
 
     private fun handleViewState(viewState: CurrencyListViewState) =
         when(viewState){
-            is CurrencyListViewState.Loaded -> currencyAdapter.
-            submitList(viewState.list)
+            is CurrencyListViewState.Loaded -> submitCurrencyList(viewState.list)
+
             else -> onUnexpectedError()
         }
 
+    private fun submitCurrencyList(list: List<Currency>) {
+        currencyAdapter.submitList(list.styleListToAppropriateForm())
+    }
 
     private fun onUnexpectedError() {
     }
