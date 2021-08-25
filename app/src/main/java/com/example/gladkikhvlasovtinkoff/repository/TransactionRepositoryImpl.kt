@@ -23,15 +23,15 @@ class TransactionRepositoryImpl @Inject constructor(
         remoteTransactionDataProvider.createTransaction(
             TransactionRequest(
                 amount = item.amount,
-//                categoryRequest = CategoryRequest(
-//                    blue = item.transactionCategoryData.colorBlue,
-//                    type = item.transactionCategoryData.description,
-//                    green = item.transactionCategoryData.colorGreen,
-//                    isIncome = item.isIncome,
-//                    name = item.transactionCategoryData.name,
-//                    red = item.transactionCategoryData.colorRed,
-//                    stringId = item.transactionCategoryData.name
-//                ),
+                categoryRequest = CategoryRequest(
+                    blue = item.transactionCategoryData.colorBlue,
+                    type = item.transactionCategoryData.description,
+                    green = item.transactionCategoryData.colorGreen,
+                    isIncome = item.isIncome,
+                    name = item.transactionCategoryData.name,
+                    red = item.transactionCategoryData.colorRed,
+                    stringId = item.transactionCategoryData.name
+                ),
                 date = item.date,
                 id = item.id,
                 isIncome = item.isIncome,

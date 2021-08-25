@@ -10,6 +10,9 @@ import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertToStyled
+import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
+import com.example.gladkikhvlasovtinkoff.model.WalletData.Companion.INFINITE_LIMIT
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
@@ -27,8 +30,21 @@ class NewWalletFragment : ToolbarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        args.walletDataSample.let { data ->
-            walletDataSample = data!!
+        args.walletDataSample?.let { data ->
+            if(!data.currency.isSetup)
+                setupStandardCurrency(data)
+            if(data.limit == UNDEFINED_STR)
+                data.limit = INFINITE_LIMIT
+            walletDataSample = data
+        }
+    }
+
+    private fun setupStandardCurrency(data: WalletDataSample) {
+        context?.let { context ->
+            data.currency = Currency(
+                code = context.getString(R.string.standard_currency_code),
+                name = context.getString(R.string.standard_currency_name)
+            )
         }
     }
 
@@ -55,7 +71,6 @@ class NewWalletFragment : ToolbarFragment() {
                 )
             findNavController().navigate(action)
         }
-
         binding.currencyView.setOnClickListener {
             val action =
                 NewWalletFragmentDirections.actionNewWalletFragmentToCurrencyChoiceFragment(
@@ -63,7 +78,6 @@ class NewWalletFragment : ToolbarFragment() {
                 )
             findNavController().navigate(action)
         }
-
         binding.limitView.setOnClickListener {
             val action =
                 NewWalletFragmentDirections.actionNewWalletFragmentToLimitFragment(
@@ -72,7 +86,6 @@ class NewWalletFragment : ToolbarFragment() {
                 )
             findNavController().navigate(action)
         }
-
         binding.buttonConfirm.setOnClickListener {
             if (!args.isEdit) {
                 val action =
@@ -87,26 +100,19 @@ class NewWalletFragment : ToolbarFragment() {
     }
 
     private fun initLayout() {
-
         if (args.isEdit)
             binding.buttonConfirm.text = getString(R.string.save)
-
         binding.name.attributeName.text = getString(R.string.wallet_name_title)
         binding.name.attributeValue.text = walletDataSample.name
-
         binding.currency.attributeName.text = getString(R.string.currency)
         binding.currency.attributeValue.text =
             if (walletDataSample.currency.name != "") walletDataSample.currency.name else getString(
                 R.string.choose_currency
             )
-
         binding.limit.attributeName.text = getString(R.string.limit)
         binding.limit.attributeValue.text =
-            if (walletDataSample.limit != "") walletDataSample.limit
-                .convertToStyled() else getString(
-                R.string.not_setup
-            )
-
+            if (walletDataSample.limit != INFINITE_LIMIT) walletDataSample.limit
+                .convertToStyled() else getString(R.string.not_setup)
     }
 
     override fun onDestroy() {
