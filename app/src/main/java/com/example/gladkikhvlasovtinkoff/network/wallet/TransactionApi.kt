@@ -13,6 +13,10 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface  TransactionApi {
+
+    @GET("/user/v1/findByUsername/{username}")
+    fun findUserByUsername(@Path("username") username : String) : Single<List<UserResponse>>
+
     @POST("/user/v1/create")
     fun createUser(@Body userRequest: UserRequest) : Single<UserResponse>
 

@@ -25,4 +25,8 @@ interface LocalDataModule {
     @Singleton
     fun bindCurrencyDataProvider(roomCurrencyDataProvider: RoomCurrencyDataProvider)
     : LocalCurrencyDataProvider
+
+    @Binds
+    @Singleton
+    fun bindAuthProvider(roomAuthProvider: RoomAuthProvider) : LocalAuthProvider
 }

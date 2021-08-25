@@ -7,6 +7,7 @@ import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 import io.reactivex.Single
 import javax.inject.Inject
@@ -17,11 +18,21 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
     override fun addUser(userRequest: UserRequest): Single<UserResponse> =
         api.createUser(userRequest)
 
+    override fun findUserByUsername(username: String): Single<List<UserResponse>> =
+        api.findUserByUsername(username)
+
+    override fun addUserWithAccount(account: GoogleSignInAccount): Single<UserResponse> =
+        api.createUser(
+            UserRequest(
+                name = account.displayName!!,
+                username = account.email!!
+            )
+        )
 
     override fun getAllCurrencies(): Single<List<Currency>> =
         api.getAllCurrencies()
-            .map{ responseList ->
-                responseList.map{ currencyResponse ->
+            .map { responseList ->
+                responseList.map { currencyResponse ->
                     Currency(
                         code = currencyResponse.code,
                         name = currencyResponse.name
@@ -31,7 +42,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 
     override fun findWalletById(walletId: Long): Single<WalletData> =
         api.findWalletById(walletId)
-            .map{ response ->
+            .map { response ->
                 WalletData(
                     id = response.id,
                     username = response.user.name,
@@ -47,8 +58,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 
     override fun getAllWalletByUsername(username: String): Single<List<WalletData>> =
         api.getAllWalletsByUsername(username)
-            .map{ wallets ->
-                wallets.map{ response ->
+            .map { wallets ->
+                wallets.map { response ->
                     WalletData(
                         id = response.id,
                         username = response.user.name,
@@ -65,7 +76,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 
     override fun createWallet(walletRequest: WalletCreateRequest): Single<WalletData> =
         api.createWallet(walletRequest)
-            .map{ response ->
+            .map { response ->
                 WalletData(
                     id = response.id,
                     username = response.user.name,
@@ -97,7 +108,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 
     override fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData> =
         api.updateWallet(walletUpdateRequest)
-            .map{response ->
+            .map { response ->
                 WalletData(
                     id = response.id,
                     username = response.user.name,

@@ -8,10 +8,14 @@ import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import io.reactivex.Single
 
 interface RemoteWalletDataProvider {
     fun addUser(userRequest: UserRequest) : Single<UserResponse>
+    fun findUserByUsername(username : String) : Single<List<UserResponse>>
+
+    fun addUserWithAccount(account: GoogleSignInAccount) : Single<UserResponse>
     fun getAllCurrencies() : Single<List<Currency>>
     fun findWalletById(walletId: Long): Single<WalletData>
     fun getAllWalletByUsername(username: String): Single<List<WalletData>>
