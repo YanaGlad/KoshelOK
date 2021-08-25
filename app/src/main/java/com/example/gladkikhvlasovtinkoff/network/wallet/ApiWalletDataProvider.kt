@@ -52,7 +52,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     currency = Currency(
                         code = response.currency.code,
                         name = response.currency.name
-                    )
+                    ),
+                    hidden = response.isHidden
                 )
             }
 
@@ -69,7 +70,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                         currency = Currency(
                             code = response.currency.code,
                             name = response.currency.name
-                        )
+                        ),
+                        hidden = response.isHidden
                     )
                 }
             }
@@ -86,7 +88,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     currency = Currency(
                         code = response.currency.code,
                         name = response.currency.name
-                    )
+                    ),
+                    hidden = response.isHidden
                 )
             }
 
@@ -102,7 +105,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                 currency = Currency(
                     code = response.currency.code,
                     name = response.currency.name
-                )
+                ),
+                hidden = response.isHidden
             )
         }
 
@@ -118,7 +122,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     currency = Currency(
                         code = response.currency.code,
                         name = response.currency.name
-                    )
+                    ),
+                    hidden = response.isHidden
                 )
             }
 

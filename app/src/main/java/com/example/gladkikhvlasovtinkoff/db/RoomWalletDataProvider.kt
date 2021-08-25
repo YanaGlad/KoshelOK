@@ -27,7 +27,8 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                             currency = Currency(
                                 code = wallet.currency.code,
                                 name = wallet.currency.name
-                            )
+                            ),
+                            hidden = wallet.hidden
                         )
                     }
             }
@@ -45,7 +46,8 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                     currency = Currency(
                         code = wallet.currency.code,
                         name = wallet.currency.name
-                    )
+                    ),
+                    hidden = wallet.hidden
                 )
             }
 
@@ -63,7 +65,8 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         currency = CurrencyDB(
                             code = wallet.currency.code,
                             name = wallet.currency.name
-                        )
+                        ),
+                        hidden = wallet.hidden
                     )
                 )
 
@@ -78,7 +81,8 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         currency = CurrencyDB(
                             code = wallet.currency.code,
                             name = wallet.currency.name
-                        )
+                        ),
+                        hidden = wallet.hidden
                     )
                 )
 
@@ -95,7 +99,8 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         currency = CurrencyDB(
                             code = wallet.currency.code,
                             name = wallet.currency.name
-                        )
+                        ),
+                        hidden = wallet.hidden
                     )
                 )
 }

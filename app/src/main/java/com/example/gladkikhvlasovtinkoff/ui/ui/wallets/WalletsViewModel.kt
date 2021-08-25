@@ -49,9 +49,23 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 name = walletData.name,
                 limit = walletData.limit,
                 amount = walletData.amount,
-                currency = walletData.currency
+                currency = walletData.currency,
+                hidden = walletData.hidden
             )
         )
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .doOnComplete {
+                _viewState.postValue(WalletListViewState.SuccessOperation)
+            }
+            .doOnError {
+                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
+            }
+            .subscribe()
+    }
+
+    fun updateWallet(walletData: WalletDataSample){
+        repository.updateWallet(walletData.createWalletDataModel())
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .doOnComplete {

@@ -75,7 +75,18 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private fun handleViewState(viewState: WalletListViewState?) {
         when (viewState) {
             is WalletListViewState.Loaded -> {
-                walletsAdapter?.submitList(viewState.list)
+
+                val list : MutableList<WalletData> = ArrayList()
+                val listHidden : MutableList<WalletData> = ArrayList()
+
+                for (i in viewState.list.indices){
+                    if(!viewState.list[i].hidden)
+                        list.add(viewState.list[i])
+                    else  listHidden.add(viewState.list[i])
+                }
+
+                walletsAdapter?.submitList(list)
+                walletsHiddenAdapter?.submitList(listHidden)
 
                 binding.noOperationMessage.visibility =
                     if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
@@ -84,7 +95,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
-//        binding.skeletonWallet.showOriginal()
+        binding.layoutWallet.hiddenWalletRecycle.adapter = walletsHiddenAdapter
+        binding.skeletonWallet.showOriginal()
 
     }
 
@@ -104,8 +116,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             object : WalletsAdapter.OnWalletClickListener {
                 override fun onWalletClick(walletData: WalletData, position: Int) {
                     navigateToWallet(
-                        WalletDataSample
-                            (
+                        WalletDataSample(
                             walletData.id,
                             walletData.username,
                             walletData.name,
@@ -119,13 +130,20 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         )
         { walletData, action ->
             when (action.actionId) {
-                R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
+                R.id.hide -> {
+                    val data = walletData.toWalletDataSample()
+                    data.hidden = !data.hidden
+                    viewModel.updateWallet(data)
+                }
                 R.id.edit -> {
-                   val action = WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(walletData.toWalletDataSample(), true)
+                    val action = WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
+                        walletData.toWalletDataSample(),
+                        true
+                    )
                     findNavController().navigate(action)
                 }
                 R.id.delete -> {
-                    val deleteDialog = DeleteDialogFragment<WalletData>( this, walletData)
+                    val deleteDialog = DeleteDialogFragment<WalletData>(this, walletData)
                     val manager = activity?.supportFragmentManager
                     manager?.let {
                         deleteDialog.show(
@@ -133,14 +151,65 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                             getString(R.string.delete_dialog_tag)
                         )
                     }
-                  //  walletsAdapter!!.notifyDataSetChanged()
+                    //  walletsAdapter!!.notifyDataSetChanged()
                 }
             }
         }
+
+        walletsHiddenAdapter = WalletsAdapter(
+            object : WalletsAdapter.OnWalletClickListener {
+                override fun onWalletClick(walletData: WalletData, position: Int) {
+                    navigateToWallet(
+                        WalletDataSample(
+                            walletData.id,
+                            walletData.username,
+                            walletData.name,
+                            walletData.limit,
+                            walletData.amount,
+                            walletData.currency
+                        ), position
+                    )
+                }
+            }
+        )
+        { walletData, action ->
+            when (action.actionId) {
+                R.id.hide -> {
+                    val data = walletData.toWalletDataSample()
+                    data.hidden = !data.hidden
+                    viewModel.updateWallet(data)
+                }
+                R.id.edit -> {
+                    val action = WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
+                        walletData.toWalletDataSample(),
+                        true
+                    )
+                    findNavController().navigate(action)
+                }
+                R.id.delete -> {
+                    val deleteDialog = DeleteDialogFragment<WalletData>(this, walletData)
+                    val manager = activity?.supportFragmentManager
+                    manager?.let {
+                        deleteDialog.show(
+                            it,
+                            getString(R.string.delete_dialog_tag)
+                        )
+                    }
+                    //  walletsAdapter!!.notifyDataSetChanged()
+                }
+            }
+        }
+
         binding.layoutWallet.walletRecycle.setHasFixedSize(true)
         binding.layoutWallet.walletRecycle.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = walletsAdapter
+        }
+
+        binding.layoutWallet.hiddenWalletRecycle.setHasFixedSize(true)
+        binding.layoutWallet.hiddenWalletRecycle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = walletsHiddenAdapter
         }
     }
 
@@ -193,7 +262,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         binding.layoutWallet.expenditure.expenditureText.text =
             getString(R.string.total_expenditure)
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.create_wallet)
-//        binding.skeletonWallet.showSkeleton()
+        binding.skeletonWallet.showSkeleton()
 
     }
 
@@ -212,7 +281,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         }
     }
 
-    override fun delete(pos : WalletData) {
-       viewModel.deleteWallet(pos)
+    override fun delete(pos: WalletData) {
+        viewModel.deleteWallet(pos)
     }
 }
