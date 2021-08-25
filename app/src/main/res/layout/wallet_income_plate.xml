@@ -2,15 +2,18 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_income"
     android:layout_width="match_parent"
     android:layout_height="78dp"
-    app:cardElevation="0dp"
-    app:cardCornerRadius="8dp">
+    android:clickable="true"
+    app:cardBackgroundColor=" @color/purple"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/purple">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/incomeText"
@@ -18,23 +21,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginTop="16dp"
-            tools:text="@string/income_text"
             android:textColor="@color/white"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/incomeIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/income_text" />
 
         <ImageView
             android:id="@+id/incomeIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:contentDescription="@string/income_identifier_icon"
             app:layout_constraintBottom_toBottomOf="@+id/incomeText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/incomeText"
 
-            app:srcCompat="@drawable/ic_income_dot"
-            android:contentDescription="@string/income_identifier_icon" />
+            app:layout_constraintTop_toTopOf="@+id/incomeText"
+            app:srcCompat="@drawable/ic_income_dot" />
 
         <TextView
             android:id="@+id/incomeValue"

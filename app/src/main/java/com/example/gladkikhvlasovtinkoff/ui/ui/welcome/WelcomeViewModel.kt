@@ -3,10 +3,7 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.welcome
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.repository.AuthRepository
-import com.example.gladkikhvlasovtinkoff.repository.AuthRepositoryImpl
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletsViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers

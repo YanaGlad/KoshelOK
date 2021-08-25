@@ -110,7 +110,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
         val categoryDataFactory: TransactionCategoryDataFactory =
             if (isIncome) DefaultIncomeCategoriesFactory()
             else DefaultExpensesCategoriesFactory()
-        categoriesAdapter = OperationCategoryAdapter( activity as AppCompatActivity)
+        categoriesAdapter = OperationCategoryAdapter( this, activity as AppCompatActivity)
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)

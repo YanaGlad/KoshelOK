@@ -18,7 +18,7 @@ class ConfirmCreatingViewModel @Inject constructor(
     val repository: TransactionRepository
 ) : ViewModel() {
     companion object {
-        val TRANSACTION_ID = 1L
+        const val TRANSACTION_ID = 1L
     }
 
     private val _viewState: MutableLiveData<ConfirmCreatingViewState> = MutableLiveData()

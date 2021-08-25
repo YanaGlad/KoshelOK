@@ -1,7 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency
 
 import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 
 
 sealed class CurrencyListViewState {

@@ -1,12 +1,10 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
 import com.example.gladkikhvlasovtinkoff.db.LocalCurrencyDataProvider
-import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency.CurrencyListViewState
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import java.lang.Exception
 import javax.inject.Inject
 
 class CurrencyRepositoryImpl @Inject constructor(

@@ -25,6 +25,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonConfirmOperationValue"
         style="@style/AppDisabledButtonStyle"
@@ -38,5 +39,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ProgressBar
+        android:id="@+id/load_progressbar"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_margin="2dp"
+        android:indeterminate="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonConfirmOperationValue"
+        app:layout_constraintEnd_toEndOf="@+id/buttonConfirmOperationValue"
+        app:layout_constraintStart_toStartOf="@+id/buttonConfirmOperationValue"
+        app:layout_constraintTop_toTopOf="@+id/buttonConfirmOperationValue" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

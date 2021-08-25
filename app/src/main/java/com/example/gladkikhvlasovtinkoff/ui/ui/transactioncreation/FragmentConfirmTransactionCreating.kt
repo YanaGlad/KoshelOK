@@ -66,6 +66,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
     private fun handleViewState(viewState: ConfirmCreatingViewState?) {
         when(viewState){
             is ConfirmCreatingViewState.SuccessCreating -> onWalletCreated()
+            else -> {}
         }
     }
 
