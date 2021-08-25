@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.databinding.DateItemBinding
 import com.example.gladkikhvlasovtinkoff.databinding.SwipingTransactionDataItemBinding
-import com.example.gladkikhvlasovtinkoff.databinding.WalletTransactionDataItemBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.extension.getTransactionTypeString

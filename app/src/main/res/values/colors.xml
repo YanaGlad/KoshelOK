@@ -22,5 +22,7 @@
     <color name="travel_dot_color">#EEDB33</color>
     <color name="default_dot_color">#5833EE</color>
     <color name="gray_card_background">#2A9C9C9C</color>
+    <color name="limit_red">#F52222</color>
+    <color name="clicked_card">#2E0EAE</color>
 
 </resources>

@@ -3,7 +3,6 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.repository.CurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
@@ -23,7 +22,7 @@ class CurrencyChoiceViewModel
         loadCurrencies()
     }
 
-    fun loadCurrencies(){
+    private fun loadCurrencies(){
         repository.loadCurrencies()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())

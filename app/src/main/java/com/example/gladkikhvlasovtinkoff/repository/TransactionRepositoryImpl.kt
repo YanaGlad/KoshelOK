@@ -4,13 +4,10 @@ import android.content.Context
 import com.example.gladkikhvlasovtinkoff.db.LocalTransactionDataProvider
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.CategoryRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.TransactionListViewState
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import java.lang.Exception
 import javax.inject.Inject
 
 class TransactionRepositoryImpl @Inject constructor(

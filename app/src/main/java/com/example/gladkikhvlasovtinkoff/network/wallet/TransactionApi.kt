@@ -1,11 +1,12 @@
 package com.example.gladkikhvlasovtinkoff.network.wallet
 
-import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
-import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.*
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface  TransactionApi {
 
