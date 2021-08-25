@@ -33,4 +33,8 @@ class RoomModule {
     @Provides
     @Singleton
     fun provideTransactionDao(database: WalletDatabase) = database.transactionDao()
+
+    @Provides
+    @Singleton
+    fun provideCategoryDao(database: WalletDatabase) = database.categoryDao()
 }

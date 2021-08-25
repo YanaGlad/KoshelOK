@@ -48,8 +48,7 @@ class TransactionRepositoryImpl @Inject constructor(
                     emitter.onError(e)
                 }
             }
-//        }
-
+ 
 
 
     override fun addTransactions(items: List<TransactionListViewState>) {

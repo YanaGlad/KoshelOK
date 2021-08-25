@@ -28,5 +28,10 @@ interface LocalDataModule {
 
     @Binds
     @Singleton
+    fun bindCategoryDataProvider(roomCategoryDataProvider: RoomCategoryDataProvider)
+            : LocalCategoryDataProvider
+
+    @Binds
+    @Singleton
     fun bindAuthProvider(roomAuthProvider: RoomAuthProvider) : LocalAuthProvider
 }

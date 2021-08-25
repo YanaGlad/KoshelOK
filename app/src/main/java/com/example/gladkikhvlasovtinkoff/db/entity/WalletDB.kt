@@ -10,6 +10,7 @@ data class WalletDB(
     val name: String,
     val limit: String,
     val amount: String,
+    val hidden: Boolean,
     @Embedded
     val currency: CurrencyDB
 )

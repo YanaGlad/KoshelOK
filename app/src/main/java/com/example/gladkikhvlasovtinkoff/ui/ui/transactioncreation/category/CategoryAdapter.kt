@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.CategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
+import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.IconHelper
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 
 
@@ -52,6 +53,7 @@ class OperationCategoryAdapter(
                 notifyItemChanged(oldPosition)
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
+            //iconHelper.setIcon(categories[position].name)
         }
     }
 

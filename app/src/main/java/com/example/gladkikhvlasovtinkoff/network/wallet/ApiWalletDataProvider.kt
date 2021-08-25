@@ -2,10 +2,9 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.CategoryResponse
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
@@ -20,6 +19,21 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 
     override fun findUserByUsername(username: String): Single<List<UserResponse>> =
         api.findUserByUsername(username)
+
+    override fun createCategory(categoryRequest: CategoryRequest): Single<CategoryDataSample> =
+        api.createCategory(categoryRequest).map {
+            response-> CategoryDataSample(
+                id = response.id,
+            name = response.name,
+            stringId = response.stringId,
+            description = response.description,
+            colorRed = response.redColor,
+            colorBlue = response.blueColor,
+            colorGreen = response.greenColor
+            )
+        }
+
+
 
     override fun addUserWithAccount(account: GoogleSignInAccount): Single<UserResponse> =
         api.createUser(
@@ -52,7 +66,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     currency = Currency(
                         code = response.currency.code,
                         name = response.currency.name
-                    )
+                    ),
+                    hidden = response.isHidden
                 )
             }
 
@@ -69,7 +84,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                         currency = Currency(
                             code = response.currency.code,
                             name = response.currency.name
-                        )
+                        ),
+                        hidden = response.isHidden
                     )
                 }
             }
@@ -86,7 +102,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     currency = Currency(
                         code = response.currency.code,
                         name = response.currency.name
-                    )
+                    ),
+                    hidden = response.isHidden
                 )
             }
 
@@ -102,7 +119,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                 currency = Currency(
                     code = response.currency.code,
                     name = response.currency.name
-                )
+                ),
+                hidden = response.isHidden
             )
         }
 
@@ -118,7 +136,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     currency = Currency(
                         code = response.currency.code,
                         name = response.currency.name
-                    )
+                    ),
+                    hidden = response.isHidden
                 )
             }
 

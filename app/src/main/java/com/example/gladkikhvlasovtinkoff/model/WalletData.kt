@@ -10,7 +10,8 @@ data class WalletData (
     val name : String,
     val limit : String,
     val amount : String,
-    val currency : Currency
+    val currency : Currency,
+    val hidden : Boolean
     ) : Parcelable{
         companion object{
             const val INFINITE_LIMIT = "0"
