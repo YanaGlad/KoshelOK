@@ -76,7 +76,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         when (viewState) {
             is WalletListViewState.Loaded -> {
                 walletsAdapter?.submitList(viewState.list)
-
                 binding.noOperationMessage.visibility =
                     if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
             }
@@ -85,7 +84,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
 //        binding.skeletonWallet.showOriginal()
-
     }
 
     private fun setupNavigation() {
