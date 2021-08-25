@@ -76,6 +76,9 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper {
         viewModel.viewState.observe(viewLifecycleOwner) { viewState ->
             handleViewState(viewState)
         }
+        args.walletData?.id?.let{ username ->
+            viewModel.getTransactionListByWalletId(username)
+        }
     }
 
     private fun handleViewState(viewState: TransactionListViewState) {

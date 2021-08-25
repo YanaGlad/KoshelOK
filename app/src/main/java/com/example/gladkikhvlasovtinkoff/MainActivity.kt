@@ -18,10 +18,8 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager.popBackStack()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setupToolbar()
     }
 
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_arrow)
-
         binding.toolBar.setNavigationOnClickListener { onBackPressed() }
     }
 

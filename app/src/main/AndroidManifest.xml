@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.gladkikhvlasovtinkoff">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,7 +14,8 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:name=".App"
-        android:theme="@style/Theme.GladkikhVlasovTinkoff">
+        android:theme="@style/Theme.GladkikhVlasovTinkoff"
+        >
         <activity
             android:name=".ui.ui.splash.SplashActivity"
             android:configChanges="orientation|screenSize"

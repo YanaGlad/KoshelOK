@@ -19,39 +19,13 @@ import javax.inject.Inject
 @HiltViewModel
 class WalletTransactionViewModel @Inject constructor(val repository: TransactionRepository) :
     ViewModel() {
-    companion object {
-        const val TEMP_USER_ID = 1L
-        const val TEMP_WALLET_ID = 1L
-    }
 
     private val _viewState: MutableLiveData<TransactionListViewState> = MutableLiveData()
     val viewState: LiveData<TransactionListViewState>
         get() = _viewState
 
-    fun addTransaction(transaction: WalletTransactionSample, context: Context) {
-        repository.addTransaction(
-            context,
-            WalletTransactionModel(
-                date = transaction.date,
-                walletId = transaction.walletId,
-                isIncome = transaction.isIncome,
-                amount = transaction.amount,
-                currency = transaction.currency,
-                transactionCategoryData = transaction.transactionCategoryData
-            )
-        ).subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .doOnComplete {
-                _viewState.postValue(TransactionListViewState.SuccessOperation)
-            }
-            .doOnError {
-                _viewState.postValue(TransactionListViewState.Error.UnexpectedError)
-            }
-            .subscribe()
-    }
-
-    fun getTransactionListByWalletId() {
-        repository.getAllTransactionsByWalletId(1)
+    fun getTransactionListByWalletId(walletId : Long) {
+        repository.getAllTransactionsByWalletId(walletId)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.computation())
             .map{
@@ -67,9 +41,5 @@ class WalletTransactionViewModel @Inject constructor(val repository: Transaction
 
             .observeOn(Schedulers.io())
             .subscribe()
-    }
-
-    init {
-        getTransactionListByWalletId()
     }
 }

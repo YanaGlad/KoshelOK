@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -30,6 +31,9 @@ class WelcomeFragment : Fragment() {
         val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
         if (task.isSuccessful) {
             val account = task.result
+            val name  = account.givenName
+            val token = account.serverAuthCode
+            val email = account.email
             navigateToWallets(account)
         }
     }
@@ -50,9 +54,7 @@ class WelcomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())
-
         navigateToWallets(account)
     }
 

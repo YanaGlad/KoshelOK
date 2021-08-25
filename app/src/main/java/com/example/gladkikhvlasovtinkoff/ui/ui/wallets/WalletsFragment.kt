@@ -84,7 +84,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper {
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
-        binding.skeletonWallet.showOriginal()
+//        binding.skeletonWallet.showOriginal()
 
     }
 
@@ -190,7 +190,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper {
         binding.layoutWallet.expenditure.expenditureText.text =
             getString(R.string.total_expenditure)
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.create_wallet)
-        binding.skeletonWallet.showSkeleton()
+//        binding.skeletonWallet.showSkeleton()
 
     }
 
@@ -210,6 +210,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper {
     }
 
     override fun delete(pos : WalletData) {
-       viewModel.deleteWallet(pos)
+//       viewModel.deleteWallet(pos)
     }
 }

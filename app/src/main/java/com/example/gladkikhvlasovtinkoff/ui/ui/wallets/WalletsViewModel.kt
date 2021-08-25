@@ -3,17 +3,13 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
-import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.WalletTransactionViewModel.Companion.TEMP_USER_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
-
-
 
 @HiltViewModel
 class WalletsViewModel @Inject constructor(val repository: WalletRepository): ViewModel() {
@@ -23,7 +19,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
     }
     init{
         getWalletList()
-        //        addUser()
+//        addUser()
     }
 
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
@@ -34,26 +30,11 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
         repository.addUser(userRequest = UserRequest(
             name = "testoviy chelik",
             username = TEMP_USERNAME
-        )
-        )
+        ))
             .doOnError{
                 it.printStackTrace()
             }
             .subscribeOn(Schedulers.io())
-            .subscribe()
-    }
-
-
-    fun deleteWallet(wallet : WalletData ){
-        repository.deleteWaller(wallet )
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .doOnComplete {
-                _viewState.postValue(WalletListViewState.SuccessOperation)
-            }
-            .doOnError {
-                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
-            }
             .subscribe()
     }
 
@@ -80,11 +61,11 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
     }
 
     fun getWalletList() {
-        repository.getWalletsByUsername(TEMP_USERNAME)
+        repository.getWalletsByUsername("testoviy chelik")
             .doOnNext { viewState ->
-                val list = (viewState as? WalletListViewState.Loaded)?.list
-                TEMP_WALLET_ID = 1
-                _viewState.postValue(viewState)
+                if(viewState != null) {
+                    _viewState.postValue(viewState)
+                }
             }
             .doOnError {
                 _viewState.postValue(WalletListViewState.Error.UnexpectedError)
