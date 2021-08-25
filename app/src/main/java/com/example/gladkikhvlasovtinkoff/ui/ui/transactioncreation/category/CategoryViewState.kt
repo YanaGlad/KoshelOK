@@ -1,7 +1,5 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category
 
-import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.ConfirmCreatingViewState
-
 sealed class CategoryViewState {
     object Loading : CategoryViewState()
     object SuccessCreating: CategoryViewState()

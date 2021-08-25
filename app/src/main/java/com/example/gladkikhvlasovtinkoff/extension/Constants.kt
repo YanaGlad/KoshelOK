@@ -1,6 +1,5 @@
 package com.example.gladkikhvlasovtinkoff.extension
 
-import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 
 const val TRANSACTION_BASE_URL = "http://193.32.218.87:9090/v2/api-docs/"

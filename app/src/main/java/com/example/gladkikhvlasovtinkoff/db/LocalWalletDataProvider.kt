@@ -1,7 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.db
 
 import com.example.gladkikhvlasovtinkoff.model.WalletData
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 

@@ -13,19 +13,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
-import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
-import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
-import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
-import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
-import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
+import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.BaseAdapter
+import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.DateDelegate
+import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.WalletTransactionDelegate
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -91,6 +89,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         when(viewState){
             is TransactionListViewState.Loaded ->
                 baseAdapter?.submitList(viewState.list)
+            else -> {}
         }
         binding.layoutWallet.walletRecycle.adapter = baseAdapter
     }

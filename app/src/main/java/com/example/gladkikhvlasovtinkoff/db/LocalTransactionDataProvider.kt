@@ -1,10 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.db
 
 import android.content.Context
-import androidx.room.*
-import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 

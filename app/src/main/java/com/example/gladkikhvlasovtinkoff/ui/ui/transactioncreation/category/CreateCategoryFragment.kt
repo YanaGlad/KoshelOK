@@ -14,10 +14,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCreateCategoryBinding
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.CategoryFactory
-import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
-import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
-import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.WalletTransactionFragmentArgs
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +25,7 @@ class CreateCategoryFragment : Fragment(), IconHelper {
     private val binding get() = _binding!!
     private var categoriesAdapter: OperationCategoryAdapter? = null
     private val args: CreateCategoryFragmentArgs by navArgs()
-    var categoryData: CategoryDataSample? = null
+    private var categoryData: CategoryDataSample? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -129,10 +126,6 @@ class CreateCategoryFragment : Fragment(), IconHelper {
     override fun setIcon(id: String) {
         categoryData?.stringId = id
     }
-
-//    override fun setIcon(id : String) {
-//        categoryData.stringId = id
-//    }
 
 }
 

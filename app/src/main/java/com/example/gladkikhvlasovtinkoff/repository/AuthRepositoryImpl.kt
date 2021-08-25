@@ -2,14 +2,11 @@ package com.example.gladkikhvlasovtinkoff.repository
 
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.LocalAuthProvider
-import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import io.reactivex.Completable
 import io.reactivex.CompletableEmitter
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
