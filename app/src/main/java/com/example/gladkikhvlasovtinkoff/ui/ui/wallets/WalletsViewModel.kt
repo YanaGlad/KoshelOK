@@ -8,6 +8,10 @@ import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.internal.operators.flowable.FlowableObserveOn
+import io.reactivex.internal.operators.flowable.FlowableSubscribeOn
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -23,6 +27,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
 //        addUser()
     }
 
+    private val disposeBag = CompositeDisposable()
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
         get() = _viewState
@@ -42,7 +47,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     }
 
     fun addWallet(walletData: WalletDataSample) {
-        repository.addWallet(
+        val disposable = repository.addWallet(
             WalletData(
                 id = TEMP_WALLET_ID.toLong(),
                 username = TEMP_USERNAME,
@@ -55,55 +60,52 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
         )
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .doOnComplete {
-                _viewState.postValue(WalletListViewState.SuccessOperation)
-            }
-            .doOnError {
-                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
-            }
-            .subscribe()
+            .subscribe(
+                {
+                    _viewState.postValue(WalletListViewState.SuccessOperation)
+                },
+                {}
+            )
     }
 
-    fun updateWallet(walletData: WalletDataSample){
-        repository.updateWallet(walletData.createWalletDataModel())
+    fun updateWallet(walletData: WalletDataSample) {
+        val disposable = repository.updateWallet(walletData.createWalletDataModel())
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .doOnComplete {
-                _viewState.postValue(WalletListViewState.SuccessOperation)
-            }
-            .doOnError {
-                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
-            }
-            .subscribe()
+            .subscribe(
+                {
+                    _viewState.postValue(WalletListViewState.SuccessOperation)
+                },
+                {}
+            )
+
     }
 
     fun getWalletList() {
-        repository.getWalletsByUsername("testoviy chelik")
-            .doOnNext { viewState ->
-                if (viewState != null) {
-                    _viewState.postValue(viewState)
-                }
-            }
-            .doOnError {
-                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
-            }
+        val disposable = repository.getWalletsByUsername("testoviy chelik")
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe()
+            .subscribe {
+                _viewState.postValue(it)
+            }
     }
 
     fun deleteWallet(wallet: WalletData) {
-        repository.deleteWallet(wallet)
+        val disposable =repository.deleteWallet(wallet)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .doOnComplete {
-                _viewState.postValue(WalletListViewState.SuccessOperation)
-            }
-            .doOnError {
-                it.printStackTrace()
-                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
-            }
-            .subscribe()
+            .subscribe(
+                {
+                    _viewState.postValue(WalletListViewState.SuccessOperation)
+                },
+                {
+                    _viewState.postValue(WalletListViewState.Error.UnexpectedError)
+                }
+            )
+    }
+
+    fun clear() {
+        disposeBag.clear()
     }
 }
 

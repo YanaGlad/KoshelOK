@@ -1,7 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
-import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,7 +53,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
         }
         binding.dateAttribute.attributeItemLayout.setOnClickListener {
             activity?.let { activity ->
-                showDatePicker(activity)
+                showDateTimePicker()
             }
         }
 
@@ -110,14 +110,31 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
         findNavController().navigate(action)
     }
 
-    private fun showDatePicker(activity: Activity) {
-        val cal = Calendar.getInstance()
-        DatePickerDialog(
-            activity, getDatePickerListener(cal),
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
-        ).show()
+    private fun showDateTimePicker() {
+        activity?.let{
+            val currentDate = Calendar.getInstance()
+            val combinedCal: Calendar = GregorianCalendar(currentDate.timeZone)
+            DatePickerDialog(it, R.style.ThemeOverlay_MaterialComponents_TimePicker, { view, year, monthOfYear, dayOfMonth ->
+                TimePickerDialog(
+                    context,
+                    R.style.ThemeOverlay_MaterialComponents_TimePicker,
+                    { view, hourOfDay, minute ->
+                        combinedCal.set(year, monthOfYear, dayOfMonth)
+                        combinedCal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        combinedCal.set(Calendar.MINUTE, minute)
+                        val timeMillis = combinedCal.timeInMillis
+                        args.operationData.date = timeMillis
+                        setupUiWithData(args.operationData)
+                    },
+                    currentDate[Calendar.HOUR_OF_DAY],
+                    currentDate[Calendar.MINUTE],
+                    false
+                ).show()
+            },
+                currentDate[Calendar.YEAR],
+                currentDate[Calendar.MONTH],
+                currentDate[Calendar.DATE]).show()
+        }
     }
 
     private fun getDatePickerListener(cal: Calendar): DatePickerDialog.OnDateSetListener =
