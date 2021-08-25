@@ -31,7 +31,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private var expanded = false
     private var walletsAdapter: WalletsAdapter? = null
     private var walletsHiddenAdapter: WalletsAdapter? = null
-
+    private var isClickedExpense = false
+    private var isClickedIncome = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,13 +77,13 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         when (viewState) {
             is WalletListViewState.Loaded -> {
 
-                val list : MutableList<WalletData> = ArrayList()
-                val listHidden : MutableList<WalletData> = ArrayList()
+                val list: MutableList<WalletData> = ArrayList()
+                val listHidden: MutableList<WalletData> = ArrayList()
 
-                for (i in viewState.list.indices){
-                    if(!viewState.list[i].hidden)
+                for (i in viewState.list.indices) {
+                    if (!viewState.list[i].hidden)
                         list.add(viewState.list[i])
-                    else  listHidden.add(viewState.list[i])
+                    else listHidden.add(viewState.list[i])
                 }
 
                 walletsAdapter?.submitList(list)
@@ -262,6 +263,30 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         binding.layoutWallet.expenditure.expenditureText.text =
             getString(R.string.total_expenditure)
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.create_wallet)
+        binding.layoutWallet.income.cardIncome.setOnClickListener {
+            if (!isClickedIncome) {
+                binding.layoutWallet.income.cardIncome.setCardBackgroundColor(resources.getColor(R.color.clicked_card))
+            } else binding.layoutWallet.income.cardIncome.setCardBackgroundColor(
+                resources.getColor(
+                    R.color.purple
+                )
+            )
+            isClickedIncome  = !isClickedIncome
+        }
+        binding.layoutWallet.expenditure.cardExpense.setOnClickListener {
+            if (!isClickedExpense)
+                binding.layoutWallet.expenditure.cardExpense.setCardBackgroundColor(
+                    resources.getColor(
+                        R.color.clicked_card
+                    )
+                )
+            else binding.layoutWallet.expenditure.cardExpense.setCardBackgroundColor(
+                resources.getColor(
+                    R.color.purple
+                )
+            )
+            isClickedExpense  = !isClickedExpense
+        }
         binding.skeletonWallet.showSkeleton()
 
     }

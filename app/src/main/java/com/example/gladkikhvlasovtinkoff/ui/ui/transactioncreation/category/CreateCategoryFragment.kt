@@ -22,12 +22,13 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateCategoryFragment : Fragment() {
+class CreateCategoryFragment : Fragment(), IconHelper {
     private val viewModel: CategoryViewModel by viewModels()
     private var _binding: FragmentCreateCategoryBinding? = null
     private val binding get() = _binding!!
     private var categoriesAdapter: OperationCategoryAdapter? = null
     private val args: CreateCategoryFragmentArgs by navArgs()
+    var categoryData: CategoryDataSample? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +41,7 @@ class CreateCategoryFragment : Fragment() {
         initDefaultAttributes()
         enableEdit()
 
-        val categoryData = args.categoryData
+        categoryData = args.categoryData
 
 
         val cp = ColorPicker(activity, 89, 77, 244)
@@ -50,6 +51,7 @@ class CreateCategoryFragment : Fragment() {
             factory.colorRed = cp.red
             factory.colorGreen = cp.green
             factory.colorBlue = cp.blue
+            factory.color = cp.color
 
             categoriesAdapter?.addItems(factory.getCategories(requireContext()))
             cp.dismiss()
@@ -61,6 +63,14 @@ class CreateCategoryFragment : Fragment() {
 
         binding.buttonConfirmOperationValue.setOnClickListener {
             viewModel.addCategory(categoryData!!)
+            val action =
+                CreateCategoryFragmentDirections.actionCreateCategoryFragmentToFragmentSelectOperationType(
+                    null,
+                    null,
+                    false,
+                    categoryData
+                )
+            findNavController().navigate(action)
         }
 
         return binding.root
@@ -96,7 +106,7 @@ class CreateCategoryFragment : Fragment() {
     }
 
     private fun setupOperationCategoryList() {
-        categoriesAdapter = OperationCategoryAdapter(activity as AppCompatActivity, true)
+        categoriesAdapter = OperationCategoryAdapter(this, activity as AppCompatActivity, true)
 
         binding.categoriesRecycler.apply {
             adapter = categoriesAdapter
@@ -114,6 +124,10 @@ class CreateCategoryFragment : Fragment() {
 
             categoriesAdapter?.addItems(factory.getCategories(context))
         }
+    }
+
+    override fun setIcon(id: String) {
+        categoryData?.stringId = id
     }
 
 //    override fun setIcon(id : String) {

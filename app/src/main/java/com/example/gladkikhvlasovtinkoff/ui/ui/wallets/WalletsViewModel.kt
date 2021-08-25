@@ -44,7 +44,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     fun addWallet(walletData: WalletDataSample) {
         repository.addWallet(
             WalletData(
-                id = TEMP_WALLET_ID.toLong(),
+                id = walletData.id,
                 username = TEMP_USERNAME,
                 name = walletData.name,
                 limit = walletData.limit,

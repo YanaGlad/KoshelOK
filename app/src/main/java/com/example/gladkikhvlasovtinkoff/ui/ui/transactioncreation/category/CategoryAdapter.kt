@@ -17,6 +17,7 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 
 
 class OperationCategoryAdapter(
+    val iconHelper: IconHelper,
     val activity: AppCompatActivity,
     val isGridIcon: Boolean = false
 ) : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
@@ -53,7 +54,7 @@ class OperationCategoryAdapter(
                 notifyItemChanged(oldPosition)
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
-            //iconHelper.setIcon(categories[position].name)
+             iconHelper.setIcon(categories[position].name)
         }
     }
 
