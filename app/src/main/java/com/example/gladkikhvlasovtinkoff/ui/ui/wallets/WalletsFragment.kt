@@ -45,6 +45,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         handleArguments(args.walletData)
     }
 
+
     private fun handleArguments(walletData: WalletDataSample?) {
         walletData?.let { walletDataSample ->
             viewModel.addWallet(walletDataSample)
@@ -74,6 +75,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     }
 
     private fun handleViewState(viewState: WalletListViewState?) {
+        viewModel.getWalletList()
         binding.skeletonWallet.showSkeleton()
         when (viewState) {
             is WalletListViewState.Loaded -> {
@@ -144,6 +146,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                     val data = walletData.toWalletDataSample()
                     data.hidden = !data.hidden
                     viewModel.updateWallet(data)
+                    walletsHiddenAdapter?.notifyDataSetChanged()
+                    walletsAdapter?.notifyDataSetChanged()
                 }
                 R.id.edit -> {
                     val navDirection = WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
@@ -209,6 +213,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 }
             }
         }
+
+     //   walletsAdapter.submitList( )
 
         binding.layoutWallet.walletRecycle.setHasFixedSize(true)
         binding.layoutWallet.walletRecycle.apply {
