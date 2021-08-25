@@ -12,7 +12,9 @@ data class WalletData (
     val amount : String,
     val currency : Currency
     ) : Parcelable{
-
+        companion object{
+            const val INFINITE_LIMIT = "0"
+        }
         fun toWalletDataSample() : WalletDataSample{
             return WalletDataSample(id,username,name,limit,amount,currency)
         }

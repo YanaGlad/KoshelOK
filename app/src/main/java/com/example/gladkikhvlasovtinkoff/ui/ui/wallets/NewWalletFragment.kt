@@ -11,6 +11,8 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertToStyled
 import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
+import com.example.gladkikhvlasovtinkoff.model.WalletData.Companion.INFINITE_LIMIT
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
@@ -31,6 +33,8 @@ class NewWalletFragment : ToolbarFragment() {
         args.walletDataSample?.let { data ->
             if(!data.currency.isSetup)
                 setupStandardCurrency(data)
+            if(data.limit == UNDEFINED_STR)
+                data.limit = INFINITE_LIMIT
             walletDataSample = data
         }
     }
@@ -67,7 +71,6 @@ class NewWalletFragment : ToolbarFragment() {
                 )
             findNavController().navigate(action)
         }
-
         binding.currencyView.setOnClickListener {
             val action =
                 NewWalletFragmentDirections.actionNewWalletFragmentToCurrencyChoiceFragment(
@@ -75,7 +78,6 @@ class NewWalletFragment : ToolbarFragment() {
                 )
             findNavController().navigate(action)
         }
-
         binding.limitView.setOnClickListener {
             val action =
                 NewWalletFragmentDirections.actionNewWalletFragmentToLimitFragment(
@@ -84,7 +86,6 @@ class NewWalletFragment : ToolbarFragment() {
                 )
             findNavController().navigate(action)
         }
-
         binding.buttonConfirm.setOnClickListener {
             if (!args.isEdit) {
                 val action =
@@ -110,10 +111,8 @@ class NewWalletFragment : ToolbarFragment() {
             )
         binding.limit.attributeName.text = getString(R.string.limit)
         binding.limit.attributeValue.text =
-            if (walletDataSample.limit != "") walletDataSample.limit
-                .convertToStyled() else getString(
-                R.string.not_setup
-            )
+            if (walletDataSample.limit != INFINITE_LIMIT) walletDataSample.limit
+                .convertToStyled() else getString(R.string.not_setup)
     }
 
     override fun onDestroy() {
