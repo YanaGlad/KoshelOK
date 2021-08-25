@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
+import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletData
@@ -30,14 +32,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransactionModel> {
 
     private val viewModel: WalletTransactionViewModel by viewModels()
+    private val args: WalletTransactionFragmentArgs by navArgs()
 
     private var _binding: FragmentWalletTransactionBinding? = null
     private val binding get() = _binding!!
 
     private var baseAdapter: BaseAdapter? = null
 
-    private val args: WalletTransactionFragmentArgs by navArgs()
-    private var transaction: WalletTransactionSample? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,18 +60,22 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initLayout() {
+        if(args.walletData != null){
+            binding.layoutWallet.walletBalance.text = args.walletData!!.amount + " " +
+                    args.walletData!!.currency.code.convertCurrencyCodeToSymbol()
+            binding.layoutWallet.info.text = args.walletData!!.name
+        }
         binding.layoutWallet.hiddenWalletRecycle.visibility = View.GONE
         binding.layoutWallet.down.visibility = View.GONE
         binding.layoutWallet.showMore.visibility = View.GONE
-        binding.layoutWallet.info.text = getString(R.string.test_wallet_name)
         binding.layoutWallet.income.incomeText.text = getString(R.string.income_text)
         binding.layoutWallet.expenditure.expenditureText.text = getString(R.string.costs_text)
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.add_operation_text)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //   configureToolbar()
         initLayout()
         initWalletRecycler()
         setupButtonListener()

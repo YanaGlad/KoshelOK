@@ -20,35 +20,35 @@ class TransactionRepositoryImpl @Inject constructor(
 
     override fun addTransaction(context: Context, item: WalletTransactionModel) =
 
-        remoteTransactionDataProvider.createTransaction(
-            TransactionRequest(
-                amount = item.amount,
-                categoryRequest = CategoryRequest(
-                    blue = item.transactionCategoryData.colorBlue,
-                    type = item.transactionCategoryData.description,
-                    green = item.transactionCategoryData.colorGreen,
-                    isIncome = item.isIncome,
-                    name = item.transactionCategoryData.name,
-                    red = item.transactionCategoryData.colorRed,
-                    stringId = item.transactionCategoryData.name
-                ),
-                date = item.date,
-                id = item.id,
-                isIncome = item.isIncome,
-                transactionCurrencyCode = item.currency.code,
-                walletId = item.walletId
-            )
-        ).flatMapCompletable { data ->
+//        remoteTransactionDataProvider.createTransaction(
+//            TransactionRequest(
+//                amount = item.amount,
+//                categoryRequest = CategoryRequest(
+//                    blue = item.transactionCategoryData.colorBlue,
+//                    type = item.transactionCategoryData.description,
+//                    green = item.transactionCategoryData.colorGreen,
+//                    isIncome = item.isIncome,
+//                    name = item.transactionCategoryData.name,
+//                    red = item.transactionCategoryData.colorRed,
+//                    stringId = item.transactionCategoryData.name
+//                ),
+//                date = item.date,
+//                id = item.id,
+//                isIncome = item.isIncome,
+//                transactionCurrencyCode = item.currency.code,
+//                walletId = item.walletId
+//            )
+//        ).flatMapCompletable { data ->
             Completable.create { emitter ->
                 try {
                     localDataProvider
-                        .insertTransaction(context, data)
+                        .insertTransaction(context, item)
                     emitter.onComplete()
                 } catch (e: Exception) {
                     emitter.onError(e)
                 }
             }
-        }
+//        }
 
 
 
