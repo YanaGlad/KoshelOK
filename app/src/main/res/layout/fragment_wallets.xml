@@ -24,7 +24,7 @@
         android:layout_marginTop="48dp"
         app:maskColor="@color/gray_card_background"
         app:showShimmer="true"
-        app:shimmerDurationInMillis="2000"
+        app:shimmerDurationInMillis="1000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

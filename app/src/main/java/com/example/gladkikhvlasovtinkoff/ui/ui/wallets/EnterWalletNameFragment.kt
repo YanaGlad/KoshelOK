@@ -37,6 +37,7 @@ class EnterWalletNameFragment : ToolbarFragment() {
         configureToolbar()
         initLayout()
         setupNavigation()
+        binding.layoutEnter.loadProgressbar.visibility = View.GONE
     }
 
     private fun setupNavigation() {
