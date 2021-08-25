@@ -56,5 +56,4 @@ class RetrofitModule {
     fun getTransactionApi(@Named("TRANSACTION") retrofit: Retrofit): TransactionApi =
         retrofit.create(TransactionApi::class.java)
 
-
 }

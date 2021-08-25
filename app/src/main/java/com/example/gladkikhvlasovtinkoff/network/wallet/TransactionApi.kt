@@ -1,14 +1,9 @@
 package com.example.gladkikhvlasovtinkoff.network.wallet
 
+import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
 import com.example.gladkikhvlasovtinkoff.model.WalletData
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.WalletResponse
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.*
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -40,5 +35,8 @@ interface  TransactionApi {
 
     @POST("/transaction/v1/create")
     fun createTransaction(@Body transactionRequest: TransactionRequest): Single<TransactionResponse>
+
+    @POST("/category/v1/create")
+    fun createCategory(@Body categoryRequest: CategoryRequest): Single<CategoryResponse>
 
 }

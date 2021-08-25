@@ -100,6 +100,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 _viewState.postValue(WalletListViewState.SuccessOperation)
             }
             .doOnError {
+                it.printStackTrace()
                 _viewState.postValue(WalletListViewState.Error.UnexpectedError)
             }
             .subscribe()

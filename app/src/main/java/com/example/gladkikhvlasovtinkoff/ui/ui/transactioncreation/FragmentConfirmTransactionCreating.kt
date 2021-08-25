@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
+import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
@@ -87,7 +88,8 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
             onNavigateToAttributes(
                 FragmentConfirmTransactionCreatingDirections
                     .actionFragmentConfirmOperationCreatingToFragmentSelectOperationCategory(
-                        args.operationData, args.walletData)
+                        args.operationData, args.walletData, CategoryDataSample()
+                    )
             )
         }
     }

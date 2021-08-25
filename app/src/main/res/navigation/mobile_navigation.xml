@@ -107,7 +107,9 @@
             app:destination="@id/fragmentConfirmOperationCreating" />
         <argument
             android:name="operationData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_fragmentSelectOperationCategory_to_fragmentSelectOperationType"
             app:destination="@id/fragmentSelectOperationType" />
@@ -126,7 +128,14 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="categoryData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.CategoryDataSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationType"
@@ -142,10 +151,29 @@
             app:destination="@id/fragmentSelectOperationCategory" />
         <argument
             android:name="operationData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample"
+            app:nullable="true" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_fragmentSelectOperationType_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="categoryData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.CategoryDataSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSelectOperationValue"
@@ -326,10 +354,41 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_createCategoryFragment_to_fragmentSelectOperationType"
+            app:destination="@id/fragmentSelectOperationType"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="walletData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="walletTransactionSample"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="categoryData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.CategoryDataSample" />
     </fragment>
     <fragment
         android:id="@+id/createCategoryNameFragment"
         android:name="com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CreateCategoryNameFragment"
         android:label="fragment_create_category_name"
-        tools:layout="@layout/fragment_create_category_name" />
+        tools:layout="@layout/fragment_create_category_name" >
+        <argument
+            android:name="categoryData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.CategoryDataSample" />
+        <action
+            android:id="@+id/action_createCategoryNameFragment_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment"
+            app:enterAnim="@anim/nav_default_exit_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 </navigation>

@@ -25,5 +25,9 @@ interface RepositoryModule {
 
     @Singleton
     @Binds
+    fun bindCategoryRepository(categoryRepositoryImpl: CategoryRepositoryImpl): CategoryRepository
+
+    @Singleton
+    @Binds
     fun bindAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
 }

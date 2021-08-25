@@ -16,10 +16,11 @@ import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
+import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.IconHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FragmentSelectTransactionCategory : ToolbarFragment() {
+class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +28,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     private var categoryName: String = ""
     private var imageId: Int = -1
-    private var rgbColors : Triple<Int, Int, Int> = Triple(0, 0, 0)
+    private var rgbColors: Triple<Int, Int, Int> = Triple(0, 0, 0)
 
     private val args: FragmentSelectTransactionCategoryArgs by navArgs()
 
@@ -42,8 +43,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configureToolbar()
-
-        setupOperationCategoryList(args.operationData.isIncome)
+        setupOperationCategoryList(args.operationData!!.isIncome)
         categoriesAdapter?.checkedItem?.observe(viewLifecycleOwner) { checkedData ->
             if (checkedData != null)
                 onCategoryChecked(checkedData)
@@ -52,7 +52,12 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         }
 
         binding.createCategory.setOnClickListener {
-            val action = FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToCreateCategoryFragment()
+            val action =
+                FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToCreateCategoryFragment(
+                    null,
+                    null,
+                    CategoryDataSample()
+                )
             findNavController().navigate(action)
         }
 
@@ -61,9 +66,9 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         }
     }
 
-    private fun onConfirm(){
+    private fun onConfirm() {
         val operationData = args.operationData
-        operationData.transactionCategoryData = TransactionCategoryData(
+        operationData?.transactionCategoryData = TransactionCategoryData(
             name = categoryName,
             iconId = imageId,
             id = UNDEFINED_ID.toLong(),
@@ -73,9 +78,8 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
             colorGreen = rgbColors.second
         )
         val action =
-            FragmentSelectTransactionCategoryDirections.
-            actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
-                args.operationData, args.walletData
+            FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
+                args.operationData!!, args.walletData!!
             )
         findNavController().navigate(action)
     }
@@ -86,7 +90,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
     }
 
     override fun configureToolbar() {
-        activity?.let{activity ->
+        activity?.let { activity ->
             (activity as ToolbarHolder).setToolbarTitle(getString(R.string.choose_category))
         }
     }
@@ -102,11 +106,11 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         rgbColors = Triple(checkedData.colorRed, checkedData.colorGreen, checkedData.colorBlue)
     }
 
-    private fun setupOperationCategoryList(isIncome : Boolean) {
+    private fun setupOperationCategoryList(isIncome: Boolean) {
         val categoryDataFactory: TransactionCategoryDataFactory =
-            if(isIncome) DefaultIncomeCategoriesFactory()
+            if (isIncome) DefaultIncomeCategoriesFactory()
             else DefaultExpensesCategoriesFactory()
-        categoriesAdapter = OperationCategoryAdapter(activity as AppCompatActivity)
+        categoriesAdapter = OperationCategoryAdapter( activity as AppCompatActivity)
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)
@@ -120,5 +124,9 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         super.onDestroy()
         _binding = null
         categoriesAdapter = null
+    }
+
+    override fun setIcon(id: String) {
+        TODO("Not yet implemented")
     }
 }
