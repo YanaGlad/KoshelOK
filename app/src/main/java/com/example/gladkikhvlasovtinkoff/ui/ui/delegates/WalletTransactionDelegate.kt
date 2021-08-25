@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.delegates
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.DateItemBinding
 import com.example.gladkikhvlasovtinkoff.databinding.SwipingTransactionDataItemBinding
 import com.example.gladkikhvlasovtinkoff.databinding.WalletTransactionDataItemBinding
+import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.extension.getTimeString
 import com.example.gladkikhvlasovtinkoff.extension.getTransactionTypeString
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
@@ -50,6 +52,7 @@ class WalletTransactionDelegate internal constructor(
         private lateinit var item: WalletTransactionModel
         private val binding = SwipingTransactionDataItemBinding.bind(view)
 
+        @SuppressLint("SetTextI18n")
         fun bind(walletOperations: WalletTransactionModel) {
             item = walletOperations
             binding.data.transactionDot.setColorFilter(
@@ -69,7 +72,8 @@ class WalletTransactionDelegate internal constructor(
             )
             binding.data.titleOperation.text = walletOperations.transactionCategoryData.name
             binding.data.time.text = walletOperations.date.getTimeString()
-            binding.data.money.text = walletOperations.amount
+            binding.data.money.text = walletOperations.amount +
+                    walletOperations.currency.code.convertCurrencyCodeToSymbol()
             binding.data.subtitleOperation.text =
                 if (walletOperations.isIncome) itemView.context.getString(R.string.income_text)
                 else itemView.context.getString(R.string.costs_text)

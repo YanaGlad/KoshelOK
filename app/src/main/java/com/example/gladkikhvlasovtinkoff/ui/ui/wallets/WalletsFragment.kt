@@ -34,6 +34,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private var isClickedExpense = false
     private var isClickedIncome = false
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity
@@ -77,13 +78,13 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         when (viewState) {
             is WalletListViewState.Loaded -> {
 
-                val list: MutableList<WalletData> = ArrayList()
-                val listHidden: MutableList<WalletData> = ArrayList()
+                val list : MutableList<WalletData> = ArrayList()
+                val listHidden : MutableList<WalletData> = ArrayList()
 
-                for (i in viewState.list.indices) {
-                    if (!viewState.list[i].hidden)
+                for (i in viewState.list.indices){
+                    if(!viewState.list[i].hidden)
                         list.add(viewState.list[i])
-                    else listHidden.add(viewState.list[i])
+                    else  listHidden.add(viewState.list[i])
                 }
 
                 walletsAdapter?.submitList(list)

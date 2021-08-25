@@ -113,4 +113,6 @@
     <string name="choose_currency">Выберите валюту</string>
     <string name="remove">Удалить</string>
     <string name="limit_overcome">Превышен лимит</string>
+    <string name="standard_currency_code">USD</string>
+    <string name="standard_currency_name">Доллар США</string>
 </resources>
