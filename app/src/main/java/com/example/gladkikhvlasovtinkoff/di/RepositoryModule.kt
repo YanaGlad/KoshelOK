@@ -23,4 +23,7 @@ interface RepositoryModule {
     @Binds
     fun bindCurrencyRepository(currencyRepositoryImpl: CurrencyRepositoryImpl): CurrencyRepository
 
+    @Singleton
+    @Binds
+    fun bindAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
 }
