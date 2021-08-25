@@ -12,12 +12,13 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class WalletsViewModel @Inject constructor(val repository: WalletRepository): ViewModel() {
+class WalletsViewModel @Inject constructor(val repository: WalletRepository) : ViewModel() {
     companion object {
         const val TEMP_USERNAME = "test-tincoffJJ"
         var TEMP_WALLET_ID = 1
     }
-    init{
+
+    init {
         getWalletList()
 //        addUser()
     }
@@ -26,12 +27,14 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
     val viewState: LiveData<WalletListViewState>
         get() = _viewState
 
-    private fun addUser(){
-        repository.addUser(userRequest = UserRequest(
-            name = "testoviy chelik",
-            username = TEMP_USERNAME
-        ))
-            .doOnError{
+    private fun addUser() {
+        repository.addUser(
+            userRequest = UserRequest(
+                name = "testoviy chelik",
+                username = TEMP_USERNAME
+            )
+        )
+            .doOnError {
                 it.printStackTrace()
             }
             .subscribeOn(Schedulers.io())
@@ -63,7 +66,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
     fun getWalletList() {
         repository.getWalletsByUsername("testoviy chelik")
             .doOnNext { viewState ->
-                if(viewState != null) {
+                if (viewState != null) {
                     _viewState.postValue(viewState)
                 }
             }
@@ -74,4 +77,19 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository): Vi
             .observeOn(Schedulers.io())
             .subscribe()
     }
+
+    fun deleteWallet(wallet: WalletData) {
+        repository.deleteWallet(wallet)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .doOnComplete {
+                _viewState.postValue(WalletListViewState.SuccessOperation)
+            }
+            .doOnError {
+                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
+            }
+            .subscribe()
+    }
 }
+
+

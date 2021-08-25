@@ -44,10 +44,20 @@ class WalletRepositoryImpl @Inject constructor(
         }
 
 
-    override fun deleteWaller(wallet: WalletData): Completable =
-        Completable.create {
-            localWalletDataProvider.deleteWallet(wallet)
-        }
+    override fun deleteWallet(wallet: WalletData): Completable =
+        remoteWalletDataProvider.deleteWallet(wallet.id)
+            .flatMapCompletable { walletData ->
+                Completable.create { emitter ->
+                    try {
+                        localWalletDataProvider
+                            .deleteWallet(walletData)
+                        emitter.onComplete()
+                    } catch (e: Exception) {
+                        emitter.onError(e)
+                    }
+                }
+            }
+
 
     override fun getWalletsByUsername(username: String): Flowable<WalletListViewState> =
         localWalletDataProvider.getWalletsByUsername(username)

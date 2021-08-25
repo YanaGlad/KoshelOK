@@ -11,5 +11,10 @@ data class WalletData (
     val limit : String,
     val amount : String,
     val currency : Currency
-    ) : Parcelable
+    ) : Parcelable{
+
+        fun toWalletDataSample() : WalletDataSample{
+            return WalletDataSample(id,username,name,limit,amount,currency)
+        }
+    }
 

@@ -16,6 +16,7 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 
 
 class OperationCategoryAdapter(
+    val activity: AppCompatActivity,
     val isGridIcon: Boolean = false
 ) : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
 
@@ -27,7 +28,7 @@ class OperationCategoryAdapter(
         get() = _checkedItem
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val holder = ViewHolder(
+        val holder = ViewHolder(activity,
             CategoryItemBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false), isGridIcon
         )
@@ -67,7 +68,7 @@ class OperationCategoryAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val _binding: CategoryItemBinding, private val isGridIcon: Boolean) :
+    class ViewHolder(val activity: AppCompatActivity, val _binding: CategoryItemBinding, private val isGridIcon: Boolean) :
         RecyclerView.ViewHolder(_binding.root) {
         var binding: CategoryItemBinding? = null
 
@@ -81,11 +82,11 @@ class OperationCategoryAdapter(
             checkedPosition: Int
         ) {
             binding?.transactionDot?.setColorFilter(
-                    Color.rgb(
+                    ColorPicker(activity,
                         transactionCategoryData.colorRed,
                         transactionCategoryData.colorGreen,
                         transactionCategoryData.colorBlue
-                    )
+                    ).color
             )
 
             binding?.categoryImageIcon?.setImageDrawable(
@@ -101,7 +102,7 @@ class OperationCategoryAdapter(
                 params?.height = 90
                 params?.width = 90
                 binding?.isCategoryChecked?.layoutParams = params
-                binding?.isCategoryChecked?.setColorFilter(ColorPicker(itemView.context as AppCompatActivity, 0, 0, 0).color)
+                binding?.isCategoryChecked?.setColorFilter(ColorPicker(activity, 0, 0, 0).color)
             }
 
             binding?.categoryName?.text = transactionCategoryData.name

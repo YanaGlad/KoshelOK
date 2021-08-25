@@ -1,10 +1,12 @@
 package com.example.gladkikhvlasovtinkoff.network.wallet
 
 import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyResponse
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.WalletResponse
 import io.reactivex.Single
@@ -20,16 +22,19 @@ interface  TransactionApi {
     @POST("/wallet/v1/create")
     fun createWallet(@Body walletCreateRequest: WalletCreateRequest) : Single<WalletResponse>
 
-    @POST("wallet/v1/delete/{id}")
-    fun deleteWallet(@Path("id") walletId : Long)
+    @POST("/wallet/v1/delete/{id}")
+    fun deleteWallet(@Path("id") walletId : Long) : Single<WalletResponse>
 
-    @GET("wallet/v1/find/{id}")
+    @GET("/wallet/v1/find/{id}")
     fun findWalletById(@Path("id") walletId : Long) : Single<WalletResponse>
 
-    @GET("wallet/v1/findUser/{username}")
+    @GET("/wallet/v1/findUser/{username}")
     fun getAllWalletsByUsername(@Path("username") username : String) : Single<List<WalletResponse>>
 
-    @POST("wallet/v1/update")
+    @POST("/wallet/v1/update")
     fun updateWallet(@Body walletUpdateRequest: WalletUpdateRequest): Single<WalletResponse>
+
+    @POST("/transaction/v1/create")
+    fun createTransaction(@Body transactionRequest: TransactionRequest): Single<TransactionResponse>
 
 }

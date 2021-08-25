@@ -11,7 +11,7 @@ import io.reactivex.Single
 interface WalletRepository {
     fun addUser(userRequest : UserRequest) : Single<UserResponse>
     fun addWallet(wallet : WalletData) : Completable
-    fun deleteWaller(wallet : WalletData) : Completable
+    fun deleteWallet(wallet : WalletData) : Completable
     fun getWalletsByUsername(username : String) : Flowable<WalletListViewState>
     fun updateWallet(wallet: WalletData) : Completable
 }

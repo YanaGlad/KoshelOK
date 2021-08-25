@@ -22,7 +22,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WalletsFragment : ToolbarFragment(), DeleteHelper {
+class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private val viewModel: WalletsViewModel by viewModels()
     private val args: WalletsFragmentArgs by navArgs()
 
@@ -120,9 +120,12 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper {
         { walletData, action ->
             when (action.actionId) {
                 R.id.hide -> Toast.makeText(context, "Hide", Toast.LENGTH_SHORT).show()
-                R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
+                R.id.edit -> {
+                   val action = WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(walletData.toWalletDataSample(), true)
+                    findNavController().navigate(action)
+                }
                 R.id.delete -> {
-                    val deleteDialog = DeleteDialogFragment( this, walletData)
+                    val deleteDialog = DeleteDialogFragment<WalletData>( this, walletData)
                     val manager = activity?.supportFragmentManager
                     manager?.let {
                         deleteDialog.show(
@@ -210,6 +213,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper {
     }
 
     override fun delete(pos : WalletData) {
-//       viewModel.deleteWallet(pos)
+       viewModel.deleteWallet(pos)
     }
 }

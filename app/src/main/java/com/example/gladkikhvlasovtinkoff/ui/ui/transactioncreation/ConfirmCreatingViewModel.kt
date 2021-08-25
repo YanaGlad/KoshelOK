@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
@@ -23,7 +25,7 @@ class ConfirmCreatingViewModel @Inject constructor(
     val viewState: LiveData<ConfirmCreatingViewState>
         get() = _viewState
 
-    fun addWallet(context: Context, transaction : WalletTransactionSample) {
+    fun addTransaction(context: Context, transaction : WalletTransactionSample) {
         repository.addTransaction(
             context = context,
             item = WalletTransactionModel(
@@ -32,7 +34,7 @@ class ConfirmCreatingViewModel @Inject constructor(
                 walletId = transaction.walletId,
                 isIncome = transaction.isIncome,
                 amount = transaction.amount,
-                currency = transaction.currency,
+                currency = Currency( transaction.currency.code, UNDEFINED_STR),
                 transactionCategoryData = transaction.transactionCategoryData
             )
         )

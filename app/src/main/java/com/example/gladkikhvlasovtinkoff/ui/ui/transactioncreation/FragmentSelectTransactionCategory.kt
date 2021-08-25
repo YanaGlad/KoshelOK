@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -105,7 +106,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment() {
         val categoryDataFactory: TransactionCategoryDataFactory =
             if(isIncome) DefaultIncomeCategoriesFactory()
             else DefaultExpensesCategoriesFactory()
-        categoriesAdapter = OperationCategoryAdapter()
+        categoriesAdapter = OperationCategoryAdapter(activity as AppCompatActivity)
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)

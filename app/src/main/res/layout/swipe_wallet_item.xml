@@ -8,7 +8,6 @@
     app:sal_gravity="right"
     app:sal_isFullActionSupported="false"
     app:sal_items="@menu/swipe_wallet_menu"
-    android:layout_margin="8dp"
     app:sal_shouldVibrateOnQuickAction="false">
 
     <include

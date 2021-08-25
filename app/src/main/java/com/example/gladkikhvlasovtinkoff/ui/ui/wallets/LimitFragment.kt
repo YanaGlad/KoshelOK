@@ -21,7 +21,7 @@ class LimitFragment : ToolbarFragment() {
     private var _binding: FragmentLimitBinding? = null
     private val binding get() = _binding!!
 
-    private val args : LimitFragmentArgs by navArgs()
+    private val args: LimitFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +41,9 @@ class LimitFragment : ToolbarFragment() {
     private fun setupNavigation() {
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
             val walletDataSample = args.walletDataSample
-            walletDataSample.limit = binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
-
-            val action =
-                LimitFragmentDirections.actionLimitFragmentToNewWalletFragment(walletDataSample)
+            walletDataSample.limit =
+                binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
+            val action = LimitFragmentDirections.actionLimitFragmentToNewWalletFragment(walletDataSample, args.isEdit)
             findNavController().navigate(action)
             (activity as ToolbarHolder).setToolbarNavigationButtonIcon(R.drawable.ic_back_arrow)
         }
@@ -52,7 +51,7 @@ class LimitFragment : ToolbarFragment() {
 
     override fun configureToolbar() {
         activity?.let { activity ->
-            val holder  = activity as ToolbarHolder
+            val holder = activity as ToolbarHolder
             holder.setToolbarTitle("")
             holder.setToolbarNavigationButtonIcon(R.drawable.ic_close)
         }
@@ -65,6 +64,10 @@ class LimitFragment : ToolbarFragment() {
         binding.layoutEnter.newOperationValueField.setupTextStyleAndObserve(
             binding.layoutEnter.buttonConfirmOperationValue,
         )
+
+        if (args.isEdit)
+            binding.layoutEnter.newOperationValueField.setText(args.walletDataSample.limit)
+
 
         binding.layoutEnter.buttonConfirmOperationValue.text = getString(R.string.save)
         binding.layoutEnter.newOperationValueBlock.hint = getString(R.string.limit_description)

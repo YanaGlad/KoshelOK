@@ -18,6 +18,7 @@ import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBi
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
 import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
@@ -26,7 +27,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WalletTransactionFragment : ToolbarFragment(), DeleteHelper {
+class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransactionModel> {
 
     private val viewModel: WalletTransactionViewModel by viewModels()
 
@@ -172,9 +173,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper {
         baseAdapter = null
     }
 
-
-
-    override fun delete(pos: WalletData) {
+    override fun delete(pos: WalletTransactionModel) {
         TODO("Not yet implemented")
     }
 }

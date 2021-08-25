@@ -1,7 +1,8 @@
 package com.example.gladkikhvlasovtinkoff.network.wallet
 
-import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
+import com.example.gladkikhvlasovtinkoff.model.*
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
@@ -78,8 +79,21 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                 )
             }
 
-    override fun deleteWallet(walletId: Long) =
+    override fun deleteWallet(walletId: Long): Single<WalletData> =
         api.deleteWallet(walletId)
+            .map{response ->
+            WalletData(
+                id = response.id,
+                username = response.user.name,
+                name = response.name,
+                limit = response.limit,
+                amount = response.balance,
+                currency = Currency(
+                    code = response.currency.code,
+                    name = response.currency.name
+                )
+            )
+        }
 
     override fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData> =
         api.updateWallet(walletUpdateRequest)
@@ -93,6 +107,29 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     currency = Currency(
                         code = response.currency.code,
                         name = response.currency.name
+                    )
+                )
+            }
+
+    override fun createTransaction(transactionRequest: TransactionRequest): Single<WalletTransactionModel>  =
+        api.createTransaction(transactionRequest)
+            .map { response ->
+                WalletTransactionModel(
+                    id = response.id,
+                    date = response.date,
+                    walletId = response.walletId,
+                    isIncome = response.income,
+                    amount = response.amount,
+                    currency = Currency(response.code, UNDEFINED_STR),
+                    transactionCategoryData = TransactionCategoryData
+                        (
+                        name = response.category.name,
+                        id = response.category.id,
+                        iconId = getIconIdByNameId(response.category.name),
+                        colorBlue = response.category.blueColor,
+                        colorGreen = response.category.greenColor,
+                        colorRed = response.category.redColor,
+                        description = response.category.description
                     )
                 )
             }

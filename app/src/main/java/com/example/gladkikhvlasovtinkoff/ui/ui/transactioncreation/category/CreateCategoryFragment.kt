@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -47,9 +48,12 @@ class CreateCategoryFragment : Fragment() {
         val cp = ColorPicker(activity, 89, 77, 244)
 
         cp.setCallback {
-            val factory = CategoryFactory()
-            factory.color = cp.color
-             categoriesAdapter?.addItems(factory.getCategories(requireContext()))
+            val factory = CategoryFactory(activity as AppCompatActivity)
+            factory.colorRed = cp.red
+            factory.colorGreen = cp.green
+            factory.colorBlue = cp.blue
+
+            categoriesAdapter?.addItems(factory.getCategories(requireContext()))
             cp.dismiss()
         }
 
@@ -69,7 +73,7 @@ class CreateCategoryFragment : Fragment() {
     }
 
     private fun setupOperationCategoryList() {
-        categoriesAdapter = OperationCategoryAdapter(true)
+        categoriesAdapter = OperationCategoryAdapter(activity as AppCompatActivity, true)
 
         binding.categoriesRecycler.apply {
             adapter = categoriesAdapter
@@ -79,9 +83,12 @@ class CreateCategoryFragment : Fragment() {
         }
 
         context?.let { context ->
-            val factory = CategoryFactory()
+            val factory = CategoryFactory(activity as AppCompatActivity)
             val cp = ColorPicker(activity, 89, 77, 244)
-            factory.color = cp.color
+            factory.colorRed = cp.red
+            factory.colorBlue = cp.blue
+            factory.colorGreen = cp.green
+
             categoriesAdapter?.addItems(factory.getCategories(context))
         }
     }

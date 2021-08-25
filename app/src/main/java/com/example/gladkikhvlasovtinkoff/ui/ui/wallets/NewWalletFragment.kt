@@ -28,7 +28,7 @@ class NewWalletFragment : ToolbarFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         args.walletDataSample.let { data ->
-            walletDataSample = data
+            walletDataSample = data!!
         }
     }
 
@@ -66,7 +66,10 @@ class NewWalletFragment : ToolbarFragment() {
 
         binding.limitView.setOnClickListener {
             val action =
-                NewWalletFragmentDirections.actionNewWalletFragmentToLimitFragment(walletDataSample)
+                NewWalletFragmentDirections.actionNewWalletFragmentToLimitFragment(
+                    walletDataSample,
+                    args.isEdit
+                )
             findNavController().navigate(action)
         }
 
@@ -85,7 +88,7 @@ class NewWalletFragment : ToolbarFragment() {
 
     private fun initLayout() {
 
-        if(args.isEdit)
+        if (args.isEdit)
             binding.buttonConfirm.text = getString(R.string.save)
 
         binding.name.attributeName.text = getString(R.string.wallet_name_title)
@@ -99,7 +102,7 @@ class NewWalletFragment : ToolbarFragment() {
 
         binding.limit.attributeName.text = getString(R.string.limit)
         binding.limit.attributeValue.text =
-            if (walletDataSample.limit  != "") walletDataSample.limit
+            if (walletDataSample.limit != "") walletDataSample.limit
                 .convertToStyled() else getString(
                 R.string.not_setup
             )

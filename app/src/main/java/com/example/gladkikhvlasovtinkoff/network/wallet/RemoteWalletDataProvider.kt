@@ -2,6 +2,8 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
@@ -14,7 +16,9 @@ interface RemoteWalletDataProvider {
     fun findWalletById(walletId: Long): Single<WalletData>
     fun getAllWalletByUsername(username: String): Single<List<WalletData>>
     fun createWallet(walletRequest: WalletCreateRequest): Single<WalletData>
-    fun deleteWallet(walletId: Long)
+    fun deleteWallet(walletId: Long): Single<WalletData>
     fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData>
+    fun createTransaction(transactionRequest: TransactionRequest): Single<WalletTransactionModel>
+
 }
 

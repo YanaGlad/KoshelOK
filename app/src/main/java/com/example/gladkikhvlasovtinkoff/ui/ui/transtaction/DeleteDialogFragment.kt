@@ -12,7 +12,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
 
-class DeleteDialogFragment(val deleteHelper: DeleteHelper, val walletData: WalletData? = null) : DialogFragment() {
+class DeleteDialogFragment <T> (val deleteHelper: DeleteHelper<T>, val data: T? = null) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -27,7 +27,7 @@ class DeleteDialogFragment(val deleteHelper: DeleteHelper, val walletData: Walle
                     ).show()
                 }
                 .setPositiveButton(getString(R.string.delete)) { _, _ ->
-                    deleteHelper.delete(walletData!!)
+                    deleteHelper.delete(data!!)
                 }
 
             val alert: AlertDialog = builder.create()

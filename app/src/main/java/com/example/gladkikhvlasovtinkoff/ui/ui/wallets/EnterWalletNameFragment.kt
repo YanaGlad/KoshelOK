@@ -42,7 +42,7 @@ class EnterWalletNameFragment : ToolbarFragment() {
     private fun setupNavigation() {
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
             val walletDataSample = args.walletDataSample
-            walletDataSample.name = binding.layoutEnter.newOperationValueField.text.toString()
+            walletDataSample?.name = binding.layoutEnter.newOperationValueField.text.toString()
             val action =
                 EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment(
                     walletDataSample, args.isEdit
@@ -59,7 +59,7 @@ class EnterWalletNameFragment : ToolbarFragment() {
     }
 
     private fun initLayout() {
-        binding.layoutEnter.newOperationValueField.setText(args.walletDataSample.name)
+        binding.layoutEnter.newOperationValueField.setText(args.walletDataSample?.name)
         binding.layoutEnter.newOperationValueBlock.hint = getString(R.string.wallet_name_entry)
         binding.layoutEnter.newOperationValueField.observeTextChanged(binding.layoutEnter.buttonConfirmOperationValue)
     }
