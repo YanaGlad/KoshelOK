@@ -17,30 +17,31 @@ class CurrencyChoiceViewModel
     val viewState: LiveData<CurrencyListViewState>
         get() = _viewState
 
-    init{
+    init {
         getCurrencies()
         loadCurrencies()
     }
 
-    private fun loadCurrencies(){
-        repository.loadCurrencies()
+    private fun loadCurrencies() {
+        val disposable = repository.loadCurrencies()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .doOnError{
-                it.printStackTrace()
-            }
-            .subscribe()
+            .subscribe(
+                { viewState ->
+                    _viewState.postValue(viewState)
+                },
+                {}
+            )
     }
 
-    fun getCurrencies(){
-        repository.getCurrencies()
-            .doOnNext{ viewState ->
-                _viewState.postValue(viewState)
-            }
-            .doOnError{
-                _viewState.postValue(CurrencyListViewState.Error.UnexpectedError)
-            }
-            .subscribe()
+    fun getCurrencies() {
+        val disposable =
+            repository.getCurrencies()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { viewState ->
+                    _viewState.postValue(viewState)
+                }
     }
 
 }

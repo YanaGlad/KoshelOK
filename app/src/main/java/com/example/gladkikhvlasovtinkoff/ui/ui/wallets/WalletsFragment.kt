@@ -150,8 +150,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                     val data = walletData.toWalletDataSample()
                     data.hidden = !data.hidden
                     viewModel.updateWallet(data)
-                    walletsHiddenAdapter?.notifyDataSetChanged()
-                    walletsAdapter?.notifyDataSetChanged()
                 }
                 R.id.edit -> {
                     val action = WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
