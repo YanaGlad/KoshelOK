@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
@@ -29,7 +28,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private val viewModel: WalletsViewModel by viewModels()
-    private val args: WalletsFragmentArgs by navArgs()
 
     private var _binding: FragmentWalletsBinding? = null
     private val binding get() = _binding!!
@@ -49,14 +47,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                     activity?.finish()
                 }
             })
-        handleArguments(args.walletData)
-    }
-
-    private fun handleArguments(walletData: WalletDataSample?) {
-        walletData?.let { walletDataSample ->
-            // TODO этот экран не должен отвечать за добавление кошелька
-            viewModel.addWallet(walletDataSample)
-        }
     }
 
     override fun onCreateView(
@@ -74,20 +64,21 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
-        viewModel.getAllWalletsBalance("USD", args.walletData.username)
 
         initLayout()
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
- 
+
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
+        viewModel.coursesViewState.observe(viewLifecycleOwner){
+            handleCoursesPlateViewState(viewState = it)
+        }
         binding.skeletonWallet.showOriginal()
         onCoursesLoading()
-     }
-
+    }
 
     private fun handleViewState(viewState: WalletListViewState?) {
         binding.skeletonWallet.showSkeleton()
@@ -159,7 +150,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             binding.layoutWallet.showMore.visibility = View.VISIBLE
             binding.layoutWallet.down.visibility = View.VISIBLE
         }
-
         binding.skeletonWallet.showOriginal()
     }
 
@@ -182,7 +172,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             binding.layoutWallet.firstCurrencyStatus.visibility = View.VISIBLE
             binding.layoutWallet.firstCurrencyCode.text = currencyCourses[0].code
             binding.layoutWallet.firstCurrencyCourse.text = currencyCourses[0].course
-            binding.layoutWallet.firstCurrencyStatus.setCourseStatusIcon(currencyCourses[9].isUp)
+            binding.layoutWallet.firstCurrencyStatus.setCourseStatusIcon(currencyCourses[0].isUp)
             binding.layoutWallet.secondCurrencyCode.visibility = View.VISIBLE
             binding.layoutWallet.secondCurrencyStatus.visibility = View.VISIBLE
             binding.layoutWallet.secondCurrencyCourse.visibility = View.VISIBLE
@@ -408,7 +398,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.deleteWallet(pos)
         walletsAdapter?.notifyDataSetChanged()
         walletsHiddenAdapter?.notifyDataSetChanged()
-
     }
 
     override fun onDestroy() {

@@ -110,9 +110,7 @@ class WelcomeFragment : Fragment() {
     private fun navigateToWallets() {
         val navController = findNavController()
 
-        val action = WelcomeFragmentDirections.actionWelcomeFragmentToWalletsFragment(
-            WalletDataSample()
-        )
+        val action = WelcomeFragmentDirections.actionWelcomeFragmentToWalletsFragment()
         navController.navigate(action)
     }
 

@@ -62,6 +62,61 @@ class NewWalletFragment : ToolbarFragment() {
         configureToolbar()
         initLayout()
         setupFragmentNavigation()
+        configureConfirmButton()
+        viewModel.viewState.observe(viewLifecycleOwner) {
+            handleViewState(it)
+        }
+    }
+
+    private fun configureConfirmButton() {
+        binding.buttonConfirm.setOnClickListener {
+            if (!args.isEdit)
+                viewModel.addWallet(walletDataSample)
+            else
+                viewModel.updateWallet(walletDataSample)
+        }
+    }
+
+    private fun handleViewState(viewState: NewWalletViewState) =
+        when (viewState) {
+            is NewWalletViewState.Loading -> setLoading()
+            is NewWalletViewState.SuccessOperation -> onSuccess()
+            is NewWalletViewState.Error.UnexpectedError -> onUnexpectedError()
+            is NewWalletViewState.Error.NetworkError -> onNetworkError()
+        }
+
+    private fun onNetworkError() {
+        setLoaded()
+    }
+
+    private fun onUnexpectedError() {
+        setLoaded()
+    }
+
+    private fun onSuccess() {
+        setLoaded()
+        if (!args.isEdit) {
+            val action =
+                NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment()
+            findNavController().navigate(action)
+        } else {
+            val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
+            findNavController().navigate(action)
+        }
+    }
+
+
+    private fun setLoading() {
+        binding.buttonConfirm.text = ""
+        binding.newWalletProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun setLoaded() {
+        binding.buttonConfirm.text =
+            if (args.isEdit)
+                getString(R.string.save)
+            else getString(R.string.next_text)
+        binding.newWalletProgressBar.visibility = View.GONE
     }
 
     private fun setupFragmentNavigation() {
@@ -88,15 +143,10 @@ class NewWalletFragment : ToolbarFragment() {
             findNavController().navigate(action)
         }
         binding.buttonConfirm.setOnClickListener {
-            // TODO тут должна быть операция добавления нового кошеелька вместо передачи в интенте
             if (!args.isEdit) {
-                val action =
-                    NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample!!)
-                findNavController().navigate(action)
+                viewModel.addWallet(walletDataSample)
             } else {
                 viewModel.updateWallet(walletDataSample)
-                val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
-                findNavController().navigate(action)
             }
         }
     }

@@ -6,5 +6,6 @@ class CurrencyCourseResponse(
     @SerializedName("charCode") val code: String,
     @SerializedName("name") val name: String,
     @SerializedName("course") val course: String,
-    @SerializedName("isUp") val isUp: Boolean
+    @SerializedName("inc") val isUp: Boolean,
+    @SerializedName("percent") val percent : String
 )
