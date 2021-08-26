@@ -94,12 +94,6 @@ class CreateCategoryFragment : Fragment(), IconHelper {
             else -> {
             }
         }
-        binding.categoriesRecycler.apply {
-            adapter = categoriesAdapter
-            hasFixedSize()
-
-            layoutManager = GridLayoutManager(context, 6)
-        }
     }
 
     private fun enableEdit() {
