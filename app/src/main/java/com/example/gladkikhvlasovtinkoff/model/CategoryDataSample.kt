@@ -13,5 +13,5 @@ class CategoryDataSample(
     var colorRed: Int = UNDEFINED_ID,
     var colorBlue: Int = UNDEFINED_ID,
     var colorGreen: Int = UNDEFINED_ID,
-    var income : Boolean = true
+    var income : Boolean = true,
 ) : Parcelable

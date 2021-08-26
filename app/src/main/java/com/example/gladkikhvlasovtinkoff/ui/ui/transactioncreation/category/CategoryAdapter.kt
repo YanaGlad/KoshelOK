@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,8 @@ class OperationCategoryAdapter(
         get() = _checkedItem
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val holder = ViewHolder(activity,
+        val holder = ViewHolder(
+            activity,
             CategoryItemBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false), isGridIcon
         )
@@ -52,7 +54,7 @@ class OperationCategoryAdapter(
                 notifyItemChanged(oldPosition)
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
-             iconHelper.setIcon(categories[position].name)
+            iconHelper.setIcon(categories[position].name)
         }
     }
 
@@ -69,7 +71,11 @@ class OperationCategoryAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val activity: AppCompatActivity, val _binding: CategoryItemBinding, private val isGridIcon: Boolean) :
+    class ViewHolder(
+        val activity: AppCompatActivity,
+        val _binding: CategoryItemBinding,
+        private val isGridIcon: Boolean
+    ) :
         RecyclerView.ViewHolder(_binding.root) {
         var binding: CategoryItemBinding? = null
 
@@ -83,11 +89,20 @@ class OperationCategoryAdapter(
             checkedPosition: Int
         ) {
             binding?.transactionDot?.setColorFilter(
-                    ColorPicker(activity,
-                        transactionCategoryData.colorRed,
-                        transactionCategoryData.colorGreen,
-                        transactionCategoryData.colorBlue
-                    ).color
+                ColorPicker(
+                    activity,
+                    transactionCategoryData.colorRed,
+                    transactionCategoryData.colorGreen,
+                    transactionCategoryData.colorBlue
+                ).color
+            )
+            Log.d(
+                "AAAAAAAAAA", "" + ColorPicker(
+                    activity,
+                    transactionCategoryData.colorRed,
+                    transactionCategoryData.colorGreen,
+                    transactionCategoryData.colorBlue
+                ).color
             )
 
             binding?.categoryImageIcon?.setImageDrawable(
