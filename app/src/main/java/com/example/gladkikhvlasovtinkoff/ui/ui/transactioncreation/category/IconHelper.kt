@@ -1,5 +1,5 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category
 
 interface IconHelper {
-    fun setIcon(id : String)
+    fun setIcon(stringId : String, id : Long)
 }

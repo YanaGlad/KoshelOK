@@ -2,16 +2,9 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.CategoryResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyCourseResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
 
 interface RemoteWalletDataProvider {
     fun addUser(userRequest: UserRequest): Single<UserResponse>

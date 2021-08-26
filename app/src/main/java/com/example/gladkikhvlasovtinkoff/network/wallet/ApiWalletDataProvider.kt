@@ -29,7 +29,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                 stringId = response.stringId,
                 colorRed = response.redColor,
                 colorBlue = response.blueColor,
-                colorGreen = response.greenColor
+                colorGreen = response.greenColor,
+                id = response.id
             )
         }
 
@@ -143,7 +144,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
         api.createTransaction(transactionRequest)
             .map { response ->
                 WalletTransactionModel(
-                    id = response.id,
+                    id = response.category.id,
                     date = response.date,
                     walletId = response.walletId,
                     isIncome = response.income,
@@ -159,7 +160,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                         colorRed = response.category.redColor,
                         description = response.category.description,
                         income = response.income,
-                        id = response.id
+                        id = response.category.id
                     )
                 )
             }
@@ -175,7 +176,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                         colorRed = response.redColor,
                         colorBlue = response.blueColor,
                         colorGreen = response.greenColor,
-                        income = response.income
+                        income = response.income,
+                        id = response.id
                     )
                 }
             }

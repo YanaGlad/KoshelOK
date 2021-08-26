@@ -29,12 +29,14 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
     private val binding get() = _binding!!
 
     private val args: FragmentConfirmTransactionCreatingArgs by navArgs()
-    private val viewModel : ConfirmCreatingViewModel by viewModels()
+    private val viewModel: ConfirmCreatingViewModel by viewModels()
+    private lateinit var transactionData: WalletTransactionSample
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         args.operationData.currency = args.walletData.currency
         args.operationData.walletId = args.walletData.id
+        transactionData = args.operationData
     }
 
     override fun onCreateView(
@@ -59,14 +61,14 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
             }
         }
 
-        viewModel.viewState.observe(viewLifecycleOwner){ viewState ->
+        viewModel.viewState.observe(viewLifecycleOwner) { viewState ->
             handleViewState(viewState)
         }
         setupAttributeChangeListeners()
     }
 
     private fun handleViewState(viewState: ConfirmCreatingViewState?) {
-        when(viewState){
+        when (viewState) {
             is ConfirmCreatingViewState.SuccessCreating -> onWalletCreated()
             is ConfirmCreatingViewState.Loading -> onLoading()
             is ConfirmCreatingViewState.Error.NetworkError -> onNetworkError()
@@ -90,7 +92,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
         binding.buttonConfirm.isEnabled = false
     }
 
-    private fun onLoaded(){
+    private fun onLoaded() {
         binding.transactionProgressBar.visibility = View.GONE
         binding.typeAttribute.attributeItemLayout.isEnabled = true
         binding.dateAttribute.attributeItemLayout.isEnabled = true
@@ -103,14 +105,16 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
             onNavigateToAttributes(
                 FragmentConfirmTransactionCreatingDirections
                     .actionFragmentConfirmOperationCreatingToFragmentSelectOperationValue(
-                        args.operationData, args.walletData )
+                        args.operationData, args.walletData
+                    )
             )
         }
         binding.typeAttribute.attributeItemLayout.setOnClickListener {
             onNavigateToAttributes(
                 FragmentConfirmTransactionCreatingDirections
                     .actionFragmentConfirmOperationCreatingToFragmentSelectOperationType(
-                        args.operationData, args.walletData )
+                        args.operationData, args.walletData
+                    )
             )
         }
         binding.categoryAttribute.attributeItemLayout.setOnClickListener {
@@ -133,48 +137,53 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
         }
     }
 
-    private fun onWalletCreated(){
+    private fun onWalletCreated() {
         val action = FragmentConfirmTransactionCreatingDirections
             .actionFragmentConfirmOperationCreatingToOptionFragment(walletData = args.walletData)
         findNavController().navigate(action)
     }
 
     private fun showDateTimePicker() {
-        activity?.let{
+        activity?.let {
             val currentDate = Calendar.getInstance()
             val combinedCal: Calendar = GregorianCalendar(currentDate.timeZone)
-            DatePickerDialog(it, R.style.ThemeOverlay_MaterialComponents_TimePicker, { view, year, monthOfYear, dayOfMonth ->
-                TimePickerDialog(
-                    context,
-                    R.style.ThemeOverlay_MaterialComponents_TimePicker,
-                    { view, hourOfDay, minute ->
-                        combinedCal.set(year, monthOfYear, dayOfMonth)
-                        combinedCal.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                        combinedCal.set(Calendar.MINUTE, minute)
-                        applyTime(combinedCal.timeInMillis)
+            DatePickerDialog(
+                it,
+                R.style.ThemeOverlay_MaterialComponents_TimePicker,
+                { view, year, monthOfYear, dayOfMonth ->
+                    TimePickerDialog(
+                        context,
+                        R.style.ThemeOverlay_MaterialComponents_TimePicker,
+                        { view, hourOfDay, minute ->
+                            combinedCal.set(year, monthOfYear, dayOfMonth)
+                            combinedCal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                            combinedCal.set(Calendar.MINUTE, minute)
+                            applyTime(combinedCal.timeInMillis)
 
-                    },
-                    currentDate[Calendar.HOUR_OF_DAY],
-                    currentDate[Calendar.MINUTE],
-                    false
-                ).show()
-            },
+                        },
+                        currentDate[Calendar.HOUR_OF_DAY],
+                        currentDate[Calendar.MINUTE],
+                        false
+                    ).show()
+                },
                 currentDate[Calendar.YEAR],
                 currentDate[Calendar.MONTH],
-                currentDate[Calendar.DATE]).show()
+                currentDate[Calendar.DATE]
+            ).show()
         }
     }
 
     private fun applyTime(timeInMillis: Long) {
-        if(timeInMillis < System.currentTimeMillis()) {
+        if (timeInMillis < System.currentTimeMillis()) {
             args.operationData.date = timeInMillis
             setupUiWithData(args.operationData)
-        }else
-            Toast.makeText(context, getString(R.string.wrong_time_message), Toast.LENGTH_LONG).show()
+        } else
+            Toast.makeText(context, getString(R.string.wrong_time_message), Toast.LENGTH_LONG)
+                .show()
     }
 
     private fun setupUiWithData(operationData: WalletTransactionSample) {
-        if(args.isEdit){
+        if (args.isEdit) {
             binding.buttonConfirm.setText(R.string.remove)
         }
 

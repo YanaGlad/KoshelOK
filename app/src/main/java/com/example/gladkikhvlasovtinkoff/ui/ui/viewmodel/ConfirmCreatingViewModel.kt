@@ -26,7 +26,7 @@ class ConfirmCreatingViewModel @Inject constructor(
         val disposable = repository.addTransaction(
             context = context,
             item = WalletTransactionModel(
-                id = UNDEFINED_ID.toLong(),
+                id = transaction.transactionCategoryData.id,
                 date = transaction.date,
                 walletId = transaction.walletId,
                 isIncome = transaction.isIncome,
@@ -39,11 +39,9 @@ class ConfirmCreatingViewModel @Inject constructor(
             .observeOn(Schedulers.io())
             .subscribe(
                 { model ->
-                    Log.d("AAA99", "Here : here ")
                     _viewState.postValue(ConfirmCreatingViewState.SuccessCreating)
                 },
                 { e ->
-                    Log.d("AAA99", "Error : here  ")
                     e.printStackTrace()
                     _viewState.postValue(e.convertToViewState())
                 }

@@ -54,7 +54,8 @@ class OperationCategoryAdapter(
                 notifyItemChanged(oldPosition)
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
-            iconHelper.setIcon(categories[position].name)
+            iconHelper.setIcon(categories[position].name, categories[position].id)
+            Log.d("AAA99", "Id : ${categories[position].id}")
         }
     }
 
@@ -90,14 +91,6 @@ class OperationCategoryAdapter(
         ) {
             binding?.transactionDot?.setColorFilter(
                 ColorPicker(
-                    activity,
-                    transactionCategoryData.colorRed,
-                    transactionCategoryData.colorGreen,
-                    transactionCategoryData.colorBlue
-                ).color
-            )
-            Log.d(
-                "AAAAAAAAAA", "" + ColorPicker(
                     activity,
                     transactionCategoryData.colorRed,
                     transactionCategoryData.colorGreen,

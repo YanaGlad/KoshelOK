@@ -31,15 +31,14 @@ class TransactionRepositoryImpl @Inject constructor(
                 isIncome = item.isIncome,
                 transactionCurrencyCode = item.currency.code,
                 walletId = item.walletId,
-                categoryId = 1
+                categoryId = item.transactionCategoryData.id
             )
             remoteTransactionDataProvider.createTransaction(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(
                     { category ->
-                        localDataProvider
-                            .insertTransaction(context, category)
+                        localDataProvider.insertTransaction(context, category)
                         emitter.onSuccess(WalletListViewState.SuccessOperation)
                         Log.d("AAA99", "YAY")
                     },

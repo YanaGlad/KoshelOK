@@ -148,8 +148,9 @@ class CreateCategoryFragment : Fragment(), IconHelper {
         }
     }
 
-    override fun setIcon(id: String) {
-        categoryData?.stringId = id
+    override fun setIcon(stringId: String, id : Long) {
+        categoryData?.stringId = stringId
+        categoryData?.id = id
     }
 
 }
