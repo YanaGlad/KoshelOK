@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class CategoryDataSample(
-    var userName : String = UNDEFINED_STR,
+    var userName : String? = UNDEFINED_STR,
     var name: String = "Новая категория",
     var stringId: String = UNDEFINED_STR,
     var description: String = UNDEFINED_STR,

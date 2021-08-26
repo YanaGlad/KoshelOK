@@ -24,7 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
-
     private val viewModel : SelectTransactionCategoryViewModel by viewModels()
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
@@ -55,7 +54,6 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
             else
                 onCategoryUnchecked()
         }
-
         binding.createCategory.setOnClickListener {
             val action =
                 FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToCreateCategoryFragment(
@@ -65,14 +63,13 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
                 )
             findNavController().navigate(action)
         }
-
         binding.buttonConfirmOperationCategory.setOnClickListener {
             onConfirm()
         }
-
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
+        viewModel.getCategoryList(args.operationData?.isIncome ?: true)
     }
 
     private fun handleViewState(viewState: CategoryListViewState?) {
@@ -80,7 +77,17 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
             is CategoryListViewState.Loaded -> {
                 categoriesAdapter?.addItems(viewState.list)
             }
-            else -> {
+            is CategoryListViewState.Loading -> {
+
+            }
+            is CategoryListViewState.Error.NetworkError -> {
+
+            }
+            is CategoryListViewState.Error.UnexpectedError -> {
+
+            }
+            is CategoryListViewState.SuccessOperation -> {
+
             }
         }
         binding.operationCategoryList.apply {

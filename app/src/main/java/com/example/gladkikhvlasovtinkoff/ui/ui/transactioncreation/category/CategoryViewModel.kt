@@ -11,23 +11,46 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(val repository: CategoryRepository) : ViewModel()  {
+class CategoryViewModel @Inject constructor(val repository: CategoryRepository) : ViewModel() {
 
     private val _viewState: MutableLiveData<CategoryListViewState> = MutableLiveData()
     val viewState: LiveData<CategoryListViewState>
         get() = _viewState
 
-    fun getCategoryList() {
-        val disposable = repository.getCategories()
+    init {
+        loadCategories()
+    }
+
+    fun getCategoryList(income: Boolean) {
+        _viewState.value = CategoryListViewState.Loading
+        val disposable = repository.getCategories(income)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe {
-                _viewState.postValue(it)
-            }
+            .subscribe(
+                { viewState ->
+                    _viewState.postValue(viewState)
+                },
+                { throwable ->
+                    _viewState.postValue(CategoryListViewState.Error.UnexpectedError)
+                }
+            )
+    }
+
+    fun loadCategories(){
+        val disposable = repository
+            .loadCategories()
+            .subscribe(
+                { viewState ->
+                    _viewState.postValue(viewState)
+                },
+                { throwable ->
+                    _viewState.postValue(CategoryListViewState.Error.UnexpectedError)
+                }
+            )
     }
 
     fun addCategory(categoryDataSample: CategoryDataSample) {
-        repository.createCategory( categoryDataSample)
+        repository.createCategory(categoryDataSample)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .doOnComplete {

@@ -10,7 +10,6 @@ import io.reactivex.Single
 
 interface CategoryRepository {
     fun createCategory(categorySample: CategoryDataSample): Completable
-    fun getCategories() : Flowable<CategoryListViewState>
+    fun getCategories(income : Boolean) : Flowable<CategoryListViewState>
     fun loadCategories() : Single<CategoryListViewState>
-
 }

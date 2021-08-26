@@ -2,14 +2,14 @@ package com.example.gladkikhvlasovtinkoff.repository
 
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.LocalCategoryDataProvider
+import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
-import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
+import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
+
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.CategoryRequest
 import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CategoryListViewState
-import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CategoryViewState
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -46,51 +46,61 @@ class CategoryRepositoryImpl @Inject constructor(
             }
         }
 
-    override fun getCategories(): Flowable<CategoryListViewState> =
+    override fun getCategories(income : Boolean): Flowable<CategoryListViewState> =
         if (authDataHolder.isAuth())
             localCategoryDataProvider
-                .getCategoriesByUsername(authDataHolder.getUserKey())
-                .map {
-                    CategoryListViewState.Loaded(it)
+                .getAllCategories()
+                .map { samples ->
+                    CategoryListViewState.Loaded(
+                        samples.map{ item ->
+                            TransactionCategoryData(
+                                name = item.name,
+                                iconId = getIconIdByNameId(item.stringId),
+                                userName = item.userName ?: PUBLIC_CATEGORY_USER,
+                                description = item.description,
+                                colorRed = item.colorRed,
+                                colorBlue = item.colorBlue,
+                                colorGreen = item.colorGreen,
+                                income = item.income
+                            )
+                        }.filter { it.income == income }
+                    )
                 }
         else
             Flowable.just(CategoryListViewState.Error.AuthError)
 
     override fun loadCategories(): Single<CategoryListViewState> =
         Single.create { emitter ->
-            if (authDataHolder.isAuth())
-                remoteWalletDataProvider.getAllCategoriesByUsername(
-                    authDataHolder.getUserKey()
-                )
+            if (authDataHolder.isAuth()) {
+                val authKey = authDataHolder.getUserKey()
+                remoteWalletDataProvider.getAllCategoriesByUsername(authKey)
                     .observeOn(Schedulers.io())
                     .subscribeOn(Schedulers.io())
                     .subscribe(
                         { categories ->
                             localCategoryDataProvider.insertAllCategories(
                                 categories.map { category ->
-                                    CategoryDataSample(
-                                        userName = category.userName,
-                                        name = category.name,
-                                        stringId = category.stringId,
-                                        description = category.description,
-                                        colorRed = category.colorRed,
-                                        colorBlue = category.colorBlue,
-                                        colorGreen = category.colorGreen,
-                                        income = category.income
-                                    )
-                                }
+                                        CategoryDataSample(
+                                            userName = category.userName,
+                                            name = category.name,
+                                            stringId = category.stringId,
+                                            description = category.description,
+                                            colorRed = category.colorRed,
+                                            colorBlue = category.colorBlue,
+                                            colorGreen = category.colorGreen,
+                                            income = category.income
+                                        )
+                                    }
                             )
                             emitter.onSuccess(CategoryListViewState.SuccessOperation)
-
                         },
                         { throwable ->
                             emitter.onSuccess(throwable.convertToViewState())
                         }
                     )
+            }
             else
                 emitter.onSuccess(CategoryListViewState.Error.AuthError)
-
-
         }
 
     private fun Throwable.convertToViewState(): CategoryListViewState =

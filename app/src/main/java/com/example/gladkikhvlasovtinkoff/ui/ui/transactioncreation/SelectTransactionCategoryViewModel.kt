@@ -12,7 +12,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectTransactionCategoryViewModel @Inject constructor(val repository: CategoryRepository) :
+class SelectTransactionCategoryViewModel
+@Inject constructor(val repository: CategoryRepository) :
     ViewModel() {
 
     private val _viewState: MutableLiveData<CategoryListViewState> = MutableLiveData()
@@ -20,12 +21,12 @@ class SelectTransactionCategoryViewModel @Inject constructor(val repository: Cat
         get() = _viewState
 
     init {
-        getCategoryList()
         loadCategories()
     }
 
-    fun getCategoryList() {
-        val disposable = repository.getCategories()
+    fun getCategoryList(income : Boolean) {
+        _viewState.value = CategoryListViewState.Loading
+        val disposable = repository.getCategories(income)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe {
@@ -34,7 +35,7 @@ class SelectTransactionCategoryViewModel @Inject constructor(val repository: Cat
     }
 
     fun loadCategories() {
-        repository.loadCategories()
+        val disposable = repository.loadCategories()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(

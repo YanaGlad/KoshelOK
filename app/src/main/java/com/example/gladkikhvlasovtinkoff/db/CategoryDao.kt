@@ -14,14 +14,11 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllCategories(items : List<CategoryDB>)
 
-    @Query(value = "Select * from `category` where description = 'Доходы'")
-    fun getAllTransactionsIncome() : Flowable<List<CategoryDB>>
+    @Query(value = "Select * from `category` where income = :income " )
+    fun getAllCategoriesByIncome(income : Boolean) : Flowable<List<CategoryDB>>
 
-    @Query(value = "Select * from `category` where description = 'Расходы'")
-    fun getAllTransactionsExpense() : Flowable<List<CategoryDB>>
-
-    @Query(value = "Select * from `category` where user_name =:username")
-    fun getCategoriesByUsername(username : String) : Flowable<List<CategoryDB>>
+    @Query("Select * from `category`" )
+    fun getAllCategories() : Flowable<List<CategoryDB>>
 
     @Delete()
     fun deleteCategory(item : CategoryDB)

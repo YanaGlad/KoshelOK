@@ -1,13 +1,9 @@
 package com.example.gladkikhvlasovtinkoff.db
 
 import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
-import com.example.gladkikhvlasovtinkoff.extension.getIconIfByCategoryName
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
-import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
-import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
 import io.reactivex.Flowable
-import io.reactivex.Single
 import javax.inject.Inject
 
 class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
@@ -16,7 +12,7 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
     override fun insertCategory(item: CategoryDataSample) {
         dao.insertCategory(
             CategoryDB(
-                item.userName,
+                item.userName ?: PUBLIC_CATEGORY_USER,
                 item.name,
                 item.stringId,
                 item.description,
@@ -28,43 +24,84 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
         )
     }
 
-    override fun insertAllCategories(items: List<CategoryDataSample>) {
-        TODO("Not yet implemented")
-    }
+    override fun insertAllCategories(items: List<CategoryDataSample>) =
+        dao.insertAllCategories(
+            items.map { item ->
+                CategoryDB(
+                    item.userName ?: PUBLIC_CATEGORY_USER,
+                    item.name,
+                    item.stringId,
+                    item.description,
+                    item.colorRed,
+                    item.colorBlue,
+                    item.colorGreen,
+                    item.income
+                )
+            }
+        )
 
-    override fun getAllTransactionsIncome(): Flowable<List<CategoryDataSample>> {
-        TODO("Not yet implemented")
-    }
 
-    override fun getAllTransactionsExpense(): Flowable<List<CategoryDataSample>> {
-        TODO("Not yet implemented")
-    }
+    override fun getAllCategoriesByIncome(income: Boolean): Flowable<List<CategoryDataSample>> =
+        dao.getAllCategoriesByIncome(income)
+            .map { categories ->
+                categories.map { item ->
+                    CategoryDataSample(
+                        item.userName,
+                        item.name,
+                        item.stringId,
+                        item.description,
+                        item.colorRed,
+                        item.colorBlue,
+                        item.colorGreen,
+                        item.income
+                    )
+                }
+            }
 
+    override fun getAllCategories(): Flowable<List<CategoryDataSample>> =
+        dao.getAllCategories()
+            .map { categories ->
+                categories.map { item ->
+                    CategoryDataSample(
+                        item.userName,
+                        item.name,
+                        item.stringId,
+                        item.description,
+                        item.colorRed,
+                        item.colorBlue,
+                        item.colorGreen,
+                        item.income
+                    )
+                }
+            }
 
     override fun deleteCategory(item: CategoryDataSample) {
-        TODO("Not yet implemented")
+        dao.deleteCategory(
+            CategoryDB(
+                item.userName ?: PUBLIC_CATEGORY_USER,
+                item.name,
+                item.stringId,
+                item.description,
+                item.colorRed,
+                item.colorBlue,
+                item.colorGreen,
+                item.income
+            )
+        )
     }
 
-    override fun updateCategory(item: CategoryDataSample) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getCategoriesByUsername(username: String): Flowable<List<TransactionCategoryData>> =
-       dao.getCategoriesByUsername(username) .map { categoryDb ->
-           categoryDb
-               .map { category ->
-                   TransactionCategoryData(
-                       userName = category.userName,
-                       name = category.name,
-                       iconId = getIconIfByCategoryName(category.stringId),
-                       description = category.description,
-                       colorRed = category.colorRed,
-                       colorBlue = category.colorBlue,
-                       colorGreen = category.colorGreen,
-                       income = category.income
-                   )
-               }
-       }
-
+    override fun updateCategory(item: CategoryDataSample) =
+        dao.updateCategory(
+            CategoryDB(
+                item.userName ?: PUBLIC_CATEGORY_USER,
+                item.name,
+                item.stringId,
+                item.description,
+                item.colorRed,
+                item.colorBlue,
+                item.colorGreen,
+                item.income
+            )
+        )
 
 }

@@ -14,3 +14,9 @@ class TransactionCategoryData (
     val colorGreen: Int,
     val income : Boolean
 ) : Parcelable
+{
+    companion object{
+        const val PUBLIC_CATEGORY_USER =
+            "com.expample.gladkikhvlsovtinkoff.model.PUBLIC_CATEGORY_USER"
+    }
+}

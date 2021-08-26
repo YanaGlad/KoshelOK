@@ -10,9 +10,8 @@ import io.reactivex.Single
 interface LocalCategoryDataProvider {
     fun insertCategory(item : CategoryDataSample)
     fun insertAllCategories(items : List<CategoryDataSample>)
-    fun getAllTransactionsIncome() : Flowable<List<CategoryDataSample>>
-    fun getAllTransactionsExpense() : Flowable<List<CategoryDataSample>>
+    fun getAllCategoriesByIncome(income : Boolean) : Flowable<List<CategoryDataSample>>
+    fun getAllCategories() : Flowable<List<CategoryDataSample>>
     fun deleteCategory(item : CategoryDataSample)
     fun updateCategory(item : CategoryDataSample)
-    fun getCategoriesByUsername(username : String) : Flowable<List<TransactionCategoryData>>
 }
