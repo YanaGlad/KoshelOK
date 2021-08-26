@@ -54,8 +54,10 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     }
 
     fun loadWallets(){
+        // TODO обработка disposable
         repository.loadWallets()
             .subscribeOn(Schedulers.io())
+                // TODO достаточно одного subscribeOn в этом случае
             .observeOn(Schedulers.io())
             .subscribe(
                 {viewState ->
@@ -63,6 +65,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 },
                 {
                     it.printStackTrace()
+                    // TODO вывод ошибок
                 }
             )
     }
@@ -78,6 +81,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 },
                 {
                     it.printStackTrace()
+                    // TODO вывод ошибок
                 }
             )
     }
