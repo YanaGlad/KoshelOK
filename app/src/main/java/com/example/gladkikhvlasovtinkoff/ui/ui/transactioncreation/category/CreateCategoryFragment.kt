@@ -76,7 +76,7 @@ class CreateCategoryFragment : Fragment(), IconHelper {
             val action =
                 CreateCategoryFragmentDirections.actionCreateCategoryFragmentToFragmentSelectOperationType(
                     null,
-                    null,
+                    args.walletData?.toWalletDataSample(),
                     false,
                     categoryData
                 )
@@ -106,7 +106,7 @@ class CreateCategoryFragment : Fragment(), IconHelper {
         binding.nameCategory.setOnClickListener {
             val action =
                 CreateCategoryFragmentDirections.actionCreateCategoryFragmentToCreateCategoryNameFragment(
-                    args.categoryData
+                    args.categoryData, args.walletData!!
                 )
             findNavController().navigate(action)
         }
