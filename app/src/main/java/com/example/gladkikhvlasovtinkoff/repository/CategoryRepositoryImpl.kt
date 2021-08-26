@@ -1,8 +1,10 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
+import android.content.Context
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.LocalCategoryDataProvider
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
+import com.example.gladkikhvlasovtinkoff.extension.getNameIdByStringId
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
@@ -69,7 +71,7 @@ class CategoryRepositoryImpl @Inject constructor(
         else
             Flowable.just(CategoryListViewState.Error.AuthError)
 
-    override fun loadCategories(): Single<CategoryListViewState> =
+    override fun loadCategories(context : Context): Single<CategoryListViewState> =
         Single.create { emitter ->
             if (authDataHolder.isAuth()) {
                 val authKey = authDataHolder.getUserKey()
@@ -82,7 +84,9 @@ class CategoryRepositoryImpl @Inject constructor(
                                 categories.map { category ->
                                         CategoryDataSample(
                                             userName = category.userName,
-                                            name = category.name,
+                                            name = if (category.userName == null)
+                                                getNameIdByStringId(category.stringId, context)
+                                            else category.name,
                                             stringId = category.stringId,
                                             description = category.description,
                                             colorRed = category.colorRed,

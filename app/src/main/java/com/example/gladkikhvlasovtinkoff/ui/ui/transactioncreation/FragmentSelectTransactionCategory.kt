@@ -69,6 +69,9 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
             handleViewState(it)
         }
         viewModel.getCategoryList(args.operationData?.isIncome ?: true)
+        context?.let { context ->
+            viewModel.loadCategories(context = context)
+        }
     }
 
     private fun handleViewState(viewState: CategoryListViewState?) {
@@ -93,6 +96,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)
         }
+
     }
 
     private fun onConfirm() {
