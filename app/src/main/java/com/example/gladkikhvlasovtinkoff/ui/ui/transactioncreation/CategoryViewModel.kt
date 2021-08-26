@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,10 +22,6 @@ class CategoryViewModel
     val viewState: LiveData<CategoryListViewState>
         get() = _viewState
 
-    init {
-        loadCategories()
-    }
-
     fun getCategoryList(income : Boolean) {
         _viewState.value = CategoryListViewState.Loading
         val disposable = repository.getCategories(income)
@@ -35,8 +32,8 @@ class CategoryViewModel
             }
     }
 
-    fun loadCategories() {
-        val disposable = repository.loadCategories()
+    fun loadCategories(context : Context) {
+        val disposable = repository.loadCategories(context)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
