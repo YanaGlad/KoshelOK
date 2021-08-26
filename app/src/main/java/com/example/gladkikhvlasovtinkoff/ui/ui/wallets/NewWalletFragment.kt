@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertToStyled
@@ -31,9 +32,9 @@ class NewWalletFragment : ToolbarFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         args.walletDataSample?.let { data ->
-            if(!data.currency.isSetup)
+            if (!data.currency.isSetup)
                 setupStandardCurrency(data)
-            if(data.limit == UNDEFINED_STR)
+            if (data.limit == UNDEFINED_STR)
                 data.limit = INFINITE_LIMIT
             walletDataSample = data
         }
@@ -123,8 +124,11 @@ class NewWalletFragment : ToolbarFragment() {
     override fun configureToolbar() {
         activity?.let { activity ->
             val holder = activity as ToolbarHolder
-            holder.setToolbarTitle(getString(R.string.new_wallet))
+            if (!args.isEdit)
+                holder.setToolbarTitle(getString(R.string.new_wallet))
+            else holder.setToolbarTitle(getString(R.string.wallet_edit))
             holder.setToolbarNavigationButtonIcon(R.drawable.ic_back_arrow)
+            holder.showToolbar()
         }
     }
 }

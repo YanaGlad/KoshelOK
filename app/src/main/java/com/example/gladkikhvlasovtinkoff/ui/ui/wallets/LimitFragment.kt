@@ -54,6 +54,7 @@ class LimitFragment : ToolbarFragment() {
             val holder = activity as ToolbarHolder
             holder.setToolbarTitle("")
             holder.setToolbarNavigationButtonIcon(R.drawable.ic_close)
+            holder.showToolbar()
         }
     }
 
