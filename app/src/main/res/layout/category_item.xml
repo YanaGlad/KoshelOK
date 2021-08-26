@@ -36,7 +36,11 @@
         android:layout_marginStart="24dp"
         android:text="@string/test_category_name"
         android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="@+id/transaction_dot"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/transaction_dot"
         app:layout_constraintTop_toTopOf="@+id/transaction_dot" />
 
