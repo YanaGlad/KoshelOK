@@ -19,9 +19,11 @@ class AuthRepositoryImpl @Inject constructor(
     private val authDataHolder: AuthDataHolder
 ) : AuthRepository {
 
+    // TODO отрефакторить без Single.create
     override fun logInWithAccount(account: GoogleSignInAccount): Single<AuthViewState> =
         Single.create { emitter ->
             if (authDataHolder.isAuth()) {
+                // TODO по хорошему нужно вынести в отдельную функцию
                 if (authDataHolder.isUserChangeAccount(account)){
                     authDataHolder.clearUserData()
                     localAuthDataProvider.clearAllTables()
@@ -68,8 +70,7 @@ class AuthRepositoryImpl @Inject constructor(
                             emitter.onSuccess(AuthViewState.SuccessLogin)
                         }
                     }
-                },
-                {
+                }, {
                     emitter.onSuccess(it.convertToViewState())
                 }
             )
