@@ -3,7 +3,7 @@ package com.example.gladkikhvlasovtinkoff.network.wallet.response
 import com.google.gson.annotations.SerializedName
 
 class CategoryResponse(
-    @SerializedName("id") val userName: String,
+    @SerializedName("user") val user: UserResponse?,
     @SerializedName("name") val name: String,
     @SerializedName("stringId") val stringId: String,
     @SerializedName("description") val description: String,
