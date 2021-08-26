@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
-import com.example.gladkikhvlasovtinkoff.extension.exhaustive
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
@@ -45,6 +45,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 }
             })
         handleArguments(args.walletData)
+
     }
 
 
@@ -69,45 +70,85 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
-        //   binding.skeletonWallet.showSkeleton()
-
-
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
+        binding.skeletonWallet.showOriginal()
     }
 
     private fun handleViewState(viewState: WalletListViewState?) {
         binding.skeletonWallet.showSkeleton()
         when (viewState) {
             is WalletListViewState.Loaded -> {
-                val list : MutableList<WalletData> = ArrayList()
-                val listHidden : MutableList<WalletData> = ArrayList()
-                for (i in viewState.list.indices){
-                    if(!viewState.list[i].hidden)
-                        list.add(viewState.list[i])
-                    else  listHidden.add(viewState.list[i])
-                }
-                walletsAdapter?.submitList(list)
-                walletsHiddenAdapter?.submitList(listHidden)
-
-                binding.noOperationMessage.visibility =
-                    if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
-                if(viewState.list.isEmpty()){
-                    binding.layoutWallet.showMore.visibility = View.GONE
-                    binding.layoutWallet.down.visibility = View.GONE
-                }else{
-                    binding.layoutWallet.showMore.visibility = View.VISIBLE
-                    binding.layoutWallet.down.visibility = View.VISIBLE
-                }
-                binding.skeletonWallet.showOriginal()
+                onListLoaded(viewState)
             }
-            else -> {
+            is WalletListViewState.Loading -> {
+                onLoading()
+            }
+            is WalletListViewState.Error.NetworkError -> {
+                onNetworkError()
+            }
+            is WalletListViewState.SuccessOperation -> onLoaded()
+            is WalletListViewState.Error.UnexpectedError ->{
+                onUnexpectedError()
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
         binding.layoutWallet.hiddenWalletRecycle.adapter = walletsHiddenAdapter
 
+    }
+
+    private fun onUnexpectedError() {
+        onLoaded()
+        val layout: View = LayoutInflater.from(context).inflate(
+            R.layout.something_went_wrong_toast, binding.root,false)
+        val toast = Toast(context)
+        toast.setGravity(Gravity.TOP, 0, 40)
+        toast.duration = Toast.LENGTH_LONG
+        toast.setView(layout)
+        toast.show()
+    }
+
+    private fun onLoading() {
+        binding.skeletonWallet.showSkeleton()
+    }
+
+    private fun onNetworkError() {
+        onLoaded()
+        val layout: View = LayoutInflater.from(context).inflate(
+            R.layout.network_error_toast, binding.root,false)
+        val toast = Toast(context)
+        toast.setGravity(Gravity.TOP, 0, 40)
+        toast.duration = Toast.LENGTH_LONG
+        toast.setView(layout)
+        toast.show()
+    }
+
+    private fun onLoaded(){
+        binding.skeletonWallet.showOriginal()
+    }
+
+    private fun onListLoaded(viewState: WalletListViewState.Loaded){
+        val list : MutableList<WalletData> = ArrayList()
+        val listHidden : MutableList<WalletData> = ArrayList()
+        for (i in viewState.list.indices){
+            if(!viewState.list[i].hidden)
+                list.add(viewState.list[i])
+            else  listHidden.add(viewState.list[i])
+        }
+        walletsAdapter?.submitList(list)
+        walletsHiddenAdapter?.submitList(listHidden)
+
+        binding.noOperationMessage.visibility =
+            if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
+        if(viewState.list.isEmpty()){
+            binding.layoutWallet.showMore.visibility = View.GONE
+            binding.layoutWallet.down.visibility = View.GONE
+        }else{
+            binding.layoutWallet.showMore.visibility = View.VISIBLE
+            binding.layoutWallet.down.visibility = View.VISIBLE
+        }
+        binding.skeletonWallet.showOriginal()
     }
 
     private fun setupNavigation() {
@@ -190,10 +231,11 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                     viewModel.updateWallet(data)
                 }
                 R.id.edit -> {
-                    val navDirection = WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
-                        walletData.toWalletDataSample(),
-                        true
-                    )
+                    val navDirection =
+                        WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
+                            walletData.toWalletDataSample(),
+                            true
+                        )
                     findNavController().navigate(navDirection)
                 }
                 R.id.delete -> {

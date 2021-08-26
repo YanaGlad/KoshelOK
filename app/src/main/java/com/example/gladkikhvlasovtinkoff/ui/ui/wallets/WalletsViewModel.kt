@@ -22,13 +22,14 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
         getWalletList()
         loadWallets()
     }
-    
+
     private val disposeBag = CompositeDisposable()
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
         get() = _viewState
 
     fun addWallet(walletData: WalletDataSample) {
+        _viewState.value = WalletListViewState.Loading
         val disposable = repository.addWallet(
             WalletData(
                 id = walletData.id,
@@ -46,7 +47,9 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 {
                     _viewState.postValue(WalletListViewState.SuccessOperation)
                 },
-                {}
+                {
+                    it.printStackTrace()
+                }
             )
     }
 
@@ -58,11 +61,14 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 {viewState ->
                     _viewState.postValue(viewState)
                 },
-                {}
+                {
+                    it.printStackTrace()
+                }
             )
     }
 
     fun updateWallet(walletData: WalletDataSample) {
+        _viewState.value = WalletListViewState.Loading
         val disposable = repository.updateWallet(walletData.createWalletDataModel())
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -70,7 +76,9 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 {
                     _viewState.postValue(WalletListViewState.SuccessOperation)
                 },
-                {}
+                {
+                    it.printStackTrace()
+                }
             )
     }
 
@@ -83,7 +91,8 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             }
     }
 
-    fun deleteWallet(wallet: WalletData) =
+    fun deleteWallet(wallet: WalletData) {
+        _viewState.value = WalletListViewState.Loading
         repository.deleteWallet(wallet)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -95,6 +104,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                     _viewState.postValue(WalletListViewState.Error.UnexpectedError)
                 }
             )
+    }
 
 
     fun clear() {
