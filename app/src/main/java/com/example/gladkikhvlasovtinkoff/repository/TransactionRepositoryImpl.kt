@@ -31,7 +31,7 @@ class TransactionRepositoryImpl @Inject constructor(
                 isIncome = item.isIncome,
                 transactionCurrencyCode = item.currency.code,
                 walletId = item.walletId,
-                categoryId = item.transactionCategoryData.id
+                categoryId = 1
             )
             remoteTransactionDataProvider.createTransaction(request)
                 .subscribeOn(Schedulers.io())

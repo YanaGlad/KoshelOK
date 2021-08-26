@@ -52,9 +52,9 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                 }
             }
 
-    override fun getCurrencyCourse(code : String): Single<CurrencyCourse> =
+    override fun getCurrencyCourse(code: String): Single<CurrencyCourse> =
         api.getCurrencyCourse(code)
-            .map{ course ->
+            .map { course ->
                 CurrencyCourse(
                     code = course.code,
                     name = course.name,
@@ -162,7 +162,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                         id = response.id
                     )
                 )
-             }
+            }
 
     override fun getAllCategoriesByUsername(username: String): Single<List<CategoryDataSample>> =
         api.getAllCategoriesByUsername(username)
