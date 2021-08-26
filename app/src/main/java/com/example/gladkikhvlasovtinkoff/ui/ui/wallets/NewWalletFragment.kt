@@ -68,7 +68,7 @@ class NewWalletFragment : ToolbarFragment() {
         binding.nameView.setOnClickListener {
             val action =
                 NewWalletFragmentDirections.actionNewWalletFragmentToEnterWalletNameFragment(
-                    walletDataSample, true
+                    walletDataSample, args.isEdit
                 )
             findNavController().navigate(action)
         }

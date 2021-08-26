@@ -71,7 +71,7 @@ class FragmentSelectTransactionType : ToolbarFragment() {
                 FragmentSelectTransactionTypeDirections.actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(
                     operationData,
                     args.walletData,
-                    null
+                    args.categoryData
                 )
             findNavController().navigate(action)
         } else {
@@ -79,7 +79,7 @@ class FragmentSelectTransactionType : ToolbarFragment() {
             categoryData.income = binding.checkIncomeOperationType.visibility == View.VISIBLE
             val action =
                 FragmentSelectTransactionTypeDirections.actionFragmentSelectOperationTypeToCreateCategoryFragment(
-                    args.walletData?.createWalletDataModel(), null, categoryData
+                    args.walletData?.createWalletDataModel(), operationData, categoryData
                 )
             findNavController().navigate(action)
         }

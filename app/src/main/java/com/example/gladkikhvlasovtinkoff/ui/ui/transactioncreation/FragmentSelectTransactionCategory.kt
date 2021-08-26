@@ -47,7 +47,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configureToolbar()
-        setupOperationCategoryList(args.operationData!!.isIncome)
+        setupOperationCategoryList(args.operationData?.isIncome ?: true)
         categoriesAdapter?.checkedItem?.observe(viewLifecycleOwner) { checkedData ->
             if (checkedData != null)
                 onCategoryChecked(checkedData)

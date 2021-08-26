@@ -6,7 +6,7 @@ import com.example.gladkikhvlasovtinkoff.R
 enum class IconNameId{
     Salary, PartTime, Gift, Capitalization,
     Restaurants, Supermarkets, Sports, PublicTransport,
-    Pharmacy, GasStation, Rent, Travel, Avia
+    Pharmacy, GasStation, Rent, Travel, Avia , Finance
 }
 
 fun getIconIdByNameId(nameId : String) : Int =
@@ -23,7 +23,9 @@ fun getIconIdByNameId(nameId : String) : Int =
         IconNameId.Rent.name -> R.drawable.ic_rent
         IconNameId.Travel.name -> R.drawable.ic_travel
         IconNameId.Avia.name -> R.drawable.ic_avia
-        else -> throw java.lang.IllegalArgumentException("wrong string id")
+
+        IconNameId.Finance.name -> R.drawable.ic_finance
+        else ->  R.drawable.ic_finance
     }
 
 fun getIdentifierForCategoryName(context : Context, name : String) : IconNameId =
