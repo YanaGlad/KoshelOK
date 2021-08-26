@@ -4,8 +4,6 @@ import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.CategoryResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
@@ -27,7 +25,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                 userName = response.user?.username ?: PUBLIC_CATEGORY_USER,
                 name = response.name,
                 stringId = response.stringId,
-                description = response.description,
+                username = response.username,
                 colorRed = response.redColor,
                 colorBlue = response.blueColor,
                 colorGreen = response.greenColor
@@ -143,6 +141,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                         (
                         name = response.category.name,
                         userName = response.category.user?.username ?: PUBLIC_CATEGORY_USER,
+                        userName = response.category.username,
                         iconId = getIconIdByNameId(response.category.name),
                         colorBlue = response.category.blueColor,
                         colorGreen = response.category.greenColor,
@@ -161,7 +160,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                         userName = response.user?.username ?: PUBLIC_CATEGORY_USER,
                         name = response.name,
                         stringId = response.stringId,
-                        description = response.stringId,
+                        username = response.username,
                         colorRed = response.redColor,
                         colorBlue = response.blueColor,
                         colorGreen = response.greenColor,

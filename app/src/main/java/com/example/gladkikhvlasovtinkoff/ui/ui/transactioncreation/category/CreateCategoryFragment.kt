@@ -1,6 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,8 @@ class CreateCategoryFragment : Fragment(), IconHelper {
         enableEdit()
 
         categoryData = args.categoryData
-
+        categoryData?.username = args.walletData!!.username
+        Log.d("AAA1", "" + args.walletData?.username)
 
         val cp = ColorPicker(activity, 89, 77, 244)
 
@@ -74,7 +76,7 @@ class CreateCategoryFragment : Fragment(), IconHelper {
             val action =
                 CreateCategoryFragmentDirections.actionCreateCategoryFragmentToFragmentSelectOperationType(
                     null,
-                    null,
+                    args.walletData?.toWalletDataSample(),
                     false,
                     categoryData
                 )
@@ -104,7 +106,7 @@ class CreateCategoryFragment : Fragment(), IconHelper {
         binding.nameCategory.setOnClickListener {
             val action =
                 CreateCategoryFragmentDirections.actionCreateCategoryFragmentToCreateCategoryNameFragment(
-                    args.categoryData
+                    args.categoryData, args.walletData!!
                 )
             findNavController().navigate(action)
         }

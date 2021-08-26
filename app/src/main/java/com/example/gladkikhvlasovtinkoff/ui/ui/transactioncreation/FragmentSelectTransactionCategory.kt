@@ -1,6 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
-    private val viewModel : CategoryViewModel by viewModels()
+    private val viewModel: CategoryViewModel by viewModels()
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
     private val binding get() = _binding!!
@@ -56,7 +57,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
         binding.createCategory.setOnClickListener {
             val action =
                 FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToCreateCategoryFragment(
-                    null,
+                    args.walletData?.createWalletDataModel(),
                     null,
                     CategoryDataSample()
                 )
@@ -141,7 +142,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
     }
 
     private fun setupOperationCategoryList(isIncome: Boolean) {
-        categoriesAdapter = OperationCategoryAdapter( this, activity as AppCompatActivity)
+        categoriesAdapter = OperationCategoryAdapter(this, activity as AppCompatActivity)
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)
