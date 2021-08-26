@@ -2,6 +2,7 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
+import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -21,6 +22,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
     override fun createCategory(categoryRequest: CategoryRequest): Single<CategoryDataSample> =
         api.createCategory(categoryRequest).map { response ->
             CategoryDataSample(
+                userName = response.user?.username ?: PUBLIC_CATEGORY_USER,
                 name = response.name,
                 stringId = response.stringId,
                 username = response.username,
@@ -138,6 +140,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     transactionCategoryData = TransactionCategoryData
                         (
                         name = response.category.name,
+                        userName = response.category.user?.username ?: PUBLIC_CATEGORY_USER,
                         userName = response.category.username,
                         iconId = getIconIdByNameId(response.category.name),
                         colorBlue = response.category.blueColor,
@@ -154,6 +157,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
             .map { categories ->
                 categories.map { response ->
                     CategoryDataSample(
+                        userName = response.user?.username ?: PUBLIC_CATEGORY_USER,
                         name = response.name,
                         stringId = response.stringId,
                         username = response.username,

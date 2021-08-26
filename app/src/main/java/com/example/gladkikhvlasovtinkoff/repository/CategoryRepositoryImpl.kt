@@ -90,12 +90,12 @@ class CategoryRepositoryImpl @Inject constructor(
                             localCategoryDataProvider.insertAllCategories(
                                 categories.map { category ->
                                         CategoryDataSample(
- 
-                                            username = category.username,
-                                            name = if (category.username == null)
+                                            userName = category.userName,
+                                            name = if (category.userName == null ||
+                                                category.userName == PUBLIC_CATEGORY_USER)
                                                 getNameIdByStringId(category.stringId, context)
                                             else category.name,
-                                          
+                  
                                             stringId = category.stringId,
                                             colorRed = category.colorRed,
                                             colorBlue = category.colorBlue,
