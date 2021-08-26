@@ -88,6 +88,7 @@ class NewWalletFragment : ToolbarFragment() {
             findNavController().navigate(action)
         }
         binding.buttonConfirm.setOnClickListener {
+            // TODO тут должна быть операция добавления нового кошеелька вместо передачи в интенте
             if (!args.isEdit) {
                 val action =
                     NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample!!)

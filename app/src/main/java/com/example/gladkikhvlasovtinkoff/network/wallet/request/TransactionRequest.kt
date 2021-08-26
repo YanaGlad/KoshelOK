@@ -3,7 +3,7 @@ package com.example.gladkikhvlasovtinkoff.network.wallet.request
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-class TransactionRequest(
+class  TransactionRequest(
     @SerializedName("amount") val amount: String,
     @SerializedName("category") val categoryRequest: CategoryRequest,
     @SerializedName("date") val date: Long,

@@ -6,7 +6,10 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface Api {
-
+ 
+    @GET("/currency/v1/findByCharCode/{charCode}")
+    fun getCurrencyCourse(@Path("charCode") code : String) : Single<CurrencyCourseResponse>
+ 
     @GET("/user/v1/findByUsername/{username}")
     fun findUserByUsername(@Path("username") username: String): Single<List<UserResponse>>
 

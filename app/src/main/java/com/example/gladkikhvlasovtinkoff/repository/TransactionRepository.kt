@@ -8,7 +8,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 
 interface TransactionRepository {
-    fun addTransaction(context : Context, item : WalletTransactionModel) : Completable
+    fun addTransaction(context : Context, item : WalletTransactionModel) : Single<WalletTransactionModel>
     fun addTransactions(items : List<TransactionListViewState>)
     fun getAllTransactionsByWalletId(walletId : Long) : Flowable<List<WalletTransactionModel>>
     fun getTransactionById(transactionId : Long) : Single<TransactionListViewState>

@@ -1,11 +1,9 @@
 package com.example.gladkikhvlasovtinkoff.network.wallet
 
-import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
-import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.WalletData
-import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
+import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.CategoryResponse
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyCourseResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -21,6 +19,7 @@ interface RemoteWalletDataProvider {
     fun createCategory(categoryRequest: CategoryRequest): Single<CategoryDataSample>
     fun addUserWithAccount(account: GoogleSignInAccount): Single<UserResponse>
     fun getAllCurrencies(): Single<List<Currency>>
+    fun getCurrencyCourse(code : String) : Single<CurrencyCourse>
     fun findWalletById(walletId: Long): Single<WalletData>
     fun getAllWalletByUsername(username: String): Single<List<WalletData>>
     fun createWallet(walletRequest: WalletCreateRequest): Single<WalletData>

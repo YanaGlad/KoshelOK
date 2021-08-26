@@ -9,6 +9,7 @@ import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.internal.operators.flowable.FlowableObserveOn
 import io.reactivex.internal.operators.flowable.FlowableSubscribeOn
 import io.reactivex.observers.DisposableSingleObserver
@@ -20,13 +21,33 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     init {
         getWalletList()
         loadWallets()
+//        loadCourses(listOf())
     }
+    private val disposables : MutableList<Disposable> = mutableListOf()
 
     private val disposeBag = CompositeDisposable()
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
         get() = _viewState
 
+    private val _coursesViewState: MutableLiveData<CoursesPlateViewState> = MutableLiveData()
+    val coursesViewState: LiveData<CoursesPlateViewState>
+        get() = _coursesViewState
+
+    private fun loadCourses(codes : List<String>) {
+        _coursesViewState.value = CoursesPlateViewState.Loading
+        val disposable = repository.getCurrenciesCourse(codes)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(
+                { courses ->
+                    _coursesViewState.postValue(CoursesPlateViewState.Loaded(courses))
+                },
+                {
+                    _coursesViewState.value = CoursesPlateViewState.Error
+                }
+            )
+    }
     fun addWallet(walletData: WalletDataSample) {
         _viewState.value = WalletListViewState.Loading
         val disposable = repository.addWallet(
@@ -53,8 +74,10 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     }
 
     fun loadWallets(){
-        repository.loadWallets()
+        // TODO обработка disposable
+        val disposable = repository.loadWallets()
             .subscribeOn(Schedulers.io())
+                // TODO достаточно одного subscribeOn в этом случае
             .observeOn(Schedulers.io())
             .subscribe(
                 {viewState ->
@@ -62,6 +85,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 },
                 {
                     it.printStackTrace()
+                    // TODO вывод ошибок
                 }
             )
     }
@@ -77,8 +101,10 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 },
                 {
                     it.printStackTrace()
+                    // TODO вывод ошибок
                 }
             )
+        disposables.add(disposable)
     }
 
    fun getWalletList() {
@@ -109,7 +135,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
 
     fun deleteWallet(wallet: WalletData) {
         _viewState.value = WalletListViewState.Loading
-        repository.deleteWallet(wallet)
+        val disposable = repository.deleteWallet(wallet)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
@@ -124,7 +150,9 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
 
 
     fun clear() {
-        disposeBag.clear()
+        for(item in disposables){
+            item.dispose()
+        }
     }
 }
 

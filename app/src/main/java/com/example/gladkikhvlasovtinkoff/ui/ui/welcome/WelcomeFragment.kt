@@ -32,6 +32,7 @@ class WelcomeFragment : Fragment() {
 
     private fun initAccount(result: ActivityResult?) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
+        // TODO else обработка ошибки, нужно что-то показывать пользователю
         if (task.isSuccessful) {
             val account = task.result
             if(account != null) {
@@ -88,6 +89,8 @@ class WelcomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())
+        // TODO else обработка ошибки
+        // account?.let { viewModel.logInWithAccount(account) } ?: todo
         if(account != null) {
             viewModel.logInWithAccount(account)
         }

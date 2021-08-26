@@ -4,6 +4,7 @@ import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyCourseResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
@@ -48,6 +49,17 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                         name = currencyResponse.name
                     )
                 }
+            }
+
+    override fun getCurrencyCourse(code : String): Single<CurrencyCourse> =
+        api.getCurrencyCourse(code)
+            .map{ course ->
+                CurrencyCourse(
+                    code = course.code,
+                    name = course.name,
+                    course = course.course,
+                    isUp = course.isUp
+                )
             }
 
     override fun findWalletById(walletId: Long): Single<WalletData> =

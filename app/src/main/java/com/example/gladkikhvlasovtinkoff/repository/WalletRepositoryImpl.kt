@@ -3,6 +3,7 @@ package com.example.gladkikhvlasovtinkoff.repository
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.LocalWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
@@ -15,6 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import java.io.IOException
 import javax.inject.Inject
 
+// TODO SOLID
 class WalletRepositoryImpl @Inject constructor(
     private val remoteWalletDataProvider: RemoteWalletDataProvider,
     private val localWalletDataProvider: LocalWalletDataProvider,
@@ -22,7 +24,13 @@ class WalletRepositoryImpl @Inject constructor(
 ) : WalletRepository {
 
     override fun addWallet(wallet: WalletData): Single<WalletListViewState> =
+
         Single.create { emitter ->
+            // TODO вот это все должно быть в сущности WebApi, которая занимается
+            // перевести в обычную цепочку rx
+            // можно использовать flatmap в нем maybe и обрабатывать пустое состояние
+            // можно просто кинуть UnauthorizedException и обработать в onError
+            // можно сделать объект обертку и складывать в него состояние и обрабатывать в onNext
             if (authDataHolder.isAuth()) {
                 val request = WalletCreateRequest(
                     currencyCharCode = wallet.currency.code,
@@ -149,6 +157,7 @@ class WalletRepositoryImpl @Inject constructor(
                 )
         }
 
+ 
     override fun getAllWalletsBalance(
         currencyCharCode: String
     ): Single<WalletListViewState> =
@@ -166,6 +175,23 @@ class WalletRepositoryImpl @Inject constructor(
                 )
         }
 
+ 
+    override fun getCurrenciesCourse(codes: List<String>) : Single<List<CurrencyCourse>> =
+        if (codes.isNotEmpty()) {
+            var toZipWith = remoteWalletDataProvider.getCurrencyCourse(codes[0])
+                .map { course ->
+                    listOf(course)
+                }
+            for (i in 1 until codes.size) {
+                toZipWith = toZipWith.zipWith(
+                    remoteWalletDataProvider.getCurrencyCourse(codes[i]),
+                    { list , course -> list + course}
+                )
+            }
+            toZipWith
+        } else
+            Single.just(listOf())
+ 
 
     private fun Throwable.convertToViewState(): WalletListViewState =
         when (this) {
