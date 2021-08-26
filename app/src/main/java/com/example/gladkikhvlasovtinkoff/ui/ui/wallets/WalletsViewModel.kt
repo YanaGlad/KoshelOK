@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WalletsViewModel @Inject constructor(val repository: WalletRepository) : ViewModel() {
-
     private val disposeBag = CompositeDisposable()
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
@@ -117,6 +116,23 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             .subscribe {
                 _viewState.postValue(it)
             }
+    }
+
+    fun getAllWalletsBalance(currencyCharCode: String,
+                             username: String)  {
+        _viewState.value = WalletListViewState.Loading
+        repository.getAllWalletsBalance(currencyCharCode)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(
+                {
+                    _viewState.postValue(it)
+                    _viewState.postValue(WalletListViewState.SuccessOperation)
+                },
+                {
+                    _viewState.postValue(WalletListViewState.Error.UnexpectedError)
+                }
+            )
     }
 
     fun deleteWallet(wallet: WalletData) {

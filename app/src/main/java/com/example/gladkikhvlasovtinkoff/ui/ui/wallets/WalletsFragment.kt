@@ -49,7 +49,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 }
             })
         handleArguments(args.walletData)
-
     }
 
     private fun handleArguments(walletData: WalletDataSample?) {
@@ -70,10 +69,17 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         configureToolbar()
+
+        viewModel.viewState.observe(viewLifecycleOwner) {
+            handleViewState(it)
+        }
+        viewModel.getAllWalletsBalance("USD", args.walletData.username)
+
         initLayout()
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
+ 
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
@@ -82,13 +88,17 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         }
         binding.skeletonWallet.showOriginal()
         onCoursesLoading()
-    }
+     }
+
 
     private fun handleViewState(viewState: WalletListViewState?) {
         binding.skeletonWallet.showSkeleton()
         when (viewState) {
             is WalletListViewState.Loaded -> {
                 onListLoaded(viewState)
+            }
+            is WalletListViewState.LoadedString -> {
+                balanceLoaded(viewState)
             }
             is WalletListViewState.Loading -> {
                 onLoading()
@@ -101,6 +111,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 onUnexpectedError()
             }
         }
+        walletsAdapter?.notifyDataSetChanged()
+        walletsHiddenAdapter?.notifyDataSetChanged()
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
         binding.layoutWallet.hiddenWalletRecycle.adapter = walletsHiddenAdapter
     }
@@ -125,6 +137,10 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         binding.skeletonWallet.showOriginal()
     }
 
+    private fun balanceLoaded(viewState: WalletListViewState.LoadedString) {
+        binding.layoutWallet.walletBalance.text = viewState.result
+    }
+
     private fun onListLoaded(viewState: WalletListViewState.Loaded) {
         val list: MutableList<WalletData> = ArrayList()
         val listHidden: MutableList<WalletData> = ArrayList()
@@ -145,6 +161,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             binding.layoutWallet.showMore.visibility = View.VISIBLE
             binding.layoutWallet.down.visibility = View.VISIBLE
         }
+
         binding.skeletonWallet.showOriginal()
     }
 
@@ -393,6 +410,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.deleteWallet(pos)
         walletsAdapter?.notifyDataSetChanged()
         walletsHiddenAdapter?.notifyDataSetChanged()
+
     }
 
     override fun onDestroy() {
