@@ -4,7 +4,7 @@ import com.example.gladkikhvlasovtinkoff.swipe.QuickActionsStates
 
 
 internal class QuickActionsMenuStateProcessor {
-
+    // TODO почему все может быть null? Потенциальная дыра для ошибок, нужно юзать lateinit
     var onProgressiveStateChanged: ((state: QuickActionsStates) -> Unit)? = null
     var onReleaseStateChanged: ((state: QuickActionsStates) -> Unit)? = null
 
@@ -15,6 +15,7 @@ internal class QuickActionsMenuStateProcessor {
         val newState = state
 
         if (oldState != newState) {
+
             onProgressiveStateChanged?.invoke(newState)
             this.state = newState
         }

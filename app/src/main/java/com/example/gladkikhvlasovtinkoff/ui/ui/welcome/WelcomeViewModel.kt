@@ -18,7 +18,9 @@ class WelcomeViewModel
 
 
     fun logInWithAccount(account: GoogleSignInAccount) {
+        // TODO viewmodel не должна быть зависима от GoogleSignInAccount, нужен mapping в локальную сущность
         _viewState.value = AuthViewState.Loading
+        // TODO нужно обработать disposable
         val disposable = authRepository.logInWithAccount(
             account
         )
