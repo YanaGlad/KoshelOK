@@ -6,6 +6,7 @@ sealed class WalletListViewState {
     object Loading : WalletListViewState()
 
     class Loaded(val list : List<WalletData>) : WalletListViewState()
+    class LoadedString(val result: String) : WalletListViewState()
 
     class Error{
         object NetworkError : WalletListViewState()

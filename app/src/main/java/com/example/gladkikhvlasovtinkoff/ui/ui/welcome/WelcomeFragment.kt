@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
+import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -106,7 +107,10 @@ class WelcomeFragment : Fragment() {
 
     private fun navigateToWallets() {
         val navController = findNavController()
-        val action = WelcomeFragmentDirections.actionWelcomeFragmentToWalletsFragment()
+
+        val action = WelcomeFragmentDirections.actionWelcomeFragmentToWalletsFragment(
+            WalletDataSample()
+        )
         navController.navigate(action)
     }
 

@@ -6,33 +6,36 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface Api {
-
+ 
     @GET("/currency/v1/findByCharCode/{charCode}")
     fun getCurrencyCourse(@Path("charCode") code : String) : Single<CurrencyCourseResponse>
-
+ 
     @GET("/user/v1/findByUsername/{username}")
-    fun findUserByUsername(@Path("username") username : String) : Single<List<UserResponse>>
+    fun findUserByUsername(@Path("username") username: String): Single<List<UserResponse>>
 
     @POST("/user/v1/create")
-    fun createUser(@Body userRequest: UserRequest) : Single<UserResponse>
+    fun createUser(@Body userRequest: UserRequest): Single<UserResponse>
 
     @GET("/currency/v1/findAll")
-    fun getAllCurrencies() : Single<List<CurrencyResponse>>
+    fun getAllCurrencies(): Single<List<CurrencyResponse>>
 
     @POST("/wallet/v1/create")
-    fun createWallet(@Body walletCreateRequest: WalletCreateRequest) : Single<WalletResponse>
+    fun createWallet(@Body walletCreateRequest: WalletCreateRequest): Single<WalletResponse>
 
     @DELETE("/wallet/v1/delete/{id}")
-    fun deleteWallet(@Path("id") walletId : Long) : Single<Boolean>
+    fun deleteWallet(@Path("id") walletId: Long): Single<Boolean>
 
     @GET("/wallet/v1/find/{id}")
-    fun findWalletById(@Path("id") walletId : Long) : Single<WalletResponse>
+    fun findWalletById(@Path("id") walletId: Long): Single<WalletResponse>
 
     @GET("/wallet/v1/findByUsername/{username}")
-    fun getAllWalletsByUsername(@Path("username") username : String) : Single<List<WalletResponse>>
+    fun getAllWalletsByUsername(@Path("username") username: String): Single<List<WalletResponse>>
 
     @PUT("/wallet/v1/update")
-    fun updateWallet(@Body walletUpdateRequest: WalletUpdateRequest, @Query("id") walletId : Long): Single<WalletResponse>
+    fun updateWallet(
+        @Body walletUpdateRequest: WalletUpdateRequest,
+        @Query("id") walletId: Long
+    ): Single<WalletResponse>
 
     @POST("/transaction/v1/create")
     fun createTransaction(@Body transactionRequest: TransactionRequest): Single<TransactionResponse>
@@ -41,6 +44,11 @@ interface Api {
     fun createCategory(@Body categoryRequest: CategoryRequest): Single<CategoryResponse>
 
     @GET("/category/v1/findAllByUsername/{username}")
-    fun getAllCategoriesByUsername(@Path("username") username : String) : Single<List<CategoryResponse>>
+    fun getAllCategoriesByUsername(@Path("username") username: String): Single<List<CategoryResponse>>
 
+    @POST("/category/v1/create")
+    fun getAllWalletsBalance(
+        @Path("id") currencyCharCode: String,
+        @Path("username") username : String
+    ): Single<String>
 }

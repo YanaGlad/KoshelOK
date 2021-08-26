@@ -178,4 +178,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                 }
             }
 
+    override fun getAllWalletsBalance(currencyCharCode: String, username: String): Single<String> =
+        api.getAllWalletsBalance(currencyCharCode, username)
+
+
 }

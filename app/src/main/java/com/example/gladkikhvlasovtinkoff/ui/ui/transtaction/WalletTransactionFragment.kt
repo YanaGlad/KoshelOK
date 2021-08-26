@@ -45,7 +45,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
             fragment = this,
             activity = activity as AppCompatActivity,
             navController = findNavController(),
-            action = WalletTransactionFragmentDirections.actionOptionFragmentToWalletsFragment()
+            action = WalletTransactionFragmentDirections.actionOptionFragmentToWalletsFragment(args.walletData!!)
         )
     }
 
