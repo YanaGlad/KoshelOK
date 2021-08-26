@@ -66,8 +66,34 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
     private fun handleViewState(viewState: ConfirmCreatingViewState?) {
         when(viewState){
             is ConfirmCreatingViewState.SuccessCreating -> onWalletCreated()
-            else -> {}
+            is ConfirmCreatingViewState.Loading -> onLoading()
+            is ConfirmCreatingViewState.Error.NetworkError -> onNetworkError()
+            is ConfirmCreatingViewState.Error.UnexpectedError -> onUnexpectedError()
         }
+    }
+
+    private fun onUnexpectedError() {
+        onLoaded()
+    }
+
+    private fun onNetworkError() {
+        onLoaded()
+    }
+
+    private fun onLoading() {
+        binding.transactionProgressBar.visibility = View.VISIBLE
+        binding.typeAttribute.attributeItemLayout.isEnabled = false
+        binding.dateAttribute.attributeItemLayout.isEnabled = false
+        binding.valueAttribute.attributeItemLayout.isEnabled = false
+        binding.buttonConfirm.isEnabled = false
+    }
+
+    private fun onLoaded(){
+        binding.transactionProgressBar.visibility = View.GONE
+        binding.typeAttribute.attributeItemLayout.isEnabled = true
+        binding.dateAttribute.attributeItemLayout.isEnabled = true
+        binding.valueAttribute.attributeItemLayout.isEnabled = true
+        binding.buttonConfirm.isEnabled = true
     }
 
     private fun setupAttributeChangeListeners() {

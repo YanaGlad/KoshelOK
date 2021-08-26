@@ -1,35 +1,32 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
+import android.accounts.NetworkErrorException
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
-import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
-import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
+import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
+import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.TransactionListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class ConfirmCreatingViewModel @Inject constructor(
     val repository: TransactionRepository
 ) : ViewModel() {
-    companion object {
-        const val TRANSACTION_ID = 1L
-    }
-
     private val _viewState: MutableLiveData<ConfirmCreatingViewState> = MutableLiveData()
     val viewState: LiveData<ConfirmCreatingViewState>
         get() = _viewState
 
     fun addTransaction(context: Context, transaction : WalletTransactionSample) {
-        repository.addTransaction(
+        _viewState.value = ConfirmCreatingViewState.Loading
+        val disposable = repository.addTransaction(
             context = context,
             item = WalletTransactionModel(
-                id = TRANSACTION_ID,
+                id = UNDEFINED_ID.toLong(),
                 date = transaction.date,
                 walletId = transaction.walletId,
                 isIncome = transaction.isIncome,
@@ -38,14 +35,21 @@ class ConfirmCreatingViewModel @Inject constructor(
                 transactionCategoryData = transaction.transactionCategoryData
             )
         )
-            .doOnComplete {
-                _viewState.postValue(ConfirmCreatingViewState.SuccessCreating)
-            }
-            .doOnError{
-                _viewState.postValue(ConfirmCreatingViewState.Error.UnexpectedError)
-            }
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe()
+            .subscribe(
+                { model ->
+                    _viewState.postValue(ConfirmCreatingViewState.SuccessCreating)
+                },
+                { e ->
+                    _viewState.postValue(e.convertToViewState())
+                }
+            )
     }
+
+    private fun Throwable.convertToViewState() =
+        when (this){
+            is IOException -> ConfirmCreatingViewState.Error.NetworkError
+            else  -> ConfirmCreatingViewState.Error.UnexpectedError
+        }
 }
