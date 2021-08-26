@@ -51,6 +51,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
     private fun handleArguments(walletData: WalletDataSample?) {
         walletData?.let { walletDataSample ->
+            // TODO этот экран не должен отвечать за добавление кошелька
             viewModel.addWallet(walletDataSample)
         }
     }
