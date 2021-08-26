@@ -22,10 +22,9 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
     override fun createCategory(categoryRequest: CategoryRequest): Single<CategoryDataSample> =
         api.createCategory(categoryRequest).map { response ->
             CategoryDataSample(
-                userName = response.user?.username ?: PUBLIC_CATEGORY_USER,
+                username = response.user?.username ?: PUBLIC_CATEGORY_USER,
                 name = response.name,
                 stringId = response.stringId,
-                username = response.username,
                 colorRed = response.redColor,
                 colorBlue = response.blueColor,
                 colorGreen = response.greenColor
@@ -141,7 +140,6 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                         (
                         name = response.category.name,
                         userName = response.category.user?.username ?: PUBLIC_CATEGORY_USER,
-                        userName = response.category.username,
                         iconId = getIconIdByNameId(response.category.name),
                         colorBlue = response.category.blueColor,
                         colorGreen = response.category.greenColor,
@@ -157,10 +155,9 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
             .map { categories ->
                 categories.map { response ->
                     CategoryDataSample(
-                        userName = response.user?.username ?: PUBLIC_CATEGORY_USER,
+                        username = response.user?.username ?: PUBLIC_CATEGORY_USER,
                         name = response.name,
                         stringId = response.stringId,
-                        username = response.username,
                         colorRed = response.redColor,
                         colorBlue = response.blueColor,
                         colorGreen = response.greenColor,
