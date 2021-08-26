@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
@@ -20,7 +19,6 @@ import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
-import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private val viewModel: WalletsViewModel by viewModels()
-    private val args: WalletsFragmentArgs by navArgs()
 
     private var _binding: FragmentWalletsBinding? = null
     private val binding get() = _binding!!
@@ -48,14 +45,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                     activity?.finish()
                 }
             })
-        handleArguments(args.walletData)
-    }
-
-    private fun handleArguments(walletData: WalletDataSample?) {
-        walletData?.let { walletDataSample ->
-            // TODO этот экран не должен отвечать за добавление кошелька
-            viewModel.addWallet(walletDataSample)
-        }
     }
 
     override fun onCreateView(
@@ -73,13 +62,12 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
-        viewModel.getAllWalletsBalance("USD", args.walletData.username)
 
         initLayout()
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
- 
+
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
@@ -88,8 +76,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         }
         binding.skeletonWallet.showOriginal()
         onCoursesLoading()
-     }
-
+    }
 
     private fun handleViewState(viewState: WalletListViewState?) {
         binding.skeletonWallet.showSkeleton()
@@ -161,7 +148,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             binding.layoutWallet.showMore.visibility = View.VISIBLE
             binding.layoutWallet.down.visibility = View.VISIBLE
         }
-
         binding.skeletonWallet.showOriginal()
     }
 
@@ -410,7 +396,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.deleteWallet(pos)
         walletsAdapter?.notifyDataSetChanged()
         walletsHiddenAdapter?.notifyDataSetChanged()
-
     }
 
     override fun onDestroy() {

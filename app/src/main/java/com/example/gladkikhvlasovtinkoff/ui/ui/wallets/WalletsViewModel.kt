@@ -34,8 +34,6 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     }
     private val disposables : MutableList<Disposable> = mutableListOf()
 
-
-
     private fun loadCourses(codes : List<String>) {
         _coursesViewState.value = CoursesPlateViewState.Loading
         val disposable = repository.getCurrenciesCourse(codes)
@@ -47,30 +45,6 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 },
                 {
                     _coursesViewState.postValue(CoursesPlateViewState.Error)
-                }
-            )
-    }
-    fun addWallet(walletData: WalletDataSample) {
-        _viewState.value = WalletListViewState.Loading
-        val disposable = repository.addWallet(
-            WalletData(
-                id = walletData.id,
-                username = "",
-                name = walletData.name,
-                limit = walletData.limit,
-                amount = walletData.amount,
-                currency = walletData.currency,
-                hidden = walletData.hidden
-            )
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .subscribe(
-                {
-                    _viewState.postValue(WalletListViewState.SuccessOperation)
-                },
-                {
-                    it.printStackTrace()
                 }
             )
     }
