@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
@@ -16,11 +18,14 @@ import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
+import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CategoryListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.IconHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
+
+    private val viewModel : SelectTransactionCategoryViewModel by viewModels()
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
     private val binding get() = _binding!!
@@ -64,6 +69,24 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
         binding.buttonConfirmOperationCategory.setOnClickListener {
             onConfirm()
         }
+
+        viewModel.viewState.observe(viewLifecycleOwner) {
+            handleViewState(it)
+        }
+    }
+
+    private fun handleViewState(viewState: CategoryListViewState?) {
+        when (viewState) {
+            is CategoryListViewState.Loaded -> {
+                categoriesAdapter?.addItems(viewState.list)
+            }
+            else -> {
+            }
+        }
+        binding.operationCategoryList.apply {
+            adapter = categoriesAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     private fun onConfirm() {
@@ -71,11 +94,12 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
         operationData?.transactionCategoryData = TransactionCategoryData(
             name = categoryName,
             iconId = imageId,
-            id = UNDEFINED_ID.toLong(),
+            userName = UNDEFINED_STR,
             description = UNDEFINED_STR,
             colorBlue = rgbColors.third,
             colorRed = rgbColors.first,
-            colorGreen = rgbColors.second
+            colorGreen = rgbColors.second,
+            income = true
         )
         val action =
             FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
@@ -107,16 +131,16 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
     }
 
     private fun setupOperationCategoryList(isIncome: Boolean) {
-        val categoryDataFactory: TransactionCategoryDataFactory =
-            if (isIncome) DefaultIncomeCategoriesFactory()
-            else DefaultExpensesCategoriesFactory()
+//        val categoryDataFactory: TransactionCategoryDataFactory =
+//            if (isIncome) DefaultIncomeCategoriesFactory()
+//            else DefaultExpensesCategoriesFactory()
         categoriesAdapter = OperationCategoryAdapter( this, activity as AppCompatActivity)
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)
         }
         context?.let { context ->
-            categoriesAdapter?.addItems(categoryDataFactory.getCategories(context))
+          //  categoriesAdapter?.addItems(categoryDataFactory.getCategories(context))
         }
     }
 
@@ -127,6 +151,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
     }
 
     override fun setIcon(id: String) {
-        TODO("Not yet implemented")
+        val categoryData = args.categoryData
+        categoryData?.stringId = id
     }
 }

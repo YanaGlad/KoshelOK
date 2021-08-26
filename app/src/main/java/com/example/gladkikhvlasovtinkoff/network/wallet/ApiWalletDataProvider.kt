@@ -3,6 +3,8 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.CategoryResponse
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
@@ -19,15 +21,15 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
         api.findUserByUsername(username)
 
     override fun createCategory(categoryRequest: CategoryRequest): Single<CategoryDataSample> =
-        api.createCategory(categoryRequest).map {
-            response-> CategoryDataSample(
-                id = response.id,
-            name = response.name,
-            stringId = response.stringId,
-            description = response.description,
-            colorRed = response.redColor,
-            colorBlue = response.blueColor,
-            colorGreen = response.greenColor
+        api.createCategory(categoryRequest).map { response ->
+            CategoryDataSample(
+                userName = response.userName,
+                name = response.name,
+                stringId = response.stringId,
+                description = response.description,
+                colorRed = response.redColor,
+                colorBlue = response.blueColor,
+                colorGreen = response.greenColor
             )
         }
 
@@ -123,7 +125,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                 )
             }
 
-    override fun createTransaction(transactionRequest: TransactionRequest): Single<WalletTransactionModel>  =
+    override fun createTransaction(transactionRequest: TransactionRequest): Single<WalletTransactionModel> =
         api.createTransaction(transactionRequest)
             .map { response ->
                 WalletTransactionModel(
@@ -136,13 +138,32 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     transactionCategoryData = TransactionCategoryData
                         (
                         name = response.category.name,
-                        id = response.category.id,
+                        userName = response.category.userName,
                         iconId = getIconIdByNameId(response.category.name),
                         colorBlue = response.category.blueColor,
                         colorGreen = response.category.greenColor,
                         colorRed = response.category.redColor,
-                        description = response.category.description
+                        description = response.category.description,
+                        income = response.income
                     )
                 )
             }
+
+    override fun getAllCategoriesByUsername(username: String): Single<List<CategoryDataSample>> =
+        api.getAllCategoriesByUsername(username)
+            .map { categories ->
+                categories.map { response ->
+                    CategoryDataSample(
+                        userName = response.userName,
+                        name = response.name,
+                        stringId = response.stringId,
+                        description = response.stringId,
+                        colorRed = response.redColor,
+                        colorBlue = response.blueColor,
+                        colorGreen = response.greenColor,
+                        income = response.income
+                    )
+                }
+            }
+
 }
