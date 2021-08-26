@@ -50,7 +50,7 @@
         android:layout_gravity="center"
         android:layout_margin="2dp"
         android:indeterminate="true"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/buttonConfirmOperationValue"
         app:layout_constraintEnd_toEndOf="@+id/buttonConfirmOperationValue"
         app:layout_constraintStart_toStartOf="@+id/buttonConfirmOperationValue"

@@ -115,4 +115,5 @@
     <string name="limit_overcome">Превышен лимит</string>
     <string name="standard_currency_code">USD</string>
     <string name="standard_currency_name">Доллар США</string>
+    <string name="wallet_edit">Редактирование кошелька</string>
 </resources>

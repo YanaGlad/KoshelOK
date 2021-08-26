@@ -50,6 +50,15 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
 
     override fun setToolbarNavigationButtonIcon(resourceId: Int) {
         supportActionBar?.setHomeAsUpIndicator(resourceId)
+        supportActionBar?.hide()
+    }
+
+    override fun hideToolbar() {
+        supportActionBar?.hide()
+    }
+
+    override fun showToolbar() {
+        supportActionBar?.show()
     }
 
 }
