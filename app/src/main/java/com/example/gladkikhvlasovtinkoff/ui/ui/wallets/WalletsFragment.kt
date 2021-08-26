@@ -77,6 +77,9 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
+        viewModel.coursesViewState.observe(viewLifecycleOwner){
+            handleCoursesPlateViewState(viewState = it)
+        }
         binding.skeletonWallet.showOriginal()
         onCoursesLoading()
     }
@@ -164,7 +167,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             binding.layoutWallet.firstCurrencyStatus.visibility = View.VISIBLE
             binding.layoutWallet.firstCurrencyCode.text = currencyCourses[0].code
             binding.layoutWallet.firstCurrencyCourse.text = currencyCourses[0].course
-            binding.layoutWallet.firstCurrencyStatus.setCourseStatusIcon(currencyCourses[9].isUp)
+            binding.layoutWallet.firstCurrencyStatus.setCourseStatusIcon(currencyCourses[0].isUp)
             binding.layoutWallet.secondCurrencyCode.visibility = View.VISIBLE
             binding.layoutWallet.secondCurrencyStatus.visibility = View.VISIBLE
             binding.layoutWallet.secondCurrencyCourse.visibility = View.VISIBLE

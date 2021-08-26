@@ -19,13 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class WalletsViewModel @Inject constructor(val repository: WalletRepository) : ViewModel() {
 
-    init {
-        getWalletList()
-        loadWallets()
-//        loadCourses(listOf())
-    }
-    private val disposables : MutableList<Disposable> = mutableListOf()
-
     private val disposeBag = CompositeDisposable()
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
@@ -34,6 +27,15 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     private val _coursesViewState: MutableLiveData<CoursesPlateViewState> = MutableLiveData()
     val coursesViewState: LiveData<CoursesPlateViewState>
         get() = _coursesViewState
+
+    init {
+        getWalletList()
+        loadWallets()
+        loadCourses(listOf("USD","EUR", "GBP"))
+    }
+    private val disposables : MutableList<Disposable> = mutableListOf()
+
+
 
     private fun loadCourses(codes : List<String>) {
         _coursesViewState.value = CoursesPlateViewState.Loading
@@ -45,7 +47,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                     _coursesViewState.postValue(CoursesPlateViewState.Loaded(courses))
                 },
                 {
-                    _coursesViewState.value = CoursesPlateViewState.Error
+                    _coursesViewState.postValue(CoursesPlateViewState.Error)
                 }
             )
     }
