@@ -105,22 +105,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                 )
             }
 
-    override fun deleteWallet(walletId: Long): Single<WalletData> =
+    override fun deleteWallet(walletId: Long): Single<Boolean> =
         api.deleteWallet(walletId)
-            .map { response ->
-                WalletData(
-                    id = response.id,
-                    username = response.user.name,
-                    name = response.name,
-                    limit = response.limit,
-                    amount = response.balance,
-                    currency = Currency(
-                        code = response.currency.code,
-                        name = response.currency.name
-                    ),
-                    hidden = response.isHidden
-                )
-            }
 
     override fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData> =
         api.updateWallet(walletUpdateRequest)
