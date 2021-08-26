@@ -6,6 +6,7 @@ import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -127,11 +128,26 @@ class WalletRepositoryImpl @Inject constructor(
         }
 
 
-    override fun updateWallet(wallet: WalletData): Completable =
-        Completable.create { emitter ->
-            localWalletDataProvider.updateWallet(wallet)
-            emitter.onComplete()
+    override fun updateWallet(wallet: WalletData, walletId: Long): Single<WalletListViewState> =
+        Single.create { emitter ->
+            remoteWalletDataProvider
+                .updateWallet(WalletUpdateRequest(
+                    wallet.hidden,
+                    wallet.limit,
+                    wallet.name
+                ), wallet.id)
+                .subscribe(
+                    {  wallet->
+                            localWalletDataProvider.updateWallet(wallet)
+                        emitter.onSuccess(WalletListViewState.SuccessOperation)
+                    },
+                    { throwable ->
+                        emitter.onSuccess(throwable.convertToViewState())
+                    }
+                )
         }
+
+
 
 
     private fun Throwable.convertToViewState(): WalletListViewState =

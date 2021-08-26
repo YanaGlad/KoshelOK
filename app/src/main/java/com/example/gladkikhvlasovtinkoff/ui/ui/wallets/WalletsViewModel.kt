@@ -69,7 +69,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
 
     fun updateWallet(walletData: WalletDataSample) {
         _viewState.value = WalletListViewState.Loading
-        val disposable = repository.updateWallet(walletData.createWalletDataModel())
+        val disposable = repository.updateWallet(walletData.createWalletDataModel(), walletData.id)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(

@@ -28,8 +28,8 @@ interface  TransactionApi {
     @GET("/wallet/v1/findByUsername/{username}")
     fun getAllWalletsByUsername(@Path("username") username : String) : Single<List<WalletResponse>>
 
-    @POST("/wallet/v1/update")
-    fun updateWallet(@Body walletUpdateRequest: WalletUpdateRequest): Single<WalletResponse>
+    @PUT("/wallet/v1/update")
+    fun updateWallet(@Body walletUpdateRequest: WalletUpdateRequest, @Query("id") walletId : Long): Single<WalletResponse>
 
     @POST("/transaction/v1/create")
     fun createTransaction(@Body transactionRequest: TransactionRequest): Single<TransactionResponse>

@@ -108,8 +108,11 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
     override fun deleteWallet(walletId: Long): Single<Boolean> =
         api.deleteWallet(walletId)
 
-    override fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData> =
-        api.updateWallet(walletUpdateRequest)
+    override fun updateWallet(
+        walletUpdateRequest: WalletUpdateRequest,
+        walletId: Long
+    ): Single<WalletData> =
+        api.updateWallet(walletUpdateRequest, walletId)
             .map { response ->
                 WalletData(
                     id = response.id,

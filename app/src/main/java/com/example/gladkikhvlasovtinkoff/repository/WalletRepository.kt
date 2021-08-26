@@ -13,5 +13,5 @@ interface WalletRepository {
     fun deleteWallet(wallet : WalletData) : Single<WalletListViewState>
     fun getWallets() : Flowable<WalletListViewState>
     fun loadWallets() : Single<WalletListViewState>
-    fun updateWallet(wallet: WalletData) : Completable
+    fun updateWallet(wallet: WalletData, walletId : Long) : Single<WalletListViewState>
 }
