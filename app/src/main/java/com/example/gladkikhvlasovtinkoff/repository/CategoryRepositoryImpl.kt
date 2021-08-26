@@ -91,8 +91,8 @@ class CategoryRepositoryImpl @Inject constructor(
                                 categories.map { category ->
                                         CategoryDataSample(
  
-                                            userName = category.userName,
-                                            name = if (category.userName == null)
+                                            username = category.username,
+                                            name = if (category.username == null)
                                                 getNameIdByStringId(category.stringId, context)
                                             else category.name,
                                           

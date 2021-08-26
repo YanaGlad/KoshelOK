@@ -79,7 +79,7 @@ class FragmentSelectTransactionType : ToolbarFragment() {
             categoryData.income = binding.checkIncomeOperationType.visibility == View.VISIBLE
             val action =
                 FragmentSelectTransactionTypeDirections.actionFragmentSelectOperationTypeToCreateCategoryFragment(
-                    null, null, categoryData
+                    args.walletData?.createWalletDataModel(), null, categoryData
                 )
             findNavController().navigate(action)
         }
