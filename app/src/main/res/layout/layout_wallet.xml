@@ -54,8 +54,44 @@
         app:layout_constraintTop_toBottomOf="@id/walletBalance" />
 
 
+    <ProgressBar
+        android:id="@+id/secondCurrencyProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:translationZ="5dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/coursesPlate"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toTopOf="@+id/coursesPlate" />
+
+    <ProgressBar
+        android:id="@+id/firstCurrencyProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:translationZ="5dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/secondCurrencyProgressBar"
+        app:layout_constraintEnd_toStartOf="@+id/secondCurrencyProgressBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/coursesPlate" />
+
+    <ProgressBar
+        android:id="@+id/thirdCurrencyProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:translationZ="5dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/coursesPlate"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toEndOf="@+id/secondCurrencyProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/coursesPlate" />
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/materialCardView"
+        android:id="@+id/coursesPlate"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="18dp"
@@ -72,89 +108,101 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/firstCurrencyCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="12sp"
-                android:text="USD"
+                android:layout_weight="1"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/firstCurrencyCourse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:text="72,65"
+                android:layout_weight="1"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/first_currency"
+                android:id="@+id/firstCurrencyStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="16dp"
-                android:paddingEnd="20dp"
+                android:layout_weight="1"
+                android:paddingEnd="10dp"
                 android:src="@drawable/ic_down_expand"
                 android:textColor="@color/purple"
                 android:textSize="16sp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wallet_recycle" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/secondCurrencyCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="USD"
+                android:layout_weight="1"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/secondCurrencyCourse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:text="72,65"
+                android:layout_weight="1"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/second_currency"
+                android:id="@+id/secondCurrencyStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:paddingEnd="20dp"
+                android:layout_weight="1"
+                android:paddingEnd="10dp"
                 android:src="@drawable/ic_down_expand"
                 android:textColor="@color/purple"
                 android:textSize="16sp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wallet_recycle" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/thirdCurrencyCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="USD"
+                android:layout_weight="1"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/thirdCurrencyCourse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:text="72,65"
+                android:layout_weight="1"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/third_currency"
+                android:id="@+id/thirdCurrencyStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="16dp"
-                android:paddingEnd="20dp"
+                android:layout_weight="1"
+
                 android:src="@drawable/ic_down_expand"
                 android:textColor="@color/purple"
                 android:textSize="16sp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wallet_recycle" />
 
@@ -205,7 +253,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonAddOperation"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        app:layout_constraintTop_toBottomOf="@+id/coursesPlate"
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
