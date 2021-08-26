@@ -13,12 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
-import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.ConfirmCreatingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 

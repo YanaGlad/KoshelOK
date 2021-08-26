@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.network.wallet
 
+import android.util.Log
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
@@ -157,10 +158,11 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                         colorGreen = response.category.greenColor,
                         colorRed = response.category.redColor,
                         description = response.category.description,
-                        income = response.income
+                        income = response.income,
+                        id = response.id
                     )
                 )
-            }
+             }
 
     override fun getAllCategoriesByUsername(username: String): Single<List<CategoryDataSample>> =
         api.getAllCategoriesByUsername(username)

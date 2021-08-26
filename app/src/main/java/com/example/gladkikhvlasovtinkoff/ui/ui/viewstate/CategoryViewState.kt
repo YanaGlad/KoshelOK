@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewstate
 
 sealed class CategoryViewState {
     object Loading : CategoryViewState()

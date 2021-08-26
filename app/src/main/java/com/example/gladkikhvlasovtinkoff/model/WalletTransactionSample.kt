@@ -10,7 +10,8 @@ class WalletTransactionSample(
     var isIncome : Boolean = false,
     var amount : String = UNDEFINED_STR,
     var currency : Currency = Currency( UNDEFINED_STR, UNDEFINED_STR),
-    var transactionCategoryData: TransactionCategoryData = TransactionCategoryData(UNDEFINED_STR,
+    var transactionCategoryData: TransactionCategoryData = TransactionCategoryData(
+        UNDEFINED_ID.toLong(), UNDEFINED_STR,
         UNDEFINED_ID, UNDEFINED_STR, UNDEFINED_STR, UNDEFINED_ID,UNDEFINED_ID,UNDEFINED_ID,true)
 ) : Parcelable {
     fun createModel(): WalletTransactionModel {

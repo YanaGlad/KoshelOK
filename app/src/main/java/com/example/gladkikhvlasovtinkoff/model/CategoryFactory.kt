@@ -44,7 +44,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
-                true
+                id = UNDEFINED_ID.toLong(),
+                income = true
             ),
             TransactionCategoryData(
                 name = UserCateroryKeys.Avia.name,
@@ -54,7 +55,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
-                true
+                id = UNDEFINED_ID.toLong(),
+                income = true
             ),
             TransactionCategoryData(
                 name = UserCateroryKeys.Jewelery.name,
@@ -64,6 +66,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -74,6 +77,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -84,7 +88,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
-                true
+                income = true,
+                id = UNDEFINED_ID.toLong()
             ),
             TransactionCategoryData(
                 name = UserCateroryKeys.Cafe.name,
@@ -94,6 +99,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -104,6 +110,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -114,6 +121,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -124,6 +132,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -134,6 +143,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -144,6 +154,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -154,6 +165,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -164,7 +176,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
-                income =  true
+                income =  true,
+                id = UNDEFINED_ID.toLong()
             ),
             TransactionCategoryData(
                 name = UserCateroryKeys.Travel.name,
@@ -174,6 +187,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -184,6 +198,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -194,6 +209,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -204,6 +220,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -214,6 +231,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -224,6 +242,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -234,6 +253,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -244,6 +264,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -254,6 +275,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -264,6 +286,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -274,6 +297,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -284,6 +308,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -294,6 +319,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -304,6 +330,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -314,6 +341,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             ),
             TransactionCategoryData(
@@ -324,7 +352,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
-                income =   true
+                income =   true,
+                id = UNDEFINED_ID.toLong()
             ),
             TransactionCategoryData(
                 name = UserCateroryKeys.Other.name,
@@ -334,6 +363,7 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 colorRed = colorRed,
                 colorBlue = colorBlue,
                 colorGreen = colorGreen,
+                id = UNDEFINED_ID.toLong(),
                 income = true
             )
         )

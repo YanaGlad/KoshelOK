@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewstate
 
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.DelegateItem
 

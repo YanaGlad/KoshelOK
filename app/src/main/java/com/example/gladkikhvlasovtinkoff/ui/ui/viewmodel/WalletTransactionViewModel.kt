@@ -1,10 +1,11 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.transtaction
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

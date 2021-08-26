@@ -1,7 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +17,9 @@ import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
-import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CategoryListViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.IconHelper
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -110,7 +110,8 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
             colorBlue = rgbColors.third,
             colorRed = rgbColors.first,
             colorGreen = rgbColors.second,
-            income = true
+            income = true,
+            id = UNDEFINED_ID.toLong()
         )
         val action =
             FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(

@@ -1,9 +1,6 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewstate
 
-import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
-import com.example.gladkikhvlasovtinkoff.model.WalletData
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 
 sealed class CategoryListViewState {
     object Loading : CategoryListViewState()

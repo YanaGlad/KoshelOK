@@ -1,10 +1,11 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

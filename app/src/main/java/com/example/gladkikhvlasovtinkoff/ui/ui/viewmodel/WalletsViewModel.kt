@@ -1,18 +1,16 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CoursesPlateViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.internal.operators.flowable.FlowableObserveOn
-import io.reactivex.internal.operators.flowable.FlowableSubscribeOn
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 

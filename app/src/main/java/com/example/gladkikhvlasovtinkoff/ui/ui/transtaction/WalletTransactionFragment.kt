@@ -23,6 +23,8 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.DateDelegate
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.WalletTransactionDelegate
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WalletTransactionViewModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
 import dagger.hilt.android.AndroidEntryPoint
 
