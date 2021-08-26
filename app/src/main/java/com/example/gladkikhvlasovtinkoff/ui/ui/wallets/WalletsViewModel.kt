@@ -22,6 +22,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
         getWalletList()
         loadWallets()
     }
+    
     private val disposeBag = CompositeDisposable()
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
@@ -71,10 +72,9 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 },
                 {}
             )
-
     }
 
-    fun getWalletList() {
+   fun getWalletList() {
         val disposable = repository.getWallets()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -83,8 +83,8 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             }
     }
 
-    fun deleteWallet(wallet: WalletData) {
-        val disposable =repository.deleteWallet(wallet)
+    fun deleteWallet(wallet: WalletData) =
+        repository.deleteWallet(wallet)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
@@ -95,7 +95,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                     _viewState.postValue(WalletListViewState.Error.UnexpectedError)
                 }
             )
-    }
+
 
     fun clear() {
         disposeBag.clear()
