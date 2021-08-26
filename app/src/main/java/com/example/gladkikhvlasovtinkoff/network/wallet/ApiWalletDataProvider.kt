@@ -3,8 +3,6 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.CategoryResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
@@ -23,10 +21,9 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
     override fun createCategory(categoryRequest: CategoryRequest): Single<CategoryDataSample> =
         api.createCategory(categoryRequest).map { response ->
             CategoryDataSample(
-                userName = response.userName,
                 name = response.name,
                 stringId = response.stringId,
-                description = response.description,
+                username = response.username,
                 colorRed = response.redColor,
                 colorBlue = response.blueColor,
                 colorGreen = response.greenColor
@@ -141,7 +138,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     transactionCategoryData = TransactionCategoryData
                         (
                         name = response.category.name,
-                        userName = response.category.userName,
+                        userName = response.category.username,
                         iconId = getIconIdByNameId(response.category.name),
                         colorBlue = response.category.blueColor,
                         colorGreen = response.category.greenColor,
@@ -157,10 +154,9 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
             .map { categories ->
                 categories.map { response ->
                     CategoryDataSample(
-                        userName = response.userName,
                         name = response.name,
                         stringId = response.stringId,
-                        description = response.stringId,
+                        username = response.username,
                         colorRed = response.redColor,
                         colorBlue = response.blueColor,
                         colorGreen = response.greenColor,
