@@ -90,7 +90,7 @@ class NewWalletFragment : ToolbarFragment() {
         binding.buttonConfirm.setOnClickListener {
             if (!args.isEdit) {
                 val action =
-                    NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample)
+                    NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment(args.walletDataSample!!)
                 findNavController().navigate(action)
             } else {
                 viewModel.updateWallet(walletDataSample)

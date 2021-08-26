@@ -67,7 +67,7 @@ class WalletRepositoryImpl @Inject constructor(
                 .deleteWallet(wallet.id)
                 .subscribe(
                     { isDeleted ->
-                        if(isDeleted) {
+                        if (isDeleted) {
                             localWalletDataProvider
                                 .deleteWallet(wallet)
                         }
@@ -131,14 +131,16 @@ class WalletRepositoryImpl @Inject constructor(
     override fun updateWallet(wallet: WalletData, walletId: Long): Single<WalletListViewState> =
         Single.create { emitter ->
             remoteWalletDataProvider
-                .updateWallet(WalletUpdateRequest(
-                    wallet.hidden,
-                    wallet.limit,
-                    wallet.name
-                ), wallet.id)
+                .updateWallet(
+                    WalletUpdateRequest(
+                        wallet.hidden,
+                        wallet.limit,
+                        wallet.name
+                    ), wallet.id
+                )
                 .subscribe(
-                    {  wallet->
-                            localWalletDataProvider.updateWallet(wallet)
+                    { wallet ->
+                        localWalletDataProvider.updateWallet(wallet)
                         emitter.onSuccess(WalletListViewState.SuccessOperation)
                     },
                     { throwable ->
@@ -147,7 +149,22 @@ class WalletRepositoryImpl @Inject constructor(
                 )
         }
 
-
+    override fun getAllWalletsBalance(
+        currencyCharCode: String
+    ): Single<WalletListViewState> =
+        Single.create { emitter ->
+            remoteWalletDataProvider
+                .getAllWalletsBalance(currencyCharCode, authDataHolder.getUserKey())
+                .subscribe(
+                    { balance ->
+                        WalletListViewState.LoadedString(balance)
+                        emitter.onSuccess(WalletListViewState.SuccessOperation)
+                    },
+                    { throwable ->
+                        emitter.onSuccess(throwable.convertToViewState())
+                    }
+                )
+        }
 
 
     private fun Throwable.convertToViewState(): WalletListViewState =
