@@ -45,7 +45,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 }
             })
         handleArguments(args.walletData)
-
     }
 
 
@@ -70,12 +69,12 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
+     //   binding.skeletonWallet.showSkeleton()
 
 
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
-        binding.skeletonWallet.showOriginal()
     }
 
     private fun handleViewState(viewState: WalletListViewState?) {

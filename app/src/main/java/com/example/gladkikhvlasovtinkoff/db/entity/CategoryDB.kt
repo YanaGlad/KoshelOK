@@ -7,12 +7,13 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "category")
 data class CategoryDB(
     @PrimaryKey
-    @ColumnInfo(name ="category_id")
-    val id : Long,
+    @ColumnInfo(name ="user_name")
+    val userName : String,
     val name: String,
     val stringId: String,
     val description: String,
     val colorRed: Int,
     val colorBlue: Int,
-    val colorGreen: Int
+    val colorGreen: Int,
+    val income : Boolean
 )

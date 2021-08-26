@@ -32,7 +32,7 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                     name = item.currency.name
                 ),
                 transactionCategoryData = CategoryDB(
-                    id = item.transactionCategoryData.id,
+                    userName = item.transactionCategoryData.userName,
                     name = item.transactionCategoryData.name,
                     stringId = getIdentifierForCategoryName(
                         context,  item.transactionCategoryData.name
@@ -40,7 +40,8 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                     description = item.transactionCategoryData.description,
                     colorRed = item.transactionCategoryData.colorRed,
                     colorBlue = item.transactionCategoryData.colorBlue,
-                    colorGreen = item.transactionCategoryData.colorGreen
+                    colorGreen = item.transactionCategoryData.colorGreen,
+                    income = item.isIncome
                 )
             )
         )
@@ -68,7 +69,7 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                                 name = transition.currency.name
                             ),
                             TransactionCategoryData(
-                                id = transition.transactionCategoryData.id,
+                                userName = transition.transactionCategoryData.userName,
                                 name = transition.transactionCategoryData.name,
                                 iconId = getIconIdByNameId(
                                     transition.transactionCategoryData.stringId
@@ -76,7 +77,8 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                                 description = transition.transactionCategoryData.description,
                                 colorRed = transition.transactionCategoryData.colorRed,
                                 colorBlue = transition.transactionCategoryData.colorBlue,
-                                colorGreen = transition.transactionCategoryData.colorGreen
+                                colorGreen = transition.transactionCategoryData.colorGreen,
+                                income = transition.isIncome
                             )
                         )
                     }

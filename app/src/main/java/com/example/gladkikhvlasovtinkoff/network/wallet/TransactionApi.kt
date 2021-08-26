@@ -40,4 +40,7 @@ interface  TransactionApi {
     @POST("/category/v1/create")
     fun createCategory(@Body categoryRequest: CategoryRequest): Single<CategoryResponse>
 
+    @GET("/category/v1/findAllByUsername/{username}")
+    fun getAllCategoriesByUsername(@Path("username") username : String) : Single<List<CategoryResponse>>
+
 }

@@ -2,6 +2,7 @@ package com.example.gladkikhvlasovtinkoff.db
 
 import androidx.room.*
 import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
+import com.example.gladkikhvlasovtinkoff.db.entity.WalletDB
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -19,8 +20,8 @@ interface CategoryDao {
     @Query(value = "Select * from `category` where description = 'Расходы'")
     fun getAllTransactionsExpense() : Flowable<List<CategoryDB>>
 
-    @Query(value = "Select * from `category` where category_id =:id")
-    fun getCategoryById(id : Long) : Single<CategoryDB>
+    @Query(value = "Select * from `category` where user_name =:username")
+    fun getCategoriesByUsername(username : String) : Flowable<List<CategoryDB>>
 
     @Delete()
     fun deleteCategory(item : CategoryDB)

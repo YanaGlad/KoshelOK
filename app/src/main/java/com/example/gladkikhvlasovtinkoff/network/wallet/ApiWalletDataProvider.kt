@@ -21,15 +21,15 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
         api.findUserByUsername(username)
 
     override fun createCategory(categoryRequest: CategoryRequest): Single<CategoryDataSample> =
-        api.createCategory(categoryRequest).map {
-            response-> CategoryDataSample(
-                id = response.id,
-            name = response.name,
-            stringId = response.stringId,
-            description = response.description,
-            colorRed = response.redColor,
-            colorBlue = response.blueColor,
-            colorGreen = response.greenColor
+        api.createCategory(categoryRequest).map { response ->
+            CategoryDataSample(
+                userName = response.userName,
+                name = response.name,
+                stringId = response.stringId,
+                description = response.description,
+                colorRed = response.redColor,
+                colorBlue = response.blueColor,
+                colorGreen = response.greenColor
             )
         }
 
@@ -107,20 +107,20 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
 
     override fun deleteWallet(walletId: Long): Single<WalletData> =
         api.deleteWallet(walletId)
-            .map{response ->
-            WalletData(
-                id = response.id,
-                username = response.user.name,
-                name = response.name,
-                limit = response.limit,
-                amount = response.balance,
-                currency = Currency(
-                    code = response.currency.code,
-                    name = response.currency.name
-                ),
-                hidden = response.isHidden
-            )
-        }
+            .map { response ->
+                WalletData(
+                    id = response.id,
+                    username = response.user.name,
+                    name = response.name,
+                    limit = response.limit,
+                    amount = response.balance,
+                    currency = Currency(
+                        code = response.currency.code,
+                        name = response.currency.name
+                    ),
+                    hidden = response.isHidden
+                )
+            }
 
     override fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData> =
         api.updateWallet(walletUpdateRequest)
@@ -139,7 +139,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                 )
             }
 
-    override fun createTransaction(transactionRequest: TransactionRequest): Single<WalletTransactionModel>  =
+    override fun createTransaction(transactionRequest: TransactionRequest): Single<WalletTransactionModel> =
         api.createTransaction(transactionRequest)
             .map { response ->
                 WalletTransactionModel(
@@ -152,13 +152,32 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                     transactionCategoryData = TransactionCategoryData
                         (
                         name = response.category.name,
-                        id = response.category.id,
+                        userName = response.category.userName,
                         iconId = getIconIdByNameId(response.category.name),
                         colorBlue = response.category.blueColor,
                         colorGreen = response.category.greenColor,
                         colorRed = response.category.redColor,
-                        description = response.category.description
+                        description = response.category.description,
+                        income = response.income
                     )
                 )
             }
+
+    override fun getAllCategoriesByUsername(username: String): Single<List<CategoryDataSample>> =
+        api.getAllCategoriesByUsername(username)
+            .map { categories ->
+                categories.map { response ->
+                    CategoryDataSample(
+                        userName = response.userName,
+                        name = response.name,
+                        stringId = response.stringId,
+                        description = response.stringId,
+                        colorRed = response.redColor,
+                        colorBlue = response.blueColor,
+                        colorGreen = response.greenColor,
+                        income = response.income
+                    )
+                }
+            }
+
 }
