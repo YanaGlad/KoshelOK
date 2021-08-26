@@ -12,10 +12,10 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
     override fun insertCategory(item: CategoryDataSample) {
         dao.insertCategory(
             CategoryDB(
-                item.userName ?: PUBLIC_CATEGORY_USER,
+                item.username ?: PUBLIC_CATEGORY_USER,
                 item.name,
                 item.stringId,
-                item.description,
+                item.username,
                 item.colorRed,
                 item.colorBlue,
                 item.colorGreen,
@@ -28,10 +28,10 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
         dao.insertAllCategories(
             items.map { item ->
                 CategoryDB(
-                    item.userName ?: PUBLIC_CATEGORY_USER,
+                    item.username ?: PUBLIC_CATEGORY_USER,
                     item.name,
                     item.stringId,
-                    item.description,
+                    item.username,
                     item.colorRed,
                     item.colorBlue,
                     item.colorGreen,
@@ -46,14 +46,13 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
             .map { categories ->
                 categories.map { item ->
                     CategoryDataSample(
-                        item.userName,
-                        item.name,
-                        item.stringId,
-                        item.description,
-                        item.colorRed,
-                        item.colorBlue,
-                        item.colorGreen,
-                        item.income
+                        username = item.username,
+                        name = item.name,
+                        stringId = item.stringId,
+                        colorRed = item.colorRed,
+                        colorBlue = item.colorBlue,
+                        colorGreen = item.colorGreen,
+                        income = item.income
                     )
                 }
             }
@@ -63,14 +62,13 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
             .map { categories ->
                 categories.map { item ->
                     CategoryDataSample(
-                        item.userName,
-                        item.name,
-                        item.stringId,
-                        item.description,
-                        item.colorRed,
-                        item.colorBlue,
-                        item.colorGreen,
-                        item.income
+                        username = item.username,
+                        name = item.name,
+                        stringId = item.stringId,
+                        colorRed = item.colorRed,
+                        colorBlue = item.colorBlue,
+                        colorGreen = item.colorGreen,
+                        income = item.income
                     )
                 }
             }
@@ -78,10 +76,10 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
     override fun deleteCategory(item: CategoryDataSample) {
         dao.deleteCategory(
             CategoryDB(
-                item.userName ?: PUBLIC_CATEGORY_USER,
+                item.username,
                 item.name,
                 item.stringId,
-                item.description,
+                item.username,
                 item.colorRed,
                 item.colorBlue,
                 item.colorGreen,
@@ -93,10 +91,10 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
     override fun updateCategory(item: CategoryDataSample) =
         dao.updateCategory(
             CategoryDB(
-                item.userName ?: PUBLIC_CATEGORY_USER,
+                item.username,
                 item.name,
                 item.stringId,
-                item.description,
+                item.username,
                 item.colorRed,
                 item.colorBlue,
                 item.colorGreen,

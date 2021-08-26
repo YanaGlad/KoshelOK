@@ -51,7 +51,7 @@ class CategoryViewModel
         repository.createCategory(categoryDataSample)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .doOnComplete {
+            .doOnSuccess {
                 _viewState.postValue(CategoryListViewState.SuccessOperation)
             }
             .doOnError {

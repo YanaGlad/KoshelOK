@@ -32,7 +32,7 @@ class RoomTransactionDataProvider @Inject constructor(val dao: TransactionDao) :
                     name = item.currency.name
                 ),
                 transactionCategoryData = CategoryDB(
-                    userName = item.transactionCategoryData.userName,
+                    username = item.transactionCategoryData.userName,
                     name = item.transactionCategoryData.name,
                     stringId = getIdentifierForCategoryName(
                         context, item.transactionCategoryData.name
@@ -68,7 +68,7 @@ class RoomTransactionDataProvider @Inject constructor(val dao: TransactionDao) :
                                 name = transition.currency.name
                             ),
                             TransactionCategoryData(
-                                userName = transition.transactionCategoryData.userName,
+                                userName = transition.transactionCategoryData.username,
                                 name = transition.transactionCategoryData.name,
                                 iconId = getIconIdByNameId(
                                     transition.transactionCategoryData.stringId

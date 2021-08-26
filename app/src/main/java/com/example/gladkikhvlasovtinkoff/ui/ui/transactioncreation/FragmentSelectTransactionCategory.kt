@@ -56,7 +56,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
         binding.createCategory.setOnClickListener {
             val action =
                 FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToCreateCategoryFragment(
-                    null,
+                    args.walletData?.createWalletDataModel(),
                     null,
                     CategoryDataSample()
                 )

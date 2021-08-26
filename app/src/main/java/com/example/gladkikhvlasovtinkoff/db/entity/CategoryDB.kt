@@ -7,7 +7,7 @@ import androidx.room.Entity
     primaryKeys = ["user_name","stringId"])
 data class CategoryDB(
     @ColumnInfo(name = "user_name")
-    val userName: String,
+    val username: String,
     val name: String,
     val stringId: String,
     val description: String,

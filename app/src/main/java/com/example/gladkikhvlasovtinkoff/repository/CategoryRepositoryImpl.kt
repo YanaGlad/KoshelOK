@@ -4,12 +4,16 @@ import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.LocalCategoryDataProvider
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
+import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
+import com.example.gladkikhvlasovtinkoff.model.WalletData
 
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.CategoryRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
 import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CategoryListViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -23,27 +27,30 @@ class CategoryRepositoryImpl @Inject constructor(
     private val authDataHolder: AuthDataHolder
 ) : CategoryRepository {
 
-    override fun createCategory(categorySample: CategoryDataSample): Completable =
-        remoteWalletDataProvider.createCategory(
-            CategoryRequest(
+    override fun createCategory(categorySample: CategoryDataSample): Single<CategoryListViewState> =
+        Single.create { emitter ->
+            val request = CategoryRequest(
                 blue = categorySample.colorBlue,
-                type = categorySample.description,
+                username = categorySample.username,
                 green = categorySample.colorGreen,
                 isIncome = categorySample.income,
                 name = categorySample.name,
                 red = categorySample.colorRed,
                 stringId = categorySample.stringId
             )
-        ).flatMapCompletable { category ->
-            Completable.create { emitter ->
-                try {
-                    localCategoryDataProvider
-                        .insertCategory(category)
-                    emitter.onComplete()
-                } catch (e: Exception) {
-                    emitter.onError(e)
-                }
-            }
+            remoteWalletDataProvider.createCategory(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(
+                    { category ->
+                        localCategoryDataProvider
+                            .insertCategory(category)
+                        emitter.onSuccess(CategoryListViewState.SuccessOperation)
+                    },
+                    { throwable ->
+                        emitter.onSuccess(throwable.convertToViewState())
+                    }
+                )
         }
 
     override fun getCategories(income : Boolean): Flowable<CategoryListViewState> =
@@ -56,8 +63,8 @@ class CategoryRepositoryImpl @Inject constructor(
                             TransactionCategoryData(
                                 name = item.name,
                                 iconId = getIconIdByNameId(item.stringId),
-                                userName = item.userName ?: PUBLIC_CATEGORY_USER,
-                                description = item.description,
+                                userName = item.username ?: PUBLIC_CATEGORY_USER,
+                                description = item.username,
                                 colorRed = item.colorRed,
                                 colorBlue = item.colorBlue,
                                 colorGreen = item.colorGreen,
@@ -81,10 +88,9 @@ class CategoryRepositoryImpl @Inject constructor(
                             localCategoryDataProvider.insertAllCategories(
                                 categories.map { category ->
                                         CategoryDataSample(
-                                            userName = category.userName,
+                                            username = category.username,
                                             name = category.name,
                                             stringId = category.stringId,
-                                            description = category.description,
                                             colorRed = category.colorRed,
                                             colorBlue = category.colorBlue,
                                             colorGreen = category.colorGreen,

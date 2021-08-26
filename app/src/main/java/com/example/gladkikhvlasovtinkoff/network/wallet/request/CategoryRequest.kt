@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class  CategoryRequest(
     @SerializedName("b") val blue: Int,
-    @SerializedName("description") val type: String,
+    @SerializedName("username") val username: String,
     @SerializedName("g") val green: Int,
     @SerializedName("income") val isIncome: Boolean,
     @SerializedName("name") val name: String,
