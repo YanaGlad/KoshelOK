@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/currencySwitcher"
+        app:layout_constraintEnd_toEndOf="@+id/currencySwitcher"
+        app:layout_constraintStart_toStartOf="@+id/currencySwitcher"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/currencySwitcher"
         android:layout_width="0dp"

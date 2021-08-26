@@ -78,20 +78,26 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                 },
                 {}
             )
-
     }
 
-    fun getWalletList() {
-        val disposable = repository.getWalletsByUsername("testoviy chelik")
+    fun getWalletList() =
+        repository.getWalletsByUsername("testoviy chelik")
+            .doOnNext { viewState ->
+                val list = (viewState as? WalletListViewState.Loaded)?.list
+                TEMP_WALLET_ID = list?.last()?.id?.plus(1)?.toInt() ?: 1
+                _viewState.postValue(viewState)
+            }
+            .doOnError {
+                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe {
                 _viewState.postValue(it)
             }
-    }
 
-    fun deleteWallet(wallet: WalletData) {
-        val disposable =repository.deleteWallet(wallet)
+    fun deleteWallet(wallet: WalletData) =
+        repository.deleteWallet(wallet)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
@@ -102,7 +108,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                     _viewState.postValue(WalletListViewState.Error.UnexpectedError)
                 }
             )
-    }
+
 
     fun clear() {
         disposeBag.clear()

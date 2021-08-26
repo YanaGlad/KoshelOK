@@ -1,6 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -72,6 +73,7 @@ class CurrencyAdapter  constructor(private val switcher : OnCurrencySwitcher):
         fun bind(currency: Currency, position: Int, lastChecked: Int) {
             binding.currencySwitcher.text = currency.name
             binding.currencySwitcher.isChecked = position == lastChecked
+            binding.progress.visibility = View.GONE
         }
     }
 }

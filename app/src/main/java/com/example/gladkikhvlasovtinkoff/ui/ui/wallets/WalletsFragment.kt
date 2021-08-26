@@ -45,6 +45,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 }
             })
         handleArguments(args.walletData)
+
     }
 
 
@@ -70,6 +71,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         expandRecyclerAnimation()
         setupNavigation()
 
+
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
@@ -77,7 +79,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     }
 
     private fun handleViewState(viewState: WalletListViewState?) {
-        viewModel.getWalletList()
+       // viewModel.getWalletList()
         binding.skeletonWallet.showSkeleton()
         when (viewState) {
             is WalletListViewState.Loaded -> {
@@ -105,14 +107,12 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                     binding.layoutWallet.down.visibility = View.VISIBLE
                 }
                 binding.skeletonWallet.showOriginal()
-            }
+             }
             else -> {
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
-
         binding.layoutWallet.hiddenWalletRecycle.adapter = walletsHiddenAdapter
-
 
     }
 
@@ -216,7 +216,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             }
         }
 
-     //   walletsAdapter.submitList( )
+        //   walletsAdapter.submitList( )
 
         binding.layoutWallet.walletRecycle.setHasFixedSize(true)
         binding.layoutWallet.walletRecycle.apply {
