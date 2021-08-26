@@ -65,9 +65,11 @@ class WalletRepositoryImpl @Inject constructor(
             remoteWalletDataProvider
                 .deleteWallet(wallet.id)
                 .subscribe(
-                    { wallet ->
-                        localWalletDataProvider
-                            .deleteWallet(wallet)
+                    { isDeleted ->
+                        if(isDeleted) {
+                            localWalletDataProvider
+                                .deleteWallet(wallet)
+                        }
                         emitter.onSuccess(WalletListViewState.SuccessOperation)
                     },
                     { throwable ->

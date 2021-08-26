@@ -3,8 +3,6 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.CategoryResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.TransactionResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
@@ -105,22 +103,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
                 )
             }
 
-    override fun deleteWallet(walletId: Long): Single<WalletData> =
+    override fun deleteWallet(walletId: Long): Single<Boolean> =
         api.deleteWallet(walletId)
-            .map{response ->
-            WalletData(
-                id = response.id,
-                username = response.user.name,
-                name = response.name,
-                limit = response.limit,
-                amount = response.balance,
-                currency = Currency(
-                    code = response.currency.code,
-                    name = response.currency.name
-                ),
-                hidden = response.isHidden
-            )
-        }
 
     override fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData> =
         api.updateWallet(walletUpdateRequest)

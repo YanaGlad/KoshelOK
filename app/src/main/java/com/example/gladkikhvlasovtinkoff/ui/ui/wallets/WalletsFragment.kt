@@ -3,7 +3,6 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
-import com.example.gladkikhvlasovtinkoff.extension.exhaustive
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
@@ -70,8 +68,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
-
-
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
@@ -82,33 +78,42 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         binding.skeletonWallet.showSkeleton()
         when (viewState) {
             is WalletListViewState.Loaded -> {
-                val list : MutableList<WalletData> = ArrayList()
-                val listHidden : MutableList<WalletData> = ArrayList()
-                for (i in viewState.list.indices){
-                    if(!viewState.list[i].hidden)
-                        list.add(viewState.list[i])
-                    else  listHidden.add(viewState.list[i])
-                }
-                walletsAdapter?.submitList(list)
-                walletsHiddenAdapter?.submitList(listHidden)
-
-                binding.noOperationMessage.visibility =
-                    if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
-                if(viewState.list.isEmpty()){
-                    binding.layoutWallet.showMore.visibility = View.GONE
-                    binding.layoutWallet.down.visibility = View.GONE
-                }else{
-                    binding.layoutWallet.showMore.visibility = View.VISIBLE
-                    binding.layoutWallet.down.visibility = View.VISIBLE
-                }
-                binding.skeletonWallet.showOriginal()
+                onListLoaded(viewState)
              }
             else -> {
+                onLoaded()
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
         binding.layoutWallet.hiddenWalletRecycle.adapter = walletsHiddenAdapter
 
+    }
+
+    private fun onListLoaded(viewState: WalletListViewState.Loaded){
+        val list : MutableList<WalletData> = ArrayList()
+        val listHidden : MutableList<WalletData> = ArrayList()
+        for (i in viewState.list.indices){
+            if(!viewState.list[i].hidden)
+                list.add(viewState.list[i])
+            else  listHidden.add(viewState.list[i])
+        }
+        walletsAdapter?.submitList(list)
+        walletsHiddenAdapter?.submitList(listHidden)
+
+        binding.noOperationMessage.visibility =
+            if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
+        if(viewState.list.isEmpty()){
+            binding.layoutWallet.showMore.visibility = View.GONE
+            binding.layoutWallet.down.visibility = View.GONE
+        }else{
+            binding.layoutWallet.showMore.visibility = View.VISIBLE
+            binding.layoutWallet.down.visibility = View.VISIBLE
+        }
+        binding.skeletonWallet.showOriginal()
+    }
+
+    private fun onLoaded(){
+        binding.skeletonWallet.showOriginal()
     }
 
     private fun setupNavigation() {

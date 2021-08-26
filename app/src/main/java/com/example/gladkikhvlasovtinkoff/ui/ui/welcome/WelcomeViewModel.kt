@@ -18,6 +18,7 @@ class WelcomeViewModel
 
 
     fun logInWithAccount(account: GoogleSignInAccount) {
+        _viewState.value = AuthViewState.Loading
         val disposable = authRepository.logInWithAccount(
             account
         )
