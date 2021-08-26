@@ -51,12 +51,17 @@ class CreateCategoryFragment : Fragment(), IconHelper {
         }
 
         cp.setCallback {
-//            val factory = CategoryFactory(activity as AppCompatActivity)
+            val factory = CategoryFactory(activity as AppCompatActivity)
             categoryData?.colorRed = cp.red
             categoryData?.colorGreen = cp.green
             categoryData?.colorBlue = cp.blue
 
-            // categoriesAdapter?.addItems(viewModel.getCategoryList(requireContext()))
+            factory.colorRed = cp.red
+            factory.colorGreen = cp.green
+            factory.colorBlue = cp.blue
+
+
+            categoriesAdapter?.addItems(factory.getCategories(requireContext()))
             cp.dismiss()
         }
 
