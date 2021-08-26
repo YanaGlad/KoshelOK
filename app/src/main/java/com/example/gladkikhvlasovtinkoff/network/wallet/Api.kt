@@ -5,7 +5,7 @@ import com.example.gladkikhvlasovtinkoff.network.wallet.response.*
 import io.reactivex.Single
 import retrofit2.http.*
 
-interface  TransactionApi {
+interface  Api {
 
     @GET("/user/v1/findByUsername/{username}")
     fun findUserByUsername(@Path("username") username : String) : Single<List<UserResponse>>

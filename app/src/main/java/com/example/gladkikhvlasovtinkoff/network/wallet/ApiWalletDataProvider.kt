@@ -10,7 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi) :
+class ApiWalletDataProvider @Inject constructor(private val api: Api) :
     RemoteWalletDataProvider {
 
     override fun addUser(userRequest: UserRequest): Single<UserResponse> =
