@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
+import com.example.gladkikhvlasovtinkoff.extension.MILLIS_IN_DAY
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
@@ -149,9 +151,8 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
                         combinedCal.set(year, monthOfYear, dayOfMonth)
                         combinedCal.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         combinedCal.set(Calendar.MINUTE, minute)
-                        val timeMillis = combinedCal.timeInMillis
-                        args.operationData.date = timeMillis
-                        setupUiWithData(args.operationData)
+                        applyTime(combinedCal.timeInMillis)
+
                     },
                     currentDate[Calendar.HOUR_OF_DAY],
                     currentDate[Calendar.MINUTE],
@@ -164,14 +165,13 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
         }
     }
 
-    private fun getDatePickerListener(cal: Calendar): DatePickerDialog.OnDateSetListener =
-        DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            cal.set(Calendar.YEAR, year)
-            cal.set(Calendar.MONTH, monthOfYear)
-            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            args.operationData.date = cal.timeInMillis
+    private fun applyTime(timeInMillis: Long) {
+        if(timeInMillis < System.currentTimeMillis()) {
+            args.operationData.date = timeInMillis
             setupUiWithData(args.operationData)
-        }
+        }else
+            Toast.makeText(context, getString(R.string.wrong_time_message), Toast.LENGTH_LONG).show()
+    }
 
     private fun setupUiWithData(operationData: WalletTransactionSample) {
         if(args.isEdit){
