@@ -17,40 +17,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WalletsViewModel @Inject constructor(val repository: WalletRepository) : ViewModel() {
-    companion object {
-        const val TEMP_USERNAME = "test-tincoffJJ"
-        var TEMP_WALLET_ID = 1
-    }
 
     init {
         getWalletList()
-//        addUser()
+        loadWallets()
     }
-
+    
     private val disposeBag = CompositeDisposable()
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
         get() = _viewState
 
-    private fun addUser() {
-        repository.addUser(
-            userRequest = UserRequest(
-                name = "testoviy chelik",
-                username = TEMP_USERNAME
-            )
-        )
-            .doOnError {
-                it.printStackTrace()
-            }
-            .subscribeOn(Schedulers.io())
-            .subscribe()
-    }
-
     fun addWallet(walletData: WalletDataSample) {
         val disposable = repository.addWallet(
             WalletData(
                 id = walletData.id,
-                username = TEMP_USERNAME,
+                username = "",
                 name = walletData.name,
                 limit = walletData.limit,
                 amount = walletData.amount,
@@ -68,6 +50,18 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             )
     }
 
+    fun loadWallets(){
+        repository.loadWallets()
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(
+                {viewState ->
+                    _viewState.postValue(viewState)
+                },
+                {}
+            )
+    }
+
     fun updateWallet(walletData: WalletDataSample) {
         val disposable = repository.updateWallet(walletData.createWalletDataModel())
             .subscribeOn(Schedulers.io())
@@ -80,21 +74,14 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             )
     }
 
-    fun getWalletList() =
-        repository.getWalletsByUsername("testoviy chelik")
-            .doOnNext { viewState ->
-                val list = (viewState as? WalletListViewState.Loaded)?.list
-                TEMP_WALLET_ID = list?.last()?.id?.plus(1)?.toInt() ?: 1
-                _viewState.postValue(viewState)
-            }
-            .doOnError {
-                _viewState.postValue(WalletListViewState.Error.UnexpectedError)
-            }
+   fun getWalletList() {
+        val disposable = repository.getWallets()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe {
                 _viewState.postValue(it)
             }
+    }
 
     fun deleteWallet(wallet: WalletData) =
         repository.deleteWallet(wallet)

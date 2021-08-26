@@ -1,54 +1,49 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
-import android.accounts.NetworkErrorException
+import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.LocalWalletDataProvider
-import com.example.gladkikhvlasovtinkoff.model.Currency
-import com.example.gladkikhvlasovtinkoff.model.UserCateroryKeys
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.UserRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.io.IOException
-import java.lang.Exception
 import javax.inject.Inject
 
 class WalletRepositoryImpl @Inject constructor(
     private val remoteWalletDataProvider: RemoteWalletDataProvider,
-    private val localWalletDataProvider: LocalWalletDataProvider
+    private val localWalletDataProvider: LocalWalletDataProvider,
+    private val authDataHolder: AuthDataHolder
 ) : WalletRepository {
-
-    //TODO = вынести логику в другое место
-    override fun addUser(userRequest: UserRequest): Single<UserResponse> =
-        remoteWalletDataProvider.addUser(userRequest)
-
 
     override fun addWallet(wallet: WalletData): Single<WalletListViewState> =
         Single.create { emitter ->
-            remoteWalletDataProvider.createWallet(
-                WalletCreateRequest(
-                    currencyCharCode = wallet.currency.code,
-                    limit = wallet.limit,
-                    name = wallet.name,
-                    username = wallet.username
-                )
-            ).subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(
-                    { wallet ->
-                        localWalletDataProvider
-                            .insertWallet(wallet)
-                        emitter.onSuccess(WalletListViewState.SuccessOperation)
-                    },
-                    { throwable ->
-                        emitter.onSuccess(throwable.convertToViewState())
-                    }
-                )
+            if(authDataHolder.isAuth()) {
+                remoteWalletDataProvider.createWallet(
+                    WalletCreateRequest(
+                        currencyCharCode = wallet.currency.code,
+                        limit = wallet.limit,
+                        name = wallet.name,
+                        username = authDataHolder.getUserKey()
+                    )
+                ).subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .subscribe(
+                        { wallet ->
+                            localWalletDataProvider
+                                .insertWallet(wallet)
+                            emitter.onSuccess(WalletListViewState.SuccessOperation)
+                        },
+                        { throwable ->
+                            emitter.onSuccess(throwable.convertToViewState())
+                        }
+                    )
+            }
+            else
+                emitter.onSuccess(WalletListViewState.Error.AuthError)
         }
 
     override fun deleteWallet(wallet: WalletData) : Single<WalletListViewState> =
@@ -69,18 +64,44 @@ class WalletRepositoryImpl @Inject constructor(
 
 
 
-    override fun getWalletsByUsername(username: String): Flowable<WalletListViewState> =
-        localWalletDataProvider
-            .getWalletsByUsername(username)
-            .map {
-                WalletListViewState.Loaded(it)
-            }
+    override fun getWallets(): Flowable<WalletListViewState> =
+        if(authDataHolder.isAuth())
+            localWalletDataProvider
+                .getWalletsByUsername(authDataHolder.getUserKey())
+                .map {
+                    WalletListViewState.Loaded(it)
+                }
+        else
+            Flowable.just(WalletListViewState.Error.AuthError)
+
+    override fun loadWallets(): Single<WalletListViewState> =
+        Single.create{ emitter ->
+            if(authDataHolder.isAuth())
+                remoteWalletDataProvider.getAllWalletByUsername(
+                    authDataHolder.getUserKey()
+                )
+                    .observeOn(Schedulers.io())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(
+                        { wallets ->
+                            emitter.onSuccess(WalletListViewState.SuccessOperation)
+                            localWalletDataProvider.insertWallets(wallets)
+                        },
+                        { throwable ->
+                            emitter.onSuccess(throwable.convertToViewState())
+                        }
+                    )
+            else
+                emitter.onSuccess(WalletListViewState.Error.AuthError)
+        }
+
 
     override fun updateWallet(wallet: WalletData): Completable =
         Completable.create{ emitter ->
             localWalletDataProvider.updateWallet(wallet)
             emitter.onComplete()
         }
+
 
     private fun Throwable.convertToViewState() : WalletListViewState =
         when(this){

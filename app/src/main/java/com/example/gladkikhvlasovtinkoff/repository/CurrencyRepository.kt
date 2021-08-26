@@ -1,7 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency.CurrencyListViewState
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 

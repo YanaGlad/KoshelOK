@@ -17,6 +17,9 @@ interface WalletDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWallet(walletDB: WalletDB)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertWallets(walletDB: List<WalletDB>)
+
     @Delete
     fun deleteWallet(walletDB: WalletDB)
 

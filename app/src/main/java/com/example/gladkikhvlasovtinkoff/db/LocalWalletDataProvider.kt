@@ -8,6 +8,7 @@ interface LocalWalletDataProvider {
     fun getWalletsByUsername(username : String) : Flowable<List<WalletData>>
     fun getWalletById(id : Long) : Single<WalletData>
     fun insertWallet(wallet: WalletData)
+    fun insertWallets(wallets: List<WalletData>)
     fun deleteWallet(wallet: WalletData)
     fun updateWallet(wallet: WalletData)
 }

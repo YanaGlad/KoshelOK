@@ -34,8 +34,8 @@ class WelcomeFragment : Fragment() {
         if (task.isSuccessful) {
             val account = task.result
             if(account != null) {
-//                viewModel.logInWithAccount(account)
-                navigateToWallets()
+                viewModel.logInWithAccount(account)
+//                navigateToWallets()
             }
         }
     }
@@ -69,8 +69,8 @@ class WelcomeFragment : Fragment() {
         super.onStart()
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())
         if(account != null) {
-//            viewModel.logInWithAccount(account)
-            navigateToWallets()
+            viewModel.logInWithAccount(account)
+//            navigateToWallets()
         }
     }
 
