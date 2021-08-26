@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCreateCategoryBinding
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
+import com.example.gladkikhvlasovtinkoff.model.CategoryFactory
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
+import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.CategoryViewModel
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,12 +52,11 @@ class CreateCategoryFragment : Fragment(), IconHelper {
 
         cp.setCallback {
 //            val factory = CategoryFactory(activity as AppCompatActivity)
-//            factory.colorRed = cp.red
-//            factory.colorGreen = cp.green
-//            factory.colorBlue = cp.blue
-//            factory.color = cp.color
+            categoryData?.colorRed = cp.red
+            categoryData?.colorGreen = cp.green
+            categoryData?.colorBlue = cp.blue
 
-           // categoriesAdapter?.addItems(viewModel.getCategoryList(requireContext()))
+            // categoriesAdapter?.addItems(viewModel.getCategoryList(requireContext()))
             cp.dismiss()
         }
 
@@ -79,7 +80,7 @@ class CreateCategoryFragment : Fragment(), IconHelper {
     }
 
     private fun handleViewState(viewState: CategoryListViewState?) {
-         when (viewState) {
+        when (viewState) {
             is CategoryListViewState.Loaded -> {
                 categoriesAdapter?.addItems(viewState.list)
             }
@@ -134,13 +135,13 @@ class CreateCategoryFragment : Fragment(), IconHelper {
         }
 
         context?.let { context ->
-//            val factory = CategoryFactory(activity as AppCompatActivity)
-//            val cp = ColorPicker(activity, 89, 77, 244)
-//            factory.colorRed = cp.red
-//            factory.colorBlue = cp.blue
-//            factory.colorGreen = cp.green
+            val factory = CategoryFactory(activity as AppCompatActivity)
+            val cp = ColorPicker(activity, 89, 77, 244)
+            factory.colorRed = cp.red
+            factory.colorBlue = cp.blue
+            factory.colorGreen = cp.green
 
-       //     categoriesAdapter?.addItems(factory.getCategories(context))
+            categoriesAdapter?.addItems(factory.getCategories(context))
         }
     }
 

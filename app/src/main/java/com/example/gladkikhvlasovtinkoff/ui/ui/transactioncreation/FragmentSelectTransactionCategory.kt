@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
@@ -24,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
-    private val viewModel : SelectTransactionCategoryViewModel by viewModels()
+    private val viewModel : CategoryViewModel by viewModels()
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
     private val binding get() = _binding!!
@@ -138,16 +137,10 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
     }
 
     private fun setupOperationCategoryList(isIncome: Boolean) {
-//        val categoryDataFactory: TransactionCategoryDataFactory =
-//            if (isIncome) DefaultIncomeCategoriesFactory()
-//            else DefaultExpensesCategoriesFactory()
         categoriesAdapter = OperationCategoryAdapter( this, activity as AppCompatActivity)
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)
-        }
-        context?.let { context ->
-          //  categoriesAdapter?.addItems(categoryDataFactory.getCategories(context))
         }
     }
 
