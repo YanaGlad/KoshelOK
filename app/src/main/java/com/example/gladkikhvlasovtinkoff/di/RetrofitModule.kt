@@ -1,13 +1,12 @@
 package com.example.gladkikhvlasovtinkoff.di
 
 import com.example.gladkikhvlasovtinkoff.extension.TRANSACTION_BASE_URL
-import com.example.gladkikhvlasovtinkoff.network.wallet.TransactionApi
+import com.example.gladkikhvlasovtinkoff.network.wallet.Api
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -53,7 +52,7 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun getTransactionApi(@Named("TRANSACTION") retrofit: Retrofit): TransactionApi =
-        retrofit.create(TransactionApi::class.java)
+    fun getTransactionApi(@Named("TRANSACTION") retrofit: Retrofit): Api =
+        retrofit.create(Api::class.java)
 
 }

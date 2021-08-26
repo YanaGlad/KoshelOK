@@ -89,19 +89,19 @@ class CategoryRepositoryImpl @Inject constructor(
                         { categories ->
                             localCategoryDataProvider.insertAllCategories(
                                 categories.map { category ->
-                                        CategoryDataSample(
-                                            username = category.username,
-                                            name = if (category.username == PUBLIC_CATEGORY_USER)
-                                                getNameIdByStringId(category.stringId, context)
-                                            else category.name,
+                                    CategoryDataSample(
+                                        username = category.username,
+                                        name = if (category.username == PUBLIC_CATEGORY_USER)
+                                            getNameIdByStringId(category.stringId, context)
+                                        else category.name,
 
-                                            stringId = category.stringId,
-                                            colorRed = category.colorRed,
-                                            colorBlue = category.colorBlue,
-                                            colorGreen = category.colorGreen,
-                                            income = category.income
-                                        )
-                                    }
+                                        stringId = category.stringId,
+                                        colorRed = category.colorRed,
+                                        colorBlue = category.colorBlue,
+                                        colorGreen = category.colorGreen,
+                                        income = category.income
+                                    )
+                                }
                             )
                             emitter.onSuccess(CategoryListViewState.SuccessOperation)
                         },

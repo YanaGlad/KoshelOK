@@ -75,7 +75,7 @@ class CreateCategoryFragment : Fragment(), IconHelper {
             viewModel.addCategory(categoryData!!)
             val action =
                 CreateCategoryFragmentDirections.actionCreateCategoryFragmentToFragmentSelectOperationType(
-                    null,
+                    args.walletTransactionSample,
                     args.walletData?.toWalletDataSample(),
                     false,
                     categoryData
@@ -93,12 +93,6 @@ class CreateCategoryFragment : Fragment(), IconHelper {
             }
             else -> {
             }
-        }
-        binding.categoriesRecycler.apply {
-            adapter = categoriesAdapter
-            hasFixedSize()
-
-            layoutManager = GridLayoutManager(context, 6)
         }
     }
 
@@ -147,6 +141,9 @@ class CreateCategoryFragment : Fragment(), IconHelper {
             factory.colorRed = cp.red
             factory.colorBlue = cp.blue
             factory.colorGreen = cp.green
+            categoryData?.colorRed = cp.red
+            categoryData?.colorGreen = cp.green
+            categoryData?.colorBlue = cp.blue
 
             categoriesAdapter?.addItems(factory.getCategories(context))
         }

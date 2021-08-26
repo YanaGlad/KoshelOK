@@ -7,8 +7,10 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 
 
 enum class UserCateroryKeys {
-    Supermarket, Avia, Jewelery, Restaurants, Pharmancy, Cafe, Connection, Theatre, Train, Pets, Sport, Inernet, Transport, Medicine,
-    Travel, Charity, Music, Service, Gift, Mobile, Home, Cinema, Car, Education, Tv, Wallet, Clothing, Finance, Entertainment, Other
+    Supermarket, Avia, Jewelery, Restaurants, Pharmancy, Cafe, Connection, Theatre, Train,
+    Pets, Sport, Inernet, Transport, Medicine,
+    Travel, Charity, Music, Service, Gift, Mobile, Home, Cinema, Car,
+    Education, Tv, Wallet, Clothing, Finance, Entertainment, Other
 }
 
 class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFactory {
@@ -50,8 +52,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 true
             ),
             TransactionCategoryData(
@@ -60,8 +62,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -70,8 +72,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -80,8 +82,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 true
             ),
             TransactionCategoryData(
@@ -90,8 +92,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -100,8 +102,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -110,8 +112,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -120,8 +122,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -130,8 +132,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -140,8 +142,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -150,8 +152,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -160,8 +162,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income =  true
             ),
             TransactionCategoryData(
@@ -170,8 +172,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -180,8 +182,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -190,8 +192,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -200,8 +202,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -210,8 +212,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -220,8 +222,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -230,8 +232,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -240,8 +242,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -250,8 +252,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -260,8 +262,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -270,8 +272,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -280,8 +282,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -290,8 +292,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -300,8 +302,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -310,8 +312,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             ),
             TransactionCategoryData(
@@ -320,8 +322,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income =   true
             ),
             TransactionCategoryData(
@@ -330,8 +332,8 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 userName = UNDEFINED_STR,
                 description = "",
                 colorRed = colorRed,
-                colorBlue = colorGreen,
-                colorGreen = colorBlue,
+                colorBlue = colorBlue,
+                colorGreen = colorGreen,
                 income = true
             )
         )
