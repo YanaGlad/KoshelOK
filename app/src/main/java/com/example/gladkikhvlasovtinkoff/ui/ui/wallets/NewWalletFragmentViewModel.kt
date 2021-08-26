@@ -21,7 +21,7 @@ class NewWalletFragmentViewModel @Inject constructor(val repository: WalletRepos
 
     fun updateWallet(walletData: WalletDataSample) {
         disposeBag.add(
-            repository.updateWallet(walletData.createWalletDataModel())
+            repository.updateWallet(walletData.createWalletDataModel(), walletData.id)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
