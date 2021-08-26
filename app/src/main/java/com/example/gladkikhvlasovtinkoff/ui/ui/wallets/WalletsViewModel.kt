@@ -18,13 +18,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WalletsViewModel @Inject constructor(val repository: WalletRepository) : ViewModel() {
-    init {
-        getWalletList()
-        loadWallets()
-//        loadCourses(listOf())
-    }
-    private val disposables : MutableList<Disposable> = mutableListOf()
-
     private val disposeBag = CompositeDisposable()
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
@@ -33,6 +26,13 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     private val _coursesViewState: MutableLiveData<CoursesPlateViewState> = MutableLiveData()
     val coursesViewState: LiveData<CoursesPlateViewState>
         get() = _coursesViewState
+
+    init {
+        getWalletList()
+        loadWallets()
+        loadCourses(listOf("USD","EUR", "GBP"))
+    }
+    private val disposables : MutableList<Disposable> = mutableListOf()
 
     private fun loadCourses(codes : List<String>) {
         _coursesViewState.value = CoursesPlateViewState.Loading
@@ -44,31 +44,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
                     _coursesViewState.postValue(CoursesPlateViewState.Loaded(courses))
                 },
                 {
-                    _coursesViewState.value = CoursesPlateViewState.Error
-                }
-            )
-    }
-    fun addWallet(walletData: WalletDataSample) {
-        _viewState.value = WalletListViewState.Loading
-        val disposable = repository.addWallet(
-            WalletData(
-                id = walletData.id,
-                username = "",
-                name = walletData.name,
-                limit = walletData.limit,
-                amount = walletData.amount,
-                currency = walletData.currency,
-                hidden = walletData.hidden
-            )
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .subscribe(
-                {
-                    _viewState.postValue(WalletListViewState.SuccessOperation)
-                },
-                {
-                    it.printStackTrace()
+                    _coursesViewState.postValue(CoursesPlateViewState.Error)
                 }
             )
     }

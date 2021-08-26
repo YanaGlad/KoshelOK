@@ -209,9 +209,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
-        <argument
-            android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
         <action
             android:id="@+id/action_walletsFragment_to_optionFragment"
             app:destination="@id/optionFragment"
