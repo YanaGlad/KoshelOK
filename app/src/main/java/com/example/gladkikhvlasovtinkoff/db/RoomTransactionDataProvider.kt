@@ -16,10 +16,10 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
-    : LocalTransactionDataProvider {
+class RoomTransactionDataProvider @Inject constructor(val dao: TransactionDao) :
+    LocalTransactionDataProvider {
 
-    override fun insertTransaction(context : Context, item : WalletTransactionModel) =
+    override fun insertTransaction(context: Context, item: WalletTransactionModel) =
         dao.insertTransaction(
             TransactionDB(
                 id = item.id,
@@ -35,7 +35,7 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
                     userName = item.transactionCategoryData.userName,
                     name = item.transactionCategoryData.name,
                     stringId = getIdentifierForCategoryName(
-                        context,  item.transactionCategoryData.name
+                        context, item.transactionCategoryData.name
                     ).name,
                     description = item.transactionCategoryData.description,
                     colorRed = item.transactionCategoryData.colorRed,
@@ -54,10 +54,9 @@ class RoomTransactionDataProvider @Inject constructor(val dao : TransactionDao)
 
     override fun getAllTransactionsByWalletId(walletId: Long): Flowable<List<WalletTransactionModel>> {
         return dao.getAllTransactionsByWalletId(walletId)
-            .map { transitions->
+            .map { transitions ->
                 transitions
-                    .map {
-                            transition ->
+                    .map { transition ->
                         WalletTransactionModel(
                             id = transition.id,
                             date = transition.date,
