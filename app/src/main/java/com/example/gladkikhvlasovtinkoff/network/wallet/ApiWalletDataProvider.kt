@@ -33,8 +33,6 @@ class ApiWalletDataProvider @Inject constructor(private val api: TransactionApi)
             )
         }
 
-
-
     override fun addUserWithAccount(account: GoogleSignInAccount): Single<UserResponse> =
         api.createUser(
             UserRequest(

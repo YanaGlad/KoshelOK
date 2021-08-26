@@ -22,16 +22,18 @@ class AuthRepositoryImpl @Inject constructor(
     override fun logInWithAccount(account: GoogleSignInAccount): Single<AuthViewState> =
         Single.create { emitter ->
             if (authDataHolder.isAuth()) {
-                if (authDataHolder.isUserChangeAccount(account)) {
+                if (authDataHolder.isUserChangeAccount(account))xxxxx {
                     authDataHolder.clearUserData()
                     localAuthDataProvider.clearAllTables()
                     val findUserDisp = checkAndAddAccount(account, emitter)
+                }
+                else {
+                    emitter.onSuccess(AuthViewState.SuccessLogin)
                 }
             } else {
                 val findUserDisp = checkAndAddAccount(account, emitter)
             }
         }
-
 
     private fun findUserByUsername(username: String) =
         remoteWalletDataProvider.findUserByUsername(username)
@@ -71,16 +73,6 @@ class AuthRepositoryImpl @Inject constructor(
                     emitter.onSuccess(it.convertToViewState())
                 }
             )
-
-
-    private fun signUpWithAccount(account: GoogleSignInAccount): Completable =
-        Completable.create { emitter ->
-            remoteWalletDataProvider.addUserWithAccount(account)
-                .doOnSuccess {
-                    authDataHolder.parseAccountInfo(account)
-                    emitter.onComplete()
-                }
-        }
 
     private fun Throwable.convertToViewState(): AuthViewState =
         when (this) {

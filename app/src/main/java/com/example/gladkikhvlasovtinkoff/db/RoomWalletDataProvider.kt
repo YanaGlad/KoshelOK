@@ -70,6 +70,25 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                     )
                 )
 
+    override fun insertWallets(wallets: List<WalletData>) =
+        dao.insertWallets(
+            wallets.map{ wallet ->
+                WalletDB(
+                    id = wallet.id,
+                    username = wallet.username,
+                    name = wallet.name,
+                    limit = wallet.limit,
+                    amount = wallet.amount,
+                    currency = CurrencyDB(
+                        code = wallet.currency.code,
+                        name = wallet.currency.name
+                    ),
+                    hidden = wallet.hidden
+                )
+            }
+        )
+
+
     override fun deleteWallet(wallet: WalletData) =
                 dao.deleteWallet(
                     WalletDB(
