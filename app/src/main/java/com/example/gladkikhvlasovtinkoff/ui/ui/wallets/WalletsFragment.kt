@@ -3,6 +3,7 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -18,6 +19,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
@@ -79,14 +81,51 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         when (viewState) {
             is WalletListViewState.Loaded -> {
                 onListLoaded(viewState)
-             }
-            else -> {
-                onLoaded()
+            }
+            is WalletListViewState.Loading -> {
+                onLoading()
+            }
+            is WalletListViewState.Error.NetworkError -> {
+                onNetworkError()
+            }
+            is WalletListViewState.SuccessOperation -> onLoaded()
+            is WalletListViewState.Error.UnexpectedError ->{
+                onUnexpectedError()
             }
         }
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter
         binding.layoutWallet.hiddenWalletRecycle.adapter = walletsHiddenAdapter
 
+    }
+
+    private fun onUnexpectedError() {
+        onLoaded()
+        val layout: View = LayoutInflater.from(context).inflate(
+            R.layout.something_went_wrong_toast, binding.root,false)
+        val toast = Toast(context)
+        toast.setGravity(Gravity.TOP, 0, 40)
+        toast.duration = Toast.LENGTH_LONG
+        toast.setView(layout)
+        toast.show()
+    }
+
+    private fun onLoading() {
+        binding.skeletonWallet.showSkeleton()
+    }
+
+    private fun onNetworkError() {
+        onLoaded()
+        val layout: View = LayoutInflater.from(context).inflate(
+            R.layout.network_error_toast, binding.root,false)
+        val toast = Toast(context)
+        toast.setGravity(Gravity.TOP, 0, 40)
+        toast.duration = Toast.LENGTH_LONG
+        toast.setView(layout)
+        toast.show()
+    }
+
+    private fun onLoaded(){
+        binding.skeletonWallet.showOriginal()
     }
 
     private fun onListLoaded(viewState: WalletListViewState.Loaded){
@@ -109,10 +148,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             binding.layoutWallet.showMore.visibility = View.VISIBLE
             binding.layoutWallet.down.visibility = View.VISIBLE
         }
-        binding.skeletonWallet.showOriginal()
-    }
-
-    private fun onLoaded(){
         binding.skeletonWallet.showOriginal()
     }
 
@@ -196,10 +231,11 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                     viewModel.updateWallet(data)
                 }
                 R.id.edit -> {
-                    val navDirection = WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
-                        walletData.toWalletDataSample(),
-                        true
-                    )
+                    val navDirection =
+                        WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
+                            walletData.toWalletDataSample(),
+                            true
+                        )
                     findNavController().navigate(navDirection)
                 }
                 R.id.delete -> {
