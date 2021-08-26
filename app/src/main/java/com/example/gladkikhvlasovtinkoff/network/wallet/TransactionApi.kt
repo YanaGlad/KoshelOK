@@ -3,10 +3,7 @@ package com.example.gladkikhvlasovtinkoff.network.wallet
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.*
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface  TransactionApi {
 
@@ -22,8 +19,8 @@ interface  TransactionApi {
     @POST("/wallet/v1/create")
     fun createWallet(@Body walletCreateRequest: WalletCreateRequest) : Single<WalletResponse>
 
-    @POST("/wallet/v1/delete/{id}")
-    fun deleteWallet(@Path("id") walletId : Long) : Single<WalletResponse>
+    @DELETE("/wallet/v1/delete/{id}")
+    fun deleteWallet(@Path("id") walletId : Long) : Single<Boolean>
 
     @GET("/wallet/v1/find/{id}")
     fun findWalletById(@Path("id") walletId : Long) : Single<WalletResponse>

@@ -38,10 +38,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+
         tools:text="Wallet 1" />
 
     <com.google.android.material.card.MaterialCardView
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:text="@string/limit_overcome"
-            android:textSize="10sp"
+            android:textSize="12sp"
              android:layout_gravity="center"
             />
 

@@ -69,7 +69,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
-     //   binding.skeletonWallet.showSkeleton()
+        //   binding.skeletonWallet.showSkeleton()
 
 
         viewModel.viewState.observe(viewLifecycleOwner) {
@@ -101,7 +101,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                     binding.layoutWallet.down.visibility = View.VISIBLE
                 }
                 binding.skeletonWallet.showOriginal()
-             }
+            }
             else -> {
             }
         }

@@ -35,7 +35,6 @@ class WelcomeFragment : Fragment() {
             val account = task.result
             if(account != null) {
                 viewModel.logInWithAccount(account)
-//                navigateToWallets()
             }
         }
     }
@@ -59,10 +58,30 @@ class WelcomeFragment : Fragment() {
         }
     }
 
-    private fun handleViewState(viewState: AuthViewState) {
-        when(viewState){
-            is AuthViewState.SuccessLogin -> navigateToWallets()
-        }
+    private fun handleViewState(viewState: AuthViewState) =
+            when (viewState) {
+                is AuthViewState.SuccessLogin -> navigateToWallets()
+                is AuthViewState.Loading -> setLoading()
+                is AuthViewState.Error.NetworkError -> showNetworkError()
+                is AuthViewState.Error.UnexpectedError -> showUnexpectedError()
+            }
+
+    private fun showUnexpectedError() {
+        setLoaded()
+    }
+
+    private fun showNetworkError() {
+        setLoaded()
+    }
+
+    private fun setLoading() {
+        binding.authProgressBar.visibility = View.VISIBLE
+        binding.authButton.isEnabled = false
+    }
+
+    private fun setLoaded(){
+        binding.authProgressBar.visibility = View.GONE
+        binding.authButton.isEnabled = true
     }
 
     override fun onStart() {
@@ -70,7 +89,6 @@ class WelcomeFragment : Fragment() {
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())
         if(account != null) {
             viewModel.logInWithAccount(account)
-//            navigateToWallets()
         }
     }
 
@@ -93,5 +111,4 @@ class WelcomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }
