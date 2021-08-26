@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import java.io.IOException
 import javax.inject.Inject
 
+// TODO SOLID
 class WalletRepositoryImpl @Inject constructor(
     private val remoteWalletDataProvider: RemoteWalletDataProvider,
     private val localWalletDataProvider: LocalWalletDataProvider,
@@ -22,7 +23,13 @@ class WalletRepositoryImpl @Inject constructor(
 ) : WalletRepository {
 
     override fun addWallet(wallet: WalletData): Single<WalletListViewState> =
+
         Single.create { emitter ->
+            // TODO вот это все должно быть в сущности WebApi, которая занимается
+            // перевести в обычную цепочку rx
+            // можно использовать flatmap в нем maybe и обрабатывать пустое состояние
+            // можно просто кинуть UnauthorizedException и обработать в onError
+            // можно сделать объект обертку и складывать в него состояние и обрабатывать в onNext
             if (authDataHolder.isAuth()) {
                 val request = WalletCreateRequest(
                     currencyCharCode = wallet.currency.code,
