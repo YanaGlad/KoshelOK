@@ -79,26 +79,21 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     }
 
     private fun handleViewState(viewState: WalletListViewState?) {
-       // viewModel.getWalletList()
         binding.skeletonWallet.showSkeleton()
         when (viewState) {
             is WalletListViewState.Loaded -> {
-
                 val list : MutableList<WalletData> = ArrayList()
                 val listHidden : MutableList<WalletData> = ArrayList()
-
                 for (i in viewState.list.indices){
                     if(!viewState.list[i].hidden)
                         list.add(viewState.list[i])
                     else  listHidden.add(viewState.list[i])
                 }
-
                 walletsAdapter?.submitList(list)
                 walletsHiddenAdapter?.submitList(listHidden)
 
                 binding.noOperationMessage.visibility =
                     if (viewState.list.isEmpty()) View.VISIBLE else View.GONE
-
                 if(viewState.list.isEmpty()){
                     binding.layoutWallet.showMore.visibility = View.GONE
                     binding.layoutWallet.down.visibility = View.GONE

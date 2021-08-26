@@ -11,6 +11,8 @@ sealed class WalletListViewState {
         object NetworkError : WalletListViewState()
 
         object UnexpectedError : WalletListViewState()
+
+        object AuthError : WalletListViewState()
     }
 
     object SuccessOperation : WalletListViewState()

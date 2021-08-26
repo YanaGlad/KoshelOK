@@ -25,6 +25,5 @@ interface RemoteWalletDataProvider {
     fun deleteWallet(walletId: Long): Single<WalletData>
     fun updateWallet(walletUpdateRequest: WalletUpdateRequest): Single<WalletData>
     fun createTransaction(transactionRequest: TransactionRequest): Single<WalletTransactionModel>
-
 }
 

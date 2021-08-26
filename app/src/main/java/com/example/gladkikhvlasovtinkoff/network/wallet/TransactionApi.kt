@@ -28,7 +28,7 @@ interface  TransactionApi {
     @GET("/wallet/v1/find/{id}")
     fun findWalletById(@Path("id") walletId : Long) : Single<WalletResponse>
 
-    @GET("/wallet/v1/findUser/{username}")
+    @GET("/wallet/v1/findByUsername/{username}")
     fun getAllWalletsByUsername(@Path("username") username : String) : Single<List<WalletResponse>>
 
     @POST("/wallet/v1/update")

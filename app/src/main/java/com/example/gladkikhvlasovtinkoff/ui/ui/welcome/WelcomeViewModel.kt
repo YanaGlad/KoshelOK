@@ -12,24 +12,24 @@ import javax.inject.Inject
 @HiltViewModel
 class WelcomeViewModel
 @Inject constructor(val authRepository: AuthRepository) : ViewModel() {
-    private val _viewState : MutableLiveData<AuthViewState> = MutableLiveData()
-    val viewState : LiveData<AuthViewState>
-    get() = _viewState
+    private val _viewState: MutableLiveData<AuthViewState> = MutableLiveData()
+    val viewState: LiveData<AuthViewState>
+        get() = _viewState
 
 
-    fun logInWithAccount( account: GoogleSignInAccount){
-        authRepository.logInWithAccount(
+    fun logInWithAccount(account: GoogleSignInAccount) {
+        val disposable = authRepository.logInWithAccount(
             account
         )
-            .doOnComplete {
-                _viewState.postValue(AuthViewState.SuccessLogin)
-            }
-            .doOnError{
-                it.printStackTrace()
-                _viewState.postValue(AuthViewState.Error.UnexpectedError)
-            }
             .observeOn(Schedulers.io())
             .subscribeOn(Schedulers.io())
-            .subscribe()
+            .subscribe(
+                { viewState ->
+                    _viewState.postValue(viewState)
+                },
+                {
+                    it.printStackTrace()
+                }
+            )
     }
 }

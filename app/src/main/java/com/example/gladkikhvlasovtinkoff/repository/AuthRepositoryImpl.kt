@@ -3,51 +3,35 @@ package com.example.gladkikhvlasovtinkoff.repository
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.LocalAuthProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
+import com.example.gladkikhvlasovtinkoff.ui.ui.welcome.AuthViewState
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import io.reactivex.Completable
 import io.reactivex.CompletableEmitter
+import io.reactivex.Single
+import io.reactivex.SingleEmitter
 import io.reactivex.schedulers.Schedulers
+import java.io.IOException
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    val remoteWalletDataProvider: RemoteWalletDataProvider,
-    val localAuthDataProvider: LocalAuthProvider,
-    val authDataHolder: AuthDataHolder
+    private val remoteWalletDataProvider: RemoteWalletDataProvider,
+    private val localAuthDataProvider: LocalAuthProvider,
+    private val authDataHolder: AuthDataHolder
 ) : AuthRepository {
 
-    override fun logInWithAccount(account: GoogleSignInAccount): Completable =
-        Completable.create { emitter ->
+    override fun logInWithAccount(account: GoogleSignInAccount): Single<AuthViewState> =
+        Single.create { emitter ->
             if (authDataHolder.isAuth()) {
-                if (authDataHolder.isUserChangeAccount(account)) {
+                if (authDataHolder.isUserChangeAccount(account)){
                     authDataHolder.clearUserData()
                     localAuthDataProvider.clearAllTables()
-                    checkAndAddAccount(account, emitter)
-                } else
-                    emitter.onComplete()
-            }else{
-                checkAndAddAccount(account, emitter)
-            }
-        }
-
-    private fun signUpWithAccount(account: GoogleSignInAccount): Completable =
-        Completable.create { emitter ->
-            try {
-                remoteWalletDataProvider.addUserWithAccount(account)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(Schedulers.io())
-                    .doOnSuccess{
-                        authDataHolder.parseAccountInfo(account)
-                        if (authDataHolder.isAuth()) {
-                            emitter.onComplete()
-                        } else
-                            emitter.onError(IllegalArgumentException("Wrong account info"))
-                    }
-                    .doOnError{
-                        emitter.onError(it)
-                    }
-                    .subscribe()
-            } catch (e: Exception) {
-                emitter.onError(e)
+                    val findUserDisp = checkAndAddAccount(account, emitter)
+                }
+                else {
+                    emitter.onSuccess(AuthViewState.SuccessLogin)
+                }
+            } else {
+                val findUserDisp = checkAndAddAccount(account, emitter)
             }
         }
 
@@ -55,35 +39,44 @@ class AuthRepositoryImpl @Inject constructor(
         remoteWalletDataProvider.findUserByUsername(username)
 
 
-    private fun checkAndAddAccount(account: GoogleSignInAccount, emitter : CompletableEmitter) =
-        findUserByUsername(
-            authDataHolder.getAccountKey(account)
-        )
-            .subscribeOn(Schedulers.io())
+    private fun checkAndAddAccount(
+        account: GoogleSignInAccount,
+        emitter: SingleEmitter<AuthViewState>
+    ) =
+        findUserByUsername(authDataHolder.getAccountKey(account))
             .observeOn(Schedulers.io())
-            .doOnSuccess { users ->
-                when {
-                    users.isEmpty() -> {
-                        signUpWithAccount(account)
-                            .observeOn(Schedulers.io())
-                            .subscribeOn(Schedulers.io())
-                            .doOnComplete {
-                                emitter.onComplete()
-                            }
-                            .doOnError{
-                                emitter.onError(it)
-                            }
-                            .subscribe()
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                { users ->
+                    when {
+                        users.isEmpty() -> {
+                            remoteWalletDataProvider.addUserWithAccount(account)
+                                .observeOn(Schedulers.io())
+                                .subscribeOn(Schedulers.io())
+                                .subscribe(
+                                    {
+                                        emitter.onSuccess(AuthViewState.SuccessLogin)
+                                    },
+                                    {
+                                        emitter.onSuccess(it.convertToViewState())
+                                        it.printStackTrace()
+                                    }
+                                )
+                        }
+                        users.isNotEmpty() -> {
+                            authDataHolder.parseAccountInfo(account)
+                            emitter.onSuccess(AuthViewState.SuccessLogin)
+                        }
                     }
-                    users.isNotEmpty() ->
-                    {
-                        authDataHolder.parseAccountInfo(account)
-                        emitter.onComplete()
-                    }
+                },
+                {
+                    emitter.onSuccess(it.convertToViewState())
                 }
-            }
-            .doOnError{
-                it.printStackTrace()
-            }
-            .subscribe()
+            )
+
+    private fun Throwable.convertToViewState(): AuthViewState =
+        when (this) {
+            is IOException -> AuthViewState.Error.NetworkError
+            else -> AuthViewState.Error.UnexpectedError
+        }
 }
