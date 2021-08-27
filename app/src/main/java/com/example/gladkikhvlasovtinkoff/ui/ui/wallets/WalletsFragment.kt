@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
+import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletData
@@ -30,6 +32,11 @@ import java.math.BigDecimal
 
 @AndroidEntryPoint
 class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
+
+    companion object{
+        val STANDARD_CURRENCY_CODE = "RUB"
+    }
+
     private val viewModel: WalletsViewModel by viewModels()
 
     private var _binding: FragmentWalletsBinding? = null
@@ -40,6 +47,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
     private var isClickedExpense = false
     private var isClickedIncome = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,12 +100,15 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupUserBalanceInfo(userBalanceInfo: UserBalanceInfo){
         BigDecimal(userBalanceInfo.income).minus(BigDecimal(userBalanceInfo.expenses)).toString()
-            .also { binding.layoutWallet.walletBalance.text = it }
-        binding.layoutWallet.expenditure.costsValue.text = userBalanceInfo.expenses
-        binding.layoutWallet.income.incomeValue.text = userBalanceInfo.income
-
+            .also { binding.layoutWallet.walletBalance.text = it + STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()
+            }
+        binding.layoutWallet.expenditure.costsValue.text =
+            "${userBalanceInfo.expenses} ${STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()}"
+        binding.layoutWallet.income.incomeValue.text = "${userBalanceInfo.income} " +
+                STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()
     }
 
     private fun handleViewState(viewState: WalletListViewState?) {
