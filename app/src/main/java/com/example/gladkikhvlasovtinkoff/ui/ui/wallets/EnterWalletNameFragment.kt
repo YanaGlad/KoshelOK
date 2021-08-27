@@ -43,10 +43,10 @@ class EnterWalletNameFragment : ToolbarFragment() {
     private fun setupNavigation() {
         binding.layoutEnter.buttonConfirmOperationValue.setOnClickListener {
             val walletDataSample = args.walletDataSample
-            walletDataSample?.name = binding.layoutEnter.newOperationValueField.text.toString()
+            walletDataSample.name = binding.layoutEnter.newOperationValueField.text.toString()
             val action =
                 EnterWalletNameFragmentDirections.actionEnterWalletNameFragmentToNewWalletFragment(
-                    walletDataSample, args.isEdit
+                    walletDataSample, args.isEdit, walletDataSample.createWalletDataModel()
                 )
             findNavController().navigate(action)
         }

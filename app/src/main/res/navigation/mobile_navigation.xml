@@ -44,9 +44,7 @@
             app:popExitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
 
     </fragment>
     <fragment
@@ -238,9 +236,7 @@
             app:popExitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="walletDataSample"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
         <argument
             android:name="isEdit"
             app:argType="boolean"
@@ -272,9 +268,7 @@
             app:popExitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="walletDataSample"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
         <action
             android:id="@+id/action_newWalletFragment_to_enterWalletNameFragment"
             app:destination="@id/enterWalletNameFragment"
@@ -299,8 +293,7 @@
         <argument
             android:name="walletData"
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletData"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            />
     </fragment>
     <fragment
         android:id="@+id/currencyChoiceFragment"

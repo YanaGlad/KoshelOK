@@ -43,7 +43,7 @@ class LimitFragment : ToolbarFragment() {
             val walletDataSample = args.walletDataSample
             walletDataSample.limit =
                 binding.layoutEnter.newOperationValueField.text.toString().convertFromStyled()
-            val action = LimitFragmentDirections.actionLimitFragmentToNewWalletFragment(walletDataSample, args.isEdit)
+            val action = LimitFragmentDirections.actionLimitFragmentToNewWalletFragment(walletDataSample, args.isEdit, walletDataSample.createWalletDataModel())
             findNavController().navigate(action)
             (activity as ToolbarHolder).setToolbarNavigationButtonIcon(R.drawable.ic_back_arrow)
         }

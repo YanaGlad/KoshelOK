@@ -316,7 +316,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 val navDirection =
                     WalletsFragmentDirections.actionWalletsFragmentToNewWalletFragment(
                         walletData.toWalletDataSample(),
-                        true
+                        true,
+                        walletData
                     )
                 findNavController().navigate(navDirection)
             }

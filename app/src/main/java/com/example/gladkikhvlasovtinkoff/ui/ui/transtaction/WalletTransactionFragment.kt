@@ -166,8 +166,9 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_settings) {
             val action = WalletTransactionFragmentDirections.actionOptionFragmentToNewWalletFragment(
-                args.walletData!!,
-                true)
+                args.walletData,
+                true,
+            args.walletData.createWalletDataModel())
             findNavController().navigate(action)
         }
         return true

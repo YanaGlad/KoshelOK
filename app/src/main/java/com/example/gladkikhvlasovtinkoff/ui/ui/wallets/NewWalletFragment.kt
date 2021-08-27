@@ -101,7 +101,7 @@ class NewWalletFragment : ToolbarFragment() {
                 NewWalletFragmentDirections.actionNewWalletFragmentToWalletsFragment()
             findNavController().navigate(action)
         } else {
-            val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment()
+            val action = NewWalletFragmentDirections.actionNewWalletFragmentToOptionFragment(args.walletData.toWalletDataSample())
             findNavController().navigate(action)
         }
     }

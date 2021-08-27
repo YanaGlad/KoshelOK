@@ -1,10 +1,10 @@
 package com.example.gladkikhvlasovtinkoff
 
-import android.app.Activity
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
+import android.widget.CompoundButton
+import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.gladkikhvlasovtinkoff.databinding.ActivityMainBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
         super.onCreate(savedInstanceState)
         supportFragmentManager.popBackStack()
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         setupToolbar()
     }
