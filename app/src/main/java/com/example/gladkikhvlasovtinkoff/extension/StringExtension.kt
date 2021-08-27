@@ -108,7 +108,7 @@ fun String.removeZeros() : String {
         if(this[i] != '0') {
             return this.substring(0, i + 1)
         }else if (this[i] == ',')
-            return this.substring(0, i - 1)
+            return this.substring(0, i)
     }
     return res
 }
