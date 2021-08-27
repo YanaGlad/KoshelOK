@@ -16,8 +16,8 @@ import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
-import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
+import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
@@ -32,22 +32,18 @@ import java.math.BigDecimal
 
 @AndroidEntryPoint
 class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
-
     companion object{
-        val STANDARD_CURRENCY_CODE = "RUB"
+        const val STANDARD_CURRENCY_CODE = "RUB"
     }
 
     private val viewModel: WalletsViewModel by viewModels()
-
     private var _binding: FragmentWalletsBinding? = null
     private val binding get() = _binding!!
     private var expanded = false
     private var walletsAdapter: WalletsAdapter? = null
     private var walletsHiddenAdapter: WalletsAdapter? = null
-    private var chachedList : ArrayList<WalletData> = arrayListOf()
     private var isClickedExpense = false
     private var isClickedIncome = false
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +93,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private fun handleUserBalanceInfoViewState(viewState: UserBalanceInfoViewState) {
         when(viewState){
             is UserBalanceInfoViewState.Loaded -> setupUserBalanceInfo(viewState.userBalanceInfo)
+            else -> {}
         }
     }
 
@@ -130,6 +127,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             is WalletListViewState.Error.UnexpectedError -> {
                 onUnexpectedError()
             }
+            else -> {}
         }
         walletsAdapter?.notifyDataSetChanged()
         walletsHiddenAdapter?.notifyDataSetChanged()
@@ -149,7 +147,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         val toast = Toast(context)
         toast.setGravity(Gravity.TOP, 0, 40)
         toast.duration = Toast.LENGTH_LONG
-        toast.setView(layout)
+        toast.view = layout
         toast.show()
     }
 
@@ -252,7 +250,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         val toast = Toast(context)
         toast.setGravity(Gravity.TOP, 0, 40)
         toast.duration = Toast.LENGTH_LONG
-        toast.setView(layout)
+        toast.view = layout
         toast.show()
     }
 
@@ -309,8 +307,13 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 viewModel.loadWallets()
                 viewModel.getWalletList()
 
+                handleViewState(viewModel.viewState.value)
+
                 walletsAdapter?.notifyDataSetChanged()
                 walletsHiddenAdapter?.notifyDataSetChanged()
+
+                binding.mainLayout.invalidate()
+                 
             }
             R.id.edit -> {
                 val navDirection =

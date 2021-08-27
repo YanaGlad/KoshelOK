@@ -20,10 +20,7 @@ class DeleteDialogFragment <T> (val deleteHelper: DeleteHelper<T>, val data: T? 
                 .setCancelable(true)
                 .setNegativeButton(getString(R.string.cancel)) { dialog, id ->
                     dialog.cancel()
-                    Toast.makeText(
-                        activity, "CANCEL",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
                 }
                 .setPositiveButton(getString(R.string.delete)) { _, _ ->
                     deleteHelper.delete(data!!)
