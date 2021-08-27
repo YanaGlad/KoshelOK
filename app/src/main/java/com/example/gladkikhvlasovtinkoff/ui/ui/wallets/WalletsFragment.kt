@@ -2,6 +2,7 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
@@ -34,7 +35,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private var expanded = false
     private var walletsAdapter: WalletsAdapter? = null
     private var walletsHiddenAdapter: WalletsAdapter? = null
-
+    private var chachedList : ArrayList<WalletData> = arrayListOf()
     private var isClickedExpense = false
     private var isClickedIncome = false
 
@@ -232,8 +233,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
 
     private fun initRecycler() {
-        walletsAdapter = initAdapter()
-        walletsHiddenAdapter = initAdapter()
+        walletsAdapter = initAdapter(true)
+        walletsHiddenAdapter = initAdapter(false)
 
         binding.layoutWallet.walletRecycle.setHasFixedSize(true)
         binding.layoutWallet.walletRecycle.apply {
@@ -248,7 +249,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         }
     }
 
-    private fun initAdapter() = WalletsAdapter(
+    private fun initAdapter(hide : Boolean) = WalletsAdapter(
         object : WalletsAdapter.OnWalletClickListener {
             override fun onWalletClick(walletData: WalletData, position: Int) {
                 navigateToWallet(
@@ -268,8 +269,12 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         when (action.actionId) {
             R.id.hide -> {
                 val data = walletData.toWalletDataSample()
-                data.hidden = !data.hidden
+                Log.d("HIDDEN", " IS ${data.hidden}")
+                data.hidden = hide
                 viewModel.updateWallet(data)
+                viewModel.loadWallets()
+                viewModel.getWalletList()
+
                 walletsAdapter?.notifyDataSetChanged()
                 walletsHiddenAdapter?.notifyDataSetChanged()
             }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.gladkikhvlasovtinkoff.swipe.SwipeToActionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeToAction"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    app:sal_gravity="right"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="5dp"
+    app:sal_isFullActionSupported="false"
+    app:sal_items="@menu/swipe_category"
+    app:sal_shouldVibrateOnQuickAction="false">
+
+    <include
+        android:id="@+id/data"
+        layout="@layout/category_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</com.example.gladkikhvlasovtinkoff.swipe.SwipeToActionLayout>

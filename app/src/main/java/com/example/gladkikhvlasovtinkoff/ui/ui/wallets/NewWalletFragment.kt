@@ -83,6 +83,7 @@ class NewWalletFragment : ToolbarFragment() {
             is NewWalletViewState.SuccessOperation -> onSuccess()
             is NewWalletViewState.Error.UnexpectedError -> onUnexpectedError()
             is NewWalletViewState.Error.NetworkError -> onNetworkError()
+            else -> {}
         }
 
     private fun onNetworkError() {
