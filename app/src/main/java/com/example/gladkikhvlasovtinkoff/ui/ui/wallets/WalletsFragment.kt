@@ -428,9 +428,9 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private fun ImageView.setCourseStatusIcon(isUp : Boolean){
         this.setImageDrawable(
             if(isUp)
-                ResourcesCompat.getDrawable(resources, R.drawable.ic_up_expand, context.theme )
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_course_up, context.theme )
             else
-                ResourcesCompat.getDrawable(resources, R.drawable.ic_down_expand, context.theme)
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_course_down, context.theme)
         )
     }
 }
