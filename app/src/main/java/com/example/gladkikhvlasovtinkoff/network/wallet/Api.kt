@@ -66,4 +66,8 @@ interface Api {
 
     @DELETE("/transaction/v1/delete/{id}")
     fun deleteTransaction(@Path("id") id : Long) : Single<Boolean>
+
+    @GET("/transaction/v1/byWallet/{id}")
+    fun getAllTransactions(@Path("id") walletId : Long) : Single<List<TransactionResponse>>
+
 }

@@ -261,5 +261,35 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
     override fun deleteTransaction(id: Long): Single<Boolean> =
         api.deleteTransaction(id)
 
+    override fun loadAllTransactions(walletId: Long) =
+        api.getAllTransactions(walletId)
+            .map{ transactions ->
+                transactions.map{ item ->
+                    WalletTransactionModel(
+                        id = item.id,
+                        date = item.date,
+                        walletId = item.walletId,
+                        isIncome = item.income,
+                        amount = item.amount,
+                        currency = Currency(
+                            code = item.code,
+                            name = ""
+                        ),
+                        transactionCategoryData = TransactionCategoryData(
+                            id = item.category.id,
+                            name = item.category.name,
+                            iconId = getIconIdByNameId(item.category.stringId),
+                            userName = item.category.user?.username ?: "",
+                            description = item.category.description,
+                            colorRed = item.category.redColor,
+                            colorBlue = item.category.blueColor,
+                            colorGreen = item.category.greenColor,
+                            income = item.income
+                        )
+                    )
+                }
+            }
+
+
 
 }

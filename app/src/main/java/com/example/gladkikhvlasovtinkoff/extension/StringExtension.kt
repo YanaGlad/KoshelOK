@@ -93,3 +93,15 @@ fun String.convertCurrencyCodeToSymbol() : String =
         "GBP" -> "£"
         else -> this
     }
+
+fun String.trimTrailingZeros() : String {
+    val comma = false
+    val res = this
+    for (i in this.length - 1 downTo 0) {
+        if(this[i] != '0') {
+            return this.substring(0, i + 1)
+        }else if (this[i] == ',')
+            return this.substring(0, i)
+    }
+    return res
+}

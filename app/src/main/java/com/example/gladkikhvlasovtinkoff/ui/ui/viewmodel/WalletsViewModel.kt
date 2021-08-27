@@ -99,23 +99,6 @@ class WalletsViewModel @Inject constructor(
             }
     }
 
-    fun getAllWalletsBalance(
-        currencyCharCode: String,
-    ) {
-        _viewState.value = WalletListViewState.Loading
-        repository.getAllWalletsBalance(currencyCharCode)
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .subscribe(
-                {
-                    _viewState.postValue(it)
-                    _viewState.postValue(WalletListViewState.SuccessOperation)
-                },
-                {
-                    _viewState.postValue(WalletListViewState.Error.UnexpectedError)
-                }
-            )
-    }
 
     fun deleteWallet(wallet: WalletData) {
         _viewState.value = WalletListViewState.Loading
@@ -156,6 +139,7 @@ class WalletsViewModel @Inject constructor(
             item.dispose()
         }
     }
+
 
     private fun Throwable.convertToBalanceInfoState() =
         when (this) {

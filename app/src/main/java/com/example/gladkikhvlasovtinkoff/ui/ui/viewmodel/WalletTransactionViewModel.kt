@@ -84,4 +84,20 @@ class WalletTransactionViewModel @Inject constructor(val repository: Transaction
                 }
             )
     }
+
+    fun loadTransactions(walletId : Long){
+        repository
+            .loadAllTransactions(walletId)
+            .observeOn(Schedulers.computation())
+            .map{
+                TransactionListViewState.Loaded(it.toDelegateItemListWithDate())
+            }.subscribe(
+                {
+                    _viewState.postValue(it)
+                },
+                {
+                    _viewState.postValue(TransactionListViewState.Error.NetworkError)
+                }
+            )
+    }
 }
