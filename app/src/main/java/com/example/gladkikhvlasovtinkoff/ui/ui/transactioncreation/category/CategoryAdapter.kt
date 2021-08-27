@@ -68,7 +68,7 @@ class OperationCategoryAdapter(
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
             iconHelper.setIcon(categories[position].name, categories[position].id, true)
-         }
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -105,7 +105,8 @@ class OperationCategoryAdapter(
             checkedPosition: Int
         ) {
             item = transactionCategoryData
-            binding?.swipeToAction?.menuListener = this
+            if (!isGridIcon)
+                binding?.swipeToAction?.menuListener = this
             binding?.data?.transactionDot?.setColorFilter(
                 ColorPicker(
                     activity,
