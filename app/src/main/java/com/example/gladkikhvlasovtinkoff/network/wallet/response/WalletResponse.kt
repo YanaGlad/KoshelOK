@@ -10,5 +10,4 @@ class WalletResponse (
         @SerializedName("lim") val limit : String,
         @SerializedName("name") val name : String,
         @SerializedName("user") val user  : UserResponse,
-
 )

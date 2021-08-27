@@ -1,6 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
+import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import io.reactivex.Flowable
@@ -14,5 +15,5 @@ interface WalletRepository {
     fun loadWallets() : Single<WalletListViewState>
     fun updateWallet(wallet: WalletData, walletId : Long) : Single<WalletListViewState>
     fun getCurrenciesCourse(codes : List<String>) : Single<List<CurrencyCourse>>
- 
+    fun getBalanceInfo() : Single<UserBalanceInfo>
 }

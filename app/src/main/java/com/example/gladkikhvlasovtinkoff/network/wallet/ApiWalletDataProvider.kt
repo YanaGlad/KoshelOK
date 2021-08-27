@@ -6,10 +6,12 @@ import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyCourseResponse
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 import io.reactivex.Single
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class ApiWalletDataProvider @Inject constructor(private val api: Api) :
@@ -184,6 +186,93 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
 
     override fun getAllWalletsBalance(currencyCharCode: String, username: String): Single<String> =
         api.getAllWalletsBalance(currencyCharCode, username)
+
+    override fun getExpensesByWallet(walletData: WalletData): Single<String> =
+        api.getWalletExpensesCount(
+            WalletSumRequest(
+                balance = walletData.amount,
+                currency = CurrencyResponse(
+                    name = walletData.currency.name,
+                    code = walletData.currency.code
+                ),
+                isHidden = walletData.hidden,
+                id = walletData.id,
+                limit = walletData.limit,
+                name = walletData.name,
+                user = UserResponse(
+                    name = walletData.name,
+                    username = walletData.username
+                )
+            )
+        )
+
+    override fun getIncomeByWallet(walletData: WalletData): Single<String> =
+        api.getWalletIncomeCount(WalletSumRequest(
+            balance = walletData.amount,
+            currency = CurrencyResponse(
+                name = walletData.currency.name,
+                code = walletData.currency.code
+            ),
+            isHidden = walletData.hidden,
+            id = walletData.id,
+            limit = walletData.limit,
+            name = walletData.name,
+            user = UserResponse(
+                name = walletData.name,
+                username = walletData.username
+            )
+        )
+        )
+
+    override fun getAllExpenses(wallets: List<WalletData>): Single<String> =
+        if(wallets.isNotEmpty()){
+            var toZipWith = getWalletExpensesInRubbles(wallets[0])
+            for(i in 1 until wallets.size){
+                toZipWith = toZipWith.zipWith(
+                    getWalletExpensesInRubbles(wallets[i]),
+                    { sum , next ->
+                        BigDecimal(sum).add(BigDecimal(next)).toString()
+                    }
+                )
+            }
+            toZipWith
+        }else
+            Single.just("0")
+
+
+    override fun getAllIncome(wallets: List<WalletData>): Single<String> =
+        if(wallets.isNotEmpty()){
+            var toZipWith = getWalletIncomeInRubbles(wallets[0])
+            for(i in 1 until wallets.size){
+                toZipWith = toZipWith.zipWith(
+                    getWalletIncomeInRubbles(wallets[i]),
+                    { sum , next ->
+                        BigDecimal(sum).add(BigDecimal(next)).toString()
+                    }
+                )
+            }
+            toZipWith
+        }else
+            Single.just("0")
+
+    private fun getWalletExpensesInRubbles(walletData: WalletData)=
+        getExpensesByWallet(walletData)
+            .flatMap{ amount ->
+                getCurrencyCourse(walletData.currency.code)
+                    .map{ course ->
+                        BigDecimal(amount).multiply(BigDecimal(course.course)).toString()
+                    }
+            }
+
+    private fun getWalletIncomeInRubbles(walletData: WalletData)=
+        getIncomeByWallet(walletData)
+            .flatMap{ amount ->
+                getCurrencyCourse(walletData.currency.code)
+                    .map{ course ->
+                        BigDecimal(amount).multiply(BigDecimal(course.course)).toString()
+                    }
+            }
+
 
 
 }

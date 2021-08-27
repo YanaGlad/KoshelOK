@@ -21,5 +21,9 @@ interface RemoteWalletDataProvider {
     fun createTransaction(transactionRequest: TransactionRequest): Single<WalletTransactionModel>
     fun getAllCategoriesByUsername(username: String): Single<List<CategoryDataSample>>
     fun getAllWalletsBalance(currencyCharCode: String, username : String ): Single<String>
+    fun getExpensesByWallet(walletData: WalletData) : Single<String>
+    fun getIncomeByWallet(walletData: WalletData) : Single<String>
+    fun getAllExpenses(wallets: List<WalletData>) : Single<String>
+    fun getAllIncome(wallets: List<WalletData>) : Single<String>
 }
 
