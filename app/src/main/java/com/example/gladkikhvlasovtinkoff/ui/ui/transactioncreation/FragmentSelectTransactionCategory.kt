@@ -19,11 +19,14 @@ import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.IconHelper
+import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.CategoryViewModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
+class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper ,
+    DeleteHelper<CategoryDataSample> {
     private val viewModel: CategoryViewModel by viewModels()
 
     private var _binding: FragmentSelectTransactionCategoryBinding? = null
@@ -144,8 +147,19 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
     }
 
     private fun setupOperationCategoryList(isIncome: Boolean) {
-        categoriesAdapter = OperationCategoryAdapter(this, activity as AppCompatActivity) { _, _ ->
-
+        categoriesAdapter = OperationCategoryAdapter(this, activity as AppCompatActivity) { category, action ->
+            when (action.actionId) {
+                R.id.delete -> {
+                    val deleteDialog = DeleteDialogFragment(this, category)
+                    val manager = activity?.supportFragmentManager
+                    manager?.let {
+                        deleteDialog.show(
+                            it,
+                            getString(R.string.delete_dialog_tag)
+                        )
+                    }
+                }
+            }
         }
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
@@ -164,5 +178,9 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
         categoryData?.stringId = stringId
         categoryData?.id = id
         categoryId = id
+    }
+
+    override fun delete(pos: CategoryDataSample) {
+        viewModel.deleteCategory(pos)
     }
 }

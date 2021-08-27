@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.CategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.databinding.SwipeCategoryItemBinding
+import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
@@ -20,7 +21,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletsAdapter
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 
-typealias OnActionClick = (transaction: TransactionCategoryData, action: SwipeAction) -> Unit
+typealias OnActionClick = (transaction: CategoryDataSample, action: SwipeAction) -> Unit
 
 class OperationCategoryAdapter(
     private val iconHelper: IconHelper,
@@ -104,6 +105,7 @@ class OperationCategoryAdapter(
             checkedPosition: Int
         ) {
             item = transactionCategoryData
+            binding?.swipeToAction?.menuListener = this
             binding?.data?.transactionDot?.setColorFilter(
                 ColorPicker(
                     activity,
@@ -157,7 +159,7 @@ class OperationCategoryAdapter(
 
         override fun onActionClicked(view: View, action: SwipeAction) {
             if (!isGridIcon) {
-                onActionClick(item, action)
+                onActionClick(item.toSample(), action)
                 binding?.swipeToAction?.close()
             }
         }

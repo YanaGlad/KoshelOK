@@ -8,10 +8,13 @@ import com.example.gladkikhvlasovtinkoff.extension.getNameIdByStringId
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
+import com.example.gladkikhvlasovtinkoff.model.WalletData
 
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.CategoryRequest
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -109,6 +112,26 @@ class CategoryRepositoryImpl @Inject constructor(
             else
                 emitter.onSuccess(CategoryListViewState.Error.AuthError)
         }
+
+
+    override fun deleteCategory(categorySample: CategoryDataSample): Single<CategoryListViewState> =
+        Single.create { emitter ->
+            remoteWalletDataProvider
+                .deleteWallet(categorySample.id)
+                .subscribe(
+                    { isDeleted ->
+                        if (isDeleted) {
+                            localCategoryDataProvider
+                                    .deleteCategory(categorySample)
+                        }
+                        emitter.onSuccess(CategoryListViewState.SuccessOperation)
+                    },
+                    { throwable ->
+                        emitter.onSuccess(throwable.convertToViewState())
+                    }
+                )
+        }
+
 
     private fun Throwable.convertToViewState(): CategoryListViewState =
         when (this) {

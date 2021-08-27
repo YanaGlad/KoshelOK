@@ -207,72 +207,76 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
         )
 
     override fun getIncomeByWallet(walletData: WalletData): Single<String> =
-        api.getWalletIncomeCount(WalletSumRequest(
-            balance = walletData.amount,
-            currency = CurrencyResponse(
-                name = walletData.currency.name,
-                code = walletData.currency.code
-            ),
-            isHidden = walletData.hidden,
-            id = walletData.id,
-            limit = walletData.limit,
-            name = walletData.name,
-            user = UserResponse(
+        api.getWalletIncomeCount(
+            WalletSumRequest(
+                balance = walletData.amount,
+                currency = CurrencyResponse(
+                    name = walletData.currency.name,
+                    code = walletData.currency.code
+                ),
+                isHidden = walletData.hidden,
+                id = walletData.id,
+                limit = walletData.limit,
                 name = walletData.name,
-                username = walletData.username
+                user = UserResponse(
+                    name = walletData.name,
+                    username = walletData.username
+                )
             )
-        )
         )
 
     override fun getAllExpenses(wallets: List<WalletData>): Single<String> =
-        if(wallets.isNotEmpty()){
+        if (wallets.isNotEmpty()) {
             var toZipWith = getWalletExpensesInRubbles(wallets[0])
-            for(i in 1 until wallets.size){
+            for (i in 1 until wallets.size) {
                 toZipWith = toZipWith.zipWith(
                     getWalletExpensesInRubbles(wallets[i]),
-                    { sum , next ->
+                    { sum, next ->
                         BigDecimal(sum).add(BigDecimal(next)).toString()
                     }
                 )
             }
             toZipWith
-        }else
+        } else
             Single.just("0")
 
 
     override fun getAllIncome(wallets: List<WalletData>): Single<String> =
-        if(wallets.isNotEmpty()){
+        if (wallets.isNotEmpty()) {
             var toZipWith = getWalletIncomeInRubbles(wallets[0])
-            for(i in 1 until wallets.size){
+            for (i in 1 until wallets.size) {
                 toZipWith = toZipWith.zipWith(
                     getWalletIncomeInRubbles(wallets[i]),
-                    { sum , next ->
+                    { sum, next ->
                         BigDecimal(sum).add(BigDecimal(next)).toString()
                     }
                 )
             }
             toZipWith
-        }else
+        } else
             Single.just("0")
 
-    private fun getWalletExpensesInRubbles(walletData: WalletData)=
+    override fun deleteCategory(id: Long): Single<Boolean> =
+        api.deleteCategory(id)
+
+
+    private fun getWalletExpensesInRubbles(walletData: WalletData) =
         getExpensesByWallet(walletData)
-            .flatMap{ amount ->
+            .flatMap { amount ->
                 getCurrencyCourse(walletData.currency.code)
-                    .map{ course ->
+                    .map { course ->
                         BigDecimal(amount).multiply(BigDecimal(course.course)).toString()
                     }
             }
 
-    private fun getWalletIncomeInRubbles(walletData: WalletData)=
+    private fun getWalletIncomeInRubbles(walletData: WalletData) =
         getIncomeByWallet(walletData)
-            .flatMap{ amount ->
+            .flatMap { amount ->
                 getCurrencyCourse(walletData.currency.code)
-                    .map{ course ->
+                    .map { course ->
                         BigDecimal(amount).multiply(BigDecimal(course.course)).toString()
                     }
             }
-
 
 
 }

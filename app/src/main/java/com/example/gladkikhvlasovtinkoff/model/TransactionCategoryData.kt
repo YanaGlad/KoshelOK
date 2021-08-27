@@ -4,19 +4,23 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class TransactionCategoryData (
-    val id : Long,
-    val name : String,
-    val iconId : Int,
-    val userName : String ,
-    val description : String,
+class TransactionCategoryData(
+    val id: Long,
+    val name: String,
+    val iconId: Int,
+    val userName: String,
+    val description: String,
     val colorRed: Int,
     val colorBlue: Int,
     val colorGreen: Int,
-    val income : Boolean
-) : Parcelable
-{
-    companion object{
+    val income: Boolean
+) : Parcelable {
+
+    fun toSample(): CategoryDataSample {
+        return CategoryDataSample(id, name, name, userName, colorRed, colorBlue, colorGreen, income)
+    }
+
+    companion object {
         const val PUBLIC_CATEGORY_USER =
             "com.expample.gladkikhvlsovtinkoff.model.PUBLIC_CATEGORY_USER"
     }
