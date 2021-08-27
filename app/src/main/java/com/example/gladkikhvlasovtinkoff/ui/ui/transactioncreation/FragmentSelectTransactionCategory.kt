@@ -144,7 +144,9 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
     }
 
     private fun setupOperationCategoryList(isIncome: Boolean) {
-        categoriesAdapter = OperationCategoryAdapter(this, activity as AppCompatActivity)
+        categoriesAdapter = OperationCategoryAdapter(this, activity as AppCompatActivity) { _, _ ->
+
+        }
         binding.operationCategoryList.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(context)

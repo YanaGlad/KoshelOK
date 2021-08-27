@@ -15,14 +15,18 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCreateCategoryBinding
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.CategoryFactory
+import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
+import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.CategoryViewModel
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletsFragmentDirections
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateCategoryFragment : Fragment(), IconHelper {
+class CreateCategoryFragment : Fragment(), IconHelper, DeleteHelper<TransactionCategoryData> {
     private val viewModel: CategoryViewModel by viewModels()
     private var _binding: FragmentCreateCategoryBinding? = null
     private val binding get() = _binding!!
@@ -126,6 +130,21 @@ class CreateCategoryFragment : Fragment(), IconHelper {
 
     private fun setupOperationCategoryList() {
         categoriesAdapter = OperationCategoryAdapter(this, activity as AppCompatActivity, true)
+        {
+                category, action ->
+            when (action.actionId) {
+                R.id.delete -> {
+                    val deleteDialog = DeleteDialogFragment(this, category)
+                    val manager = activity?.supportFragmentManager
+                    manager?.let {
+                        deleteDialog.show(
+                            it,
+                            getString(R.string.delete_dialog_tag)
+                        )
+                    }
+                }
+            }
+        }
 
         binding.categoriesRecycler.apply {
             adapter = categoriesAdapter
@@ -151,6 +170,10 @@ class CreateCategoryFragment : Fragment(), IconHelper {
     override fun setIcon(stringId: String, id : Long) {
         categoryData?.stringId = stringId
         categoryData?.id = id
+    }
+
+    override fun delete(pos: TransactionCategoryData) {
+        //viewModel.deleteCategory(pos)
     }
 
 }

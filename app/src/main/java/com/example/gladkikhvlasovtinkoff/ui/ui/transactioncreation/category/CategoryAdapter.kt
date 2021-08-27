@@ -10,15 +10,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.CategoryItemBinding
+import com.example.gladkikhvlasovtinkoff.databinding.SwipeCategoryItemBinding
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
+import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
+import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
 import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.IconHelper
+import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletsAdapter
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
+import gcom.example.gladkikhvlasovtinkoff.swipe.ActionBindHelper
 
+typealias OnActionClick = (transaction: TransactionCategoryData, action: SwipeAction) -> Unit
 
 class OperationCategoryAdapter(
     private val iconHelper: IconHelper,
     val activity: AppCompatActivity,
-    private val isGridIcon: Boolean = false
+    private val isGridIcon: Boolean = false,
+    private val onActionClicked: OnActionClick
 ) : RecyclerView.Adapter<OperationCategoryAdapter.ViewHolder>() {
 
     private val categories: MutableList<TransactionCategoryData> = arrayListOf()
@@ -28,13 +36,16 @@ class OperationCategoryAdapter(
     val checkedItem: LiveData<TransactionCategoryData?>
         get() = _checkedItem
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val holder = ViewHolder(
             activity,
-            CategoryItemBinding
-                .inflate(LayoutInflater.from(parent.context), parent, false), isGridIcon
+            SwipeCategoryItemBinding
+                .inflate(LayoutInflater.from(parent.context), parent, false),
+            isGridIcon,
+            onActionClicked
         )
-        holder.itemView.setOnClickListener {
+        holder.binding?.data?.constraintLayout?.setOnClickListener {
             if (holder.adapterPosition != RecyclerView.NO_POSITION) {
                 onItemChecked(holder.adapterPosition)
             }
@@ -74,14 +85,17 @@ class OperationCategoryAdapter(
 
     class ViewHolder(
         val activity: AppCompatActivity,
-        val _binding: CategoryItemBinding,
-        private val isGridIcon: Boolean
+        val _binding: SwipeCategoryItemBinding,
+        private val isGridIcon: Boolean,
+        private val onActionClick: OnActionClick
     ) :
-        RecyclerView.ViewHolder(_binding.root) {
-        var binding: CategoryItemBinding? = null
+        RecyclerView.ViewHolder(_binding.root), SwipeMenuListener {
+        var binding: SwipeCategoryItemBinding? = null
+        private val actionsBindHelper = ActionBindHelper()
+        private lateinit var item: TransactionCategoryData
 
         init {
-            binding = CategoryItemBinding.bind(itemView)
+            binding = SwipeCategoryItemBinding.bind(itemView)
         }
 
         fun bind(
@@ -89,7 +103,8 @@ class OperationCategoryAdapter(
             position: Int,
             checkedPosition: Int
         ) {
-            binding?.transactionDot?.setColorFilter(
+            item = transactionCategoryData
+            binding?.data?.transactionDot?.setColorFilter(
                 ColorPicker(
                     activity,
                     transactionCategoryData.colorRed,
@@ -98,7 +113,7 @@ class OperationCategoryAdapter(
                 ).color
             )
 
-            binding?.categoryImageIcon?.setImageDrawable(
+            binding?.data?.categoryImageIcon?.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     itemView.resources,
                     transactionCategoryData.iconId,
@@ -107,18 +122,44 @@ class OperationCategoryAdapter(
             )
 
             if (isGridIcon) {
-                val params = binding?.isCategoryChecked?.getLayoutParams()
+                val params = binding?.data?.isCategoryChecked?.getLayoutParams()
                 params?.height = 90
                 params?.width = 90
-                binding?.isCategoryChecked?.layoutParams = params
-                binding?.isCategoryChecked?.setColorFilter(ColorPicker(activity, 0, 0, 0).color)
+                binding?.data?.isCategoryChecked?.layoutParams = params
+                binding?.data?.isCategoryChecked?.setColorFilter(
+                    ColorPicker(
+                        activity,
+                        0,
+                        0,
+                        0
+                    ).color
+                )
             }
 
-            binding?.categoryName?.text = transactionCategoryData.name
+            binding?.data?.categoryName?.text = transactionCategoryData.name
             if (position == checkedPosition) {
-                binding?.isCategoryChecked?.visibility = View.VISIBLE
+                binding?.data?.isCategoryChecked?.visibility = View.VISIBLE
             } else
-                binding?.isCategoryChecked?.visibility = View.GONE
+                binding?.data?.isCategoryChecked?.visibility = View.GONE
+        }
+
+        override fun onClosed(view: View) {
+        }
+
+        override fun onOpened(view: View) {
+            if (!isGridIcon) {
+                val walletData = item
+                actionsBindHelper.closeOtherThan(walletData.name)
+            }
+        }
+
+        override fun onFullyOpened(view: View, quickAction: SwipeAction) {}
+
+        override fun onActionClicked(view: View, action: SwipeAction) {
+            if (!isGridIcon) {
+                onActionClick(item, action)
+                binding?.swipeToAction?.close()
+            }
         }
 
     }
