@@ -89,6 +89,7 @@ class CurrencyChoiceFragment : Fragment() {
 
     private fun expandRecyclerView() {
         expanded = if (expanded) {
+            _layoutManager.scrollToPosition(0)
             _layoutManager.setScrollEnabled(false)
             binding.motionLayout.transitionToStart()
             binding.showMore.text = getString(R.string.show_more)
