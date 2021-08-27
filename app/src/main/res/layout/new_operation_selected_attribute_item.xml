@@ -22,16 +22,20 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/attributeValue"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="12dp"
-        android:gravity="center"
+        android:ellipsize="end"
+        android:gravity="center|end"
+        android:maxLines="1"
         android:text="@string/attribute_value"
         android:textColor="@color/light_gray"
-
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@id/attributeName"
-        app:layout_constraintEnd_toStartOf="@+id/attributeActionImage" />
+        app:layout_constraintEnd_toStartOf="@+id/attributeActionImage"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@+id/attributeName" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/attributeActionImage"
