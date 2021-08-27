@@ -4,9 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 class CategoryResponse(
     @SerializedName("user") val user: UserResponse?,
-    @SerializedName("name") val name: String,
+    @SerializedName("name") val name: String?,
     @SerializedName("stringId") val stringId: String,
-    @SerializedName("description") val description: String,
     @SerializedName("income") val income: Boolean,
     @SerializedName("id") val id: Long,
     @SerializedName("r") val redColor: Int,

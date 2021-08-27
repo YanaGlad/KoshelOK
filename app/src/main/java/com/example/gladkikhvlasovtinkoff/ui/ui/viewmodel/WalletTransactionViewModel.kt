@@ -15,6 +15,10 @@ import javax.inject.Inject
 class WalletTransactionViewModel @Inject constructor(val repository: TransactionRepository) :
     ViewModel() {
 
+    init {
+
+    }
+
     private val _viewState: MutableLiveData<TransactionListViewState> = MutableLiveData()
     val viewState: LiveData<TransactionListViewState>
         get() = _viewState

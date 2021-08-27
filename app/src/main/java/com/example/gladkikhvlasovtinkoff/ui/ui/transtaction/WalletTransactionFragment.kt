@@ -62,11 +62,9 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
 
     @SuppressLint("SetTextI18n")
     private fun initLayout() {
-        if(args.walletData != null){
-            binding.layoutWallet.walletBalance.text = args.walletData!!.amount + " " +
-                    args.walletData!!.currency.code.convertCurrencyCodeToSymbol()
-            binding.layoutWallet.info.text = args.walletData!!.name
-        }
+        binding.layoutWallet.walletBalance.text = args.walletData.amount + " " +
+                args.walletData.currency.code.convertCurrencyCodeToSymbol()
+        binding.layoutWallet.info.text = args.walletData.name
         binding.layoutWallet.hiddenWalletRecycle.visibility = View.GONE
         binding.layoutWallet.down.visibility = View.GONE
         binding.layoutWallet.showMore.visibility = View.GONE
@@ -82,7 +80,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         viewModel.viewState.observe(viewLifecycleOwner) { viewState ->
             handleViewState(viewState)
         }
-        args.walletData?.id?.let{ username ->
+        args.walletData.id.let{ username ->
             viewModel.getTransactionListByWalletId(username)
         }
     }

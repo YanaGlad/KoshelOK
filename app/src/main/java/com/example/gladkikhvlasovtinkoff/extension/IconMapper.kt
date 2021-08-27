@@ -50,6 +50,8 @@ fun getIconIdByNameId(nameId: String): Int =
         IconNameId.Entertainment.name -> R.drawable.ic_entertainment
         IconNameId.Other.name -> R.drawable.ic_resource_else
         IconNameId.Finance.name -> R.drawable.ic_finance
+
+
         else -> R.drawable.ic_finance
     }
 
@@ -67,5 +69,5 @@ fun getIdentifierForCategoryName(context: Context, name: String): IconNameId =
         context.getString(R.string.gas_station) -> IconNameId.GasStation
         context.getString(R.string.rent) -> IconNameId.Rent
         context.getString(R.string.travel) -> IconNameId.Travel
-        else -> throw IllegalArgumentException("cannot convert this name to category identifier")
+        else -> IconNameId.Salary
     }
