@@ -268,19 +268,19 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                     WalletTransactionModel(
                         id = item.id,
                         date = item.date,
-                        walletId = item.walletId,
+                        walletId = item.wallet.id,
                         isIncome = item.income,
                         amount = item.amount,
                         currency = Currency(
-                            code = item.code,
+                            code = item.currency.code,
                             name = ""
                         ),
                         transactionCategoryData = TransactionCategoryData(
                             id = item.category.id,
-                            name = item.category.name,
+                            name = UNDEFINED_STR,
                             iconId = getIconIdByNameId(item.category.stringId),
                             userName = item.category.user?.username ?: "",
-                            description = item.category.description,
+                            description = UNDEFINED_STR,
                             colorRed = item.category.redColor,
                             colorBlue = item.category.blueColor,
                             colorGreen = item.category.greenColor,

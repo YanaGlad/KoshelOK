@@ -45,7 +45,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private var expanded = false
     private var walletsAdapter: WalletsAdapter? = null
     private var walletsHiddenAdapter: WalletsAdapter? = null
-    private var chachedList: ArrayList<WalletData> = arrayListOf()
     private var isClickedExpense = false
     private var isClickedIncome = false
 
@@ -66,6 +65,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletsBinding.inflate(inflater)
+        binding.skeletonWallet.showSkeleton()
         return binding.root
     }
 
@@ -93,7 +93,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.balanceInfoViewState.observe(viewLifecycleOwner) {
             handleUserBalanceInfoViewState(it)
         }
-        binding.skeletonWallet.showOriginal()
         onCoursesLoading()
     }
 
@@ -143,6 +142,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
                 onUnexpectedError()
             }
         }
+        binding.skeletonWallet.showOriginal()
         walletsAdapter?.notifyDataSetChanged()
         walletsHiddenAdapter?.notifyDataSetChanged()
         binding.layoutWallet.walletRecycle.adapter = walletsAdapter

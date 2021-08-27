@@ -53,13 +53,13 @@ class CategoryRepositoryImpl @Inject constructor(
                 )
         }
 
-    override fun getCategories(income : Boolean): Flowable<CategoryListViewState> =
+    override fun getCategories(income: Boolean): Flowable<CategoryListViewState> =
         if (authDataHolder.isAuth())
             localCategoryDataProvider
                 .getAllCategories()
                 .map { samples ->
                     CategoryListViewState.Loaded(
-                        samples.map{ item ->
+                        samples.map { item ->
                             TransactionCategoryData(
                                 name = item.name,
                                 iconId = getIconIdByNameId(item.stringId),
@@ -77,7 +77,7 @@ class CategoryRepositoryImpl @Inject constructor(
         else
             Flowable.just(CategoryListViewState.Error.AuthError)
 
-    override fun loadCategories(context : Context): Single<CategoryListViewState> =
+    override fun loadCategories(context: Context): Single<CategoryListViewState> =
         Single.create { emitter ->
             if (authDataHolder.isAuth()) {
                 val authKey = authDataHolder.getUserKey()
@@ -108,8 +108,7 @@ class CategoryRepositoryImpl @Inject constructor(
                             emitter.onSuccess(throwable.convertToViewState())
                         }
                     )
-            }
-            else
+            } else
                 emitter.onSuccess(CategoryListViewState.Error.AuthError)
         }
 
@@ -120,11 +119,10 @@ class CategoryRepositoryImpl @Inject constructor(
             remoteWalletDataProvider
                 .deleteWallet(id)
                 .subscribe(
-                    { isDeleted ->
-                        if (isDeleted) {
-                            localCategoryDataProvider
-                                .deleteCategory(categorySample)
-                        }
+                    {
+                        localCategoryDataProvider
+                            .deleteCategory(categorySample)
+
                         emitter.onSuccess(CategoryListViewState.SuccessOperation)
                     },
                     { throwable ->

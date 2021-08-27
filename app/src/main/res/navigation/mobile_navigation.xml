@@ -49,6 +49,13 @@
         <argument
             android:name="walletData"
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
+        <action
+            android:id="@+id/action_optionFragment_to_fragmentConfirmOperationCreating"
+            app:destination="@id/fragmentConfirmOperationCreating"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
 
     </fragment>
     <fragment
@@ -115,7 +122,11 @@
             android:defaultValue="@null" />
         <action
             android:id="@+id/action_fragmentSelectOperationCategory_to_fragmentSelectOperationType"
-            app:destination="@id/fragmentSelectOperationType" />
+            app:destination="@id/fragmentSelectOperationType"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_fragmentSelectOperationCategory_to_fragmentSelectOperationValue"
             app:destination="@id/fragmentSelectOperationValue" />

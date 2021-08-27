@@ -108,10 +108,10 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
     private fun setupBalanceInfo(userBalanceInfo: BalanceInfo) {
         binding.layoutWallet.expenditure.costsValue.text =
             userBalanceInfo.expenses.trimTrailingZeros() +
-                args.walletData.currency.code.convertCurrencyCodeToSymbol()
+                    args.walletData.currency.code.convertCurrencyCodeToSymbol()
         binding.layoutWallet.income.incomeValue.text =
             userBalanceInfo.income.trimTrailingZeros() +
-                args.walletData.currency.code.convertCurrencyCodeToSymbol()
+                    args.walletData.currency.code.convertCurrencyCodeToSymbol()
         binding.layoutWallet.info.text =
             BigDecimal(userBalanceInfo.income).minus(BigDecimal(userBalanceInfo.expenses))
                 .toString().trimTrailingZeros()
@@ -143,7 +143,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         binding.transactionsProgressBar.visibility = View.VISIBLE
     }
 
-    private fun onLoaded(){
+    private fun onLoaded() {
         binding.layoutWallet.buttonAddOperation.isEnabled = true
         binding.transactionsProgressBar.visibility = View.GONE
     }
@@ -172,9 +172,17 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
 
     private fun initAdapter() {
         baseAdapter = BaseAdapter()
-        baseAdapter?.addDelegate(WalletTransactionDelegate { _, action ->
+        baseAdapter?.addDelegate(WalletTransactionDelegate { model, action ->
             when (action.actionId) {
-                R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
+                R.id.edit -> {
+                    val action =
+                        WalletTransactionFragmentDirections.actionOptionFragmentToFragmentConfirmOperationCreating(
+                            WalletTransactionSample(),
+                            args.walletData,
+                            true
+                        )
+                    findNavController().navigate(action)
+                }
                 R.id.delete -> {
                     val deleteDialog = DeleteDialogFragment(this)
                     val manager = activity?.supportFragmentManager
@@ -236,6 +244,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
     }
 
     override fun delete(pos: WalletTransactionModel) {
-        TODO("Not yet implemented")
+        viewModel.deleteTransaction(pos)
+        baseAdapter?.notifyDataSetChanged()
     }
 }
