@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,5 +36,34 @@ class WalletTransactionViewModel @Inject constructor(val repository: Transaction
 
             .observeOn(Schedulers.io())
             .subscribe()
+    }
+
+    fun deleteTransaction(walletTransactionModel: WalletTransactionModel){
+        repository.deleteTransaction(walletTransactionModel)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(
+                { isDeleted ->
+
+                },
+                { exception ->
+
+                }
+            )
+    }
+
+    fun updateTransaction(walletTransactionModel: WalletTransactionModel){
+        repository
+            .updateTransaction(walletTransactionModel)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(
+                { model ->
+
+                },
+                { exception ->
+
+                }
+            )
     }
 }

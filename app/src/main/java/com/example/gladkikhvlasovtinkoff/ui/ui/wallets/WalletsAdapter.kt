@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gladkikhvlasovtinkoff.databinding.SwipeWalletItemBinding
+import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeAction
 import com.example.gladkikhvlasovtinkoff.swipe.SwipeMenuListener
@@ -68,11 +70,13 @@ class WalletsAdapter internal constructor(
         private val actionsBindHelper = ActionBindHelper()
         private lateinit var item : WalletData
 
+        @SuppressLint("SetTextI18n")
         fun bind(walletOperations: WalletData) {
             item = walletOperations
             binding.swipeToAction.menuListener = this
             binding.data.walletItemName.text = walletOperations.name
-            binding.data.walletItemBalance.text = walletOperations.amount
+            binding.data.walletItemBalance.text = walletOperations.amount +
+                    walletOperations.currency.code.convertCurrencyCodeToSymbol()
         }
 
         override fun onClosed(view: View) {

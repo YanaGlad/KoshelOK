@@ -232,6 +232,15 @@
         app:layout_constraintStart_toStartOf="@id/centerGuideline"
         app:layout_constraintTop_toBottomOf="@id/walletBalance" />
 
+    <include
+        layout="@layout/over_limit_layout"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/secondCurrencyProgressBar"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toTopOf="@+id/coursesPlate" />
 
 
     <androidx.constraintlayout.widget.Guideline

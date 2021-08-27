@@ -3,7 +3,6 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
@@ -18,7 +17,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
-import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo
+import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
@@ -102,7 +101,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setupUserBalanceInfo(userBalanceInfo: UserBalanceInfo){
+    private fun setupUserBalanceInfo(userBalanceInfo: BalanceInfo){
         BigDecimal(userBalanceInfo.income).minus(BigDecimal(userBalanceInfo.expenses)).toString()
             .also { binding.layoutWallet.walletBalance.text = it + STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()
             }
@@ -238,6 +237,11 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
     private fun onCoursesError() {
         binding.layoutWallet.coursesPlate.visibility = View.GONE
+        binding.layoutWallet.thirdCurrencyProgressBar.visibility = View.GONE
+        binding.layoutWallet.secondCurrencyProgressBar.visibility = View.GONE
+        binding.layoutWallet.firstCurrencyProgressBar.visibility = View.GONE
+
+
     }
 
     private fun onUnexpectedError() {

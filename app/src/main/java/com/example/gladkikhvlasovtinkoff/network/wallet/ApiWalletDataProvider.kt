@@ -277,6 +277,19 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                         BigDecimal(amount).multiply(BigDecimal(course.course)).toString()
                     }
             }
+    override fun updateTransaction(walletTransactionModel: WalletTransactionModel) = TODO()
+//        api.updateTransaction(
+//            TransactionRequest(
+//                amount = walletTransactionModel.amount,
+//                categoryId = walletTransactionModel.transactionCategoryData.id,
+//                date = walletTransactionModel.date,
+//                isIncome = walletTransactionModel.isIncome,
+//                transactionCurrencyCode =
+//            )
+//        )
+
+    override fun deleteTransaction(id: Long): Single<Boolean> =
+        api.deleteTransaction(id)
 
 
 }

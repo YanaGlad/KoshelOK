@@ -46,29 +46,28 @@ class TransactionRepositoryImpl @Inject constructor(
                     }
                 )
         }
+
+    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<List<WalletTransactionModel>> =
+        localDataProvider.getAllTransactionsByWalletId(walletId)
+
+    override fun deleteTransaction(walletTransactionModel: WalletTransactionModel)  : Single<Boolean> =
+        remoteTransactionDataProvider
+            .deleteTransaction(walletTransactionModel.id)
+            .doOnSuccess{ isDeleted ->
+                if(isDeleted)
+                    localDataProvider.deleteTransaction(
+                        walletTransactionModel
+                    )
+            }
+
+    override fun updateTransaction(transaction: WalletTransactionModel) : Single<WalletTransactionModel> = TODO()
+//        remoteTransactionDataProvider
+//            .updateTransaction(transaction)
+
+
     private fun Throwable.convertToViewState(): WalletListViewState =
         when (this) {
             is IOException -> WalletListViewState.Error.NetworkError
             else -> WalletListViewState.Error.UnexpectedError
         }
-
-    override fun addTransactions(items: List<TransactionListViewState>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAllTransactionsByWalletId(walletId: Long): Flowable<List<WalletTransactionModel>> =
-        localDataProvider.getAllTransactionsByWalletId(walletId)
-
-
-    override fun getTransactionById(transactionId: Long): Single<TransactionListViewState> {
-        TODO("Not yet implemented")
-    }
-
-    override fun deleteTransaction(item: TransactionListViewState) {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateTransaction(item: TransactionListViewState) {
-        TODO("Not yet implemented")
-    }
 }

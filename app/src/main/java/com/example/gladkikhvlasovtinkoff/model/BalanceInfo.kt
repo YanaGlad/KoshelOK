@@ -1,6 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.model
 
-class UserBalanceInfo (
+class BalanceInfo (
     val expenses : String,
     val income : String
 )

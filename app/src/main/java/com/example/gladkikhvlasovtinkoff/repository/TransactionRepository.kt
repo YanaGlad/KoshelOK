@@ -9,9 +9,7 @@ import io.reactivex.Single
 
 interface TransactionRepository {
     fun addTransaction(context : Context, item : WalletTransactionModel) : Single<WalletListViewState>
-    fun addTransactions(items : List<TransactionListViewState>)
     fun getAllTransactionsByWalletId(walletId : Long) : Flowable<List<WalletTransactionModel>>
-    fun getTransactionById(transactionId : Long) : Single<TransactionListViewState>
-    fun deleteTransaction(item : TransactionListViewState)
-    fun updateTransaction(item : TransactionListViewState)
+    fun deleteTransaction(walletTransactionData : WalletTransactionModel) : Single<Boolean>
+    fun updateTransaction(transaction : WalletTransactionModel) : Single<WalletTransactionModel>
 }

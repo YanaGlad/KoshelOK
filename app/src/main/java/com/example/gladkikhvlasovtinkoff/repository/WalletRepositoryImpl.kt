@@ -4,7 +4,7 @@ import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.dataprovider.LocalWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
-import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo
+import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
@@ -192,7 +192,7 @@ class WalletRepositoryImpl @Inject constructor(
         } else
             Single.just(listOf())
 
-    override fun getBalanceInfo(): Single<UserBalanceInfo> =
+    override fun getBalanceInfo(): Single<BalanceInfo> =
         remoteWalletDataProvider
             .getAllWalletByUsername(authDataHolder.getUserKey())
             .flatMap{ wallets ->
@@ -200,7 +200,7 @@ class WalletRepositoryImpl @Inject constructor(
                     .zipWith(
                         remoteWalletDataProvider.getAllIncome(wallets),
                         { expenses, income ->
-                            UserBalanceInfo(
+                            BalanceInfo(
                                 expenses = expenses,
                                 income = income
                             )

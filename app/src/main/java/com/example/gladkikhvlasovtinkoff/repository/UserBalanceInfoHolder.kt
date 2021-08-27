@@ -2,12 +2,9 @@ package com.example.gladkikhvlasovtinkoff.repository
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder.Companion.AUTH_SHARED_PREF_KEY
-import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import kotlin.math.exp
 
 class UserBalanceInfoHolder @Inject constructor(@ApplicationContext context: Context) {
     companion object {
@@ -19,7 +16,7 @@ class UserBalanceInfoHolder @Inject constructor(@ApplicationContext context: Con
     private var dataHolder: SharedPreferences =
         context.getSharedPreferences(USER_BALANCE_SHARED_PREF_KEY, Context.MODE_PRIVATE)
 
-    fun saveBalanceInfo(userBalanceInfo: UserBalanceInfo) {
+    fun saveBalanceInfo(userBalanceInfo: BalanceInfo) {
         dataHolder.edit().apply {
             putString(EXPENSES_KEY, userBalanceInfo.expenses)
             putString(INCOME_KEY, userBalanceInfo.income)
@@ -33,7 +30,7 @@ class UserBalanceInfoHolder @Inject constructor(@ApplicationContext context: Con
         }.apply()
     }
 
-    fun getBalanceInfo(): UserBalanceInfo = UserBalanceInfo(
+    fun getBalanceInfo(): BalanceInfo = BalanceInfo(
         expenses = dataHolder.getString(EXPENSES_KEY, "0") ?: "0",
         income = dataHolder.getString(INCOME_KEY, "0") ?: "0"
     )
