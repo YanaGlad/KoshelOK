@@ -16,6 +16,7 @@ import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
+import com.example.gladkikhvlasovtinkoff.extension.trimTrailingZeros
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletData
@@ -113,11 +114,12 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         BigDecimal(userBalanceInfo.income).minus(BigDecimal(userBalanceInfo.expenses)).toString()
             .also {
                 binding.layoutWallet.walletBalance.text =
-                    it + STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()
+                    it.trimTrailingZeros() + STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()
             }
         binding.layoutWallet.expenditure.costsValue.text =
-            "${userBalanceInfo.expenses} ${STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()}"
-        binding.layoutWallet.income.incomeValue.text = "${userBalanceInfo.income} " +
+            "${userBalanceInfo.expenses.trimTrailingZeros()} ${STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()}"
+        binding.layoutWallet.income.incomeValue.text =
+            "${userBalanceInfo.income.trimTrailingZeros()} " +
                 STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()
     }
 

@@ -79,6 +79,11 @@ class TransactionRepositoryImpl @Inject constructor(
                 }
             )
 
+    override fun loadAllTransactions(walletId: Long) =
+        remoteTransactionDataProvider
+            .loadAllTransactions(walletId)
+
+
     private fun Throwable.convertToViewState(): WalletListViewState =
         when (this) {
             is IOException -> WalletListViewState.Error.NetworkError

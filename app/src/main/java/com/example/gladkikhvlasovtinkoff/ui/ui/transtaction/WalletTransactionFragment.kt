@@ -11,11 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gladkikhvlasovtinkoff.ErrorPresenter
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
+import com.example.gladkikhvlasovtinkoff.extension.trimTrailingZeros
 import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
@@ -29,6 +31,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.BalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.BigDecimal
 
 @AndroidEntryPoint
 class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransactionModel> {
@@ -84,17 +87,18 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         viewModel.viewState.observe(viewLifecycleOwner) { viewState ->
             handleViewState(viewState)
         }
-        args.walletData.id.let{ username ->
+        args.walletData.id.let { username ->
             viewModel.getTransactionListByWalletId(username)
         }
-        viewModel.balanceInfoViesState.observe(viewLifecycleOwner){
+        viewModel.balanceInfoViesState.observe(viewLifecycleOwner) {
             handleBalanceViewState(it)
         }
         viewModel.loadBalanceInfo(args.walletData.id)
+        viewModel.loadTransactions(walletId = args.walletData.id)
     }
 
     private fun handleBalanceViewState(viewState: BalanceInfoViewState) {
-        when(viewState){
+        when (viewState) {
             is BalanceInfoViewState.Loaded -> setupBalanceInfo(viewState.userBalanceInfo)
         }
 
@@ -102,19 +106,46 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
 
     @SuppressLint("SetTextI18n")
     private fun setupBalanceInfo(userBalanceInfo: BalanceInfo) {
-        binding.layoutWallet.expenditure.costsValue.text = userBalanceInfo.expenses +
+        binding.layoutWallet.expenditure.costsValue.text =
+            userBalanceInfo.expenses.trimTrailingZeros() +
                 args.walletData.currency.code.convertCurrencyCodeToSymbol()
-        binding.layoutWallet.income.incomeValue.text = userBalanceInfo.income +
+        binding.layoutWallet.income.incomeValue.text =
+            userBalanceInfo.income.trimTrailingZeros() +
                 args.walletData.currency.code.convertCurrencyCodeToSymbol()
+        binding.layoutWallet.info.text =
+            BigDecimal(userBalanceInfo.income).minus(BigDecimal(userBalanceInfo.expenses))
+                .toString().trimTrailingZeros()
     }
 
     private fun handleViewState(viewState: TransactionListViewState) {
-        when(viewState){
-            is TransactionListViewState.Loaded ->
+        when (viewState) {
+            is TransactionListViewState.Loaded -> {
+                onLoaded()
                 baseAdapter?.submitList(viewState.list)
-            else -> {}
+            }
+            is TransactionListViewState.Loading -> onLoading()
+            is TransactionListViewState.Error.NetworkError -> onNetworkError()
         }
         binding.layoutWallet.walletRecycle.adapter = baseAdapter
+    }
+
+    private fun onNetworkError() {
+        onLoaded()
+        activity?.let {
+            (activity as ErrorPresenter).showNetworkError {
+                viewModel.loadTransactions(args.walletData.id)
+            }
+        }
+    }
+
+    private fun onLoading() {
+        binding.layoutWallet.buttonAddOperation.isEnabled = false
+        binding.transactionsProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun onLoaded(){
+        binding.layoutWallet.buttonAddOperation.isEnabled = true
+        binding.transactionsProgressBar.visibility = View.GONE
     }
 
     override fun configureToolbar() {
@@ -141,7 +172,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
 
     private fun initAdapter() {
         baseAdapter = BaseAdapter()
-        baseAdapter?.addDelegate(WalletTransactionDelegate{ _, action ->
+        baseAdapter?.addDelegate(WalletTransactionDelegate { _, action ->
             when (action.actionId) {
                 R.id.edit -> Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
                 R.id.delete -> {
@@ -186,10 +217,12 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_settings) {
-            val action = WalletTransactionFragmentDirections.actionOptionFragmentToNewWalletFragment(
-                args.walletData,
-                true,
-            args.walletData.createWalletDataModel())
+            val action =
+                WalletTransactionFragmentDirections.actionOptionFragmentToNewWalletFragment(
+                    args.walletData,
+                    true,
+                    args.walletData.createWalletDataModel()
+                )
             findNavController().navigate(action)
         }
         return true

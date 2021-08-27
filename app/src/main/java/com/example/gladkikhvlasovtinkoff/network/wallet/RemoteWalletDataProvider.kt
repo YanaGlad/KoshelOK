@@ -29,5 +29,6 @@ interface RemoteWalletDataProvider {
     fun deleteCategory(id: Long): Single<Boolean>
     fun updateTransaction(walletTransactionModel: WalletTransactionModel) : Single<TransactionResponse>
     fun deleteTransaction(id: Long) : Single<Boolean>
+    fun loadAllTransactions(walletId: Long) : Single<List<WalletTransactionModel>>
 }
 

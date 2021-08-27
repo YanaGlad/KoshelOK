@@ -14,4 +14,5 @@ interface TransactionRepository {
     fun deleteTransaction(walletTransactionData : WalletTransactionModel) : Single<Boolean>
     fun updateTransaction(transaction : WalletTransactionModel) : Single<WalletTransactionModel>
     fun getBalanceInfo(walletId: Long) : Single<BalanceInfo>
+    fun loadAllTransactions(walletId: Long) : Single<List<WalletTransactionModel>>
 }
