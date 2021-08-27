@@ -6,18 +6,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
+import com.example.gladkikhvlasovtinkoff.repository.UserBalanceInfoHolder
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CoursesPlateViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.UserBalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class WalletsViewModel @Inject constructor(val repository: WalletRepository) : ViewModel() {
+class WalletsViewModel @Inject constructor(
+    val repository: WalletRepository, private val balanceInfoHolder: UserBalanceInfoHolder
+) : ViewModel() {
     private val disposeBag = CompositeDisposable()
 
     private val _balanceInfoViewState: MutableLiveData<UserBalanceInfoViewState> = MutableLiveData()
@@ -35,12 +39,13 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     init {
         getWalletList()
         loadWallets()
-        loadCourses(listOf("USD","EUR", "GBP"))
+        loadCourses(listOf("USD", "EUR", "GBP"))
         getBalanceInfo()
     }
-    private val disposables : MutableList<Disposable> = mutableListOf()
 
-    private fun loadCourses(codes : List<String>) {
+    private val disposables: MutableList<Disposable> = mutableListOf()
+
+    private fun loadCourses(codes: List<String>) {
         _coursesViewState.value = CoursesPlateViewState.Loading
         val disposable = repository.getCurrenciesCourse(codes)
             .subscribeOn(Schedulers.io())
@@ -55,12 +60,12 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             )
     }
 
-    fun loadWallets(){
+    fun loadWallets() {
         val disposable = repository.loadWallets()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
-                {viewState ->
+                { viewState ->
                     _viewState.postValue(viewState)
                 },
                 {
@@ -85,7 +90,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
         disposables.add(disposable)
     }
 
-   fun getWalletList() {
+    fun getWalletList() {
         val disposable = repository.getWallets()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -94,8 +99,10 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             }
     }
 
-    fun getAllWalletsBalance(currencyCharCode: String,
-                             username: String)  {
+    fun getAllWalletsBalance(
+        currencyCharCode: String,
+        username: String
+    ) {
         _viewState.value = WalletListViewState.Loading
         repository.getAllWalletsBalance(currencyCharCode)
             .subscribeOn(Schedulers.io())
@@ -126,14 +133,18 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             )
     }
 
-    fun getBalanceInfo(){
+    fun getBalanceInfo() {
+        _balanceInfoViewState.value = UserBalanceInfoViewState.Loaded(
+            balanceInfoHolder.getBalanceInfo()
+        )
         repository
             .getBalanceInfo()
             .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { userBalanceInfo ->
                     _balanceInfoViewState.postValue(UserBalanceInfoViewState.Loaded(userBalanceInfo))
+                    balanceInfoHolder.saveBalanceInfo(userBalanceInfo)
                 },
                 {
                     _balanceInfoViewState.postValue(it.convertToBalanceInfoState())
@@ -142,13 +153,13 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     }
 
     fun clear() {
-        for(item in disposables){
+        for (item in disposables) {
             item.dispose()
         }
     }
 
     private fun Throwable.convertToBalanceInfoState() =
-        when(this){
+        when (this) {
             is NetworkErrorException -> UserBalanceInfoViewState.Error.NetworkError
             else -> UserBalanceInfoViewState.Error.UnexpectedError
         }
