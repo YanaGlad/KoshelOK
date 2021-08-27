@@ -4,12 +4,12 @@ import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.LocalWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
+import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -157,7 +157,7 @@ class WalletRepositoryImpl @Inject constructor(
                 )
         }
 
- 
+
     override fun getAllWalletsBalance(
         currencyCharCode: String
     ): Single<WalletListViewState> =
@@ -175,7 +175,7 @@ class WalletRepositoryImpl @Inject constructor(
                 )
         }
 
- 
+
     override fun getCurrenciesCourse(codes: List<String>) : Single<List<CurrencyCourse>> =
         if (codes.isNotEmpty()) {
             var toZipWith = remoteWalletDataProvider.getCurrencyCourse(codes[0])
@@ -191,7 +191,24 @@ class WalletRepositoryImpl @Inject constructor(
             toZipWith
         } else
             Single.just(listOf())
- 
+
+    override fun getBalanceInfo(): Single<UserBalanceInfo> =
+        remoteWalletDataProvider
+            .getAllWalletByUsername(authDataHolder.getUserKey())
+            .flatMap{ wallets ->
+                remoteWalletDataProvider.getAllExpenses(wallets)
+                    .zipWith(
+                        remoteWalletDataProvider.getAllIncome(wallets),
+                        { expenses, income ->
+                            UserBalanceInfo(
+                                expenses = expenses,
+                                income = income
+                            )
+                        }
+                    )
+            }
+
+
 
     private fun Throwable.convertToViewState(): WalletListViewState =
         when (this) {

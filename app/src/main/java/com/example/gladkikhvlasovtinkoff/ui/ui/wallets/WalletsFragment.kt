@@ -16,11 +16,13 @@ import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
+import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.BigDecimal
 
 
 @AndroidEntryPoint
@@ -74,8 +76,25 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.coursesViewState.observe(viewLifecycleOwner){
             handleCoursesPlateViewState(viewState = it)
         }
+        viewModel.balanceInfoViewState.observe(viewLifecycleOwner){
+            handleUserBalanceInfoViewState(it)
+        }
         binding.skeletonWallet.showOriginal()
         onCoursesLoading()
+    }
+
+    private fun handleUserBalanceInfoViewState(viewState: UserBalanceInfoViewState) {
+        when(viewState){
+            is UserBalanceInfoViewState.Loaded -> setupUserBalanceInfo(viewState.userBalanceInfo)
+        }
+    }
+
+    private fun setupUserBalanceInfo(userBalanceInfo: UserBalanceInfo){
+        BigDecimal(userBalanceInfo.income).minus(BigDecimal(userBalanceInfo.expenses)).toString()
+            .also { binding.layoutWallet.walletBalance.text = it }
+        binding.layoutWallet.expenditure.costsValue.text = userBalanceInfo.expenses
+        binding.layoutWallet.income.incomeValue.text = userBalanceInfo.income
+
     }
 
     private fun handleViewState(viewState: WalletListViewState?) {

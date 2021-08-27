@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
+import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,11 @@ import javax.inject.Inject
 @HiltViewModel
 class WalletsViewModel @Inject constructor(val repository: WalletRepository) : ViewModel() {
     private val disposeBag = CompositeDisposable()
+
+    private val _balanceInfoViewState: MutableLiveData<UserBalanceInfoViewState> = MutableLiveData()
+    val balanceInfoViewState: LiveData<UserBalanceInfoViewState>
+        get() = _balanceInfoViewState
+
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
     val viewState: LiveData<WalletListViewState>
         get() = _viewState
@@ -31,6 +37,7 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
         getWalletList()
         loadWallets()
         loadCourses(listOf("USD","EUR", "GBP"))
+        getBalanceInfo()
     }
     private val disposables : MutableList<Disposable> = mutableListOf()
 
@@ -50,18 +57,14 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
     }
 
     fun loadWallets(){
-        // TODO обработка disposable
         val disposable = repository.loadWallets()
             .subscribeOn(Schedulers.io())
-                // TODO достаточно одного subscribeOn в этом случае
             .observeOn(Schedulers.io())
             .subscribe(
                 {viewState ->
                     _viewState.postValue(viewState)
                 },
                 {
-                    it.printStackTrace()
-                    // TODO вывод ошибок
                 }
             )
     }
@@ -124,12 +127,32 @@ class WalletsViewModel @Inject constructor(val repository: WalletRepository) : V
             )
     }
 
+    fun getBalanceInfo(){
+        repository
+            .getBalanceInfo()
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(
+                { userBalanceInfo ->
+                    _balanceInfoViewState.postValue(UserBalanceInfoViewState.Loaded(userBalanceInfo))
+                },
+                {
+                    _balanceInfoViewState.postValue(it.convertToBalanceInfoState())
+                }
+            )
+    }
 
     fun clear() {
         for(item in disposables){
             item.dispose()
         }
     }
+
+    private fun Throwable.convertToBalanceInfoState() =
+        when(this){
+            is NetworkErrorException -> UserBalanceInfoViewState.Error.NetworkError
+            else -> UserBalanceInfoViewState.Error.UnexpectedError
+        }
 }
 
 
