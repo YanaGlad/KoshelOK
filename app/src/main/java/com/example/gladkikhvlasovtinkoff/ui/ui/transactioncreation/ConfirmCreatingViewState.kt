@@ -8,5 +8,7 @@ sealed class ConfirmCreatingViewState{
         object NetworkError : ConfirmCreatingViewState()
 
         object UnexpectedError : ConfirmCreatingViewState()
+
+        object LimitError : ConfirmCreatingViewState()
     }
 }

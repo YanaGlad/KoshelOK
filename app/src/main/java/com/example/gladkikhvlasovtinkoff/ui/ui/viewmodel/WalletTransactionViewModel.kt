@@ -37,7 +37,6 @@ class WalletTransactionViewModel @Inject constructor(val repository: Transaction
             }
             .doOnNext { viewState ->
                 _viewState.postValue(viewState)
-
             }
             .doOnError {
                 _viewState.postValue(TransactionListViewState.Error.UnexpectedError)

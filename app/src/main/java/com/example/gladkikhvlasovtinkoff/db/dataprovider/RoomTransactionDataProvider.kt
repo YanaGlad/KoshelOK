@@ -10,8 +10,10 @@ import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.extension.getIdentifierForCategoryName
+import com.example.gladkikhvlasovtinkoff.extension.getNameIdByStringId
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
+import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
 import io.reactivex.Flowable
 
 import io.reactivex.Single

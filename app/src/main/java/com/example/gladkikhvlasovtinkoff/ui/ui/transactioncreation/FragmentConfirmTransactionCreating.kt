@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -75,7 +76,16 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
             is ConfirmCreatingViewState.Loading -> onLoading()
             is ConfirmCreatingViewState.Error.NetworkError -> onNetworkError()
             is ConfirmCreatingViewState.Error.UnexpectedError -> onUnexpectedError()
+            is ConfirmCreatingViewState.Error.LimitError -> onLimitError()
         }
+    }
+
+    private fun onLimitError() {
+        AlertDialog.Builder(context)
+            .setMessage(getString(R.string.limit_error_message))
+            .setPositiveButton(getString(R.string.OK)){ dialog, _ ->
+                dialog.dismiss()
+            }
     }
 
     private fun onUnexpectedError() {

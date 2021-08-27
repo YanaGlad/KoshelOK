@@ -173,7 +173,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                 categories.map { response ->
                     CategoryDataSample(
                         username = response.user?.username ?: PUBLIC_CATEGORY_USER,
-                        name = if(response.name!=null)response.name else UNDEFINED_STR,
+                        name = if(response.name!=null)
+                            response.name else UNDEFINED_STR,
                         stringId = response.stringId,
                         colorRed = response.redColor,
                         colorBlue = response.blueColor,

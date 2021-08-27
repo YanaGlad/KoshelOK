@@ -126,6 +126,9 @@ class TransactionRepositoryImpl @Inject constructor(
     override fun loadAllTransactions(walletId: Long) =
         remoteTransactionDataProvider
             .loadAllTransactions(walletId)
+            .doOnSuccess{
+                localDataProvider.insertTransactions(it)
+            }
 
 
     private fun Throwable.convertToViewState(): TransactionListViewState =

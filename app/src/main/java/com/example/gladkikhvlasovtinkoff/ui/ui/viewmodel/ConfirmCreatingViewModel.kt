@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel
 
+import android.accounts.NetworkErrorException
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -42,7 +43,6 @@ class ConfirmCreatingViewModel @Inject constructor(
                     _viewState.postValue(ConfirmCreatingViewState.SuccessCreating)
                 },
                 { e ->
-                    e.printStackTrace()
                     _viewState.postValue(e.convertToViewState())
                 }
             )
@@ -51,6 +51,9 @@ class ConfirmCreatingViewModel @Inject constructor(
     private fun Throwable.convertToViewState() =
         when (this){
             is IOException -> ConfirmCreatingViewState.Error.NetworkError
+            is NetworkErrorException -> {
+                ConfirmCreatingViewState.Error.LimitError
+            }
             else  -> ConfirmCreatingViewState.Error.UnexpectedError
         }
 }
