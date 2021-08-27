@@ -26,6 +26,5 @@ interface RemoteWalletDataProvider {
     fun getAllExpenses(wallets: List<WalletData>) : Single<String>
     fun getAllIncome(wallets: List<WalletData>) : Single<String>
     fun deleteCategory(id: Long): Single<Boolean>
-
 }
 

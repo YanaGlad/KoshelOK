@@ -114,15 +114,16 @@ class CategoryRepositoryImpl @Inject constructor(
         }
 
 
-    override fun deleteCategory(categorySample: CategoryDataSample): Single<CategoryListViewState> =
-        Single.create { emitter ->
+    override fun deleteCategory(categorySample: CategoryDataSample): Single<CategoryListViewState> {
+        val id = categorySample.id
+        return Single.create { emitter ->
             remoteWalletDataProvider
-                .deleteWallet(categorySample.id)
+                .deleteWallet(id)
                 .subscribe(
                     { isDeleted ->
                         if (isDeleted) {
                             localCategoryDataProvider
-                                    .deleteCategory(categorySample)
+                                .deleteCategory(categorySample)
                         }
                         emitter.onSuccess(CategoryListViewState.SuccessOperation)
                     },
@@ -131,6 +132,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     }
                 )
         }
+    }
 
 
     private fun Throwable.convertToViewState(): CategoryListViewState =

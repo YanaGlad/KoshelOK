@@ -14,4 +14,5 @@ interface LocalCategoryDataProvider {
     fun getAllCategories() : Flowable<List<CategoryDataSample>>
     fun deleteCategory(item : CategoryDataSample)
     fun updateCategory(item : CategoryDataSample)
+
 }
