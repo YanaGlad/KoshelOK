@@ -41,7 +41,8 @@ class RoomTransactionDataProvider @Inject constructor(val dao: TransactionDao) :
                     colorRed = item.transactionCategoryData.colorRed,
                     colorBlue = item.transactionCategoryData.colorBlue,
                     colorGreen = item.transactionCategoryData.colorGreen,
-                    income = item.isIncome
+                    income = item.isIncome,
+                    id = item.id
                 )
             )
         )
@@ -77,7 +78,8 @@ class RoomTransactionDataProvider @Inject constructor(val dao: TransactionDao) :
                                 colorRed = transition.transactionCategoryData.colorRed,
                                 colorBlue = transition.transactionCategoryData.colorBlue,
                                 colorGreen = transition.transactionCategoryData.colorGreen,
-                                income = transition.isIncome
+                                income = transition.isIncome,
+                                id = transition.id
                             )
                         )
                     }

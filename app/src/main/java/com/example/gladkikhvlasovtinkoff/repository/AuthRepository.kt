@@ -1,6 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
-import com.example.gladkikhvlasovtinkoff.ui.ui.welcome.AuthViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.AuthViewState
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import io.reactivex.Single
 

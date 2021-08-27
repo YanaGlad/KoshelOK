@@ -1,6 +1,5 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
@@ -21,6 +20,9 @@ import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WalletsViewModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CoursesPlateViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 

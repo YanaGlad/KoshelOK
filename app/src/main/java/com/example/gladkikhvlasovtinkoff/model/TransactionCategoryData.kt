@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class TransactionCategoryData (
+    val id : Long,
     val name : String,
     val iconId : Int,
     val userName : String ,

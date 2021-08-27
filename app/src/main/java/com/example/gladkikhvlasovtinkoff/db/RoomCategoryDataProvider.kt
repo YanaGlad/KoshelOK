@@ -19,7 +19,8 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
                 item.colorRed,
                 item.colorBlue,
                 item.colorGreen,
-                item.income
+                item.income,
+                item.id
             )
         )
     }
@@ -35,7 +36,8 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
                     item.colorRed,
                     item.colorBlue,
                     item.colorGreen,
-                    item.income
+                    item.income,
+                    item.id
                 )
             }
         )
@@ -68,7 +70,8 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
                         colorRed = item.colorRed,
                         colorBlue = item.colorBlue,
                         colorGreen = item.colorGreen,
-                        income = item.income
+                        income = item.income,
+                        id = item.id
                     )
                 }
             }
@@ -83,7 +86,8 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
                 item.colorRed,
                 item.colorBlue,
                 item.colorGreen,
-                item.income
+                item.income,
+                item.id
             )
         )
     }
@@ -98,7 +102,8 @@ class RoomCategoryDataProvider @Inject constructor(val dao: CategoryDao) :
                 item.colorRed,
                 item.colorBlue,
                 item.colorGreen,
-                item.income
+                item.income,
+                item.id
             )
         )
 

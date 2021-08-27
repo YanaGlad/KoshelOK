@@ -6,17 +6,13 @@ import com.example.gladkikhvlasovtinkoff.db.LocalCategoryDataProvider
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.extension.getNameIdByStringId
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
-import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
-import com.example.gladkikhvlasovtinkoff.model.WalletData
+import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_ID
 
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.CategoryRequest
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
-import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CategoryListViewState
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
-import io.reactivex.Completable
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -70,7 +66,8 @@ class CategoryRepositoryImpl @Inject constructor(
                                 colorRed = item.colorRed,
                                 colorBlue = item.colorBlue,
                                 colorGreen = item.colorGreen,
-                                income = item.income
+                                income = item.income,
+                                id = item.id
                             )
                         }.filter { it.income == income }
                     )
@@ -90,16 +87,16 @@ class CategoryRepositoryImpl @Inject constructor(
                             localCategoryDataProvider.insertAllCategories(
                                 categories.map { category ->
                                     CategoryDataSample(
-                                        username = category.username,
+                                        username = authKey,
                                         name = if (category.username == PUBLIC_CATEGORY_USER)
                                             getNameIdByStringId(category.stringId, context)
                                         else category.name,
-
                                         stringId = category.stringId,
                                         colorRed = category.colorRed,
                                         colorBlue = category.colorBlue,
                                         colorGreen = category.colorGreen,
-                                        income = category.income
+                                        income = category.income,
+                                        id = category.id
                                     )
                                 }
                             )

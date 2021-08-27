@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -6,9 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.repository.CategoryRepository
-import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
-import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CategoryListViewState
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

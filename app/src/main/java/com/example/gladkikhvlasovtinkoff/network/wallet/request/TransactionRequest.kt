@@ -5,9 +5,8 @@ import java.util.*
 
 class  TransactionRequest(
     @SerializedName("amount") val amount: String,
-    @SerializedName("category") val categoryRequest: CategoryRequest,
+    @SerializedName("categoryId") val categoryId: Long,
     @SerializedName("date") val date: Long,
-    @SerializedName("id") val id: Long,
     @SerializedName("income") val isIncome: Boolean,
     @SerializedName("transactionCurrencyCode") val transactionCurrencyCode: String,
     @SerializedName("walletId") val walletId: Long

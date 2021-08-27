@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.network.wallet
 
+import android.util.Log
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
@@ -30,7 +31,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                 stringId = response.stringId,
                 colorRed = response.redColor,
                 colorBlue = response.blueColor,
-                colorGreen = response.greenColor
+                colorGreen = response.greenColor,
+                id = response.id
             )
         }
 
@@ -53,9 +55,9 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                 }
             }
 
-    override fun getCurrencyCourse(code : String): Single<CurrencyCourse> =
+    override fun getCurrencyCourse(code: String): Single<CurrencyCourse> =
         api.getCurrencyCourse(code)
-            .map{ course ->
+            .map { course ->
                 CurrencyCourse(
                     code = course.code,
                     name = course.name,
@@ -144,7 +146,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
         api.createTransaction(transactionRequest)
             .map { response ->
                 WalletTransactionModel(
-                    id = response.id,
+                    id = response.category.id,
                     date = response.date,
                     walletId = response.walletId,
                     isIncome = response.income,
@@ -159,7 +161,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                         colorGreen = response.category.greenColor,
                         colorRed = response.category.redColor,
                         description = response.category.description,
-                        income = response.income
+                        income = response.income,
+                        id = response.category.id
                     )
                 )
             }
@@ -175,7 +178,8 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                         colorRed = response.redColor,
                         colorBlue = response.blueColor,
                         colorGreen = response.greenColor,
-                        income = response.income
+                        income = response.income,
+                        id = response.id
                     )
                 }
             }

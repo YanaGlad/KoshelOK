@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.welcome
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewstate
 
 sealed class AuthViewState {
     object SuccessLogin : AuthViewState()

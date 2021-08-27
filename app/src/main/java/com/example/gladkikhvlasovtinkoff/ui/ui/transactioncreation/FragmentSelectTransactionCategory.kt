@@ -1,7 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +17,9 @@ import com.example.gladkikhvlasovtinkoff.extension.setDisabled
 import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.ui.ui.selectcategory.OperationCategoryAdapter
-import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.CategoryListViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.category.IconHelper
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +33,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
     private var categoryName: String = ""
     private var imageId: Int = -1
     private var rgbColors: Triple<Int, Int, Int> = Triple(0, 0, 0)
-
+    private var categoryId = -1L
     private val args: FragmentSelectTransactionCategoryArgs by navArgs()
 
     override fun onCreateView(
@@ -69,10 +69,10 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
-        viewModel.getCategoryList(args.operationData?.isIncome ?: true)
         context?.let { context ->
             viewModel.loadCategories(context = context)
         }
+        viewModel.getCategoryList(args.operationData?.isIncome ?: true)
     }
 
     private fun handleViewState(viewState: CategoryListViewState?) {
@@ -110,11 +110,13 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
             colorBlue = rgbColors.third,
             colorRed = rgbColors.first,
             colorGreen = rgbColors.second,
-            income = true
+            income = true,
+            id = categoryId
         )
+
         val action =
             FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToFragmentConfirmOperationCreating(
-                args.operationData!!, args.walletData!!
+                operationData!!, args.walletData!!
             )
         findNavController().navigate(action)
     }
@@ -155,8 +157,10 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper {
         categoriesAdapter = null
     }
 
-    override fun setIcon(id: String) {
+    override fun setIcon(stringId: String, id: Long) {
         val categoryData = args.categoryData
-        categoryData?.stringId = id
+        categoryData?.stringId = stringId
+        categoryData?.id = id
+        categoryId = id
     }
 }

@@ -12,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WelcomeViewModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.AuthViewState
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.AndroidEntryPoint

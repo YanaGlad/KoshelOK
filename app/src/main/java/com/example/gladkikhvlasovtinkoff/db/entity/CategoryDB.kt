@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity(tableName = "category",
-    primaryKeys = ["user_name","stringId"])
+    primaryKeys = ["user_name","category_id"])
 data class CategoryDB(
     @ColumnInfo(name = "user_name")
     val username: String,
@@ -14,5 +14,8 @@ data class CategoryDB(
     val colorRed: Int,
     val colorBlue: Int,
     val colorGreen: Int,
-    val income: Boolean
+    val income: Boolean,
+    @ColumnInfo(name = "category_id")
+    val id: Long
+
 )

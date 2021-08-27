@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.ui.ui.wallets
+package com.example.gladkikhvlasovtinkoff.ui.ui.viewstate
 
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 
