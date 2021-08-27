@@ -13,6 +13,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentCreateCategoryBinding
+import com.example.gladkikhvlasovtinkoff.extension.setDisabled
+import com.example.gladkikhvlasovtinkoff.extension.setEnabled
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.CategoryFactory
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
@@ -159,9 +161,12 @@ class CreateCategoryFragment : Fragment(), IconHelper  {
         }
     }
 
-    override fun setIcon(stringId: String, id : Long) {
+    override fun setIcon(stringId: String, id: Long, clicked: Boolean) {
         categoryData?.stringId = stringId
         categoryData?.id = id
+        if(clicked)
+            binding.buttonConfirmOperationValue.setEnabled(context)
+        else   binding.buttonConfirmOperationValue.setDisabled(context)
     }
 
 }

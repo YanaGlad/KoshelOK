@@ -60,15 +60,15 @@ class OperationCategoryAdapter(
             checkedPosition = -1
             notifyItemChanged(oldPosition)
             _checkedItem.value = null
+            iconHelper.setIcon(categories[position].name, categories[position].id, false)
         } else {
             checkedPosition = position
             if (oldPosition >= 0)
                 notifyItemChanged(oldPosition)
             notifyItemChanged(position)
             _checkedItem.value = categories[position]
-            iconHelper.setIcon(categories[position].name, categories[position].id)
-            Log.d("AAA99", "Id : ${categories[position].id}")
-        }
+            iconHelper.setIcon(categories[position].name, categories[position].id, true)
+         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

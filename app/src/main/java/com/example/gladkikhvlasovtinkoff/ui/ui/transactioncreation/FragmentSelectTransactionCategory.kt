@@ -173,7 +173,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper ,
         categoriesAdapter = null
     }
 
-    override fun setIcon(stringId: String, id: Long) {
+    override fun setIcon(stringId: String, id: Long, clicked: Boolean) {
         val categoryData = args.categoryData
         categoryData?.stringId = stringId
         categoryData?.id = id
