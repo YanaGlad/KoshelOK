@@ -22,6 +22,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WalletsViewModel
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CoursesPlateViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.UserBalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal

@@ -3,7 +3,7 @@ package com.example.gladkikhvlasovtinkoff.repository
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletData
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
 

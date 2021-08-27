@@ -8,6 +8,7 @@ import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CoursesPlateViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.UserBalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable

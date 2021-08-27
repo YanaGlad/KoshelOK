@@ -9,7 +9,7 @@ import com.example.gladkikhvlasovtinkoff.model.WalletData
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletCreateRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.WalletListViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
