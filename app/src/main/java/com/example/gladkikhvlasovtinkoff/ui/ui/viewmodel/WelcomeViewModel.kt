@@ -38,4 +38,8 @@ class WelcomeViewModel
                 }
             )
     }
+
+    fun logOut(){
+        authRepository.logOut()
+    }
 }

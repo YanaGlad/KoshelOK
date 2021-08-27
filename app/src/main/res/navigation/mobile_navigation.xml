@@ -13,6 +13,10 @@
         <action
             android:id="@+id/action_welcomeFragment_to_walletsFragment"
             app:destination="@id/walletsFragment" />
+        <argument
+            android:name="isLogOut"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
 
@@ -221,6 +225,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_walletsFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/enterWalletNameFragment"

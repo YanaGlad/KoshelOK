@@ -35,6 +35,10 @@ class AuthRepositoryImpl @Inject constructor(
             }
         }
 
+    override fun logOut() {
+        authDataHolder.clearUserData()
+    }
+
     private fun findUserByUsername(username: String) =
         remoteWalletDataProvider.findUserByUsername(username)
 

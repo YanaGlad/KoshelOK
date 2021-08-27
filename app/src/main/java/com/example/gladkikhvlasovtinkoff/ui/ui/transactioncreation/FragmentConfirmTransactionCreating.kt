@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.gladkikhvlasovtinkoff.ErrorPresenter
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentConfirmTransactionCreatedBinding
 import com.example.gladkikhvlasovtinkoff.extension.getDayString
@@ -78,10 +79,18 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
 
     private fun onUnexpectedError() {
         onLoaded()
+        activity?.let { activity ->
+            (activity as ErrorPresenter).showUnexpectedError()
+        }
     }
 
     private fun onNetworkError() {
         onLoaded()
+        activity?.let { activity ->
+            (activity as ErrorPresenter).showNetworkError{
+                onConfirm()
+            }
+        }
     }
 
     private fun onLoading() {

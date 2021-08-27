@@ -16,6 +16,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
+import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.BaseAdapter
@@ -24,6 +25,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.WalletTransactionDelega
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WalletTransactionViewModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.BalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +44,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         (activity as MainActivity).supportActionBar?.show()
         setupNavigation(
             fragment = this,
@@ -65,6 +68,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         binding.layoutWallet.walletBalance.text = args.walletData.amount + " " +
                 args.walletData.currency.code.convertCurrencyCodeToSymbol()
         binding.layoutWallet.info.text = args.walletData.name
+        binding.layoutWallet.coursesPlate.visibility = View.GONE
         binding.layoutWallet.hiddenWalletRecycle.visibility = View.GONE
         binding.layoutWallet.down.visibility = View.GONE
         binding.layoutWallet.showMore.visibility = View.GONE
@@ -83,6 +87,25 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         args.walletData.id.let{ username ->
             viewModel.getTransactionListByWalletId(username)
         }
+        viewModel.balanceInfoViesState.observe(viewLifecycleOwner){
+            handleBalanceViewState(it)
+        }
+        viewModel.loadBalanceInfo(args.walletData.id)
+    }
+
+    private fun handleBalanceViewState(viewState: BalanceInfoViewState) {
+        when(viewState){
+            is BalanceInfoViewState.Loaded -> setupBalanceInfo(viewState.userBalanceInfo)
+        }
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setupBalanceInfo(userBalanceInfo: BalanceInfo) {
+        binding.layoutWallet.expenditure.costsValue.text = userBalanceInfo.expenses +
+                args.walletData.currency.code.convertCurrencyCodeToSymbol()
+        binding.layoutWallet.income.incomeValue.text = userBalanceInfo.income +
+                args.walletData.currency.code.convertCurrencyCodeToSymbol()
     }
 
     private fun handleViewState(viewState: TransactionListViewState) {
@@ -150,7 +173,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
             val action =
                 WalletTransactionFragmentDirections.actionOptionFragmentToFragmentSelectOperationValue(
-                    WalletTransactionSample(), args.walletData!!
+                    WalletTransactionSample(), args.walletData
                 )
             navController.navigate(action)
         }

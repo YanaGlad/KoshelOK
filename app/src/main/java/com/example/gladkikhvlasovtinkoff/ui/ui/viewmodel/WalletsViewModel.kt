@@ -9,7 +9,7 @@ import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.repository.UserBalanceInfoHolder
 import com.example.gladkikhvlasovtinkoff.repository.WalletRepository
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CoursesPlateViewState
-import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.UserBalanceInfoViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.BalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,8 +24,8 @@ class WalletsViewModel @Inject constructor(
 ) : ViewModel() {
     private val disposeBag = CompositeDisposable()
 
-    private val _balanceInfoViewState: MutableLiveData<UserBalanceInfoViewState> = MutableLiveData()
-    val balanceInfoViewState: LiveData<UserBalanceInfoViewState>
+    private val _balanceInfoViewState: MutableLiveData<BalanceInfoViewState> = MutableLiveData()
+    val balanceInfoViewState: LiveData<BalanceInfoViewState>
         get() = _balanceInfoViewState
 
     private val _viewState: MutableLiveData<WalletListViewState> = MutableLiveData()
@@ -101,7 +101,6 @@ class WalletsViewModel @Inject constructor(
 
     fun getAllWalletsBalance(
         currencyCharCode: String,
-        username: String
     ) {
         _viewState.value = WalletListViewState.Loading
         repository.getAllWalletsBalance(currencyCharCode)
@@ -134,7 +133,7 @@ class WalletsViewModel @Inject constructor(
     }
 
     fun getBalanceInfo() {
-        _balanceInfoViewState.value = UserBalanceInfoViewState.Loaded(
+        _balanceInfoViewState.value = BalanceInfoViewState.Loaded(
             balanceInfoHolder.getBalanceInfo()
         )
         repository
@@ -143,7 +142,7 @@ class WalletsViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { userBalanceInfo ->
-                    _balanceInfoViewState.postValue(UserBalanceInfoViewState.Loaded(userBalanceInfo))
+                    _balanceInfoViewState.postValue(BalanceInfoViewState.Loaded(userBalanceInfo))
                     balanceInfoHolder.saveBalanceInfo(userBalanceInfo)
                 },
                 {
@@ -160,8 +159,8 @@ class WalletsViewModel @Inject constructor(
 
     private fun Throwable.convertToBalanceInfoState() =
         when (this) {
-            is NetworkErrorException -> UserBalanceInfoViewState.Error.NetworkError
-            else -> UserBalanceInfoViewState.Error.UnexpectedError
+            is NetworkErrorException -> BalanceInfoViewState.Error.NetworkError
+            else -> BalanceInfoViewState.Error.UnexpectedError
         }
 }
 
