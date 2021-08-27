@@ -117,4 +117,5 @@
     <string name="standard_currency_name">Доллар США</string>
     <string name="wallet_edit">Редактирование кошелька</string>
     <string name="wrong_time_message">Неверная дата, доступна запись транзакций в прошлом времени</string>
+    <string name="auth_error_message">Ошибка авторизация, попробуйте снова</string>
 </resources>

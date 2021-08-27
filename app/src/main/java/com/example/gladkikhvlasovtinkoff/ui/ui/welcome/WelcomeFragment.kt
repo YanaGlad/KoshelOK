@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WelcomeViewModel
@@ -34,12 +36,13 @@ class WelcomeFragment : Fragment() {
 
     private fun initAccount(result: ActivityResult?) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
-        // TODO else обработка ошибки, нужно что-то показывать пользователю
         if (task.isSuccessful) {
             val account = task.result
             if(account != null) {
                 viewModel.logInWithAccount(account)
             }
+        }else{
+            Toast.makeText(context, getString(R.string.auth_error_message), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -71,11 +74,26 @@ class WelcomeFragment : Fragment() {
             }
 
     private fun showUnexpectedError() {
+
         setLoaded()
     }
 
     private fun showNetworkError() {
         setLoaded()
+    }
+
+    private fun hideLayout(){
+        binding.welcomeImage.visibility = View.GONE
+        binding.authButton.visibility = View.GONE
+        binding.appDescription.visibility = View.GONE
+        binding.loginFragmn.visibility = View.GONE
+    }
+
+    private fun showLayout(){
+        binding.welcomeImage.visibility = View.VISIBLE
+        binding.authButton.visibility = View.VISIBLE
+        binding.appDescription.visibility = View.VISIBLE
+        binding.loginFragmn.visibility = View.VISIBLE
     }
 
     private fun setLoading() {
@@ -84,6 +102,7 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun setLoaded(){
+        showLayout()
         binding.authProgressBar.visibility = View.GONE
         binding.authButton.isEnabled = true
     }
@@ -91,10 +110,9 @@ class WelcomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())
-        // TODO else обработка ошибки
-        // account?.let { viewModel.logInWithAccount(account) } ?: todo
         if(account != null) {
             viewModel.logInWithAccount(account)
+            hideLayout()
         }
     }
 
