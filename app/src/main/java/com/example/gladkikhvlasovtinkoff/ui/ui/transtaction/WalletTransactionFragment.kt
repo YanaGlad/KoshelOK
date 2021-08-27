@@ -184,7 +184,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
                     findNavController().navigate(action)
                 }
                 R.id.delete -> {
-                    val deleteDialog = DeleteDialogFragment(this)
+                    val deleteDialog = DeleteDialogFragment(this,model)
                     val manager = activity?.supportFragmentManager
                     manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
                 }
