@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel

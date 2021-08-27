@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

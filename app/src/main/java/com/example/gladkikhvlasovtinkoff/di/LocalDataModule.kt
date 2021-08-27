@@ -1,6 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.di
 
-import com.example.gladkikhvlasovtinkoff.db.*
+import com.example.gladkikhvlasovtinkoff.db.dataprovider.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

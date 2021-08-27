@@ -3,12 +3,10 @@ package com.example.gladkikhvlasovtinkoff.repository
 import android.content.Context
 import android.util.Log
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
-import com.example.gladkikhvlasovtinkoff.db.LocalTransactionDataProvider
+import com.example.gladkikhvlasovtinkoff.db.dataprovider.LocalTransactionDataProvider
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
-import com.example.gladkikhvlasovtinkoff.network.wallet.request.CategoryRequest
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
-import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import io.reactivex.Flowable

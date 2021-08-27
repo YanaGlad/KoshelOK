@@ -1,13 +1,12 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
+import com.example.gladkikhvlasovtinkoff.db.dao.WalletDao
 import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
 import com.example.gladkikhvlasovtinkoff.db.entity.WalletDB
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.WalletData
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import java.lang.Exception
 import javax.inject.Inject
 
 class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :

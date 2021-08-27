@@ -2,13 +2,12 @@ package com.example.gladkikhvlasovtinkoff.repository
 
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
-import com.example.gladkikhvlasovtinkoff.db.LocalCategoryDataProvider
+import com.example.gladkikhvlasovtinkoff.db.dataprovider.LocalCategoryDataProvider
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.extension.getNameIdByStringId
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
-import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_ID
 
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.CategoryRequest

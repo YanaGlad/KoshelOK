@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
 import androidx.room.*
 import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB

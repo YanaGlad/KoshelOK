@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
 import com.example.gladkikhvlasovtinkoff.model.WalletData
 import io.reactivex.Flowable

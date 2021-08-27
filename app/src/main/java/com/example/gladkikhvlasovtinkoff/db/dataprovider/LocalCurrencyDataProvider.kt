@@ -1,4 +1,4 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import io.reactivex.Completable

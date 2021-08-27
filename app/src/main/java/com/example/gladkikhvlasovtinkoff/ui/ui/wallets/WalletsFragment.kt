@@ -289,7 +289,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         when (action.actionId) {
             R.id.hide -> {
                 val data = walletData.toWalletDataSample()
-                Log.d("HIDDEN", " IS ${data.hidden}")
                 data.hidden = hide
                 viewModel.updateWallet(data)
                 viewModel.loadWallets()
@@ -421,6 +420,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
     override fun delete(pos: WalletData) {
         viewModel.deleteWallet(pos)
+   //     viewModel.loadWallets()
+      //  viewModel.getWalletList()
         walletsAdapter?.notifyDataSetChanged()
         walletsHiddenAdapter?.notifyDataSetChanged()
     }

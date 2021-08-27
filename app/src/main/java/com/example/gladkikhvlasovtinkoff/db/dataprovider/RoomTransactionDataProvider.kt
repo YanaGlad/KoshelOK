@@ -1,7 +1,8 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
 
 import android.content.Context
+import com.example.gladkikhvlasovtinkoff.db.dao.TransactionDao
 import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
 import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel

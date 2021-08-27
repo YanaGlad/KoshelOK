@@ -1,5 +1,6 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
+import com.example.gladkikhvlasovtinkoff.db.dao.CategoryDao
 import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
 import com.example.gladkikhvlasovtinkoff.model.CategoryDataSample
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER

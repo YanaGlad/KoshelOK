@@ -1,7 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
-import com.example.gladkikhvlasovtinkoff.db.LocalAuthProvider
+import com.example.gladkikhvlasovtinkoff.db.dataprovider.LocalAuthProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.AuthViewState
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount

@@ -1,11 +1,9 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
-import com.example.gladkikhvlasovtinkoff.db.LocalCurrencyDataProvider
+import com.example.gladkikhvlasovtinkoff.db.dataprovider.LocalCurrencyDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency.CurrencyListViewState
-import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.io.IOException

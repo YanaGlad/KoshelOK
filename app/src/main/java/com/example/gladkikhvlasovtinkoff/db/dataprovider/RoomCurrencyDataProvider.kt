@@ -1,8 +1,8 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
+import com.example.gladkikhvlasovtinkoff.db.dao.CurrencyDao
 import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
 import com.example.gladkikhvlasovtinkoff.model.Currency
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject

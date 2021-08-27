@@ -1,7 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.repository
 
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
-import com.example.gladkikhvlasovtinkoff.db.LocalWalletDataProvider
+import com.example.gladkikhvlasovtinkoff.db.dataprovider.LocalWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.model.Currency
 import com.example.gladkikhvlasovtinkoff.model.CurrencyCourse
 import com.example.gladkikhvlasovtinkoff.model.UserBalanceInfo

@@ -2,6 +2,10 @@ package com.example.gladkikhvlasovtinkoff.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.gladkikhvlasovtinkoff.db.dao.CategoryDao
+import com.example.gladkikhvlasovtinkoff.db.dao.CurrencyDao
+import com.example.gladkikhvlasovtinkoff.db.dao.TransactionDao
+import com.example.gladkikhvlasovtinkoff.db.dao.WalletDao
 import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
 import com.example.gladkikhvlasovtinkoff.db.entity.CurrencyDB
 import com.example.gladkikhvlasovtinkoff.db.entity.TransactionDB

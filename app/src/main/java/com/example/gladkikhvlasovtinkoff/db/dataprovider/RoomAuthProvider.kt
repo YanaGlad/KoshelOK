@@ -1,5 +1,6 @@
-package com.example.gladkikhvlasovtinkoff.db
+package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
+import com.example.gladkikhvlasovtinkoff.db.WalletDatabase
 import javax.inject.Inject
 
 
