@@ -70,7 +70,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
     private fun initLayout() {
         binding.layoutWallet.walletBalance.text = args.walletData.amount + " " +
                 args.walletData.currency.code.convertCurrencyCodeToSymbol()
-        binding.layoutWallet.info.text = args.walletData.name
+        binding.layoutWallet.info.text = "KoshelOK" //args.walletData.name
         binding.layoutWallet.coursesPlate.visibility = View.GONE
         binding.layoutWallet.hiddenWalletRecycle.visibility = View.GONE
         binding.layoutWallet.down.visibility = View.GONE
@@ -177,14 +177,21 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
                 R.id.edit -> {
                     val action =
                         WalletTransactionFragmentDirections.actionOptionFragmentToFragmentConfirmOperationCreating(
-                            WalletTransactionSample(),
+                            WalletTransactionSample(
+                                model.date,
+                                model.walletId,
+                                model.isIncome,
+                                model.amount,
+                                model.currency,
+                                model.transactionCategoryData
+                            ),
                             args.walletData,
                             true
                         )
                     findNavController().navigate(action)
                 }
                 R.id.delete -> {
-                    val deleteDialog = DeleteDialogFragment(this,model)
+                    val deleteDialog = DeleteDialogFragment(this, model)
                     val manager = activity?.supportFragmentManager
                     manager?.let { deleteDialog.show(it, getString(R.string.delete_dialog_tag)) }
                 }

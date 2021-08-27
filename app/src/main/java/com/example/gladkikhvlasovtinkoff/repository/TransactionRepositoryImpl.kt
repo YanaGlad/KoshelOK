@@ -4,10 +4,12 @@ import android.content.Context
 import android.util.Log
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.dataprovider.LocalTransactionDataProvider
-import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
-import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
+import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
+import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequest
+import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyResponse
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import io.reactivex.Flowable
@@ -22,7 +24,10 @@ class TransactionRepositoryImpl @Inject constructor(
     private val authDataHolder: AuthDataHolder
 ) : TransactionRepository {
 
-    override fun addTransaction(context: Context, item: WalletTransactionModel): Single<WalletListViewState> =
+    override fun addTransaction(
+        context: Context,
+        item: WalletTransactionModel
+    ): Single<TransactionListViewState> =
         Single.create { emitter ->
             val request = TransactionRequest(
                 amount = item.amount,
@@ -38,12 +43,10 @@ class TransactionRepositoryImpl @Inject constructor(
                 .subscribe(
                     { category ->
                         localDataProvider.insertTransaction(context, category)
-                        emitter.onSuccess(WalletListViewState.SuccessOperation)
-                        Log.d("AAA99", "YAY")
+                        emitter.onSuccess(TransactionListViewState.SuccessOperation)
                     },
                     { throwable ->
                         emitter.onSuccess(throwable.convertToViewState())
-                        Log.d("AAA99", "No...")
                     }
                 )
         }
@@ -51,19 +54,60 @@ class TransactionRepositoryImpl @Inject constructor(
     override fun getAllTransactionsByWalletId(walletId: Long): Flowable<List<WalletTransactionModel>> =
         localDataProvider.getAllTransactionsByWalletId(walletId)
 
-    override fun deleteTransaction(walletTransactionModel: WalletTransactionModel)  : Single<Boolean> =
+    override fun deleteTransaction(walletTransactionModel: WalletTransactionModel): Single<Boolean> =
         remoteTransactionDataProvider
             .deleteTransaction(walletTransactionModel.id)
-            .doOnSuccess{ isDeleted ->
-                if(isDeleted)
+            .doOnSuccess { isDeleted ->
+                if (isDeleted)
                     localDataProvider.deleteTransaction(
                         walletTransactionModel
                     )
             }
 
-    override fun updateTransaction(transaction: WalletTransactionModel) : Single<WalletTransactionModel> = TODO()
-//        remoteTransactionDataProvider
-//            .updateTransaction(transaction)
+    override fun updateTransaction(transaction: WalletTransactionModel): Single<TransactionListViewState> =
+        Single.create { emitter ->
+            remoteTransactionDataProvider
+                .updateTransaction(
+                    WalletTransactionModel(
+                        transaction.id,
+                        transaction.date,
+                        transaction.walletId,
+                        transaction.isIncome,
+                        transaction.amount,
+                        transaction.currency,
+                        transaction.transactionCategoryData
+                    )
+                )
+                .subscribe(
+                    { tr ->
+                        localDataProvider.updateTransaction(
+                            WalletTransactionModel(
+                                tr.id,
+                                tr.date,
+                                tr.wallet.id,
+                                tr.income,
+                                tr.amount,
+                                Currency(tr.currency.code, tr.currency.name),
+                                TransactionCategoryData(
+                                    tr.category.id,
+                                    UNDEFINED_STR,
+                                    getIconIdByNameId(tr.category.stringId),
+                                    tr.wallet.user.username,
+                                    tr.wallet.name,
+                                    tr.category.redColor,
+                                    tr.category.blueColor,
+                                    tr.category.greenColor,
+                                    tr.income
+                                )
+                            )
+                        )
+                        emitter.onSuccess(TransactionListViewState.SuccessOperation)
+                    },
+                    { throwable ->
+                        emitter.onSuccess(throwable.convertToViewState())
+                    }
+                )
+        }
 
     override fun getBalanceInfo(walletId: Long) =
         remoteTransactionDataProvider
@@ -71,7 +115,7 @@ class TransactionRepositoryImpl @Inject constructor(
             .zipWith(
                 remoteTransactionDataProvider
                     .getExpensesByWallet(walletId),
-                { income , expenses ->
+                { income, expenses ->
                     BalanceInfo(
                         expenses = expenses,
                         income = income
@@ -84,9 +128,9 @@ class TransactionRepositoryImpl @Inject constructor(
             .loadAllTransactions(walletId)
 
 
-    private fun Throwable.convertToViewState(): WalletListViewState =
+    private fun Throwable.convertToViewState(): TransactionListViewState =
         when (this) {
-            is IOException -> WalletListViewState.Error.NetworkError
-            else -> WalletListViewState.Error.UnexpectedError
+            is IOException -> TransactionListViewState.Error.NetworkError
+            else -> TransactionListViewState.Error.UnexpectedError
         }
 }

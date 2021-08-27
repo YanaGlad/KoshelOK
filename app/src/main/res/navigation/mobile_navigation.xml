@@ -56,6 +56,11 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="operationData"
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample"
+            app:nullable="true"
+            android:defaultValue="@null" />
 
     </fragment>
     <fragment

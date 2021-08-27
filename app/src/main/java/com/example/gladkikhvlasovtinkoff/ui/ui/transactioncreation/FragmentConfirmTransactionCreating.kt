@@ -20,12 +20,13 @@ import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.ConfirmCreatingViewModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WalletTransactionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
 class FragmentConfirmTransactionCreating : ToolbarFragment() {
-
+    private val transactionViewModel : WalletTransactionViewModel by viewModels()
     private var _binding: FragmentConfirmTransactionCreatedBinding? = null
     private val binding get() = _binding!!
 
@@ -87,7 +88,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
     private fun onNetworkError() {
         onLoaded()
         activity?.let { activity ->
-            (activity as ErrorPresenter).showNetworkError{
+            (activity as ErrorPresenter).showNetworkError {
                 onConfirm()
             }
         }
@@ -142,7 +143,13 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
 
     private fun onConfirm() {
         context?.let {
-            viewModel.addTransaction(it, args.operationData)
+            if (!args.isEdit)
+                viewModel.addTransaction(it, args.operationData)
+            else {
+                transactionViewModel.updateTransaction(args.operationData.createModel())
+                val action = FragmentConfirmTransactionCreatingDirections.actionFragmentConfirmOperationCreatingToOptionFragment(args.walletData, args.operationData)
+                findNavController().navigate(action)
+            }
         }
     }
 
@@ -193,7 +200,7 @@ class FragmentConfirmTransactionCreating : ToolbarFragment() {
 
     private fun setupUiWithData(operationData: WalletTransactionSample) {
         if (args.isEdit) {
-            binding.buttonConfirm.setText(R.string.remove)
+            binding.buttonConfirm.setText(R.string.update)
         }
 
         binding.valueAttribute.attributeName.text = getString(R.string.value_text)
