@@ -69,8 +69,6 @@ class CreateCategoryFragment : Fragment(), IconHelper  {
             factory.colorRed = cp.red
             factory.colorGreen = cp.green
             factory.colorBlue = cp.blue
-
-
             categoriesAdapter?.addItems(factory.getCategories(requireContext()))
             cp.dismiss()
         }

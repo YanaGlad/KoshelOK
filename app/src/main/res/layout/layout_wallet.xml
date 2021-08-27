@@ -35,8 +35,8 @@
         android:id="@+id/walletBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="1"
         android:ellipsize="end"
+        android:maxLines="1"
         android:text="@string/test_wallet_balance"
         android:textSize="32sp"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
@@ -233,14 +233,16 @@
         app:layout_constraintTop_toBottomOf="@id/walletBalance" />
 
     <include
+        android:id="@+id/overLimit"
         layout="@layout/over_limit_layout"
-        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/secondCurrencyProgressBar"
-        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toTopOf="@+id/coursesPlate" />
+        app:layout_constraintTop_toBottomOf="@+id/expenditure" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -271,7 +273,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonAddOperation"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/coursesPlate"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -294,10 +296,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:paddingBottom="8dp"
                 android:text="@string/hidden_wallets"
                 android:textColor="@color/purple"
                 android:textSize="16sp"
-                android:paddingBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wallet_recycle" />
 
@@ -348,5 +350,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="overLimit, coursesPlate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

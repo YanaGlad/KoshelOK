@@ -12,6 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gladkikhvlasovtinkoff.ErrorPresenter
 import com.example.gladkikhvlasovtinkoff.MainActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletsBinding
@@ -33,7 +34,7 @@ import java.math.BigDecimal
 @AndroidEntryPoint
 class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
-    companion object{
+    companion object {
         val STANDARD_CURRENCY_CODE = "RUB"
     }
 
@@ -44,7 +45,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     private var expanded = false
     private var walletsAdapter: WalletsAdapter? = null
     private var walletsHiddenAdapter: WalletsAdapter? = null
-    private var chachedList : ArrayList<WalletData> = arrayListOf()
+    private var chachedList: ArrayList<WalletData> = arrayListOf()
     private var isClickedExpense = false
     private var isClickedIncome = false
 
@@ -84,10 +85,10 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
-        viewModel.coursesViewState.observe(viewLifecycleOwner){
+        viewModel.coursesViewState.observe(viewLifecycleOwner) {
             handleCoursesPlateViewState(viewState = it)
         }
-        viewModel.balanceInfoViewState.observe(viewLifecycleOwner){
+        viewModel.balanceInfoViewState.observe(viewLifecycleOwner) {
             handleUserBalanceInfoViewState(it)
         }
         binding.skeletonWallet.showOriginal()
@@ -95,15 +96,17 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
     }
 
     private fun handleUserBalanceInfoViewState(viewState: UserBalanceInfoViewState) {
-        when(viewState){
+        when (viewState) {
             is UserBalanceInfoViewState.Loaded -> setupUserBalanceInfo(viewState.userBalanceInfo)
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setupUserBalanceInfo(userBalanceInfo: BalanceInfo){
+    private fun setupUserBalanceInfo(userBalanceInfo: BalanceInfo) {
         BigDecimal(userBalanceInfo.income).minus(BigDecimal(userBalanceInfo.expenses)).toString()
-            .also { binding.layoutWallet.walletBalance.text = it + STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()
+            .also {
+                binding.layoutWallet.walletBalance.text =
+                    it + STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()
             }
         binding.layoutWallet.expenditure.costsValue.text =
             "${userBalanceInfo.expenses} ${STANDARD_CURRENCY_CODE.convertCurrencyCodeToSymbol()}"
@@ -143,14 +146,9 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
     private fun onNetworkError() {
         onLoaded()
-        val layout: View = LayoutInflater.from(context).inflate(
-            R.layout.network_error_toast, binding.root, false
-        )
-        val toast = Toast(context)
-        toast.setGravity(Gravity.TOP, 0, 40)
-        toast.duration = Toast.LENGTH_LONG
-        toast.setView(layout)
-        toast.show()
+        activity?.let { activity ->
+            (activity as ErrorPresenter).showNetworkError { viewModel.loadWallets() }
+        }
     }
 
     private fun onLoaded() {
@@ -184,8 +182,8 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         binding.skeletonWallet.showOriginal()
     }
 
-    private fun handleCoursesPlateViewState(viewState: CoursesPlateViewState){
-        when(viewState){
+    private fun handleCoursesPlateViewState(viewState: CoursesPlateViewState) {
+        when (viewState) {
             is CoursesPlateViewState.Error -> onCoursesError()
             is CoursesPlateViewState.Loading -> onCoursesLoading()
             is CoursesPlateViewState.Loaded -> setupCoursesPlate(viewState.currencyCourses)
@@ -194,7 +192,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
     private fun setupCoursesPlate(currencyCourses: List<CurrencyCourse>) {
         binding.layoutWallet.coursesPlate.visibility = View.VISIBLE
-        if(currencyCourses.size == 3){
+        if (currencyCourses.size == 3) {
             binding.layoutWallet.firstCurrencyProgressBar.visibility = View.GONE
             binding.layoutWallet.secondCurrencyProgressBar.visibility = View.GONE
             binding.layoutWallet.thirdCurrencyProgressBar.visibility = View.GONE
@@ -216,7 +214,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
             binding.layoutWallet.thirdCurrencyCode.text = currencyCourses[2].code
             binding.layoutWallet.thirdCurrencyCourse.text = currencyCourses[2].course
             binding.layoutWallet.thirdCurrencyStatus.setCourseStatusIcon(currencyCourses[2].isUp)
-        }else
+        } else
             onCoursesError()
     }
 
@@ -241,26 +239,21 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         binding.layoutWallet.secondCurrencyProgressBar.visibility = View.GONE
         binding.layoutWallet.firstCurrencyProgressBar.visibility = View.GONE
 
-
     }
 
     private fun onUnexpectedError() {
         onLoaded()
-        val layout: View = LayoutInflater.from(context).inflate(
-            R.layout.something_went_wrong_toast, binding.root, false
-        )
-        val toast = Toast(context)
-        toast.setGravity(Gravity.TOP, 0, 40)
-        toast.duration = Toast.LENGTH_LONG
-        toast.setView(layout)
-        toast.show()
+        activity?.let { activity ->
+            (activity as ErrorPresenter).showUnexpectedError()
+        }
     }
 
     private fun setupNavigation() {
         binding.layoutWallet.buttonAddOperation.setOnClickListener {
-            val action = WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment(
-                WalletDataSample()
-            )
+            val action =
+                WalletsFragmentDirections.actionWalletsFragmentToEnterWalletNameFragment(
+                    WalletDataSample()
+                )
             findNavController().navigate(action)
             (activity as MainActivity).supportActionBar?.show()
         }
@@ -284,7 +277,7 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         }
     }
 
-    private fun initAdapter(hide : Boolean) = WalletsAdapter(
+    private fun initAdapter(hide: Boolean) = WalletsAdapter(
         object : WalletsAdapter.OnWalletClickListener {
             override fun onWalletClick(walletData: WalletData, position: Int) {
                 navigateToWallet(
@@ -392,10 +385,14 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         binding.layoutWallet.buttonAddOperation.text = getString(R.string.create_wallet)
     }
 
-    private fun initOnPlatesClickListeners(){
+    private fun initOnPlatesClickListeners() {
         binding.layoutWallet.income.cardIncome.setOnClickListener {
             if (!isClickedIncome) {
-                binding.layoutWallet.income.cardIncome.setCardBackgroundColor(resources.getColor(R.color.clicked_card))
+                binding.layoutWallet.income.cardIncome.setCardBackgroundColor(
+                    resources.getColor(
+                        R.color.clicked_card
+                    )
+                )
             } else binding.layoutWallet.income.cardIncome.setCardBackgroundColor(
                 resources.getColor(
                     R.color.purple
@@ -436,8 +433,6 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
     override fun delete(pos: WalletData) {
         viewModel.deleteWallet(pos)
-   //     viewModel.loadWallets()
-      //  viewModel.getWalletList()
         walletsAdapter?.notifyDataSetChanged()
         walletsHiddenAdapter?.notifyDataSetChanged()
     }
@@ -447,10 +442,10 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.clear()
     }
 
-    private fun ImageView.setCourseStatusIcon(isUp : Boolean){
+    private fun ImageView.setCourseStatusIcon(isUp: Boolean) {
         this.setImageDrawable(
-            if(isUp)
-                ResourcesCompat.getDrawable(resources, R.drawable.ic_course_up, context.theme )
+            if (isUp)
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_course_up, context.theme)
             else
                 ResourcesCompat.getDrawable(resources, R.drawable.ic_course_down, context.theme)
         )

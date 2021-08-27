@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.gladkikhvlasovtinkoff.ErrorPresenter
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentNewWalletBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertToStyled
@@ -31,7 +32,7 @@ class NewWalletFragment : ToolbarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        args.walletDataSample?.let { data ->
+        args.walletDataSample.let { data ->
             if (!data.currency.isSetup)
                 setupStandardCurrency(data)
             if (data.limit == UNDEFINED_STR)
@@ -83,14 +84,24 @@ class NewWalletFragment : ToolbarFragment() {
             is NewWalletViewState.SuccessOperation -> onSuccess()
             is NewWalletViewState.Error.UnexpectedError -> onUnexpectedError()
             is NewWalletViewState.Error.NetworkError -> onNetworkError()
-            else -> {}
         }
 
     private fun onNetworkError() {
         setLoaded()
+        activity?.let { activity ->
+            (activity as ErrorPresenter).showNetworkError {
+                if (!args.isEdit)
+                    viewModel.addWallet(walletDataSample)
+                else
+                    viewModel.updateWallet(walletDataSample)
+            }
+        }
     }
 
     private fun onUnexpectedError() {
+        activity?.let { activity ->
+            (activity as ErrorPresenter).showUnexpectedError()
+        }
         setLoaded()
     }
 
