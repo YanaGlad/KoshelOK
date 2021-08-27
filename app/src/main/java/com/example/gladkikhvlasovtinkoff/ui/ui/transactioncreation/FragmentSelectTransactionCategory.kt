@@ -61,7 +61,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper ,
             val action =
                 FragmentSelectTransactionCategoryDirections.actionFragmentSelectOperationCategoryToCreateCategoryFragment(
                     args.walletData?.createWalletDataModel(),
-                    null,
+                    WalletTransactionSample(),
                     CategoryDataSample()
                 )
             findNavController().navigate(action)
@@ -104,7 +104,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper ,
     }
 
     private fun onConfirm() {
-        val operationData = args.operationData
+        val operationData = if(args.operationData!=null)args.operationData else WalletTransactionSample()
         operationData?.transactionCategoryData = TransactionCategoryData(
             name = categoryName,
             iconId = imageId,

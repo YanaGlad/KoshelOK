@@ -67,6 +67,7 @@ class FragmentSelectTransactionType : ToolbarFragment() {
         val operationData = args.operationData
         operationData?.isIncome = binding.checkIncomeOperationType.visibility == View.VISIBLE
 
+
         if (!args.isEdit) {
             val action =
                 FragmentSelectTransactionTypeDirections.actionFragmentSelectOperationTypeToFragmentSelectOperationCategory(

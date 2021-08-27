@@ -89,7 +89,8 @@
             app:argType="com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample" />
         <argument
             android:name="walletData"
-            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample" />
+            app:argType="com.example.gladkikhvlasovtinkoff.model.WalletDataSample"
+            />
         <argument
             android:name="isEdit"
             app:argType="boolean"
