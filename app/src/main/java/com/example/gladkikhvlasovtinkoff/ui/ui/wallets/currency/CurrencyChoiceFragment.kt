@@ -1,6 +1,7 @@
 package com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +51,9 @@ class CurrencyChoiceFragment : Fragment() {
         }
 
     private fun submitCurrencyList(list: List<Currency>) {
-        currencyAdapter.submitList(list.styleListToAppropriateForm())
+        currencyAdapter.submitList(list.styleListToAppropriateForm()) {
+            currencyAdapter.setStartItemWithCode(args.walletDataSample.currency.code)
+        }
     }
 
     private fun onUnexpectedError() {

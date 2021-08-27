@@ -36,6 +36,14 @@ class CurrencyAdapter  constructor(private val switcher : OnCurrencySwitcher):
         return holder
     }
 
+    fun setStartItemWithCode(code : String){
+        val first = currentList.indexOfFirst {
+            it.code == code
+        }
+        if(first in currentList.indices)
+            onItemChecked(first)
+    }
+
     private fun onItemChecked(position: Int){
         val oldPosition = lastChecked
         if (position == oldPosition && position >= 0) {
