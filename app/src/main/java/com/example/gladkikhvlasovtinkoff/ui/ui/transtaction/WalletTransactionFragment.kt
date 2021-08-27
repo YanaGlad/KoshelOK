@@ -16,6 +16,7 @@ import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWalletTransactionBinding
 import com.example.gladkikhvlasovtinkoff.extension.convertCurrencyCodeToSymbol
 import com.example.gladkikhvlasovtinkoff.extension.setupNavigation
+import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.BaseAdapter
@@ -24,6 +25,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.WalletTransactionDelega
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WalletTransactionViewModel
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.BalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.DeleteHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +44,7 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         (activity as MainActivity).supportActionBar?.show()
         setupNavigation(
             fragment = this,
@@ -84,6 +87,25 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         args.walletData.id.let{ username ->
             viewModel.getTransactionListByWalletId(username)
         }
+        viewModel.balanceInfoViesState.observe(viewLifecycleOwner){
+            handleBalanceViewState(it)
+        }
+        viewModel.loadBalanceInfo(args.walletData.id)
+    }
+
+    private fun handleBalanceViewState(viewState: BalanceInfoViewState) {
+        when(viewState){
+            is BalanceInfoViewState.Loaded -> setupBalanceInfo(viewState.userBalanceInfo)
+        }
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setupBalanceInfo(userBalanceInfo: BalanceInfo) {
+        binding.layoutWallet.expenditure.costsValue.text = userBalanceInfo.expenses +
+                args.walletData.currency.code.convertCurrencyCodeToSymbol()
+        binding.layoutWallet.income.incomeValue.text = userBalanceInfo.income +
+                args.walletData.currency.code.convertCurrencyCodeToSymbol()
     }
 
     private fun handleViewState(viewState: TransactionListViewState) {

@@ -187,43 +187,13 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
     override fun getAllWalletsBalance(currencyCharCode: String, username: String): Single<String> =
         api.getAllWalletsBalance(currencyCharCode, username)
 
-    override fun getExpensesByWallet(walletData: WalletData): Single<String> =
-        api.getWalletExpensesCount(
-            WalletSumRequest(
-                balance = walletData.amount,
-                currency = CurrencyResponse(
-                    name = walletData.currency.name,
-                    code = walletData.currency.code
-                ),
-                isHidden = walletData.hidden,
-                id = walletData.id,
-                limit = walletData.limit,
-                name = walletData.name,
-                user = UserResponse(
-                    name = walletData.name,
-                    username = walletData.username
-                )
-            )
-        )
+    override fun getExpensesByWallet(walletId: Long): Single<String> =
+        api.getWalletExpensesCount(walletId =  walletId)
 
-    override fun getIncomeByWallet(walletData: WalletData): Single<String> =
-        api.getWalletIncomeCount(
-            WalletSumRequest(
-                balance = walletData.amount,
-                currency = CurrencyResponse(
-                    name = walletData.currency.name,
-                    code = walletData.currency.code
-                ),
-                isHidden = walletData.hidden,
-                id = walletData.id,
-                limit = walletData.limit,
-                name = walletData.name,
-                user = UserResponse(
-                    name = walletData.name,
-                    username = walletData.username
-                )
-            )
-        )
+
+    override fun getIncomeByWallet(walletId: Long): Single<String> =
+        api.getWalletIncomeCount(walletId =  walletId)
+
 
     override fun getAllExpenses(wallets: List<WalletData>): Single<String> =
         if (wallets.isNotEmpty()) {
@@ -261,7 +231,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
 
 
     private fun getWalletExpensesInRubbles(walletData: WalletData) =
-        getExpensesByWallet(walletData)
+        getExpensesByWallet(walletId = walletData.id)
             .flatMap { amount ->
                 getCurrencyCourse(walletData.currency.code)
                     .map { course ->
@@ -270,7 +240,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
             }
 
     private fun getWalletIncomeInRubbles(walletData: WalletData) =
-        getIncomeByWallet(walletData)
+        getIncomeByWallet(walletId = walletData.id)
             .flatMap { amount ->
                 getCurrencyCourse(walletData.currency.code)
                     .map { course ->

@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.gladkikhvlasovtinkoff.R
 import com.example.gladkikhvlasovtinkoff.databinding.FragmentWelcomeBinding
 import com.example.gladkikhvlasovtinkoff.model.WalletDataSample
@@ -26,7 +27,7 @@ class WelcomeFragment : Fragment() {
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel : WelcomeViewModel by viewModels()
-
+    private val args : WelcomeFragmentArgs by navArgs()
     private val loginResultHandler = registerLoginResultHandler()
 
     private fun registerLoginResultHandler() =
@@ -63,6 +64,8 @@ class WelcomeFragment : Fragment() {
         viewModel.viewState.observe(viewLifecycleOwner){
             handleViewState(it)
         }
+        if (args.isLogOut)
+            viewModel.logOut()
     }
 
     private fun handleViewState(viewState: AuthViewState) =
@@ -74,7 +77,6 @@ class WelcomeFragment : Fragment() {
             }
 
     private fun showUnexpectedError() {
-
         setLoaded()
     }
 
@@ -109,10 +111,12 @@ class WelcomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(requireContext())
-        if(account != null) {
-            viewModel.logInWithAccount(account)
-            hideLayout()
+        if(!args.isLogOut) {
+            val account = GoogleSignIn.getLastSignedInAccount(requireContext())
+            if (account != null) {
+                viewModel.logInWithAccount(account)
+                hideLayout()
+            }
         }
     }
 

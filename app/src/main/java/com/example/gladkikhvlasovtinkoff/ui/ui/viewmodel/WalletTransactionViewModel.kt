@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.gladkikhvlasovtinkoff.extension.toDelegateItemListWithDate
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.BalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
@@ -18,6 +19,10 @@ class WalletTransactionViewModel @Inject constructor(val repository: Transaction
     private val _viewState: MutableLiveData<TransactionListViewState> = MutableLiveData()
     val viewState: LiveData<TransactionListViewState>
         get() = _viewState
+
+    private val _balanceInfoViewState : MutableLiveData<BalanceInfoViewState> = MutableLiveData()
+    val balanceInfoViesState
+        get() = _balanceInfoViewState
 
     fun getTransactionListByWalletId(walletId : Long) {
         repository.getAllTransactionsByWalletId(walletId)
@@ -63,6 +68,19 @@ class WalletTransactionViewModel @Inject constructor(val repository: Transaction
                 },
                 { exception ->
 
+                }
+            )
+    }
+    fun loadBalanceInfo(walletId : Long){
+        repository.getBalanceInfo(walletId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(
+                {
+                    _balanceInfoViewState.postValue(BalanceInfoViewState.Loaded(it))
+                },
+                {
+                    it.printStackTrace()
                 }
             )
     }

@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -25,7 +24,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.transtaction.DeleteDialogFragment
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel.WalletsViewModel
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CoursesPlateViewState
-import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.UserBalanceInfoViewState
+import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.BalanceInfoViewState
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
@@ -76,11 +75,13 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
-
         initLayout()
         initRecycler()
         expandRecyclerAnimation()
         setupNavigation()
+        binding.buttonLogOut.setOnClickListener{
+            navigatateToLogin()
+        }
 
         viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
@@ -95,9 +96,15 @@ class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
         onCoursesLoading()
     }
 
-    private fun handleUserBalanceInfoViewState(viewState: UserBalanceInfoViewState) {
+    private fun navigatateToLogin() {
+       val action = WalletsFragmentDirections.actionWalletsFragmentToWelcomeFragment(true)
+        findNavController().navigate(action)
+    }
+
+
+    private fun handleUserBalanceInfoViewState(viewState: BalanceInfoViewState) {
         when (viewState) {
-            is UserBalanceInfoViewState.Loaded -> setupUserBalanceInfo(viewState.userBalanceInfo)
+            is BalanceInfoViewState.Loaded -> setupUserBalanceInfo(viewState.userBalanceInfo)
         }
     }
 

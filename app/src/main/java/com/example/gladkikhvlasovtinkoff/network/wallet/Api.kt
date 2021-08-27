@@ -53,10 +53,10 @@ interface Api {
     ): Single<String>
 
     @GET("/transaction/v1/walletCountExpenses")
-    fun getWalletExpensesCount(@Body walletSumRequest: WalletSumRequest) : Single<String>
+    fun getWalletExpensesCount(@Query("walletDtoId") walletId : Long) : Single<String>
 
     @GET("/transaction/v1/walletCountIncome")
-    fun getWalletIncomeCount(@Body walletSumRequest: WalletSumRequest) : Single<String>
+    fun getWalletIncomeCount(@Query("walletDtoId") walletId : Long) : Single<String>
 
     @DELETE("/category/v1/delete/{id}")
     fun deleteCategory(@Path("id") id: Long): Single<Boolean>

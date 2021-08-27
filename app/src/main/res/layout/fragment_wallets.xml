@@ -54,4 +54,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
+    <ImageButton
+        android:id="@+id/buttonLogOut"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_logout"
+        android:translationZ="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/skeleton_wallet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

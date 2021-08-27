@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.example.gladkikhvlasovtinkoff.auth.AuthDataHolder
 import com.example.gladkikhvlasovtinkoff.db.dataprovider.LocalTransactionDataProvider
+import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.network.wallet.RemoteWalletDataProvider
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionRequest
@@ -64,6 +65,19 @@ class TransactionRepositoryImpl @Inject constructor(
 //        remoteTransactionDataProvider
 //            .updateTransaction(transaction)
 
+    override fun getBalanceInfo(walletId: Long) =
+        remoteTransactionDataProvider
+            .getIncomeByWallet(walletId)
+            .zipWith(
+                remoteTransactionDataProvider
+                    .getExpensesByWallet(walletId),
+                { income , expenses ->
+                    BalanceInfo(
+                        expenses = expenses,
+                        income = income
+                    )
+                }
+            )
 
     private fun Throwable.convertToViewState(): WalletListViewState =
         when (this) {
