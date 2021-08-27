@@ -182,5 +182,7 @@ class FragmentSelectTransactionCategory : ToolbarFragment(), IconHelper ,
 
     override fun delete(pos: CategoryDataSample) {
         viewModel.deleteCategory(pos)
+        viewModel.loadCategories(requireContext())
+        viewModel.getCategoryList(args.operationData?.isIncome ?: true)
     }
 }
