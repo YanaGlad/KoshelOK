@@ -3,16 +3,11 @@ package com.example.gladkikhvlasovtinkoff
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginTop
 import com.example.gladkikhvlasovtinkoff.databinding.ActivityMainBinding
 import com.example.gladkikhvlasovtinkoff.ui.ui.toolbar.ToolbarHolder
-import com.example.gladkikhvlasovtinkoff.ui.ui.wallets.currency.CurrencyAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout
 import dagger.hilt.android.AndroidEntryPoint

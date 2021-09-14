@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.gladkikhvlasovtinkoff.model.BalanceInfo
 import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
-import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
 

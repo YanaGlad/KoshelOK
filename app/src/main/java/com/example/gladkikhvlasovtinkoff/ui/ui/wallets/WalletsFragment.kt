@@ -35,7 +35,7 @@ import java.math.BigDecimal
 class WalletsFragment : ToolbarFragment(), DeleteHelper<WalletData> {
 
     companion object {
-        val STANDARD_CURRENCY_CODE = "RUB"
+        const val STANDARD_CURRENCY_CODE = "RUB"
     }
 
     private val viewModel: WalletsViewModel by viewModels()
