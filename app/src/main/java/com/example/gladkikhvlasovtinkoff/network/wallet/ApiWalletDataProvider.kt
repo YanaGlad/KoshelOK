@@ -1,15 +1,11 @@
 package com.example.gladkikhvlasovtinkoff.network.wallet
 
-import android.util.Log
 import com.example.gladkikhvlasovtinkoff.extension.getIconIdByNameId
 import com.example.gladkikhvlasovtinkoff.model.*
 import com.example.gladkikhvlasovtinkoff.model.TransactionCategoryData.Companion.PUBLIC_CATEGORY_USER
 import com.example.gladkikhvlasovtinkoff.network.wallet.request.*
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyCourseResponse
-import com.example.gladkikhvlasovtinkoff.network.wallet.response.CurrencyResponse
 import com.example.gladkikhvlasovtinkoff.network.wallet.response.UserResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-
 import io.reactivex.Single
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -27,7 +23,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
         api.createCategory(categoryRequest).map { response ->
             CategoryDataSample(
                 username = response.user?.username ?: PUBLIC_CATEGORY_USER,
-                name = if(response.name!=null)response.name else UNDEFINED_STR,
+                name = response.name ?: UNDEFINED_STR,
                 stringId = response.stringId,
                 colorRed = response.redColor,
                 colorBlue = response.blueColor,
@@ -173,8 +169,7 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api) :
                 categories.map { response ->
                     CategoryDataSample(
                         username = response.user?.username ?: PUBLIC_CATEGORY_USER,
-                        name = if(response.name!=null)
-                            response.name else UNDEFINED_STR,
+                        name = response.name ?: UNDEFINED_STR,
                         stringId = response.stringId,
                         colorRed = response.redColor,
                         colorBlue = response.blueColor,

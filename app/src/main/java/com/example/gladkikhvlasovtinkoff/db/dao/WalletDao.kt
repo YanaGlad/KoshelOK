@@ -20,9 +20,6 @@ interface WalletDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWallets(walletDB: List<WalletDB>)
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun getAllWalletsBalance(walletDB: List<WalletDB>)
-
     @Delete
     fun deleteWallet(walletDB: WalletDB)
 

@@ -2,11 +2,13 @@ package com.example.gladkikhvlasovtinkoff.ui.ui.viewmodel
 
 import android.accounts.NetworkErrorException
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gladkikhvlasovtinkoff.model.*
+import com.example.gladkikhvlasovtinkoff.model.Currency
+import com.example.gladkikhvlasovtinkoff.model.UNDEFINED_STR
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionModel
+import com.example.gladkikhvlasovtinkoff.model.WalletTransactionSample
 import com.example.gladkikhvlasovtinkoff.repository.TransactionRepository
 import com.example.gladkikhvlasovtinkoff.ui.ui.transactioncreation.ConfirmCreatingViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,7 +41,7 @@ class ConfirmCreatingViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
-                { model ->
+                {
                     _viewState.postValue(ConfirmCreatingViewState.SuccessCreating)
                 },
                 { e ->

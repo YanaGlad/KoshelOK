@@ -19,7 +19,7 @@ interface TransactionDao {
     @Query(value = "Select * from `transaction` where id =:transactionId")
     fun getTransactionById(transactionId : Long) : Single<TransactionDB>
 
-    @Delete()
+    @Delete
     fun deleteTransaction(item : TransactionDB)
 
     @Update
