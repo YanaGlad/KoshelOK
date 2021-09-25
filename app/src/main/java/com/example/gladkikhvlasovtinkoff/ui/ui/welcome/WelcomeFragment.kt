@@ -26,8 +26,8 @@ class WelcomeFragment : Fragment() {
 
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : WelcomeViewModel by viewModels()
-    private val args : WelcomeFragmentArgs by navArgs()
+    private val viewModel: WelcomeViewModel by viewModels()
+    private val args: WelcomeFragmentArgs by navArgs()
     private val loginResultHandler = registerLoginResultHandler()
 
     private fun registerLoginResultHandler() =
@@ -39,11 +39,12 @@ class WelcomeFragment : Fragment() {
         val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
         if (task.isSuccessful) {
             val account = task.result
-            if(account != null) {
+            if (account != null) {
                 viewModel.logInWithAccount(account)
             }
-        }else{
-            Toast.makeText(context, getString(R.string.auth_error_message), Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, getString(R.string.auth_error_message), Toast.LENGTH_LONG)
+                .show()
         }
     }
 
@@ -61,7 +62,7 @@ class WelcomeFragment : Fragment() {
         binding.authButton.setOnClickListener {
             loginResultHandler.launch(getSignInIntent())
         }
-        viewModel.viewState.observe(viewLifecycleOwner){
+        viewModel.viewState.observe(viewLifecycleOwner) {
             handleViewState(it)
         }
         if (args.isLogOut)
@@ -69,12 +70,12 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun handleViewState(viewState: AuthViewState) =
-            when (viewState) {
-                is AuthViewState.SuccessLogin -> navigateToWallets()
-                is AuthViewState.Loading -> setLoading()
-                is AuthViewState.Error.NetworkError -> showNetworkError()
-                is AuthViewState.Error.UnexpectedError -> showUnexpectedError()
-            }
+        when (viewState) {
+            is AuthViewState.SuccessLogin -> navigateToWallets()
+            is AuthViewState.Loading -> setLoading()
+            is AuthViewState.Error.NetworkError -> showNetworkError()
+            is AuthViewState.Error.UnexpectedError -> showUnexpectedError()
+        }
 
     private fun showUnexpectedError() {
         setLoaded()
@@ -84,14 +85,14 @@ class WelcomeFragment : Fragment() {
         setLoaded()
     }
 
-    private fun hideLayout(){
+    private fun hideLayout() {
         binding.welcomeImage.visibility = View.GONE
         binding.authButton.visibility = View.GONE
         binding.appDescription.visibility = View.GONE
         binding.loginFragmn.visibility = View.GONE
     }
 
-    private fun showLayout(){
+    private fun showLayout() {
         binding.welcomeImage.visibility = View.VISIBLE
         binding.authButton.visibility = View.VISIBLE
         binding.appDescription.visibility = View.VISIBLE
@@ -103,7 +104,7 @@ class WelcomeFragment : Fragment() {
         binding.authButton.isEnabled = false
     }
 
-    private fun setLoaded(){
+    private fun setLoaded() {
         showLayout()
         binding.authProgressBar.visibility = View.GONE
         binding.authButton.isEnabled = true
@@ -111,7 +112,7 @@ class WelcomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if(!args.isLogOut) {
+        if (!args.isLogOut) {
             val account = GoogleSignIn.getLastSignedInAccount(requireContext())
             if (account != null) {
                 viewModel.logInWithAccount(account)

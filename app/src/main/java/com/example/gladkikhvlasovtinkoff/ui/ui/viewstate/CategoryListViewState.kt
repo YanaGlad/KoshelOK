@@ -9,9 +9,7 @@ sealed class CategoryListViewState {
 
     class Error{
         object NetworkError : CategoryListViewState()
-
         object UnexpectedError : CategoryListViewState()
-
         object AuthError : CategoryListViewState()
     }
 

@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="@string/test_wallet_balance"
+        android:text="25 000 ₽"
         android:textSize="32sp"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintHorizontal_bias="0"

@@ -10,9 +10,7 @@ sealed class WalletListViewState {
 
     class Error{
         object NetworkError : WalletListViewState()
-
         object UnexpectedError : WalletListViewState()
-
         object AuthError : WalletListViewState()
     }
 

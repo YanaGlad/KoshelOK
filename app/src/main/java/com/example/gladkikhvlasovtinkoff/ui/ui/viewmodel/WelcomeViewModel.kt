@@ -24,9 +24,7 @@ class WelcomeViewModel
         // TODO viewmodel не должна быть зависима от GoogleSignInAccount, нужен mapping в локальную сущность
         _viewState.value = AuthViewState.Loading
         // TODO нужно обработать disposable
-        val disposable = authRepository.logInWithAccount(
-            account
-        )
+        val disposable = authRepository.logInWithAccount(account)
             .observeOn(Schedulers.io())
             .subscribeOn(Schedulers.io())
             .subscribe(

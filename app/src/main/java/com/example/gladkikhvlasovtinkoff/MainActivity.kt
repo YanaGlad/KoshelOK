@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity(), ToolbarHolder, ErrorPresenter {
         val snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_LONG)
         val customSnackView: View = layoutInflater.inflate(R.layout.something_went_wrong_toast, null)
         snackbar.view.setBackgroundColor(Color.TRANSPARENT)
+
         val snackbarLayout = snackbar.view as SnackbarLayout
         snackbarLayout.setPadding(0, 0, 0, 0)
         val view = snackbar.view
