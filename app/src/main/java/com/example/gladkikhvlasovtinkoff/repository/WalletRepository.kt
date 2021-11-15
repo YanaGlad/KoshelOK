@@ -16,5 +16,4 @@ interface WalletRepository {
     fun updateWallet(wallet: WalletData, walletId : Long) : Single<WalletListViewState>
     fun getCurrenciesCourse(codes : List<String>) : Single<List<CurrencyCourse>>
     fun getBalanceInfo() : Single<BalanceInfo>
-
 }

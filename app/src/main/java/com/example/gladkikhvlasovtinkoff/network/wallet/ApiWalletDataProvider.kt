@@ -10,8 +10,7 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class ApiWalletDataProvider @Inject constructor(private val api: Api) :
-    RemoteWalletDataProvider {
+class ApiWalletDataProvider @Inject constructor(private val api: Api): RemoteWalletDataProvider {
 
     override fun addUser(userRequest: UserRequest): Single<UserResponse> =
         api.createUser(userRequest)

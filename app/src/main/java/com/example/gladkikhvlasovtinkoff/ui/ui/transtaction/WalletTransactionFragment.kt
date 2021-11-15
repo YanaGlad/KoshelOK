@@ -101,7 +101,6 @@ class WalletTransactionFragment : ToolbarFragment(), DeleteHelper<WalletTransact
         when (viewState) {
             is BalanceInfoViewState.Loaded -> setupBalanceInfo(viewState.userBalanceInfo)
         }
-
     }
 
     @SuppressLint("SetTextI18n")

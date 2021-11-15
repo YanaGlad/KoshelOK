@@ -12,6 +12,7 @@ import com.example.gladkikhvlasovtinkoff.network.wallet.request.WalletUpdateRequ
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.WalletListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.io.IOException
 import javax.inject.Inject
@@ -22,6 +23,8 @@ class WalletRepositoryImpl @Inject constructor(
     private val localWalletDataProvider: LocalWalletDataProvider,
     private val authDataHolder: AuthDataHolder
 ) : WalletRepository {
+
+    private val compositeDisposable = CompositeDisposable()
 
     override fun addWallet(wallet: WalletData): Single<WalletListViewState> =
 
@@ -38,9 +41,7 @@ class WalletRepositoryImpl @Inject constructor(
                     name = wallet.name,
                     username = authDataHolder.getUserKey()
                 )
-                remoteWalletDataProvider.createWallet(
-                    request
-                ).subscribeOn(Schedulers.io())
+                compositeDisposable.add(remoteWalletDataProvider.createWallet(request).subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .subscribe(
                         { wallet ->
@@ -65,13 +66,14 @@ class WalletRepositoryImpl @Inject constructor(
                             emitter.onSuccess(throwable.convertToViewState())
                         }
                     )
+                )
             } else
                 emitter.onSuccess(WalletListViewState.Error.AuthError)
         }
 
     override fun deleteWallet(wallet: WalletData): Single<WalletListViewState> =
         Single.create { emitter ->
-            remoteWalletDataProvider
+            compositeDisposable.add(remoteWalletDataProvider
                 .deleteWallet(wallet.id)
                 .subscribe(
                     { isDeleted ->
@@ -85,6 +87,7 @@ class WalletRepositoryImpl @Inject constructor(
                         emitter.onSuccess(throwable.convertToViewState())
                     }
                 )
+            )
         }
 
 
@@ -101,7 +104,7 @@ class WalletRepositoryImpl @Inject constructor(
     override fun loadWallets(): Single<WalletListViewState> =
         Single.create { emitter ->
             if (authDataHolder.isAuth())
-                remoteWalletDataProvider.getAllWalletByUsername(
+                compositeDisposable.add(remoteWalletDataProvider.getAllWalletByUsername(
                     authDataHolder.getUserKey()
                 )
                     .observeOn(Schedulers.io())
@@ -131,6 +134,7 @@ class WalletRepositoryImpl @Inject constructor(
                             emitter.onSuccess(throwable.convertToViewState())
                         }
                     )
+                )
             else
                 emitter.onSuccess(WalletListViewState.Error.AuthError)
         }
@@ -138,7 +142,7 @@ class WalletRepositoryImpl @Inject constructor(
 
     override fun updateWallet(wallet: WalletData, walletId: Long): Single<WalletListViewState> =
         Single.create { emitter ->
-            remoteWalletDataProvider
+            compositeDisposable.add(remoteWalletDataProvider
                 .updateWallet(
                     WalletUpdateRequest(
                         wallet.hidden,
@@ -155,6 +159,7 @@ class WalletRepositoryImpl @Inject constructor(
                         emitter.onSuccess(throwable.convertToViewState())
                     }
                 )
+            )
         }
 
 
@@ -162,7 +167,7 @@ class WalletRepositoryImpl @Inject constructor(
         currencyCharCode: String
     ): Single<WalletListViewState> =
         Single.create { emitter ->
-            remoteWalletDataProvider
+            compositeDisposable.add(remoteWalletDataProvider
                 .getAllWalletsBalance(currencyCharCode, authDataHolder.getUserKey())
                 .subscribe(
                     { balance ->
@@ -173,6 +178,7 @@ class WalletRepositoryImpl @Inject constructor(
                         emitter.onSuccess(throwable.convertToViewState())
                     }
                 )
+            )
         }
 
 
@@ -198,8 +204,7 @@ class WalletRepositoryImpl @Inject constructor(
             .flatMap{ wallets ->
                 remoteWalletDataProvider.getAllExpenses(wallets)
                     .zipWith(
-                        remoteWalletDataProvider.getAllIncome(wallets),
-                        { expenses, income ->
+                        remoteWalletDataProvider.getAllIncome(wallets), { expenses, income ->
                             BalanceInfo(
                                 expenses = expenses,
                                 income = income

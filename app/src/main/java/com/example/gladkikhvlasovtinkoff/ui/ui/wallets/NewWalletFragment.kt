@@ -98,6 +98,7 @@ class NewWalletFragment : ToolbarFragment() {
         }
     }
 
+
     private fun onUnexpectedError() {
         activity?.let { activity ->
             (activity as ErrorPresenter).showUnexpectedError()
