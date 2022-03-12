@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.gladkikhvlasovtinkoff.R
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker
 
-
 enum class UserCateroryKeys {
     Supermarket, Avia, Jewelery, Restaurants, Pharmancy, Cafe, Connection, Theatre, Train,
     Pets, Sport, Inernet, Transport, Medicine,
@@ -367,5 +366,4 @@ class CategoryFactory(activity: AppCompatActivity) : TransactionCategoryDataFact
                 income = true
             )
         )
-
 }

@@ -9,6 +9,7 @@ import com.example.gladkikhvlasovtinkoff.network.wallet.request.TransactionReque
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.TransactionListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.io.IOException
 import javax.inject.Inject
@@ -17,6 +18,8 @@ class TransactionRepositoryImpl @Inject constructor(
     private val localDataProvider: LocalTransactionDataProvider,
     private val remoteTransactionDataProvider: RemoteWalletDataProvider
 ) : TransactionRepository {
+
+    val disposable = CompositeDisposable()
 
     override fun addTransaction(
         context: Context,
@@ -31,7 +34,7 @@ class TransactionRepositoryImpl @Inject constructor(
                 walletId = item.walletId,
                 categoryId = item.transactionCategoryData.id
             )
-            remoteTransactionDataProvider.createTransaction(request)
+            disposable.add(remoteTransactionDataProvider.createTransaction(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(
@@ -43,6 +46,7 @@ class TransactionRepositoryImpl @Inject constructor(
                         emitter.onSuccess(throwable.convertToViewState())
                     }
                 )
+            )
         }
 
     override fun getAllTransactionsByWalletId(walletId: Long): Flowable<List<WalletTransactionModel>> =
@@ -60,40 +64,47 @@ class TransactionRepositoryImpl @Inject constructor(
 
     override fun updateTransaction(transaction: WalletTransactionModel): Single<TransactionListViewState> =
         Single.create { emitter ->
-            remoteTransactionDataProvider
+            disposable.add(remoteTransactionDataProvider
                 .updateTransaction(
-                    WalletTransactionModel(
-                        transaction.id,
-                        transaction.date,
-                        transaction.walletId,
-                        transaction.isIncome,
-                        transaction.amount,
-                        transaction.currency,
-                        transaction.transactionCategoryData
-                    )
+                    with(transaction) {
+                        WalletTransactionModel(
+                            id = id,
+                            date = date,
+                            walletId = walletId,
+                            isIncome = isIncome,
+                            amount = amount,
+                            currency = currency,
+                            transactionCategoryData = transactionCategoryData
+                        )
+                    }
                 )
                 .subscribe(
-                    { tr ->
+                    { transaction ->
                         localDataProvider.updateTransaction(
-                            WalletTransactionModel(
-                                tr.id,
-                                tr.date,
-                                tr.wallet.id,
-                                tr.income,
-                                tr.amount,
-                                Currency(tr.currency.code, tr.currency.name),
-                                TransactionCategoryData(
-                                    tr.category.id,
-                                    UNDEFINED_STR,
-                                    getIconIdByNameId(tr.category.stringId),
-                                    tr.wallet.user.username,
-                                    tr.wallet.name,
-                                    tr.category.redColor,
-                                    tr.category.blueColor,
-                                    tr.category.greenColor,
-                                    tr.income
+                            with(transaction) {
+                                WalletTransactionModel(
+                                    id = id,
+                                    date = date,
+                                    walletId = wallet.id,
+                                    isIncome = income,
+                                    amount = amount,
+                                    currency = Currency(
+                                        currency.code,
+                                        currency.name
+                                    ),
+                                    transactionCategoryData = TransactionCategoryData(
+                                        id = category.id,
+                                        name = UNDEFINED_STR,
+                                        iconId = getIconIdByNameId(category.stringId),
+                                        userName = wallet.user.username,
+                                        description = wallet.name,
+                                        colorRed = category.redColor,
+                                        colorBlue = category.blueColor,
+                                        colorGreen = category.greenColor,
+                                        income = income
+                                    )
                                 )
-                            )
+                            }
                         )
                         emitter.onSuccess(TransactionListViewState.SuccessOperation)
                     },
@@ -101,6 +112,7 @@ class TransactionRepositoryImpl @Inject constructor(
                         emitter.onSuccess(throwable.convertToViewState())
                     }
                 )
+            )
         }
 
     override fun getBalanceInfo(walletId: Long): Single<BalanceInfo> =
@@ -108,22 +120,20 @@ class TransactionRepositoryImpl @Inject constructor(
             .getIncomeByWallet(walletId)
             .zipWith(
                 remoteTransactionDataProvider
-                    .getExpensesByWallet(walletId),
-                { income, expenses ->
-                    BalanceInfo(
-                        expenses = expenses,
-                        income = income
-                    )
-                }
-            )
+                    .getExpensesByWallet(walletId)
+            ) { income, expenses ->
+                BalanceInfo(
+                    expenses = expenses,
+                    income = income
+                )
+            }
 
     override fun loadAllTransactions(walletId: Long) =
         remoteTransactionDataProvider
             .loadAllTransactions(walletId)
-            .doOnSuccess{
+            .doOnSuccess {
                 localDataProvider.insertTransactions(it)
             }
-
 
     private fun Throwable.convertToViewState(): TransactionListViewState =
         when (this) {

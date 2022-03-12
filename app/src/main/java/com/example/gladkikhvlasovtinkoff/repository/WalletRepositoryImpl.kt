@@ -41,7 +41,8 @@ class WalletRepositoryImpl @Inject constructor(
                     name = wallet.name,
                     username = authDataHolder.getUserKey()
                 )
-                compositeDisposable.add(remoteWalletDataProvider.createWallet(request).subscribeOn(Schedulers.io())
+                compositeDisposable.add(remoteWalletDataProvider.createWallet(request)
+                    .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .subscribe(
                         { wallet ->
@@ -181,8 +182,7 @@ class WalletRepositoryImpl @Inject constructor(
             )
         }
 
-
-    override fun getCurrenciesCourse(codes: List<String>) : Single<List<CurrencyCourse>> =
+    override fun getCurrenciesCourse(codes: List<String>): Single<List<CurrencyCourse>> =
         if (codes.isNotEmpty()) {
             var toZipWith = remoteWalletDataProvider.getCurrencyCourse(codes[0])
                 .map { course ->
@@ -190,9 +190,8 @@ class WalletRepositoryImpl @Inject constructor(
                 }
             for (i in 1 until codes.size) {
                 toZipWith = toZipWith.zipWith(
-                    remoteWalletDataProvider.getCurrencyCourse(codes[i]),
-                    { list , course -> list + course}
-                )
+                    remoteWalletDataProvider.getCurrencyCourse(codes[i])
+                ) { list, course -> list + course }
             }
             toZipWith
         } else
@@ -201,19 +200,17 @@ class WalletRepositoryImpl @Inject constructor(
     override fun getBalanceInfo(): Single<BalanceInfo> =
         remoteWalletDataProvider
             .getAllWalletByUsername(authDataHolder.getUserKey())
-            .flatMap{ wallets ->
+            .flatMap { wallets ->
                 remoteWalletDataProvider.getAllExpenses(wallets)
                     .zipWith(
-                        remoteWalletDataProvider.getAllIncome(wallets), { expenses, income ->
-                            BalanceInfo(
-                                expenses = expenses,
-                                income = income
-                            )
-                        }
-                    )
+                        remoteWalletDataProvider.getAllIncome(wallets)
+                    ) { expenses, income ->
+                        BalanceInfo(
+                            expenses = expenses,
+                            income = income
+                        )
+                    }
             }
-
-
 
     private fun Throwable.convertToViewState(): WalletListViewState =
         when (this) {

@@ -16,7 +16,6 @@ import com.example.gladkikhvlasovtinkoff.swipe.utils.isLtr
 import com.example.gladkikhvlasovtinkoff.swipe.utils.max
 import com.example.gladkikhvlasovtinkoff.swipe.utils.min
 
-
 internal typealias SwipeToActionLayoutLayoutParams = ViewGroup.MarginLayoutParams
 
 class SwipeToActionLayout @JvmOverloads constructor(

@@ -8,11 +8,11 @@ import io.reactivex.Single
 @Dao
 interface WalletDao {
 
-    @Query( value ="Select * from wallet where username = :username")
-    fun getWalletsByUsername(username : String) : Flowable<List<WalletDB>>
+    @Query(value = "Select * from wallet where username = :username")
+    fun getWalletsByUsername(username: String): Flowable<List<WalletDB>>
 
     @Query("Select * from wallet where id = :id")
-    fun getWalletById(id : Long) : Single<WalletDB>
+    fun getWalletById(id: Long): Single<WalletDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWallet(walletDB: WalletDB)

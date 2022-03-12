@@ -12,5 +12,3 @@ class TransactionResponse(
     @SerializedName("category") val category: CategoryResponse,
     @SerializedName("income") val income: Boolean,
 )
-
-

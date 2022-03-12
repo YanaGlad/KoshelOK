@@ -6,7 +6,7 @@ import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
 import com.example.gladkikhvlasovtinkoff.R
 
-fun Button.setDisabled(context : Context?) {
+fun Button.setDisabled(context: Context?) {
     this.background =
         ResourcesCompat.getDrawable(
             resources,
@@ -16,7 +16,7 @@ fun Button.setDisabled(context : Context?) {
     this.setTextColor(Color.BLACK)
 }
 
-fun Button.setEnabled(context : Context?) {
+fun Button.setEnabled(context: Context?) {
     this.background =
         ResourcesCompat.getDrawable(
             resources,

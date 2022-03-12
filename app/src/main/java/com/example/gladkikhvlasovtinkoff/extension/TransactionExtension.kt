@@ -6,8 +6,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.DateDelegateItem
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.DelegateItem
 import com.example.gladkikhvlasovtinkoff.ui.ui.delegates.TransactionDelegateItem
 
-
-fun List<WalletTransactionModel>.toDelegateItemListWithDate() : List<DelegateItem>{
+fun List<WalletTransactionModel>.toDelegateItemListWithDate(): List<DelegateItem> {
     val delegateItemList: MutableList<DelegateItem> = mutableListOf()
     var lastDate = ""
     this

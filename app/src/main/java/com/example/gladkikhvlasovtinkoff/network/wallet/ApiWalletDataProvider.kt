@@ -195,11 +195,10 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api): RemoteWal
             var toZipWith = getWalletExpensesInRubbles(wallets[0])
             for (i in 1 until wallets.size) {
                 toZipWith = toZipWith.zipWith(
-                    getWalletExpensesInRubbles(wallets[i]),
-                    { sum, next ->
-                        BigDecimal(sum).add(BigDecimal(next)).toString()
-                    }
-                )
+                    getWalletExpensesInRubbles(wallets[i])
+                ) { sum, next ->
+                    BigDecimal(sum).add(BigDecimal(next)).toString()
+                }
             }
             toZipWith
         } else
@@ -211,11 +210,10 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api): RemoteWal
             var toZipWith = getWalletIncomeInRubbles(wallets[0])
             for (i in 1 until wallets.size) {
                 toZipWith = toZipWith.zipWith(
-                    getWalletIncomeInRubbles(wallets[i]),
-                    { sum, next ->
-                        BigDecimal(sum).add(BigDecimal(next)).toString()
-                    }
-                )
+                    getWalletIncomeInRubbles(wallets[i])
+                ) { sum, next ->
+                    BigDecimal(sum).add(BigDecimal(next)).toString()
+                }
             }
             toZipWith
         } else
@@ -284,7 +282,4 @@ class ApiWalletDataProvider @Inject constructor(private val api: Api): RemoteWal
                     )
                 }
             }
-
-
-
 }

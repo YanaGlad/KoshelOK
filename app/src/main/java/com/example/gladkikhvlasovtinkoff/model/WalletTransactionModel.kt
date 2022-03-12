@@ -1,17 +1,18 @@
 package com.example.gladkikhvlasovtinkoff.model
 
 
-data class WalletTransactionModel (
-    val id : Long = UNDEFINED_ID.toLong(),
-    val date : Long = UNDEFINED_ID.toLong(),
-    val walletId : Long = UNDEFINED_ID.toLong(),
-    val isIncome : Boolean = false,
-    val amount : String = UNDEFINED_STR,
+data class WalletTransactionModel(
+    val id: Long = UNDEFINED_ID.toLong(),
+    val date: Long = UNDEFINED_ID.toLong(),
+    val walletId: Long = UNDEFINED_ID.toLong(),
+    val isIncome: Boolean = false,
+    val amount: String = UNDEFINED_STR,
     val currency: Currency = Currency(UNDEFINED_STR, UNDEFINED_STR),
     val transactionCategoryData: TransactionCategoryData = TransactionCategoryData(
-        UNDEFINED_ID.toLong(),UNDEFINED_STR,
-        UNDEFINED_ID, UNDEFINED_STR, UNDEFINED_STR, UNDEFINED_ID,UNDEFINED_ID,UNDEFINED_ID, true)
-){
+        UNDEFINED_ID.toLong(), UNDEFINED_STR,
+        UNDEFINED_ID, UNDEFINED_STR, UNDEFINED_STR, UNDEFINED_ID, UNDEFINED_ID, UNDEFINED_ID, true
+    )
+) {
 
     val isValid
         get() =

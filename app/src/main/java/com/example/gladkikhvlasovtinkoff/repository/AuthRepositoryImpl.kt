@@ -7,6 +7,7 @@ import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.AuthViewState
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.io.IOException
 import javax.inject.Inject
@@ -17,17 +18,18 @@ class AuthRepositoryImpl @Inject constructor(
     private val authDataHolder: AuthDataHolder
 ) : AuthRepository {
 
+    private val compositeDisposable = CompositeDisposable()
+
     // TODO отрефакторить без Single.create
     override fun logInWithAccount(account: GoogleSignInAccount): Single<AuthViewState> =
         Single.create { emitter ->
             if (authDataHolder.isAuth()) {
                 // TODO по хорошему нужно вынести в отдельную функцию
-                if (authDataHolder.isUserChangeAccount(account)){
+                if (authDataHolder.isUserChangeAccount(account)) {
                     authDataHolder.clearUserData()
                     localAuthDataProvider.clearAllTables()
                     val findUserDisp = checkAndAddAccount(account, emitter)
-                }
-                else {
+                } else {
                     emitter.onSuccess(AuthViewState.SuccessLogin)
                 }
             } else {
@@ -54,7 +56,9 @@ class AuthRepositoryImpl @Inject constructor(
                 { users ->
                     when {
                         users.isEmpty() -> {
-                            remoteWalletDataProvider.addUserWithAccount(account)
+                            compositeDisposable.add(remoteWalletDataProvider.addUserWithAccount(
+                                account
+                            )
                                 .observeOn(Schedulers.io())
                                 .subscribeOn(Schedulers.io())
                                 .subscribe(
@@ -66,6 +70,7 @@ class AuthRepositoryImpl @Inject constructor(
                                         it.printStackTrace()
                                     }
                                 )
+                            )
                         }
                         users.isNotEmpty() -> {
                             authDataHolder.parseAccountInfo(account)

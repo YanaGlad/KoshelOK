@@ -1,5 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.extension
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings.Global.getString
 import android.text.Editable
@@ -41,7 +42,6 @@ fun setupNavigation(
         })
 }
 
- 
 fun EditText.observeTextChanged(button: AppCompatButton) {
     doOnTextChanged { _, _, _, _ ->
         val isEnabled = text.toString() != ""
@@ -52,7 +52,7 @@ fun EditText.observeTextChanged(button: AppCompatButton) {
     }
 }
 
- 
+
 fun EditText.setupTextStyleAndObserve(buttonObserver: Button) {
     this.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -80,23 +80,26 @@ fun EditText.setupTextStyleAndObserve(buttonObserver: Button) {
     })
 }
 
-fun Boolean.expandRecyclerView(context : Context,
-                               layoutManager : CustomGridLayoutManager,
-                               motionLayout: MotionLayout,
-                               textView : MaterialTextView,
-                                imageView: AppCompatImageView) : Boolean {
-     if (true) {
-         layoutManager.setScrollEnabled(false)
-         motionLayout.transitionToStart()
-         textView.text = context.getString(R.string.show_more)
-         imageView.setImageDrawable(
+@SuppressLint("UseRequireDrawableLoadingForDrawables")
+fun Boolean.expandRecyclerView(
+    context: Context,
+    layoutManager: CustomGridLayoutManager,
+    motionLayout: MotionLayout,
+    textView: MaterialTextView,
+    imageView: AppCompatImageView
+): Boolean {
+    if (true) {
+        layoutManager.setScrollEnabled(false)
+        motionLayout.transitionToStart()
+        textView.text = context.getString(R.string.show_more)
+        imageView.setImageDrawable(
             ContextCompat.getDrawable(
                 context,
                 R.drawable.ic_down_expand
             )
         )
         return false
-    } else  {
+    } else {
         layoutManager.setScrollEnabled(true)
         motionLayout.transitionToEnd()
         textView.text = context.getString(R.string.hide_show_more)

@@ -5,10 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "currency")
-data class CurrencyDB (
+data class CurrencyDB(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "code")
-    val code : String,
+    val code: String,
     @ColumnInfo(name = "currency_name")
-    val name : String
-    )
+    val name: String
+)

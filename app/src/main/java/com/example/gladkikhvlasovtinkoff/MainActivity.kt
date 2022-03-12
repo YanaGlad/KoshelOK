@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity(), ToolbarHolder, ErrorPresenter {
         setupToolbar()
     }
 
-
     private fun setupToolbar() {
         binding.toolBar.title = ""
         binding.toolBar.inflateMenu(R.menu.menu_main)
@@ -95,6 +94,5 @@ class MainActivity : AppCompatActivity(), ToolbarHolder, ErrorPresenter {
         snackbarLayout.addView(customSnackView, 0)
         snackbar.show()
     }
-
 }
 

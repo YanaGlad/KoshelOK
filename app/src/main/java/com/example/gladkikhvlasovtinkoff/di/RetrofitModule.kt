@@ -54,5 +54,4 @@ class RetrofitModule {
     @Singleton
     fun getTransactionApi(@Named("TRANSACTION") retrofit: Retrofit): Api =
         retrofit.create(Api::class.java)
-
 }

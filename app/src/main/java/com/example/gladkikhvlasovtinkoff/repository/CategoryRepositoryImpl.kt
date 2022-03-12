@@ -13,6 +13,7 @@ import com.example.gladkikhvlasovtinkoff.network.wallet.request.CategoryRequest
 import com.example.gladkikhvlasovtinkoff.ui.ui.viewstate.CategoryListViewState
 import io.reactivex.Flowable
 import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.io.IOException
 import javax.inject.Inject
@@ -22,6 +23,8 @@ class CategoryRepositoryImpl @Inject constructor(
     private val localCategoryDataProvider: LocalCategoryDataProvider,
     private val authDataHolder: AuthDataHolder
 ) : CategoryRepository {
+
+    private val compositeDisposable = CompositeDisposable()
 
     override fun createCategory(categorySample: CategoryDataSample): Single<CategoryListViewState> =
         Single.create { emitter ->
@@ -34,7 +37,7 @@ class CategoryRepositoryImpl @Inject constructor(
                 red = categorySample.colorRed,
                 stringId = categorySample.stringId
             )
-            remoteWalletDataProvider.createCategory(request)
+            compositeDisposable.add(remoteWalletDataProvider.createCategory(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(
@@ -47,6 +50,7 @@ class CategoryRepositoryImpl @Inject constructor(
                         emitter.onSuccess(throwable.convertToViewState())
                     }
                 )
+            )
         }
 
     override fun getCategories(income: Boolean): Flowable<CategoryListViewState> =
@@ -77,7 +81,7 @@ class CategoryRepositoryImpl @Inject constructor(
         Single.create { emitter ->
             if (authDataHolder.isAuth()) {
                 val authKey = authDataHolder.getUserKey()
-                remoteWalletDataProvider.getAllCategoriesByUsername(authKey)
+                compositeDisposable.add(remoteWalletDataProvider.getAllCategoriesByUsername(authKey)
                     .observeOn(Schedulers.io())
                     .subscribeOn(Schedulers.io())
                     .subscribe(
@@ -104,15 +108,15 @@ class CategoryRepositoryImpl @Inject constructor(
                             emitter.onSuccess(throwable.convertToViewState())
                         }
                     )
+                )
             } else
                 emitter.onSuccess(CategoryListViewState.Error.AuthError)
         }
 
-
     override fun deleteCategory(categorySample: CategoryDataSample): Single<CategoryListViewState> {
         val id = categorySample.id
         return Single.create { emitter ->
-            remoteWalletDataProvider
+            compositeDisposable.add(remoteWalletDataProvider
                 .deleteWallet(id)
                 .subscribe(
                     {
@@ -125,9 +129,9 @@ class CategoryRepositoryImpl @Inject constructor(
                         emitter.onSuccess(throwable.convertToViewState())
                     }
                 )
+            )
         }
     }
-
 
     private fun Throwable.convertToViewState(): CategoryListViewState =
         when (this) {

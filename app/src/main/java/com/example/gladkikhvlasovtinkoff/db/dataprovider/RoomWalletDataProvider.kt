@@ -12,7 +12,7 @@ import javax.inject.Inject
 class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
     LocalWalletDataProvider {
 
-    override fun getWalletsByUsername(username : String): Flowable<List<WalletData>> =
+    override fun getWalletsByUsername(username: String): Flowable<List<WalletData>> =
         dao.getWalletsByUsername(username)
             .map { wallets ->
                 wallets
@@ -31,7 +31,6 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
                         )
                     }
             }
-
 
     override fun getWalletById(id: Long): Single<WalletData> =
         dao.getWalletById(id)
@@ -54,24 +53,24 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
     //TODO - заменить повторяющийся код
 
     override fun insertWallet(wallet: WalletData) =
-                dao.insertWallet(
-                    WalletDB(
-                        id = wallet.id,
-                        username = wallet.username,
-                        name = wallet.name,
-                        limit = wallet.limit,
-                        amount = wallet.amount,
-                        currency = CurrencyDB(
-                            code = wallet.currency.code,
-                            name = wallet.currency.name
-                        ),
-                        hidden = wallet.hidden
-                    )
-                )
+        dao.insertWallet(
+            WalletDB(
+                id = wallet.id,
+                username = wallet.username,
+                name = wallet.name,
+                limit = wallet.limit,
+                amount = wallet.amount,
+                currency = CurrencyDB(
+                    code = wallet.currency.code,
+                    name = wallet.currency.name
+                ),
+                hidden = wallet.hidden
+            )
+        )
 
     override fun insertWallets(wallets: List<WalletData>) =
         dao.insertWallets(
-            wallets.map{ wallet ->
+            wallets.map { wallet ->
                 WalletDB(
                     id = wallet.id,
                     username = wallet.username,
@@ -89,36 +88,35 @@ class RoomWalletDataProvider @Inject constructor(private val dao: WalletDao) :
 
 
     override fun deleteWallet(wallet: WalletData) =
-                dao.deleteWallet(
-                    WalletDB(
-                        id = wallet.id,
-                        username = wallet.username,
-                        name = wallet.name,
-                        limit = wallet.limit,
-                        amount = wallet.amount,
-                        currency = CurrencyDB(
-                            code = wallet.currency.code,
-                            name = wallet.currency.name
-                        ),
-                        hidden = wallet.hidden
-                    )
-                )
-
+        dao.deleteWallet(
+            WalletDB(
+                id = wallet.id,
+                username = wallet.username,
+                name = wallet.name,
+                limit = wallet.limit,
+                amount = wallet.amount,
+                currency = CurrencyDB(
+                    code = wallet.currency.code,
+                    name = wallet.currency.name
+                ),
+                hidden = wallet.hidden
+            )
+        )
 
 
     override fun updateWallet(wallet: WalletData) =
-                dao.updateWallet(
-                    WalletDB(
-                        id = wallet.id,
-                        username = wallet.username,
-                        name = wallet.name,
-                        limit = wallet.limit,
-                        amount = wallet.amount,
-                        currency = CurrencyDB(
-                            code = wallet.currency.code,
-                            name = wallet.currency.name
-                        ),
-                        hidden = wallet.hidden
-                    )
-                )
+        dao.updateWallet(
+            WalletDB(
+                id = wallet.id,
+                username = wallet.username,
+                name = wallet.name,
+                limit = wallet.limit,
+                amount = wallet.amount,
+                currency = CurrencyDB(
+                    code = wallet.currency.code,
+                    name = wallet.currency.name
+                ),
+                hidden = wallet.hidden
+            )
+        )
 }

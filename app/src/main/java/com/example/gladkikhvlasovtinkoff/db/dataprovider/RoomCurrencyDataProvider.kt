@@ -31,13 +31,12 @@ class RoomCurrencyDataProvider @Inject constructor(val dao: CurrencyDao) :
             }
 
     override fun insertCurrencies(currencies: List<Currency>) =
-            dao.insertCurrencies(currencies =
-            currencies.map { currency ->
-                CurrencyDB(
-                    code = currency.code,
-                    name = currency.name
-                )
-            }
+        dao.insertCurrencies(currencies =
+        currencies.map { currency ->
+            CurrencyDB(
+                code = currency.code,
+                name = currency.name
             )
-
+        }
+        )
 }

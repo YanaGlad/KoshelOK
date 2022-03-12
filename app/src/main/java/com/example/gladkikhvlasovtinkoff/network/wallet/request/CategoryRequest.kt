@@ -2,7 +2,7 @@ package com.example.gladkikhvlasovtinkoff.network.wallet.request
 
 import com.google.gson.annotations.SerializedName
 
-class  CategoryRequest(
+class CategoryRequest(
     @SerializedName("b") val blue: Int,
     @SerializedName("username") val username: String,
     @SerializedName("g") val green: Int,

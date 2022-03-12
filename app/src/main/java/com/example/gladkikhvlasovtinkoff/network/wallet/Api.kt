@@ -69,5 +69,4 @@ interface Api {
 
     @GET("/transaction/v1/byWallet/{id}")
     fun getAllTransactions(@Path("id") walletId : Long) : Single<List<TransactionResponse>>
-
 }

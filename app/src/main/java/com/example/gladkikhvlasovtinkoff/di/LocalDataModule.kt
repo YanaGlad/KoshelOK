@@ -14,17 +14,17 @@ interface LocalDataModule {
     @Binds
     @Singleton
     fun bindTransactionDataProvider(roomTransactionDataProvider: RoomTransactionDataProvider)
-    : LocalTransactionDataProvider
+            : LocalTransactionDataProvider
 
     @Binds
     @Singleton
     fun bindWalletDataProvider(roomWalletDataProvider: RoomWalletDataProvider)
-    : LocalWalletDataProvider
+            : LocalWalletDataProvider
 
     @Binds
     @Singleton
     fun bindCurrencyDataProvider(roomCurrencyDataProvider: RoomCurrencyDataProvider)
-    : LocalCurrencyDataProvider
+            : LocalCurrencyDataProvider
 
     @Binds
     @Singleton
@@ -33,5 +33,5 @@ interface LocalDataModule {
 
     @Binds
     @Singleton
-    fun bindAuthProvider(roomAuthProvider: RoomAuthProvider) : LocalAuthProvider
+    fun bindAuthProvider(roomAuthProvider: RoomAuthProvider): LocalAuthProvider
 }

@@ -17,7 +17,3 @@ fun ImageView.loadImage(url: String) =
         .load(url)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
-
-
-
-

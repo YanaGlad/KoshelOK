@@ -8,7 +8,7 @@ enum class IconNameId {
     Pharmacy, GasStation, Rent, Travel, Avia,
     Jewelery, Restaurants, Cafe, Connection, Theatre, Train,
     Pets, Sport, Itnernet, Transport, Medicine,
-      Charity, Music, Service, Gift, Mobile, Home, Cinema, Car,
+    Charity, Music, Service, Gift, Mobile, Home, Cinema, Car,
     Education, Tv, Wallet, Clothing, Finance, Entertainment, Other
 }
 

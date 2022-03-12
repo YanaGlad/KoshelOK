@@ -6,13 +6,14 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class WalletTransactionSample(
     var date: Long = UNDEFINED_ID.toLong(),
-    var walletId : Long = UNDEFINED_ID.toLong(),
-    var isIncome : Boolean = false,
-    var amount : String = UNDEFINED_STR,
-    var currency : Currency = Currency( UNDEFINED_STR, UNDEFINED_STR),
+    var walletId: Long = UNDEFINED_ID.toLong(),
+    var isIncome: Boolean = false,
+    var amount: String = UNDEFINED_STR,
+    var currency: Currency = Currency(UNDEFINED_STR, UNDEFINED_STR),
     var transactionCategoryData: TransactionCategoryData = TransactionCategoryData(
         UNDEFINED_ID.toLong(), UNDEFINED_STR,
-        UNDEFINED_ID, UNDEFINED_STR, UNDEFINED_STR, UNDEFINED_ID,UNDEFINED_ID,UNDEFINED_ID,true)
+        UNDEFINED_ID, UNDEFINED_STR, UNDEFINED_STR, UNDEFINED_ID, UNDEFINED_ID, UNDEFINED_ID, true
+    )
 ) : Parcelable {
     fun createModel(): WalletTransactionModel {
         return WalletTransactionModel(
@@ -26,7 +27,7 @@ class WalletTransactionSample(
     }
 
     val isDateDefined
-    get() = date != UNDEFINED_ID.toLong()
+        get() = date != UNDEFINED_ID.toLong()
 
     val isValid
         get() =

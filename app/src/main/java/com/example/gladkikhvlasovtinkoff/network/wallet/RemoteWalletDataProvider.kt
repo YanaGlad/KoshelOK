@@ -31,4 +31,3 @@ interface RemoteWalletDataProvider {
     fun deleteTransaction(id: Long) : Single<Boolean>
     fun loadAllTransactions(walletId: Long) : Single<List<WalletTransactionModel>>
 }
-

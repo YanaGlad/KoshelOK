@@ -3,8 +3,8 @@ package com.example.gladkikhvlasovtinkoff.extension
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.R
 
-fun getNameIdByStringId(stringId : String, context: Context) : String =
-    when(stringId) {
+fun getNameIdByStringId(stringId: String, context: Context): String =
+    when (stringId) {
         IconNameId.Salary.name -> context.getString(R.string.salary)
         IconNameId.PartTime.name -> context.getString(R.string.part_time)
         IconNameId.Gift.name -> context.getString(R.string.gift)

@@ -1,6 +1,5 @@
 package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
-
 import android.content.Context
 import com.example.gladkikhvlasovtinkoff.db.dao.TransactionDao
 import com.example.gladkikhvlasovtinkoff.db.entity.CategoryDB
@@ -90,7 +89,6 @@ class RoomTransactionDataProvider @Inject constructor(val dao: TransactionDao) :
             }
     }
 
-
     override fun getTransactionById(transactionId: Long): Single<WalletTransactionModel> {
         TODO("Not yet implemented")
     }
@@ -102,5 +100,4 @@ class RoomTransactionDataProvider @Inject constructor(val dao: TransactionDao) :
     override fun updateTransaction(item: WalletTransactionModel) {
         TODO("Not yet implemented")
     }
-
 }

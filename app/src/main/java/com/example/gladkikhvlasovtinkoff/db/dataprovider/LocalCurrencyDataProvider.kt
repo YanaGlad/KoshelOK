@@ -1,7 +1,6 @@
 package com.example.gladkikhvlasovtinkoff.db.dataprovider
 
 import com.example.gladkikhvlasovtinkoff.model.Currency
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
